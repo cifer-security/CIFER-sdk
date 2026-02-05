@@ -269,6 +269,7 @@ import {
   FlowError,
   FlowAbortedError,
   FlowTimeoutError,
+  isCiferError,
 } from 'cifer-sdk';
 
 const result = await flows.createSecretAndWaitReady(ctx);
@@ -288,8 +289,26 @@ if (!result.success) {
     console.log('Failed step:', failedStep.description);
     console.log('Error:', failedStep.error);
   }
+  
+  // Access underlying cause for more details
+  if (isCiferError(result.error) && result.error.cause) {
+    console.log('Underlying error:', result.error.cause);
+  }
 }
 ```
+
+:::tip Debug Logging
+Enable progress logging by adding a `logger` to your flow context:
+
+```typescript
+const ctx: FlowContext = {
+  ...baseCtx,
+  logger: (msg) => console.log(`[Flow] ${msg}`),
+};
+```
+
+This logs messages like step transitions, polling status, and timing information.
+:::
 
 ## Custom Polling Strategy
 

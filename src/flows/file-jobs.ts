@@ -13,12 +13,11 @@ import type {
 } from './types.js';
 import {
   DEFAULT_POLLING_STRATEGY,
-  sleepWithAbort,
   createStepUpdater,
 } from './types.js';
 import { encryptFile, decryptFile, decryptExistingFile } from '../blackbox/files.js';
-import { getStatus, download, pollUntilComplete } from '../blackbox/jobs.js';
-import { FlowError, FlowAbortedError, FlowTimeoutError } from '../internal/errors/index.js';
+import { download, pollUntilComplete } from '../blackbox/jobs.js';
+import { FlowError } from '../internal/errors/index.js';
 
 /**
  * Parameters for file encryption flow

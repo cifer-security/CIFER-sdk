@@ -3,7 +3,7 @@
  * @description Integrity verification for encrypted commitments
  */
 
-import type { Bytes32, Hex, CommitmentData, CIFERMetadata } from '../types/common.js';
+import type { Hex, CommitmentData, CIFERMetadata } from '../types/common.js';
 import { 
   CIFER_ENVELOPE_BYTES,
   MAX_PAYLOAD_BYTES,

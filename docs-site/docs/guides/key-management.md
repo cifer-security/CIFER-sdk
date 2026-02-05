@@ -227,7 +227,7 @@ if (secretSyncedLog) {
 ## Error Handling
 
 ```typescript
-import { SecretNotFoundError, KeyManagementError } from 'cifer-sdk';
+import { SecretNotFoundError, KeyManagementError, isCiferError } from 'cifer-sdk';
 
 try {
   const state = await keyManagement.getSecret({ ... }, secretId);
@@ -237,8 +237,26 @@ try {
   } else if (error instanceof KeyManagementError) {
     console.log('Key management error:', error.message);
   }
+  
+  // Access underlying RPC error if needed
+  if (isCiferError(error) && error.cause) {
+    console.log('RPC error:', error.cause);
+  }
 }
 ```
+
+:::tip Debug Logging
+Enable SDK-level logging for troubleshooting:
+
+```typescript
+const sdk = await createCiferSdk({
+  blackboxUrl: 'https://blackbox.cifer.network',
+  logger: console.log,
+});
+```
+
+See [Debugging & Logging](/docs/getting-started/concepts#debugging--logging) for more details.
+:::
 
 ## Best Practices
 

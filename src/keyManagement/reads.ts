@@ -3,7 +3,7 @@
  * @description Read operations for the SecretsController contract
  */
 
-import type { Address, ChainId, Hex, SecretState } from '../types/common.js';
+import type { Address, ChainId, SecretState } from '../types/common.js';
 import type { ReadClient } from '../types/adapters.js';
 import {
   encodeSecretCreationFee,

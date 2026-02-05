@@ -7,7 +7,7 @@
  */
 
 import type { Address, Bytes32, ChainId, Hex } from '../types/common.js';
-import type { TxIntent, TxIntentWithMeta } from '../types/tx-intent.js';
+import type { TxIntentWithMeta } from '../types/tx-intent.js';
 import { CommitmentsError } from '../internal/errors/index.js';
 import { validateForStorage } from './integrity.js';
 

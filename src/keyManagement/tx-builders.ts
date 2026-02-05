@@ -7,7 +7,7 @@
  */
 
 import type { Address, ChainId } from '../types/common.js';
-import type { TxIntent, TxIntentWithMeta } from '../types/tx-intent.js';
+import type { TxIntentWithMeta } from '../types/tx-intent.js';
 import {
   encodeCreateSecret,
   encodeSetDelegate,

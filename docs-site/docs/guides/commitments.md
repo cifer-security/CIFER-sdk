@@ -301,6 +301,7 @@ import {
   IntegrityError,
   InvalidCiferSizeError,
   PayloadTooLargeError,
+  isCiferError,
 } from 'cifer-sdk';
 
 try {
@@ -310,9 +311,29 @@ try {
     console.log('No data found for key:', error.dataId);
   } else if (error instanceof IntegrityError) {
     console.log('Data corrupted:', error.field);
+    console.log('Expected:', error.expectedHash);
+    console.log('Actual:', error.actualHash);
+  }
+  
+  // Access underlying error for RPC/parsing issues
+  if (isCiferError(error) && error.cause) {
+    console.log('Underlying error:', error.cause);
   }
 }
 ```
+
+:::tip Debug Logging
+The SDK doesn't log by default. Enable debug output when troubleshooting:
+
+```typescript
+const sdk = await createCiferSdk({
+  blackboxUrl: 'https://blackbox.cifer.network',
+  logger: console.log,
+});
+```
+
+See [Debugging & Logging](/docs/getting-started/concepts#debugging--logging) for more details.
+:::
 
 ## Best Practices
 

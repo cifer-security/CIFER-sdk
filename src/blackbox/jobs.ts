@@ -13,7 +13,6 @@ import {
 import { withBlockFreshRetry } from '../internal/auth/block-freshness.js';
 import { signDataString } from '../internal/auth/signer.js';
 import {
-  BlackboxError,
   JobError,
   parseBlackboxErrorResponse,
 } from '../internal/errors/index.js';

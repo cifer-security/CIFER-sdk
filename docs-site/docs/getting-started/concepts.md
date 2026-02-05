@@ -243,6 +243,68 @@ const sdk = createCiferSdkSync({
 });
 ```
 
+## Debugging & Logging
+
+The SDK **does not log to console by default**. Instead, it throws typed errors that you can catch and handle programmatically.
+
+### Enabling Debug Logging
+
+To see progress messages during SDK operations, pass a `logger` function:
+
+```typescript
+const sdk = await createCiferSdk({
+  blackboxUrl: 'https://blackbox.cifer.network',
+  logger: console.log, // Enable debug output
+});
+```
+
+The logger receives messages like:
+- `"Performing discovery..."`
+- `"Discovery complete. Supported chains: 752025, 11155111"`
+- `"Discovery refreshed"`
+
+### Flow Context Logging
+
+For flows, pass a logger in the context:
+
+```typescript
+const ctx = {
+  signer,
+  readClient,
+  blackboxUrl,
+  chainId,
+  txExecutor,
+  logger: (msg) => console.log(`[CIFER] ${msg}`), // Custom formatting
+};
+
+const result = await flows.createSecretAndWaitReady(ctx);
+```
+
+### Error Information
+
+All SDK errors extend `CiferError` and include:
+
+- **`code`**: Programmatic error code (e.g., `AUTH_ERROR`, `BLACKBOX_ERROR`)
+- **`message`**: Human-readable description
+- **`cause`**: Original underlying error (for error chaining)
+- **Stack trace**: Preserved for debugging
+
+```typescript
+try {
+  await blackbox.payload.encryptPayload({ ... });
+} catch (error) {
+  if (isCiferError(error)) {
+    console.log('Code:', error.code);
+    console.log('Message:', error.message);
+    if (error.cause) {
+      console.log('Caused by:', error.cause);
+    }
+  }
+}
+```
+
+See the [Error Handling](#error-handling) sections in each guide for specific error types.
+
 ## Next Steps
 
 - [Key Management Guide](/docs/guides/key-management) - Create and manage secrets

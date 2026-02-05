@@ -364,6 +364,50 @@ try {
 }
 ```
 
+### Error Properties
+
+All SDK errors include:
+
+- **`code`**: Programmatic error code (`CONFIG_ERROR`, `AUTH_ERROR`, `BLACKBOX_ERROR`, etc.)
+- **`message`**: Human-readable description
+- **`cause`**: Original underlying error (for error chaining)
+
+```typescript
+if (isCiferError(error)) {
+  console.log('Code:', error.code);
+  console.log('Message:', error.message);
+  if (error.cause) {
+    console.log('Caused by:', error.cause);
+  }
+}
+```
+
+## Debugging & Logging
+
+The SDK **does not log to console by default**. To enable debug output, pass a `logger` function:
+
+```typescript
+// SDK-level logging
+const sdk = await createCiferSdk({
+  blackboxUrl: 'https://blackbox.cifer.network',
+  logger: console.log,
+});
+
+// Flow-level logging
+const ctx = {
+  signer,
+  readClient,
+  blackboxUrl,
+  chainId,
+  txExecutor,
+  logger: (msg) => console.log(`[CIFER] ${msg}`),
+};
+```
+
+The logger receives progress messages like:
+- `"Performing discovery..."`
+- `"Discovery complete. Supported chains: 752025, 11155111"`
+
 ## Troubleshooting
 
 ### "Block number is too old"

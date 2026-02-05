@@ -16,7 +16,7 @@ import { createStepUpdater } from './types.js';
 import { encryptPayload } from '../blackbox/payload.js';
 import { buildStoreCommitmentTx, type AbiFunction } from '../commitments/tx-builders.js';
 import { validateForStorage } from '../commitments/integrity.js';
-import { FlowError } from '../internal/errors/index.js';
+// FlowError available for future error handling enhancements
 
 /**
  * Parameters for encrypt-then-commit flow

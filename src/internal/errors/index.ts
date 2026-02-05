@@ -73,8 +73,11 @@ export class CiferError extends Error {
     this.cause = cause;
 
     // Maintains proper stack trace for where error was thrown (V8 engines)
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, this.constructor);
+    const ErrorConstructor = Error as typeof Error & {
+      captureStackTrace?: (targetObject: object, constructorOpt?: Function) => void;
+    };
+    if (ErrorConstructor.captureStackTrace) {
+      ErrorConstructor.captureStackTrace(this, this.constructor);
     }
   }
 }

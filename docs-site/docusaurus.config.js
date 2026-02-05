@@ -12,7 +12,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://cifer.network',
+  url: 'https://cifer-security.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/sdk/',
@@ -108,10 +108,6 @@ const config = {
           {
             title: 'Community',
             items: [
-              {
-                label: 'Discord',
-                href: 'https://discord.gg/cifer',
-              },
               {
                 label: 'Twitter',
                 href: 'https://twitter.com/cifernetwork',

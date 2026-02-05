@@ -3,7 +3,7 @@
  * @description Log retrieval for encrypted commitment data
  */
 
-import type { Address, Bytes32, ChainId, Hex, CommitmentData, Log } from '../types/common.js';
+import type { Address, Bytes32, ChainId, CommitmentData, Log } from '../types/common.js';
 import type { ReadClient } from '../types/adapters.js';
 import {
   getCIFERDataStoredTopic,

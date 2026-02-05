@@ -348,19 +348,19 @@ export interface CiferSdk {
  */
 export async function createCiferSdk(config: CiferSdkConfig): Promise<CiferSdk> {
   const fetchFn = config.fetch ?? fetch;
-  const logger = config.logger ?? (() => {});
+  const log = config.logger ?? (() => {});
 
   let discovery: DiscoveryResult | null = null;
   let readClient: ReadClient;
 
   // Perform discovery if blackboxUrl is provided
   if (config.blackboxUrl) {
-    logger('Performing discovery...');
+    log('Performing discovery...');
     discovery = await discover(config.blackboxUrl, {
       cacheTtlMs: config.discoveryCacheTtlMs,
       fetch: fetchFn,
     });
-    logger(`Discovery complete. Supported chains: ${discovery.supportedChains.join(', ')}`);
+    log(`Discovery complete. Supported chains: ${discovery.supportedChains.join(', ')}`);
 
     // Create read client from discovery if not provided
     if (!config.readClient) {
@@ -428,7 +428,7 @@ export async function createCiferSdk(config: CiferSdkConfig): Promise<CiferSdk> 
         forceRefresh: true,
         fetch: fetchFn,
       });
-      logger('Discovery refreshed');
+      log('Discovery refreshed');
     },
   };
 
@@ -467,8 +467,6 @@ export function createCiferSdkSync(
     readClient: ReadClient;
   }
 ): CiferSdk {
-  const logger = config.logger ?? (() => {});
-
   const sdk: CiferSdk = {
     keyManagement: keyManagementNs,
     blackbox: blackboxNs,

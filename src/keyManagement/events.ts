@@ -3,14 +3,11 @@
  * @description Event parsing utilities for SecretsController
  */
 
-import type { Address, Hex, Log } from '../types/common.js';
+import type { Address, Log } from '../types/common.js';
 import {
   decodeSecretCreatedEvent,
   decodeSecretSyncedEvent,
   decodeDelegateUpdatedEvent,
-  type SecretCreatedEvent,
-  type SecretSyncedEvent,
-  type DelegateUpdatedEvent,
 } from '../internal/abi/secrets-controller.js';
 import { KeyManagementError } from '../internal/errors/index.js';
 

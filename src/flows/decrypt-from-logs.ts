@@ -16,7 +16,7 @@ import { getCIFERMetadata } from '../commitments/metadata.js';
 import { fetchCommitmentFromLogs } from '../commitments/logs.js';
 import { assertCommitmentIntegrity } from '../commitments/integrity.js';
 import { decryptPayload } from '../blackbox/payload.js';
-import { FlowError } from '../internal/errors/index.js';
+// FlowError available for future error handling enhancements
 
 /**
  * Parameters for retrieve-and-decrypt flow

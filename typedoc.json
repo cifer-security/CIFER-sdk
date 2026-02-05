@@ -105,6 +105,6 @@
   "fileExtension": ".md",
   
   "entryFileName": "index",
-  "indexFileName": "index",
+  "modulesFileName": "index",
   "membersWithOwnFile": ["Class", "Interface", "TypeAlias", "Function"]
 }

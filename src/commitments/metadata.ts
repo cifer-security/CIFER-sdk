@@ -158,7 +158,9 @@ export async function keccak256(data: Uint8Array): Promise<Bytes32> {
   // 2. Or implement the algorithm
   
   // This is a simplified placeholder
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  // Ensure we have a proper ArrayBuffer view for crypto.subtle.digest
+  const buffer = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength) as ArrayBuffer;
+  const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
   const hashArray = new Uint8Array(hashBuffer);
   let hex = '0x';
   for (const byte of hashArray) {

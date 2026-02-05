@@ -3,7 +3,7 @@
  * @description Payload encryption and decryption via the blackbox API
  */
 
-import type { ChainId, Hex, OutputFormat, InputFormat } from '../types/common.js';
+import type { ChainId, OutputFormat, InputFormat } from '../types/common.js';
 import type { SignerAdapter, ReadClient } from '../types/adapters.js';
 import {
   buildEncryptPayloadDataString,
@@ -12,7 +12,6 @@ import {
 import { withBlockFreshRetry } from '../internal/auth/block-freshness.js';
 import { signDataString } from '../internal/auth/signer.js';
 import {
-  BlackboxError,
   EncryptionError,
   DecryptionError,
   parseBlackboxErrorResponse,

@@ -12,7 +12,6 @@ import { buildFileOperationDataString } from '../internal/auth/data-string.js';
 import { withBlockFreshRetry } from '../internal/auth/block-freshness.js';
 import { signDataString } from '../internal/auth/signer.js';
 import {
-  BlackboxError,
   EncryptionError,
   DecryptionError,
   parseBlackboxErrorResponse,

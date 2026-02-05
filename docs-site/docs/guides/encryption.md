@@ -239,6 +239,7 @@ import {
   BlockStaleError,
   SecretNotReadyError,
   isBlockStaleError,
+  isCiferError,
 } from 'cifer-sdk';
 
 try {
@@ -254,8 +255,26 @@ try {
   } else if (error instanceof BlackboxError) {
     console.log('Blackbox error:', error.message, error.statusCode);
   }
+  
+  // All SDK errors include cause for error chaining
+  if (isCiferError(error) && error.cause) {
+    console.log('Underlying error:', error.cause);
+  }
 }
 ```
+
+:::tip Debug Logging
+The SDK doesn't log by default. To see progress messages, pass a `logger` when creating the SDK:
+
+```typescript
+const sdk = await createCiferSdk({
+  blackboxUrl: 'https://blackbox.cifer.network',
+  logger: console.log,
+});
+```
+
+See [Debugging & Logging](/docs/getting-started/concepts#debugging--logging) for more details.
+:::
 
 ## Best Practices
 

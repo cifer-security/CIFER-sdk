@@ -49,7 +49,7 @@
   ],
   
   "validation": {
-    "notExported": true,
+    "notExported": false,
     "invalidLink": true,
     "notDocumented": false
   },
@@ -72,7 +72,9 @@
     "@deprecated",
     "@default",
     "@defaultValue",
-    "@typeParam"
+    "@typeParam",
+    "@module",
+    "@description"
   ],
   
   "inlineTags": [

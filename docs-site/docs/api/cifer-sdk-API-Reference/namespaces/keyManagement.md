@@ -19,7 +19,7 @@ This namespace provides functions for:
 
 ### ParsedSecretCreatedEvent
 
-Defined in: [keyManagement/events.ts:17](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L17)
+Defined in: [keyManagement/events.ts:17](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L17)
 
 Parsed SecretCreated event
 
@@ -29,7 +29,7 @@ Parsed SecretCreated event
 
 > **secretId**: `bigint`
 
-Defined in: [keyManagement/events.ts:19](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L19)
+Defined in: [keyManagement/events.ts:19](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L19)
 
 The new secret ID
 
@@ -37,7 +37,7 @@ The new secret ID
 
 > **owner**: `` `0x${string}` ``
 
-Defined in: [keyManagement/events.ts:21](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L21)
+Defined in: [keyManagement/events.ts:21](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L21)
 
 The owner address
 
@@ -45,7 +45,7 @@ The owner address
 
 > **secretType**: `number`
 
-Defined in: [keyManagement/events.ts:23](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L23)
+Defined in: [keyManagement/events.ts:23](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L23)
 
 The secret type
 
@@ -53,7 +53,7 @@ The secret type
 
 > **log**: [`Log`](../../index.md#log)
 
-Defined in: [keyManagement/events.ts:25](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L25)
+Defined in: [keyManagement/events.ts:25](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L25)
 
 Original log for reference
 
@@ -61,7 +61,7 @@ Original log for reference
 
 ### ParsedSecretSyncedEvent
 
-Defined in: [keyManagement/events.ts:73](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L73)
+Defined in: [keyManagement/events.ts:73](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L73)
 
 Parsed SecretSynced event
 
@@ -71,7 +71,7 @@ Parsed SecretSynced event
 
 > **secretId**: `bigint`
 
-Defined in: [keyManagement/events.ts:75](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L75)
+Defined in: [keyManagement/events.ts:75](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L75)
 
 The secret ID that was synced
 
@@ -79,7 +79,7 @@ The secret ID that was synced
 
 > **clusterId**: `number`
 
-Defined in: [keyManagement/events.ts:77](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L77)
+Defined in: [keyManagement/events.ts:77](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L77)
 
 The cluster ID where the secret is stored
 
@@ -87,7 +87,7 @@ The cluster ID where the secret is stored
 
 > **publicKeyCid**: `string`
 
-Defined in: [keyManagement/events.ts:79](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L79)
+Defined in: [keyManagement/events.ts:79](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L79)
 
 The IPFS CID of the public key
 
@@ -95,7 +95,7 @@ The IPFS CID of the public key
 
 > **log**: [`Log`](../../index.md#log)
 
-Defined in: [keyManagement/events.ts:81](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L81)
+Defined in: [keyManagement/events.ts:81](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L81)
 
 Original log for reference
 
@@ -103,7 +103,7 @@ Original log for reference
 
 ### ParsedDelegateUpdatedEvent
 
-Defined in: [keyManagement/events.ts:118](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L118)
+Defined in: [keyManagement/events.ts:118](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L118)
 
 Parsed DelegateUpdated event
 
@@ -113,7 +113,7 @@ Parsed DelegateUpdated event
 
 > **secretId**: `bigint`
 
-Defined in: [keyManagement/events.ts:120](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L120)
+Defined in: [keyManagement/events.ts:120](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L120)
 
 The secret ID
 
@@ -121,7 +121,7 @@ The secret ID
 
 > **newDelegate**: `` `0x${string}` ``
 
-Defined in: [keyManagement/events.ts:122](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L122)
+Defined in: [keyManagement/events.ts:122](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L122)
 
 The new delegate address
 
@@ -129,7 +129,7 @@ The new delegate address
 
 > **log**: [`Log`](../../index.md#log)
 
-Defined in: [keyManagement/events.ts:124](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L124)
+Defined in: [keyManagement/events.ts:124](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L124)
 
 Original log for reference
 
@@ -137,7 +137,7 @@ Original log for reference
 
 ### ReadParams
 
-Defined in: [keyManagement/reads.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L27)
+Defined in: [keyManagement/reads.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L27)
 
 Parameters for read operations
 
@@ -147,7 +147,7 @@ Parameters for read operations
 
 > **chainId**: `number`
 
-Defined in: [keyManagement/reads.ts:29](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L29)
+Defined in: [keyManagement/reads.ts:29](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L29)
 
 Chain ID
 
@@ -155,7 +155,7 @@ Chain ID
 
 > **controllerAddress**: `` `0x${string}` ``
 
-Defined in: [keyManagement/reads.ts:31](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L31)
+Defined in: [keyManagement/reads.ts:31](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L31)
 
 SecretsController contract address
 
@@ -163,7 +163,7 @@ SecretsController contract address
 
 > **readClient**: [`ReadClient`](../../index.md#readclient-1)
 
-Defined in: [keyManagement/reads.ts:33](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L33)
+Defined in: [keyManagement/reads.ts:33](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L33)
 
 Read client for making RPC calls
 
@@ -171,7 +171,7 @@ Read client for making RPC calls
 
 ### SecretsByWallet
 
-Defined in: [keyManagement/reads.ts:229](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L229)
+Defined in: [keyManagement/reads.ts:229](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L229)
 
 Result of getSecretsByWallet
 
@@ -181,7 +181,7 @@ Result of getSecretsByWallet
 
 > **owned**: `bigint`[]
 
-Defined in: [keyManagement/reads.ts:231](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L231)
+Defined in: [keyManagement/reads.ts:231](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L231)
 
 Secret IDs owned by the wallet
 
@@ -189,7 +189,7 @@ Secret IDs owned by the wallet
 
 > **delegated**: `bigint`[]
 
-Defined in: [keyManagement/reads.ts:233](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L233)
+Defined in: [keyManagement/reads.ts:233](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L233)
 
 Secret IDs delegated to the wallet
 
@@ -197,7 +197,7 @@ Secret IDs delegated to the wallet
 
 ### SecretsCountByWallet
 
-Defined in: [keyManagement/reads.ts:288](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L288)
+Defined in: [keyManagement/reads.ts:288](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L288)
 
 Result of getSecretsCountByWallet
 
@@ -207,7 +207,7 @@ Result of getSecretsCountByWallet
 
 > **ownedCount**: `bigint`
 
-Defined in: [keyManagement/reads.ts:290](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L290)
+Defined in: [keyManagement/reads.ts:290](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L290)
 
 Number of secrets owned
 
@@ -215,7 +215,7 @@ Number of secrets owned
 
 > **delegatedCount**: `bigint`
 
-Defined in: [keyManagement/reads.ts:292](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L292)
+Defined in: [keyManagement/reads.ts:292](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L292)
 
 Number of secrets delegated
 
@@ -225,7 +225,7 @@ Number of secrets delegated
 
 > **parseSecretCreatedLog**(`log`): [`ParsedSecretCreatedEvent`](#parsedsecretcreatedevent)
 
-Defined in: [keyManagement/events.ts:47](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L47)
+Defined in: [keyManagement/events.ts:47](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L47)
 
 Parse a SecretCreated event from a transaction receipt log
 
@@ -266,7 +266,7 @@ if (secretCreatedLog) {
 
 > **parseSecretSyncedLog**(`log`): [`ParsedSecretSyncedEvent`](#parsedsecretsyncedevent)
 
-Defined in: [keyManagement/events.ts:92](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L92)
+Defined in: [keyManagement/events.ts:92](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L92)
 
 Parse a SecretSynced event from a log
 
@@ -292,7 +292,7 @@ Parsed event data
 
 > **parseDelegateUpdatedLog**(`log`): [`ParsedDelegateUpdatedEvent`](#parseddelegateupdatedevent)
 
-Defined in: [keyManagement/events.ts:133](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L133)
+Defined in: [keyManagement/events.ts:133](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L133)
 
 Parse a DelegateUpdated event from a log
 
@@ -316,7 +316,7 @@ Parsed event data
 
 > **extractSecretIdFromReceipt**(`logs`): `bigint`
 
-Defined in: [keyManagement/events.ts:172](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/events.ts#L172)
+Defined in: [keyManagement/events.ts:172](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/events.ts#L172)
 
 Extract the secret ID from a createSecret transaction receipt
 
@@ -355,7 +355,7 @@ console.log('Created secret:', secretId);
 
 > **getSecretCreationFee**(`params`): `Promise`\<`bigint`\>
 
-Defined in: [keyManagement/reads.ts:54](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L54)
+Defined in: [keyManagement/reads.ts:54](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L54)
 
 Get the secret creation fee
 
@@ -392,7 +392,7 @@ console.log('Fee:', fee, 'wei');
 
 > **getSecret**(`params`, `secretId`): `Promise`\<[`SecretState`](../../index.md#secretstate)\>
 
-Defined in: [keyManagement/reads.ts:99](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L99)
+Defined in: [keyManagement/reads.ts:99](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L99)
 
 Get the full state of a secret
 
@@ -440,7 +440,7 @@ console.log('Public key CID:', state.publicKeyCid);
 
 > **getSecretOwner**(`params`, `secretId`): `Promise`\<`` `0x${string}` ``\>
 
-Defined in: [keyManagement/reads.ts:158](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L158)
+Defined in: [keyManagement/reads.ts:158](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L158)
 
 Get the owner of a secret
 
@@ -474,7 +474,7 @@ SecretNotFoundError if the secret doesn't exist
 
 > **getDelegate**(`params`, `secretId`): `Promise`\<`` `0x${string}` ``\>
 
-Defined in: [keyManagement/reads.ts:196](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L196)
+Defined in: [keyManagement/reads.ts:196](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L196)
 
 Get the delegate of a secret
 
@@ -508,7 +508,7 @@ SecretNotFoundError if the secret doesn't exist
 
 > **getSecretsByWallet**(`params`, `wallet`): `Promise`\<[`SecretsByWallet`](#secretsbywallet)\>
 
-Defined in: [keyManagement/reads.ts:258](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L258)
+Defined in: [keyManagement/reads.ts:258](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L258)
 
 Get all secrets owned by or delegated to a wallet
 
@@ -554,7 +554,7 @@ console.log('Delegated:', secrets.delegated);
 
 > **getSecretsCountByWallet**(`params`, `wallet`): `Promise`\<[`SecretsCountByWallet`](#secretscountbywallet)\>
 
-Defined in: [keyManagement/reads.ts:304](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L304)
+Defined in: [keyManagement/reads.ts:304](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L304)
 
 Get the count of secrets owned by or delegated to a wallet
 
@@ -586,7 +586,7 @@ Object containing owned and delegated counts
 
 > **isSecretReady**(`params`, `secretId`): `Promise`\<`boolean`\>
 
-Defined in: [keyManagement/reads.ts:340](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L340)
+Defined in: [keyManagement/reads.ts:340](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L340)
 
 Check if a secret is ready (not syncing)
 
@@ -618,7 +618,7 @@ True if the secret is ready for encryption/decryption
 
 > **isAuthorized**(`params`, `secretId`, `address`): `Promise`\<`boolean`\>
 
-Defined in: [keyManagement/reads.ts:356](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/reads.ts#L356)
+Defined in: [keyManagement/reads.ts:356](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/reads.ts#L356)
 
 Check if an address is authorized for a secret (owner or delegate)
 
@@ -654,7 +654,7 @@ True if the address is owner or delegate
 
 > **buildCreateSecretTx**(`params`): [`TxIntentWithMeta`](../../index.md#txintentwithmeta)
 
-Defined in: [keyManagement/tx-builders.ts:46](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/tx-builders.ts#L46)
+Defined in: [keyManagement/tx-builders.ts:46](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/tx-builders.ts#L46)
 
 Build a transaction to create a new secret
 
@@ -718,7 +718,7 @@ const hash = await wallet.sendTransaction({
 
 > **buildSetDelegateTx**(`params`): [`TxIntentWithMeta`](../../index.md#txintentwithmeta)
 
-Defined in: [keyManagement/tx-builders.ts:86](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/tx-builders.ts#L86)
+Defined in: [keyManagement/tx-builders.ts:86](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/tx-builders.ts#L86)
 
 Build a transaction to set or update a delegate for a secret
 
@@ -778,7 +778,7 @@ const txIntent = buildSetDelegateTx({
 
 > **buildRemoveDelegationTx**(`params`): [`TxIntentWithMeta`](../../index.md#txintentwithmeta)
 
-Defined in: [keyManagement/tx-builders.ts:117](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/tx-builders.ts#L117)
+Defined in: [keyManagement/tx-builders.ts:117](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/tx-builders.ts#L117)
 
 Build a transaction to remove a delegate from a secret
 
@@ -821,7 +821,7 @@ Transaction intent
 
 > **buildTransferSecretTx**(`params`): [`TxIntentWithMeta`](../../index.md#txintentwithmeta)
 
-Defined in: [keyManagement/tx-builders.ts:162](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/keyManagement/tx-builders.ts#L162)
+Defined in: [keyManagement/tx-builders.ts:162](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/keyManagement/tx-builders.ts#L162)
 
 Build a transaction to transfer ownership of a secret
 

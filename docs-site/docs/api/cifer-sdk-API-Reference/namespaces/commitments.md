@@ -20,7 +20,7 @@ This namespace provides functions for:
 
 ### IntegrityResult
 
-Defined in: [commitments/integrity.ts:22](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/integrity.ts#L22)
+Defined in: [commitments/integrity.ts:22](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/integrity.ts#L22)
 
 Result of integrity verification
 
@@ -30,7 +30,7 @@ Result of integrity verification
 
 > **valid**: `boolean`
 
-Defined in: [commitments/integrity.ts:24](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/integrity.ts#L24)
+Defined in: [commitments/integrity.ts:24](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/integrity.ts#L24)
 
 Whether all checks passed
 
@@ -38,7 +38,7 @@ Whether all checks passed
 
 > **checks**: `object`
 
-Defined in: [commitments/integrity.ts:26](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/integrity.ts#L26)
+Defined in: [commitments/integrity.ts:26](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/integrity.ts#L26)
 
 Detailed results per check
 
@@ -118,7 +118,7 @@ Encrypted message hash matches (if metadata provided)
 
 ### FetchCommitmentParams
 
-Defined in: [commitments/logs.ts:18](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/logs.ts#L18)
+Defined in: [commitments/logs.ts:18](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/logs.ts#L18)
 
 Parameters for fetching commitment data from logs
 
@@ -128,7 +128,7 @@ Parameters for fetching commitment data from logs
 
 > **chainId**: `number`
 
-Defined in: [commitments/logs.ts:20](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/logs.ts#L20)
+Defined in: [commitments/logs.ts:20](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/logs.ts#L20)
 
 Chain ID
 
@@ -136,7 +136,7 @@ Chain ID
 
 > **contractAddress**: `` `0x${string}` ``
 
-Defined in: [commitments/logs.ts:22](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/logs.ts#L22)
+Defined in: [commitments/logs.ts:22](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/logs.ts#L22)
 
 Contract address implementing ICiferEncrypted
 
@@ -144,7 +144,7 @@ Contract address implementing ICiferEncrypted
 
 > **dataId**: `` `0x${string}` ``
 
-Defined in: [commitments/logs.ts:24](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/logs.ts#L24)
+Defined in: [commitments/logs.ts:24](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/logs.ts#L24)
 
 The data ID to find
 
@@ -152,7 +152,7 @@ The data ID to find
 
 > **storedAtBlock**: `number`
 
-Defined in: [commitments/logs.ts:26](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/logs.ts#L26)
+Defined in: [commitments/logs.ts:26](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/logs.ts#L26)
 
 Block number where the data was stored (from metadata)
 
@@ -160,7 +160,7 @@ Block number where the data was stored (from metadata)
 
 > **readClient**: [`ReadClient`](../../index.md#readclient-1)
 
-Defined in: [commitments/logs.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/logs.ts#L28)
+Defined in: [commitments/logs.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/logs.ts#L28)
 
 Read client for log queries
 
@@ -168,7 +168,7 @@ Read client for log queries
 
 ### CommitmentReadParams
 
-Defined in: [commitments/metadata.ts:32](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/metadata.ts#L32)
+Defined in: [commitments/metadata.ts:32](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/metadata.ts#L32)
 
 Parameters for commitment read operations
 
@@ -178,7 +178,7 @@ Parameters for commitment read operations
 
 > **chainId**: `number`
 
-Defined in: [commitments/metadata.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/metadata.ts#L34)
+Defined in: [commitments/metadata.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/metadata.ts#L34)
 
 Chain ID
 
@@ -186,7 +186,7 @@ Chain ID
 
 > **contractAddress**: `` `0x${string}` ``
 
-Defined in: [commitments/metadata.ts:36](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/metadata.ts#L36)
+Defined in: [commitments/metadata.ts:36](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/metadata.ts#L36)
 
 Contract address implementing ICiferEncrypted
 
@@ -194,7 +194,7 @@ Contract address implementing ICiferEncrypted
 
 > **readClient**: [`ReadClient`](../../index.md#readclient-1)
 
-Defined in: [commitments/metadata.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/metadata.ts#L38)
+Defined in: [commitments/metadata.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/metadata.ts#L38)
 
 Read client for making RPC calls
 
@@ -202,7 +202,7 @@ Read client for making RPC calls
 
 ### AbiFunction
 
-Defined in: [commitments/tx-builders.ts:17](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/tx-builders.ts#L17)
+Defined in: [commitments/tx-builders.ts:17](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/tx-builders.ts#L17)
 
 ABI item for a function
 
@@ -212,19 +212,19 @@ ABI item for a function
 
 > **type**: `"function"`
 
-Defined in: [commitments/tx-builders.ts:18](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/tx-builders.ts#L18)
+Defined in: [commitments/tx-builders.ts:18](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/tx-builders.ts#L18)
 
 ##### name
 
 > **name**: `string`
 
-Defined in: [commitments/tx-builders.ts:19](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/tx-builders.ts#L19)
+Defined in: [commitments/tx-builders.ts:19](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/tx-builders.ts#L19)
 
 ##### inputs
 
 > **inputs**: `object`[]
 
-Defined in: [commitments/tx-builders.ts:20](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/tx-builders.ts#L20)
+Defined in: [commitments/tx-builders.ts:20](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/tx-builders.ts#L20)
 
 ###### name
 
@@ -238,7 +238,7 @@ Defined in: [commitments/tx-builders.ts:20](https://github.com/capsule-corp-tern
 
 > `optional` **outputs**: `object`[]
 
-Defined in: [commitments/tx-builders.ts:24](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/tx-builders.ts#L24)
+Defined in: [commitments/tx-builders.ts:24](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/tx-builders.ts#L24)
 
 ###### name
 
@@ -252,13 +252,13 @@ Defined in: [commitments/tx-builders.ts:24](https://github.com/capsule-corp-tern
 
 > `optional` **stateMutability**: `string`
 
-Defined in: [commitments/tx-builders.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/tx-builders.ts#L28)
+Defined in: [commitments/tx-builders.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/tx-builders.ts#L28)
 
 ***
 
 ### BuildStoreCommitmentParams
 
-Defined in: [commitments/tx-builders.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/tx-builders.ts#L34)
+Defined in: [commitments/tx-builders.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/tx-builders.ts#L34)
 
 Parameters for building a store commitment transaction
 
@@ -268,7 +268,7 @@ Parameters for building a store commitment transaction
 
 > **chainId**: `number`
 
-Defined in: [commitments/tx-builders.ts:36](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/tx-builders.ts#L36)
+Defined in: [commitments/tx-builders.ts:36](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/tx-builders.ts#L36)
 
 Chain ID
 
@@ -276,7 +276,7 @@ Chain ID
 
 > **contractAddress**: `` `0x${string}` ``
 
-Defined in: [commitments/tx-builders.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/tx-builders.ts#L38)
+Defined in: [commitments/tx-builders.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/tx-builders.ts#L38)
 
 Contract address
 
@@ -284,7 +284,7 @@ Contract address
 
 > **storeFunction**: [`AbiFunction`](#abifunction)
 
-Defined in: [commitments/tx-builders.ts:40](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/tx-builders.ts#L40)
+Defined in: [commitments/tx-builders.ts:40](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/tx-builders.ts#L40)
 
 The store function ABI (from your contract)
 
@@ -292,7 +292,7 @@ The store function ABI (from your contract)
 
 > **args**: `object`
 
-Defined in: [commitments/tx-builders.ts:42](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/tx-builders.ts#L42)
+Defined in: [commitments/tx-builders.ts:42](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/tx-builders.ts#L42)
 
 Arguments to pass to the store function
 
@@ -324,7 +324,7 @@ CIFER envelope bytes
 
 > `optional` **validate**: `boolean`
 
-Defined in: [commitments/tx-builders.ts:53](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/tx-builders.ts#L53)
+Defined in: [commitments/tx-builders.ts:53](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/tx-builders.ts#L53)
 
 Whether to validate sizes before building (default: true)
 
@@ -334,7 +334,7 @@ Whether to validate sizes before building (default: true)
 
 > `const` **COMMON\_STORE\_FUNCTIONS**: `object`
 
-Defined in: [commitments/tx-builders.ts:267](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/tx-builders.ts#L267)
+Defined in: [commitments/tx-builders.ts:267](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/tx-builders.ts#L267)
 
 Common store function ABIs for reference
 
@@ -384,7 +384,7 @@ Pattern where secretId is passed per-call
 
 > **verifyCommitmentIntegrity**(`data`, `metadata?`): [`IntegrityResult`](#integrityresult)
 
-Defined in: [commitments/integrity.ts:63](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/integrity.ts#L63)
+Defined in: [commitments/integrity.ts:63](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/integrity.ts#L63)
 
 Verify the integrity of commitment data
 
@@ -433,7 +433,7 @@ if (!result.valid) {
 
 > **assertCommitmentIntegrity**(`data`, `metadata?`): `void`
 
-Defined in: [commitments/integrity.ts:123](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/integrity.ts#L123)
+Defined in: [commitments/integrity.ts:123](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/integrity.ts#L123)
 
 Verify commitment integrity and throw on failure
 
@@ -473,7 +473,7 @@ IntegrityError if hash verification fails
 
 > **validateForStorage**(`cifer`, `encryptedMessage`): `void`
 
-Defined in: [commitments/integrity.ts:175](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/integrity.ts#L175)
+Defined in: [commitments/integrity.ts:175](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/integrity.ts#L175)
 
 Validate cifer and encrypted message sizes before storing
 
@@ -516,7 +516,7 @@ CommitmentsError if payload is empty
 
 > **fetchCommitmentFromLogs**(`params`): `Promise`\<[`CommitmentData`](../../index.md#commitmentdata)\>
 
-Defined in: [commitments/logs.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/logs.ts#L60)
+Defined in: [commitments/logs.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/logs.ts#L60)
 
 Fetch commitment data (cifer + encryptedMessage) from event logs
 
@@ -567,7 +567,7 @@ console.log('Encrypted message:', commitment.encryptedMessage);
 
 > **fetchCommitmentWithRetry**(`params`): `Promise`\<[`CommitmentData`](../../index.md#commitmentdata)\>
 
-Defined in: [commitments/logs.ts:130](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/logs.ts#L130)
+Defined in: [commitments/logs.ts:130](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/logs.ts#L130)
 
 Fetch commitment with expanded block range search
 
@@ -595,7 +595,7 @@ Commitment data
 
 > **parseCommitmentLog**(`log`): [`CommitmentData`](../../index.md#commitmentdata)
 
-Defined in: [commitments/logs.ts:216](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/logs.ts#L216)
+Defined in: [commitments/logs.ts:216](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/logs.ts#L216)
 
 Parse a CIFER data event from a raw log
 
@@ -622,7 +622,7 @@ Parsed commitment data
 
 > **isCIFERDataEvent**(`log`): `boolean`
 
-Defined in: [commitments/logs.ts:239](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/logs.ts#L239)
+Defined in: [commitments/logs.ts:239](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/logs.ts#L239)
 
 Check if a log is a CIFER data event (stored or updated)
 
@@ -646,7 +646,7 @@ True if it's a CIFER data event
 
 > **getCIFERMetadata**(`params`, `dataId`): `Promise`\<[`CIFERMetadata`](../../index.md#cifermetadata)\>
 
-Defined in: [commitments/metadata.ts:65](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/metadata.ts#L65)
+Defined in: [commitments/metadata.ts:65](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/metadata.ts#L65)
 
 Get CIFER metadata for a data ID
 
@@ -697,7 +697,7 @@ console.log('Cifer hash:', metadata.ciferHash);
 
 > **ciferDataExists**(`params`, `dataId`): `Promise`\<`boolean`\>
 
-Defined in: [commitments/metadata.ts:115](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/metadata.ts#L115)
+Defined in: [commitments/metadata.ts:115](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/metadata.ts#L115)
 
 Check if commitment data exists for a data ID
 
@@ -727,7 +727,7 @@ True if data exists
 
 > **hexToBytes**(`hex`): `Uint8Array`
 
-Defined in: [commitments/metadata.ts:175](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/metadata.ts#L175)
+Defined in: [commitments/metadata.ts:175](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/metadata.ts#L175)
 
 Convert hex string to bytes
 
@@ -747,7 +747,7 @@ Convert hex string to bytes
 
 > **bytesToHex**(`bytes`): `` `0x${string}` ``
 
-Defined in: [commitments/metadata.ts:187](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/metadata.ts#L187)
+Defined in: [commitments/metadata.ts:187](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/metadata.ts#L187)
 
 Convert bytes to hex string
 
@@ -767,7 +767,7 @@ Convert bytes to hex string
 
 > **buildStoreCommitmentTx**(`params`): [`TxIntentWithMeta`](../../index.md#txintentwithmeta)
 
-Defined in: [commitments/tx-builders.ts:91](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/commitments/tx-builders.ts#L91)
+Defined in: [commitments/tx-builders.ts:91](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/commitments/tx-builders.ts#L91)
 
 Build a transaction to store an encrypted commitment
 

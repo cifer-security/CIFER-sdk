@@ -17,7 +17,7 @@ polled for status and downloaded when complete.
 
 ### FileJobResult
 
-Defined in: [blackbox/files.ts:23](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L23)
+Defined in: [blackbox/files.ts:23](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L23)
 
 Result of starting a file encryption/decryption job
 
@@ -27,7 +27,7 @@ Result of starting a file encryption/decryption job
 
 > **jobId**: `string`
 
-Defined in: [blackbox/files.ts:25](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L25)
+Defined in: [blackbox/files.ts:25](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L25)
 
 The job ID for polling and download
 
@@ -35,7 +35,7 @@ The job ID for polling and download
 
 > **message**: `string`
 
-Defined in: [blackbox/files.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L27)
+Defined in: [blackbox/files.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L27)
 
 Success message
 
@@ -43,7 +43,7 @@ Success message
 
 ### FileOperationParams
 
-Defined in: [blackbox/files.ts:33](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L33)
+Defined in: [blackbox/files.ts:33](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L33)
 
 Parameters for file operations
 
@@ -53,7 +53,7 @@ Parameters for file operations
 
 > **chainId**: `number`
 
-Defined in: [blackbox/files.ts:35](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L35)
+Defined in: [blackbox/files.ts:35](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L35)
 
 Chain ID where the secret exists
 
@@ -61,7 +61,7 @@ Chain ID where the secret exists
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [blackbox/files.ts:37](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L37)
+Defined in: [blackbox/files.ts:37](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L37)
 
 Secret ID to use
 
@@ -69,7 +69,7 @@ Secret ID to use
 
 > **file**: `Blob` \| `File`
 
-Defined in: [blackbox/files.ts:39](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L39)
+Defined in: [blackbox/files.ts:39](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L39)
 
 The file to process
 
@@ -77,7 +77,7 @@ The file to process
 
 > **signer**: [`SignerAdapter`](../../../../../index.md#signeradapter)
 
-Defined in: [blackbox/files.ts:41](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L41)
+Defined in: [blackbox/files.ts:41](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L41)
 
 Signer for authentication
 
@@ -85,7 +85,7 @@ Signer for authentication
 
 > **readClient**: [`ReadClient`](../../../../../index.md#readclient-1)
 
-Defined in: [blackbox/files.ts:43](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L43)
+Defined in: [blackbox/files.ts:43](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L43)
 
 Read client for fetching block numbers
 
@@ -93,7 +93,7 @@ Read client for fetching block numbers
 
 > **blackboxUrl**: `string`
 
-Defined in: [blackbox/files.ts:45](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L45)
+Defined in: [blackbox/files.ts:45](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L45)
 
 Blackbox URL
 
@@ -101,7 +101,7 @@ Blackbox URL
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [blackbox/files.ts:47](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L47)
+Defined in: [blackbox/files.ts:47](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L47)
 
 Custom fetch implementation
 
@@ -125,7 +125,7 @@ Custom fetch implementation
 
 ### DecryptExistingFileParams
 
-Defined in: [blackbox/files.ts:270](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L270)
+Defined in: [blackbox/files.ts:270](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L270)
 
 Parameters for decrypting an existing encrypted file
 
@@ -135,7 +135,7 @@ Parameters for decrypting an existing encrypted file
 
 > **chainId**: `number`
 
-Defined in: [blackbox/files.ts:272](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L272)
+Defined in: [blackbox/files.ts:272](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L272)
 
 Chain ID where the secret exists
 
@@ -143,7 +143,7 @@ Chain ID where the secret exists
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [blackbox/files.ts:274](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L274)
+Defined in: [blackbox/files.ts:274](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L274)
 
 Secret ID used for the original encryption
 
@@ -151,7 +151,7 @@ Secret ID used for the original encryption
 
 > **encryptJobId**: `string`
 
-Defined in: [blackbox/files.ts:276](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L276)
+Defined in: [blackbox/files.ts:276](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L276)
 
 Job ID of the completed encrypt job
 
@@ -159,7 +159,7 @@ Job ID of the completed encrypt job
 
 > **signer**: [`SignerAdapter`](../../../../../index.md#signeradapter)
 
-Defined in: [blackbox/files.ts:278](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L278)
+Defined in: [blackbox/files.ts:278](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L278)
 
 Signer for authentication (must be owner or delegate)
 
@@ -167,7 +167,7 @@ Signer for authentication (must be owner or delegate)
 
 > **readClient**: [`ReadClient`](../../../../../index.md#readclient-1)
 
-Defined in: [blackbox/files.ts:280](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L280)
+Defined in: [blackbox/files.ts:280](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L280)
 
 Read client for fetching block numbers
 
@@ -175,7 +175,7 @@ Read client for fetching block numbers
 
 > **blackboxUrl**: `string`
 
-Defined in: [blackbox/files.ts:282](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L282)
+Defined in: [blackbox/files.ts:282](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L282)
 
 Blackbox URL
 
@@ -183,7 +183,7 @@ Blackbox URL
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [blackbox/files.ts:284](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L284)
+Defined in: [blackbox/files.ts:284](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L284)
 
 Custom fetch implementation
 
@@ -209,7 +209,7 @@ Custom fetch implementation
 
 > **encryptFile**(`params`): `Promise`\<[`FileJobResult`](#filejobresult)\>
 
-Defined in: [blackbox/files.ts:87](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L87)
+Defined in: [blackbox/files.ts:87](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L87)
 
 Encrypt a file using the blackbox API
 
@@ -265,7 +265,7 @@ const encryptedBlob = await download(job.jobId, { blackboxUrl });
 
 > **decryptFile**(`params`): `Promise`\<[`FileJobResult`](#filejobresult)\>
 
-Defined in: [blackbox/files.ts:190](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L190)
+Defined in: [blackbox/files.ts:190](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L190)
 
 Decrypt a file using the blackbox API
 
@@ -309,7 +309,7 @@ const job = await decryptFile({
 
 > **decryptExistingFile**(`params`): `Promise`\<[`FileJobResult`](#filejobresult)\>
 
-Defined in: [blackbox/files.ts:309](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/fe04ca635b8fb4fcb3ca3abf47b8bfd83a93d41c/src/blackbox/files.ts#L309)
+Defined in: [blackbox/files.ts:309](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/files.ts#L309)
 
 Decrypt an existing encrypted file without re-uploading
 

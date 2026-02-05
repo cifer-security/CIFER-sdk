@@ -1,0 +1,125 @@
+{
+  "name": "cifer-sdk",
+  "version": "0.3.0",
+  "description": "CIFER SDK - Post-Quantum Cryptographic Infrastructure",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    },
+    "./keyManagement": {
+      "import": {
+        "types": "./dist/types/keyManagement/index.d.ts",
+        "default": "./dist/esm/keyManagement/index.js"
+      },
+      "require": {
+        "types": "./dist/types/keyManagement/index.d.ts",
+        "default": "./dist/cjs/keyManagement/index.js"
+      }
+    },
+    "./blackbox": {
+      "import": {
+        "types": "./dist/types/blackbox/index.d.ts",
+        "default": "./dist/esm/blackbox/index.js"
+      },
+      "require": {
+        "types": "./dist/types/blackbox/index.d.ts",
+        "default": "./dist/cjs/blackbox/index.js"
+      }
+    },
+    "./commitments": {
+      "import": {
+        "types": "./dist/types/commitments/index.d.ts",
+        "default": "./dist/esm/commitments/index.js"
+      },
+      "require": {
+        "types": "./dist/types/commitments/index.d.ts",
+        "default": "./dist/cjs/commitments/index.js"
+      }
+    },
+    "./flows": {
+      "import": {
+        "types": "./dist/types/flows/index.d.ts",
+        "default": "./dist/esm/flows/index.js"
+      },
+      "require": {
+        "types": "./dist/types/flows/index.d.ts",
+        "default": "./dist/cjs/flows/index.js"
+      }
+    },
+    "./adapters": {
+      "import": {
+        "types": "./dist/types/internal/adapters/index.d.ts",
+        "default": "./dist/esm/internal/adapters/index.js"
+      },
+      "require": {
+        "types": "./dist/types/internal/adapters/index.d.ts",
+        "default": "./dist/cjs/internal/adapters/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "npm run build:esm && npm run build:cjs && npm run build:types",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:types": "tsc -p tsconfig.types.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist temp",
+    "prepublishOnly": "npm run clean && npm run build",
+    
+    "docs:api-extractor": "api-extractor run --local --verbose",
+    "docs:api-report": "api-extractor run --local",
+    "docs:typedoc": "typedoc",
+    "docs:llm": "node scripts/generate-llm-txt.js",
+    "docs:build": "npm run build:types && npm run docs:api-report && npm run docs:typedoc && npm run docs:llm && cd docs-site && npm run build",
+    "docs:serve": "cd docs-site && npm start",
+    "docs:install": "cd docs-site && npm install"
+  },
+  "keywords": [
+    "cifer",
+    "encryption",
+    "blockchain",
+    "web3",
+    "cryptography",
+    "secrets",
+    "ml-kem",
+    "quantum-resistant",
+    "post-quantum"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@microsoft/api-extractor": "^7.47.0",
+    "typedoc": "^0.27.0",
+    "typedoc-plugin-markdown": "^4.2.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cifer-security/cifer-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cifer-security/cifer-sdk/issues"
+  },
+  "homepage": "https://github.com/cifer-security/cifer-sdk#readme"
+}

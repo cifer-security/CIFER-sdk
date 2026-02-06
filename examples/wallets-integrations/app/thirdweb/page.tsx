@@ -16,9 +16,14 @@
  * └───────────────────┘     └─────────────────────────┘     └──────────────┘
  *
  * SDK operations are split into sub-files for clarity:
- *   - fetch-fee.tsx   → getSecretCreationFee (read)
- *   - get-secrets.tsx → getSecretsByWallet   (read)
- *   - set-delegate.tsx → buildSetDelegateTx  (write via Thirdweb Account)
+ *   - fetch-fee.tsx        → getSecretCreationFee      (read)
+ *   - get-secrets.tsx      → getSecretsByWallet        (read)
+ *   - get-secret.tsx       → getSecret                 (read)
+ *   - set-delegate.tsx     → buildSetDelegateTx        (write via Thirdweb Account)
+ *   - remove-delegation.tsx→ buildRemoveDelegationTx   (write via Thirdweb Account)
+ *   - transfer-secret.tsx  → buildTransferSecretTx     (write via Thirdweb Account)
+ *   - encrypt-payload.tsx  → blackbox.payload.encrypt   (signer via Thirdweb Account)
+ *   - decrypt-payload.tsx  → blackbox.payload.decrypt   (signer via Thirdweb Account)
  */
 
 "use client"
@@ -61,7 +66,12 @@ import type { Account } from "thirdweb/wallets"
 // ---------------------------------------------------------------------------
 import { FetchFee } from "./fetch-fee"
 import { GetSecrets } from "./get-secrets"
+import { GetSecret } from "./get-secret"
 import { SetDelegate } from "./set-delegate"
+import { RemoveDelegation } from "./remove-delegation"
+import { TransferSecret } from "./transfer-secret"
+import { EncryptPayload } from "./encrypt-payload"
+import { DecryptPayload } from "./decrypt-payload"
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -362,6 +372,9 @@ function ThirdwebIntegration() {
                   {/* Fetch Fee — read-only */}
                   <FetchFee sdk={sdk} chainId={chainId} log={log} />
 
+                  {/* Get Secret — read-only, query by ID */}
+                  <GetSecret sdk={sdk} chainId={chainId} log={log} />
+
                   {/* Get Secrets — read-only, needs wallet address */}
                   {account && (
                     <GetSecrets
@@ -375,6 +388,46 @@ function ThirdwebIntegration() {
                   {/* Set Delegate — write, sends tx via Thirdweb Account */}
                   {account && (
                     <SetDelegate
+                      sdk={sdk}
+                      chainId={chainId}
+                      account={account}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Remove Delegation — write, sends tx via Thirdweb Account */}
+                  {account && (
+                    <RemoveDelegation
+                      sdk={sdk}
+                      chainId={chainId}
+                      account={account}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Transfer Secret — write, sends tx via Thirdweb Account */}
+                  {account && (
+                    <TransferSecret
+                      sdk={sdk}
+                      chainId={chainId}
+                      account={account}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Encrypt Payload — blackbox API, needs signer */}
+                  {account && (
+                    <EncryptPayload
+                      sdk={sdk}
+                      chainId={chainId}
+                      account={account}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Decrypt Payload — blackbox API, needs signer */}
+                  {account && (
+                    <DecryptPayload
                       sdk={sdk}
                       chainId={chainId}
                       account={account}

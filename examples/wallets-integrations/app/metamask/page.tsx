@@ -20,9 +20,14 @@
  *   - signMessage(message): Signs using EIP-191 personal_sign
  *
  * SDK operations are split into sub-files for clarity:
- *   - fetch-fee.tsx   → getSecretCreationFee (read)
- *   - get-secrets.tsx → getSecretsByWallet   (read)
- *   - set-delegate.tsx → buildSetDelegateTx  (write via MetaMask)
+ *   - fetch-fee.tsx        → getSecretCreationFee      (read)
+ *   - get-secrets.tsx      → getSecretsByWallet        (read)
+ *   - get-secret.tsx       → getSecret                 (read)
+ *   - set-delegate.tsx     → buildSetDelegateTx        (write via MetaMask)
+ *   - remove-delegation.tsx→ buildRemoveDelegationTx   (write via MetaMask)
+ *   - transfer-secret.tsx  → buildTransferSecretTx     (write via MetaMask)
+ *   - encrypt-payload.tsx  → blackbox.payload.encrypt   (signer via MetaMask)
+ *   - decrypt-payload.tsx  → blackbox.payload.decrypt   (signer via MetaMask)
  */
 
 "use client"
@@ -50,7 +55,12 @@ import {
 // ---------------------------------------------------------------------------
 import { FetchFee } from "./fetch-fee"
 import { GetSecrets } from "./get-secrets"
+import { GetSecret } from "./get-secret"
 import { SetDelegate } from "./set-delegate"
+import { RemoveDelegation } from "./remove-delegation"
+import { TransferSecret } from "./transfer-secret"
+import { EncryptPayload } from "./encrypt-payload"
+import { DecryptPayload } from "./decrypt-payload"
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -338,6 +348,9 @@ export default function MetaMaskPage() {
                   {/* Fetch Fee — read-only */}
                   <FetchFee sdk={sdk} chainId={chainId} log={log} />
 
+                  {/* Get Secret — read-only, query by ID */}
+                  <GetSecret sdk={sdk} chainId={chainId} log={log} />
+
                   {/* Get Secrets — read-only, needs wallet address */}
                   {address && (
                     <GetSecrets
@@ -351,6 +364,46 @@ export default function MetaMaskPage() {
                   {/* Set Delegate — write, sends tx via MetaMask */}
                   {address && (
                     <SetDelegate
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={address}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Remove Delegation — write, sends tx via MetaMask */}
+                  {address && (
+                    <RemoveDelegation
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={address}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Transfer Secret — write, sends tx via MetaMask */}
+                  {address && (
+                    <TransferSecret
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={address}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Encrypt Payload — blackbox API, needs signer */}
+                  {address && (
+                    <EncryptPayload
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={address}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Decrypt Payload — blackbox API, needs signer */}
+                  {address && (
+                    <DecryptPayload
                       sdk={sdk}
                       chainId={chainId}
                       address={address}

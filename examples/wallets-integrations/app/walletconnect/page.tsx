@@ -18,9 +18,14 @@
  * └─────────────────────────┘     └──────────────────────┘     └──────────────┘
  *
  * SDK operations are split into sub-files for clarity:
- *   - fetch-fee.tsx   → getSecretCreationFee (read)
- *   - get-secrets.tsx → getSecretsByWallet   (read)
- *   - set-delegate.tsx → buildSetDelegateTx  (write via WalletConnect provider)
+ *   - fetch-fee.tsx        → getSecretCreationFee      (read)
+ *   - get-secrets.tsx      → getSecretsByWallet        (read)
+ *   - get-secret.tsx       → getSecret                 (read)
+ *   - set-delegate.tsx     → buildSetDelegateTx        (write via WalletConnect)
+ *   - remove-delegation.tsx→ buildRemoveDelegationTx   (write via WalletConnect)
+ *   - transfer-secret.tsx  → buildTransferSecretTx     (write via WalletConnect)
+ *   - encrypt-payload.tsx  → blackbox.payload.encrypt   (signer via WalletConnect)
+ *   - decrypt-payload.tsx  → blackbox.payload.decrypt   (signer via WalletConnect)
  *
  * Note: WalletConnect requires a Project ID from https://cloud.walletconnect.com
  * Set it as NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID in your .env.local file.
@@ -56,7 +61,12 @@ import EthereumProvider from "@walletconnect/ethereum-provider"
 // ---------------------------------------------------------------------------
 import { FetchFee } from "./fetch-fee"
 import { GetSecrets } from "./get-secrets"
+import { GetSecret } from "./get-secret"
 import { SetDelegate } from "./set-delegate"
+import { RemoveDelegation } from "./remove-delegation"
+import { TransferSecret } from "./transfer-secret"
+import { EncryptPayload } from "./encrypt-payload"
+import { DecryptPayload } from "./decrypt-payload"
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -412,6 +422,9 @@ export default function WalletConnectPage() {
                   {/* Fetch Fee — read-only */}
                   <FetchFee sdk={sdk} chainId={chainId} log={log} />
 
+                  {/* Get Secret — read-only, query by ID */}
+                  <GetSecret sdk={sdk} chainId={chainId} log={log} />
+
                   {/* Get Secrets — read-only, needs wallet address */}
                   {address && (
                     <GetSecrets
@@ -425,6 +438,50 @@ export default function WalletConnectPage() {
                   {/* Set Delegate — write, sends tx via WalletConnect provider */}
                   {address && wcProviderRef.current && (
                     <SetDelegate
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={address}
+                      provider={wcProviderRef.current}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Remove Delegation — write, sends tx via WalletConnect */}
+                  {address && wcProviderRef.current && (
+                    <RemoveDelegation
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={address}
+                      provider={wcProviderRef.current}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Transfer Secret — write, sends tx via WalletConnect */}
+                  {address && wcProviderRef.current && (
+                    <TransferSecret
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={address}
+                      provider={wcProviderRef.current}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Encrypt Payload — blackbox API, needs signer */}
+                  {address && wcProviderRef.current && (
+                    <EncryptPayload
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={address}
+                      provider={wcProviderRef.current}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Decrypt Payload — blackbox API, needs signer */}
+                  {address && wcProviderRef.current && (
+                    <DecryptPayload
                       sdk={sdk}
                       chainId={chainId}
                       address={address}

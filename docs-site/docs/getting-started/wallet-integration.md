@@ -134,6 +134,10 @@ Thirdweb provides a unified wallet SDK that supports multiple wallet types.
 npm install thirdweb
 ```
 
+:::warning Ternoa Chain Definition Required
+Thirdweb's RPC proxy does **not** support Ternoa (chain ID 752025). You must define the chain explicitly with its RPC URL using `defineChain()`. Without this, Thirdweb will route requests to its own proxy and return "Invalid chain". Standard chains (Sepolia, Polygon, etc.) work fine with just `defineChain(chainId)`.
+:::
+
 ```typescript
 import { createCiferSdk, Eip1193SignerAdapter } from 'cifer-sdk';
 import { createThirdwebClient, defineChain } from 'thirdweb';
@@ -149,14 +153,19 @@ const thirdwebClient = createThirdwebClient({
   clientId: 'YOUR_THIRDWEB_CLIENT_ID', // Get from thirdweb.com/dashboard
 });
 
-// Define your chain (if not built-in)
+// IMPORTANT: Ternoa is not in Thirdweb's built-in chain registry.
+// You MUST define it explicitly with its RPC URL.
 const ternoa = defineChain({
   id: 752025,
   name: 'Ternoa',
   nativeCurrency: { name: 'CAPS', symbol: 'CAPS', decimals: 18 },
-  rpcUrls: {
-    default: { http: ['https://mainnet.ternoa.network'] },
-  },
+  rpc: 'https://rpc-mainnet.zkevm.ternoa.network/',
+  blockExplorers: [
+    {
+      name: 'Ternoa Explorer',
+      url: 'https://explorer-mainnet.zkevm.ternoa.network/',
+    },
+  ],
 });
 
 // Create and connect a wallet
@@ -180,6 +189,7 @@ console.log('Connected via Thirdweb:', address);
 
 ```typescript
 import { inAppWallet } from 'thirdweb/wallets';
+import type { SignerAdapter } from 'cifer-sdk';
 
 // Create an in-app wallet (email/social login)
 const wallet = inAppWallet();
@@ -192,8 +202,8 @@ const account = await wallet.connect({
   email: 'user@example.com',
 });
 
-// For in-app wallets, create a custom signer
-const signer = {
+// For in-app wallets, create a custom signer using the SDK's SignerAdapter type
+const signer: SignerAdapter = {
   async getAddress() {
     return account.address;
   },

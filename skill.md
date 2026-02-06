@@ -222,10 +222,11 @@ const signer = new Eip1193SignerAdapter(provider);
 
 ```typescript
 import { Wallet } from 'ethers';
+import type { SignerAdapter } from 'cifer-sdk';
 
 const wallet = new Wallet(process.env.PRIVATE_KEY);
 
-const signer = {
+const signer: SignerAdapter = {
   async getAddress() { return wallet.address; },
   async signMessage(message) { return wallet.signMessage(message); },
 };
@@ -694,7 +695,7 @@ async function encryptDecryptExample() {
 ### Node.js Server-Side
 
 ```typescript
-import { createCiferSdk, RpcReadClient, blackbox } from 'cifer-sdk';
+import { createCiferSdk, RpcReadClient, blackbox, type SignerAdapter } from 'cifer-sdk';
 import { Wallet } from 'ethers';
 
 async function serverSideExample() {
@@ -710,7 +711,7 @@ async function serverSideExample() {
   });
   
   const wallet = new Wallet(process.env.PRIVATE_KEY);
-  const signer = {
+  const signer: SignerAdapter = {
     async getAddress() { return wallet.address; },
     async signMessage(message) { return wallet.signMessage(message); },
   };

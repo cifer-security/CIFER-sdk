@@ -342,6 +342,11 @@ const signer = new Eip1193SignerAdapter(provider);
 
 npm install thirdweb
 
+IMPORTANT: Thirdweb's RPC proxy does NOT support Ternoa (752025). You MUST
+define the chain explicitly with its RPC URL using defineChain(). Without this,
+Thirdweb routes requests to its own proxy and returns "Invalid chain".
+Standard chains (Sepolia, Polygon, etc.) work fine with just defineChain(chainId).
+
 import { createThirdwebClient, defineChain } from 'thirdweb';
 import { createWallet, injectedProvider } from 'thirdweb/wallets';
 
@@ -349,11 +354,16 @@ const thirdwebClient = createThirdwebClient({
   clientId: 'YOUR_THIRDWEB_CLIENT_ID',
 });
 
+// IMPORTANT: Ternoa is not in Thirdweb's built-in chain registry.
+// You MUST define it explicitly with its RPC URL.
 const ternoa = defineChain({
   id: 752025,
   name: 'Ternoa',
   nativeCurrency: { name: 'CAPS', symbol: 'CAPS', decimals: 18 },
-  rpcUrls: { default: { http: ['https://mainnet.ternoa.network'] } },
+  rpc: 'https://rpc-mainnet.zkevm.ternoa.network/',
+  blockExplorers: [
+    { name: 'Ternoa Explorer', url: 'https://explorer-mainnet.zkevm.ternoa.network/' },
+  ],
 });
 
 const wallet = createWallet('io.metamask');
@@ -364,6 +374,7 @@ const signer = new Eip1193SignerAdapter(provider);
 
 // For in-app wallets (email/social login):
 import { inAppWallet } from 'thirdweb/wallets';
+import type { SignerAdapter } from 'cifer-sdk';
 
 const wallet = inAppWallet();
 const account = await wallet.connect({
@@ -373,7 +384,7 @@ const account = await wallet.connect({
   email: 'user@example.com',
 });
 
-const signer = {
+const signer: SignerAdapter = {
   async getAddress() { return account.address; },
   async signMessage(message) { return account.signMessage({ message }); },
 };
@@ -386,11 +397,12 @@ Using ethers.js:
 npm install ethers
 
 import { Wallet } from 'ethers';
+import type { SignerAdapter } from 'cifer-sdk';
 
 const privateKey = process.env.PRIVATE_KEY;
 const wallet = new Wallet(privateKey);
 
-const signer = {
+const signer: SignerAdapter = {
   async getAddress() { return wallet.address; },
   async signMessage(message) { return wallet.signMessage(message); },
 };
@@ -399,11 +411,12 @@ Using viem:
 npm install viem
 
 import { privateKeyToAccount } from 'viem/accounts';
+import type { SignerAdapter } from 'cifer-sdk';
 
 const privateKey = process.env.PRIVATE_KEY;
 const account = privateKeyToAccount(privateKey);
 
-const signer = {
+const signer: SignerAdapter = {
   async getAddress() { return account.address; },
   async signMessage(message) { return account.signMessage({ message }); },
 };
@@ -1672,7 +1685,7 @@ async function fileEncryptionExample() {
 EXAMPLE 5: NODE.JS SERVER-SIDE
 --------------------------------------------------------------------------------
 
-import { createCiferSdk, RpcReadClient, blackbox } from 'cifer-sdk';
+import { createCiferSdk, RpcReadClient, blackbox, type SignerAdapter } from 'cifer-sdk';
 import { Wallet } from 'ethers';
 
 async function serverSideExample() {
@@ -1689,9 +1702,9 @@ async function serverSideExample() {
     readClient,
   });
   
-  // Create server-side signer
+  // Create server-side signer (implements SignerAdapter from cifer-sdk)
   const wallet = new Wallet(process.env.PRIVATE_KEY);
-  const signer = {
+  const signer: SignerAdapter = {
     async getAddress() {
       return wallet.address;
     },

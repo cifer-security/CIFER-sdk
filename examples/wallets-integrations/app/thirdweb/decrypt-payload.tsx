@@ -33,24 +33,19 @@ import type { Account } from "thirdweb/wallets"
 // ---------------------------------------------------------------------------
 // cifer-sdk imports
 // ---------------------------------------------------------------------------
-import { blackbox, type CiferSdk } from "cifer-sdk"
+import { blackbox, type CiferSdk, type SignerAdapter } from "cifer-sdk"
 
 // ---------------------------------------------------------------------------
 // Custom signer adapter: Thirdweb Account → cifer-sdk SignerAdapter
 // ---------------------------------------------------------------------------
 
-interface CiferSignerAdapter {
-  getAddress(): Promise<string>
-  signMessage(message: string): Promise<string>
-}
-
-function createThirdwebSigner(account: Account): CiferSignerAdapter {
+function createThirdwebSigner(account: Account): SignerAdapter {
   return {
     async getAddress() {
-      return account.address
+      return account.address as `0x${string}`
     },
     async signMessage(message: string) {
-      return await account.signMessage({ message })
+      return await account.signMessage({ message }) as `0x${string}`
     },
   }
 }

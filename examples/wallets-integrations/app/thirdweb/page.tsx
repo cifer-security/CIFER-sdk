@@ -55,6 +55,7 @@ import {
 import {
   createCiferSdk,
   type CiferSdk,
+  type SignerAdapter,
 } from "cifer-sdk"
 
 // ---------------------------------------------------------------------------
@@ -149,27 +150,21 @@ function getThirdwebChain(chainId: number) {
 // ===========================================================================
 
 /**
- * The SignerAdapter interface expected by cifer-sdk.
- * Defined inline to avoid import issues.
- */
-interface CiferSignerAdapter {
-  getAddress(): Promise<string>
-  signMessage(message: string): Promise<string>
-}
-
-/**
  * Create a cifer-sdk compatible signer from a Thirdweb Account.
+ *
+ * The SDK exports the `SignerAdapter` type directly — use it instead of
+ * defining your own interface.
  *
  * @param account - The active Thirdweb account from useActiveAccount()
  * @returns A SignerAdapter that the CIFER SDK can use for authentication
  */
-function createThirdwebSigner(account: Account): CiferSignerAdapter {
+function createThirdwebSigner(account: Account): SignerAdapter {
   return {
-    async getAddress(): Promise<string> {
-      return account.address
+    async getAddress() {
+      return account.address as `0x${string}`
     },
-    async signMessage(message: string): Promise<string> {
-      return await account.signMessage({ message })
+    async signMessage(message: string) {
+      return await account.signMessage({ message }) as `0x${string}`
     },
   }
 }

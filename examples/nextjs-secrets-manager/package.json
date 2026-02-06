@@ -2,6 +2,10 @@
   "name": "nextjs-secrets-manager",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.26.0",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

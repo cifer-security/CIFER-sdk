@@ -15,14 +15,10 @@
  * │  (useActiveAccount)│     │  (defined in this file)  │     │  functions   │
  * └───────────────────┘     └─────────────────────────┘     └──────────────┘
  *
- * The custom signer adapter maps:
- *   - getAddress() → account.address
- *   - signMessage(msg) → account.signMessage({ message: msg })
- *
- * Thirdweb supports multiple connection methods:
- *   - Email / phone
- *   - Social login (Google, Facebook, etc.)
- *   - External wallets (MetaMask, Coinbase, etc.)
+ * SDK operations are split into sub-files for clarity:
+ *   - fetch-fee.tsx   → getSecretCreationFee (read)
+ *   - get-secrets.tsx → getSecretsByWallet   (read)
+ *   - set-delegate.tsx → buildSetDelegateTx  (write via Thirdweb Account)
  */
 
 "use client"
@@ -31,18 +27,12 @@ import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
 import { ArrowLeft, Shield, CheckCircle, Loader2, AlertCircle } from "lucide-react"
 import { Container } from "@/components/ui/container"
-import { Button } from "@/components/ui/button"
-import { truncateAddress, formatWei } from "@/lib/utils"
+import { truncateAddress } from "@/lib/utils"
+import { getChainName } from "@/lib/chains"
+import { ChevronDown } from "lucide-react"
 
 // ---------------------------------------------------------------------------
 // Thirdweb imports
-//
-// - createThirdwebClient: Creates a Thirdweb client instance
-// - ThirdwebProvider: React context provider for Thirdweb hooks
-// - ConnectButton: Pre-built wallet connection UI component
-// - useActiveAccount: Hook to get the currently connected account
-// - useDisconnect: Hook to disconnect the wallet
-// - useActiveWallet: Hook to get the active wallet instance
 // ---------------------------------------------------------------------------
 import { createThirdwebClient } from "thirdweb"
 import {
@@ -55,14 +45,9 @@ import {
 
 // ---------------------------------------------------------------------------
 // cifer-sdk imports
-//
-// - createCiferSdk: Factory to initialize the SDK with auto-discovery
-// - keyManagement: Namespace for secret management functions
-// - CiferSdk: TypeScript type for the SDK instance
 // ---------------------------------------------------------------------------
 import {
   createCiferSdk,
-  keyManagement,
   type CiferSdk,
 } from "cifer-sdk"
 
@@ -70,6 +55,13 @@ import {
 // We also import the Account type from thirdweb so we can type our adapter
 // ---------------------------------------------------------------------------
 import type { Account } from "thirdweb/wallets"
+
+// ---------------------------------------------------------------------------
+// Sub-components — each implements one SDK operation
+// ---------------------------------------------------------------------------
+import { FetchFee } from "./fetch-fee"
+import { GetSecrets } from "./get-secrets"
+import { SetDelegate } from "./set-delegate"
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -118,14 +110,9 @@ interface CiferSignerAdapter {
  */
 function createThirdwebSigner(account: Account): CiferSignerAdapter {
   return {
-    // Return the wallet address (Thirdweb provides it synchronously,
-    // but cifer-sdk expects a Promise)
     async getAddress(): Promise<string> {
       return account.address
     },
-
-    // Sign a message using EIP-191 personal_sign.
-    // The CIFER Blackbox API uses this signature to verify the caller.
     async signMessage(message: string): Promise<string> {
       return await account.signMessage({ message })
     },
@@ -144,13 +131,12 @@ function ThirdwebIntegration() {
 
   // ---- State ----
   const [sdk, setSdk] = useState<CiferSdk | null>(null)
-  const [fee, setFee] = useState<bigint | null>(null)
   const [chainId, setChainId] = useState<number | null>(null)
-  const [isFetchingFee, setIsFetchingFee] = useState(false)
+  const [supportedChains, setSupportedChains] = useState<number[]>([])
   const [error, setError] = useState<string>("")
   const [logs, setLogs] = useState<string[]>([])
 
-  // ---- Logger ----
+  // ---- Logger (shared with sub-components) ----
   const log = useCallback((message: string) => {
     setLogs((prev) => [
       ...prev,
@@ -161,9 +147,6 @@ function ThirdwebIntegration() {
 
   // =========================================================================
   // Step 1: Initialize the CIFER SDK
-  //
-  // Same as MetaMask — createCiferSdk() with auto-discovery.
-  // The SDK initialization is wallet-agnostic.
   // =========================================================================
   useEffect(() => {
     async function initSdk() {
@@ -175,13 +158,14 @@ function ThirdwebIntegration() {
           logger: (msg) => log(msg),
         })
 
-        const supportedChains = sdkInstance.getSupportedChainIds()
-        log(`SDK ready. Supported chains: [${supportedChains.join(", ")}]`)
+        const chains = sdkInstance.getSupportedChainIds()
+        log(`SDK ready. Supported chains: [${chains.join(", ")}]`)
 
         setSdk(sdkInstance)
+        setSupportedChains(chains)
 
-        if (supportedChains.length > 0) {
-          setChainId(supportedChains[0])
+        if (chains.length > 0) {
+          setChainId(chains[0])
         }
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err)
@@ -194,63 +178,20 @@ function ThirdwebIntegration() {
   }, [log])
 
   // =========================================================================
-  // Step 2: Wallet Connection
-  //
-  // Thirdweb handles connection via the ConnectButton component.
-  // When the user connects, useActiveAccount() returns the Account object.
-  // We log when the account changes.
+  // Step 2: Wallet Connection — Thirdweb handles this via ConnectButton
   // =========================================================================
   useEffect(() => {
     if (account) {
       log(`Thirdweb wallet connected: ${account.address}`)
-    }
-  }, [account, log])
-
-  // =========================================================================
-  // Step 3: Call getSecretCreationFee()
-  //
-  // This is the same SDK call as MetaMask — the only difference is how
-  // we created the signer. Note that getSecretCreationFee() is a read-only
-  // call, so it doesn't actually need a signer. We include the signer
-  // adapter creation here to show the complete integration pattern.
-  // =========================================================================
-  const fetchFee = useCallback(async () => {
-    if (!sdk || !chainId) return
-
-    try {
-      setIsFetchingFee(true)
-      setError("")
 
       // Show how the signer adapter would be created (for reference)
-      if (account) {
-        const signer = createThirdwebSigner(account)
-        const addr = await signer.getAddress()
+      const signer = createThirdwebSigner(account)
+      signer.getAddress().then((addr) => {
         log(`Created signer adapter for: ${addr}`)
         log("(This signer can be passed to encrypt/decrypt functions)")
-      }
-
-      log(`Reading secret creation fee on chain ${chainId}...`)
-
-      const controllerAddress = sdk.getControllerAddress(chainId)
-      log(`Controller address: ${controllerAddress}`)
-
-      // Call getSecretCreationFee — a read-only on-chain call
-      const creationFee = await keyManagement.getSecretCreationFee({
-        chainId,
-        controllerAddress,
-        readClient: sdk.readClient,
       })
-
-      setFee(creationFee)
-      log(`Secret creation fee: ${creationFee} wei (${formatWei(creationFee)} CAPS)`)
-    } catch (err) {
-      const message = err instanceof Error ? err.message : String(err)
-      setError(`Failed to fetch fee: ${message}`)
-      log(`ERROR: ${message}`)
-    } finally {
-      setIsFetchingFee(false)
     }
-  }, [sdk, chainId, account, log])
+  }, [account, log])
 
   // =========================================================================
   // UI
@@ -291,9 +232,9 @@ function ThirdwebIntegration() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8">
-            {/* ---- Left Column: Steps ---- */}
+            {/* ---- Left Column: Steps + SDK Operations ---- */}
             <div className="space-y-6">
-              {/* Step 1: SDK Status */}
+              {/* Step 1: SDK Status + Chain Selector */}
               <div className="glow-card p-6">
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-xs font-mono text-zinc-500">
@@ -319,10 +260,39 @@ function ThirdwebIntegration() {
                   <br />
                   {`});`}
                 </div>
-                {sdk && chainId && (
-                  <p className="text-xs text-zinc-500 mt-3">
-                    Using chain: <span className="text-zinc-300">{chainId}</span>
-                  </p>
+                {/* Chain Selector */}
+                {sdk && supportedChains.length > 0 && (
+                  <div className="mt-4">
+                    <label className="block text-xs font-medium text-zinc-500 mb-1.5">
+                      Network
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={chainId ?? ""}
+                        onChange={(e) => {
+                          const newChain = Number(e.target.value)
+                          setChainId(newChain)
+                          log(`Switched to ${getChainName(newChain)} (${newChain})`)
+                        }}
+                        className="
+                          w-full appearance-none
+                          bg-zinc-900 border border-zinc-800 rounded-lg
+                          px-3 py-2 pr-8
+                          text-sm text-white
+                          hover:border-zinc-600
+                          focus:border-[#00ff9d]/50 focus:outline-none focus:ring-1 focus:ring-[#00ff9d]/30
+                          transition-colors cursor-pointer
+                        "
+                      >
+                        {supportedChains.map((id) => (
+                          <option key={id} value={id}>
+                            {getChainName(id)} ({id})
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500 pointer-events-none" />
+                    </div>
+                  </div>
                 )}
               </div>
 
@@ -386,70 +356,33 @@ function ThirdwebIntegration() {
                 </div>
               </div>
 
-              {/* Step 3: Fetch Fee */}
-              <div className="glow-card p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-xs font-mono text-zinc-500">
-                    Step 3
-                  </span>
-                  {fee !== null ? (
-                    <CheckCircle className="h-4 w-4 text-[#00ff9d]" />
-                  ) : (
-                    <div className="h-4 w-4 rounded-full border border-zinc-700" />
-                  )}
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">
-                  Get Secret Creation Fee
-                </h3>
-                <p className="text-sm text-zinc-400 mb-4">
-                  Call{" "}
-                  <code className="text-zinc-300 font-mono text-xs">
-                    keyManagement.getSecretCreationFee()
-                  </code>{" "}
-                  — a read-only on-chain call. Same API as MetaMask.
-                </p>
-                <div className="text-xs font-mono text-zinc-600 bg-zinc-900/50 rounded p-3 mb-4">
-                  {`const fee = await keyManagement.getSecretCreationFee({`}
-                  <br />
-                  {`  chainId,`}
-                  <br />
-                  {`  controllerAddress: sdk.getControllerAddress(chainId),`}
-                  <br />
-                  {`  readClient: sdk.readClient,`}
-                  <br />
-                  {`});`}
-                </div>
+              {/* ---- SDK Operations (sub-components) ---- */}
+              {sdk && chainId && (
+                <>
+                  {/* Fetch Fee — read-only */}
+                  <FetchFee sdk={sdk} chainId={chainId} log={log} />
 
-                {fee !== null ? (
-                  <div className="bg-zinc-900/50 rounded-lg p-4 border border-zinc-800">
-                    <p className="text-xs text-zinc-500 mb-1">Creation Fee</p>
-                    <p className="text-2xl font-bold text-white">
-                      {formatWei(fee)}{" "}
-                      <span className="text-sm text-zinc-400 font-normal">
-                        CAPS
-                      </span>
-                    </p>
-                    <p className="text-xs text-zinc-600 font-mono mt-1">
-                      {fee.toString()} wei
-                    </p>
-                  </div>
-                ) : (
-                  <Button
-                    variant="outline"
-                    onClick={fetchFee}
-                    disabled={!sdk || !account || isFetchingFee}
-                  >
-                    {isFetchingFee ? (
-                      <>
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        Reading contract...
-                      </>
-                    ) : (
-                      "Fetch Fee"
-                    )}
-                  </Button>
-                )}
-              </div>
+                  {/* Get Secrets — read-only, needs wallet address */}
+                  {account && (
+                    <GetSecrets
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={account.address}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Set Delegate — write, sends tx via Thirdweb Account */}
+                  {account && (
+                    <SetDelegate
+                      sdk={sdk}
+                      chainId={chainId}
+                      account={account}
+                      log={log}
+                    />
+                  )}
+                </>
+              )}
             </div>
 
             {/* ---- Right Column: Logs + Error ---- */}
@@ -481,7 +414,8 @@ function ThirdwebIntegration() {
                             ? "text-red-400"
                             : entry.includes("connected") ||
                                 entry.includes("ready") ||
-                                entry.includes("fee:")
+                                entry.includes("fee:") ||
+                                entry.includes("confirmed")
                               ? "text-[#00ff9d]"
                               : "text-zinc-400"
                         }`}

@@ -40,6 +40,7 @@ import { ChevronDown } from "lucide-react"
 // Thirdweb imports
 // ---------------------------------------------------------------------------
 import { createThirdwebClient } from "thirdweb"
+import { defineChain } from "thirdweb/chains"
 import {
   ThirdwebProvider,
   ConnectButton,
@@ -88,6 +89,50 @@ const BLACKBOX_URL = "https://cifer-blackbox.ternoa.dev:3010"
 const thirdwebClient = createThirdwebClient({
   clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID || "",
 })
+
+// ===========================================================================
+// ⚠️  Custom Chain Definition — Ternoa (752025)
+//
+// Thirdweb's RPC proxy does NOT support every chain out of the box.
+// For unsupported chains (e.g. Ternoa / 752025), you MUST define the
+// chain explicitly with defineChain() including its RPC URL. Without
+// this, Thirdweb will route requests to its own proxy which returns
+// "Invalid chain".
+//
+// Developers integrating Thirdweb with Ternoa MUST include a definition
+// like this in their project. Standard chains (Sepolia, Polygon, etc.)
+// work fine with just `defineChain(chainId)`.
+// ===========================================================================
+const ternoaChain = defineChain({
+  id: 752025,
+  name: "Ternoa",
+  nativeCurrency: {
+    name: "CAPS",
+    symbol: "CAPS",
+    decimals: 18,
+  },
+  rpc: "https://rpc-mainnet.zkevm.ternoa.network/",
+  blockExplorers: [
+    {
+      name: "Ternoa Explorer",
+      url: "https://explorer-mainnet.zkevm.ternoa.network/",
+    },
+  ],
+})
+
+/**
+ * Return the correct Thirdweb chain definition for a given chainId.
+ *
+ * For Ternoa (752025) we return the custom definition above.
+ * For all other chains, defineChain(id) uses Thirdweb's built-in registry.
+ *
+ * This is passed to transaction sub-components so the Ternoa chain config
+ * stays centralized here in page.tsx.
+ */
+function getThirdwebChain(chainId: number) {
+  if (chainId === 752025) return ternoaChain
+  return defineChain(chainId)
+}
 
 // ===========================================================================
 // Custom Signer Adapter: Thirdweb Account → cifer-sdk SignerAdapter
@@ -391,6 +436,8 @@ function ThirdwebIntegration() {
                       sdk={sdk}
                       chainId={chainId}
                       account={account}
+                      thirdwebClient={thirdwebClient}
+                      getThirdwebChain={getThirdwebChain}
                       log={log}
                     />
                   )}
@@ -401,6 +448,8 @@ function ThirdwebIntegration() {
                       sdk={sdk}
                       chainId={chainId}
                       account={account}
+                      thirdwebClient={thirdwebClient}
+                      getThirdwebChain={getThirdwebChain}
                       log={log}
                     />
                   )}
@@ -411,6 +460,8 @@ function ThirdwebIntegration() {
                       sdk={sdk}
                       chainId={chainId}
                       account={account}
+                      thirdwebClient={thirdwebClient}
+                      getThirdwebChain={getThirdwebChain}
                       log={log}
                     />
                   )}

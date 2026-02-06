@@ -4,7 +4,7 @@
  *
  * This component demonstrates a WRITE operation with the CIFER SDK:
  *   1. Build a transaction intent via keyManagement.buildSetDelegateTx()
- *   2. Send the transaction using Thirdweb's Account
+ *   2. Send the transaction using Thirdweb's prepareTransaction + sendTransaction
  *
  * The SDK uses the "transaction intent" pattern — write operations return
  * a TxIntent object ({ to, data, value, chainId }) instead of sending
@@ -14,6 +14,16 @@
  *   prepareTransaction({ to, data, value, chain, client })
  *   sendTransaction({ transaction, account })
  *   waitForReceipt({ transactionHash, chain, client })
+ *
+ * ⚠️  IMPORTANT — Thirdweb Client & Custom Chains
+ * =================================================
+ * The `thirdwebClient` and `getThirdwebChain()` helper are passed in as
+ * props from page.tsx — this keeps chain configuration centralized.
+ *
+ * Thirdweb's RPC proxy does NOT support every chain. For unsupported chains
+ * like Ternoa (752025), the chain must be defined explicitly with its RPC URL
+ * via defineChain(). The parent page handles this and provides the correct
+ * chain object through getThirdwebChain(chainId).
  *
  * SDK function used:
  *   keyManagement.buildSetDelegateTx({ chainId, controllerAddress, secretId, newDelegate })
@@ -30,25 +40,18 @@ import { truncateAddress } from "@/lib/utils"
 // Thirdweb imports — used to send the transaction
 // ---------------------------------------------------------------------------
 import {
-  createThirdwebClient,
   prepareTransaction,
   sendTransaction,
   waitForReceipt,
+  type ThirdwebClient,
 } from "thirdweb"
-import { defineChain } from "thirdweb/chains"
 import type { Account } from "thirdweb/wallets"
+import type { Chain } from "thirdweb/chains"
 
 // ---------------------------------------------------------------------------
 // cifer-sdk imports
 // ---------------------------------------------------------------------------
 import { keyManagement, type CiferSdk } from "cifer-sdk"
-
-// ---------------------------------------------------------------------------
-// Thirdweb client (reuse the same client ID as the page)
-// ---------------------------------------------------------------------------
-const thirdwebClient = createThirdwebClient({
-  clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID || "",
-})
 
 // ---------------------------------------------------------------------------
 // Props
@@ -61,6 +64,14 @@ interface SetDelegateProps {
   chainId: number
   /** The Thirdweb Account (from useActiveAccount) — used to send the tx */
   account: Account
+  /** The shared Thirdweb client (created in page.tsx) */
+  thirdwebClient: ThirdwebClient
+  /**
+   * Resolves a chainId to the correct Thirdweb Chain definition.
+   * This is defined in page.tsx and handles custom chains like Ternoa
+   * that are not in Thirdweb's built-in registry.
+   */
+  getThirdwebChain: (chainId: number) => Chain
   /** Shared logger — writes to the parent page's console output */
   log: (message: string) => void
 }
@@ -69,7 +80,14 @@ interface SetDelegateProps {
 // Component
 // ===========================================================================
 
-export function SetDelegate({ sdk, chainId, account, log }: SetDelegateProps) {
+export function SetDelegate({
+  sdk,
+  chainId,
+  account,
+  thirdwebClient,
+  getThirdwebChain,
+  log,
+}: SetDelegateProps) {
   // ---- Local state ----
   const [secretId, setSecretId] = useState<string>("")
   const [newDelegate, setNewDelegate] = useState<string>("")
@@ -83,6 +101,8 @@ export function SetDelegate({ sdk, chainId, account, log }: SetDelegateProps) {
   // Step 1: keyManagement.buildSetDelegateTx() returns a TxIntent.
   //
   // Step 2: Convert the TxIntent to a Thirdweb transaction:
+  //   - getThirdwebChain() returns the correct chain definition
+  //     (custom for Ternoa, built-in for everything else)
   //   - prepareTransaction() creates a Thirdweb tx from raw fields
   //   - sendTransaction() broadcasts it via the Thirdweb Account
   //   - waitForReceipt() waits for on-chain confirmation
@@ -111,12 +131,13 @@ export function SetDelegate({ sdk, chainId, account, log }: SetDelegateProps) {
       log(`  data: ${txIntent.data.slice(0, 20)}...`)
 
       // Step 2: Send via Thirdweb
-      // Convert SDK TxIntent → Thirdweb transaction
-      const chain = defineChain(chainId)
+      // getThirdwebChain() is provided by page.tsx — it returns the custom
+      // Ternoa chain definition for chainId 752025 or a standard chain otherwise.
+      const chain = getThirdwebChain(chainId)
       const tx = prepareTransaction({
         to: txIntent.to as `0x${string}`,
         data: txIntent.data as `0x${string}`,
-        value: txIntent.value ?? 0n,
+        value: txIntent.value ?? BigInt(0),
         chain,
         client: thirdwebClient,
       })
@@ -143,7 +164,7 @@ export function SetDelegate({ sdk, chainId, account, log }: SetDelegateProps) {
     } finally {
       setIsSending(false)
     }
-  }, [sdk, chainId, account, secretId, newDelegate, log])
+  }, [sdk, chainId, account, thirdwebClient, getThirdwebChain, secretId, newDelegate, log])
 
   // =========================================================================
   // UI — form with secretId + delegate inputs, send button, tx result
@@ -179,7 +200,9 @@ export function SetDelegate({ sdk, chainId, account, log }: SetDelegateProps) {
         {`});`}
         <br />
         <br />
-        {`// 2. Send via Thirdweb`}
+        {`// 2. Send via Thirdweb (client & chain from page.tsx)`}
+        <br />
+        {`const chain = getThirdwebChain(chainId);`}
         <br />
         {`const tx = prepareTransaction({`}
         <br />

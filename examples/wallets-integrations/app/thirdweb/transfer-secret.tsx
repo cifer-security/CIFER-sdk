@@ -4,12 +4,15 @@
  *
  * This component demonstrates the buildTransferSecretTx() SDK function:
  *   1. Build a transaction intent via keyManagement.buildTransferSecretTx()
- *   2. Send the transaction using Thirdweb's Account
+ *   2. Send the transaction using Thirdweb's prepareTransaction + sendTransaction
  *
  * Transferring a secret changes its owner. If the secret has a delegate,
  * the delegation is cleared upon transfer.
  *
  * Only the current owner can transfer a secret.
+ *
+ * ⚠️  The `thirdwebClient` and `getThirdwebChain()` are passed from page.tsx
+ * so chain configuration (including Ternoa) stays centralized.
  *
  * SDK function used:
  *   keyManagement.buildTransferSecretTx({ chainId, controllerAddress, secretId, newOwner })
@@ -26,25 +29,18 @@ import { truncateAddress } from "@/lib/utils"
 // Thirdweb imports — used to send the transaction
 // ---------------------------------------------------------------------------
 import {
-  createThirdwebClient,
   prepareTransaction,
   sendTransaction,
   waitForReceipt,
+  type ThirdwebClient,
 } from "thirdweb"
-import { defineChain } from "thirdweb/chains"
 import type { Account } from "thirdweb/wallets"
+import type { Chain } from "thirdweb/chains"
 
 // ---------------------------------------------------------------------------
 // cifer-sdk imports
 // ---------------------------------------------------------------------------
 import { keyManagement, type CiferSdk } from "cifer-sdk"
-
-// ---------------------------------------------------------------------------
-// Thirdweb client (reuse the same client ID as the page)
-// ---------------------------------------------------------------------------
-const thirdwebClient = createThirdwebClient({
-  clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID || "",
-})
 
 // ---------------------------------------------------------------------------
 // Props
@@ -57,6 +53,13 @@ interface TransferSecretProps {
   chainId: number
   /** The Thirdweb Account (from useActiveAccount) — used to send the tx */
   account: Account
+  /** The shared Thirdweb client (created in page.tsx) */
+  thirdwebClient: ThirdwebClient
+  /**
+   * Resolves a chainId to the correct Thirdweb Chain definition.
+   * Handles custom chains like Ternoa that aren't in Thirdweb's registry.
+   */
+  getThirdwebChain: (chainId: number) => Chain
   /** Shared logger — writes to the parent page's console output */
   log: (message: string) => void
 }
@@ -65,7 +68,14 @@ interface TransferSecretProps {
 // Component
 // ===========================================================================
 
-export function TransferSecret({ sdk, chainId, account, log }: TransferSecretProps) {
+export function TransferSecret({
+  sdk,
+  chainId,
+  account,
+  thirdwebClient,
+  getThirdwebChain,
+  log,
+}: TransferSecretProps) {
   // ---- Local state ----
   const [secretId, setSecretId] = useState<string>("")
   const [newOwner, setNewOwner] = useState<string>("")
@@ -100,11 +110,13 @@ export function TransferSecret({ sdk, chainId, account, log }: TransferSecretPro
       log(`  data: ${txIntent.data.slice(0, 20)}...`)
 
       // Step 2: Send via Thirdweb
-      const chain = defineChain(chainId)
+      // getThirdwebChain() is provided by page.tsx — it returns the custom
+      // Ternoa chain definition for chainId 752025 or a standard chain otherwise.
+      const chain = getThirdwebChain(chainId)
       const tx = prepareTransaction({
         to: txIntent.to as `0x${string}`,
         data: txIntent.data as `0x${string}`,
-        value: txIntent.value ?? 0n,
+        value: txIntent.value ?? BigInt(0),
         chain,
         client: thirdwebClient,
       })
@@ -131,7 +143,7 @@ export function TransferSecret({ sdk, chainId, account, log }: TransferSecretPro
     } finally {
       setIsSending(false)
     }
-  }, [sdk, chainId, account, secretId, newOwner, log])
+  }, [sdk, chainId, account, thirdwebClient, getThirdwebChain, secretId, newOwner, log])
 
   // =========================================================================
   // UI
@@ -165,7 +177,9 @@ export function TransferSecret({ sdk, chainId, account, log }: TransferSecretPro
         {`});`}
         <br />
         <br />
-        {`// Send via Thirdweb`}
+        {`// Send via Thirdweb (client & chain from page.tsx)`}
+        <br />
+        {`const chain = getThirdwebChain(chainId);`}
         <br />
         {`const tx = prepareTransaction({`}
         <br />

@@ -114,7 +114,7 @@ function CodeExample() {
 
 // Initialize SDK with automatic chain discovery
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://blackbox.cifer.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
 });
 
 // Connect your wallet

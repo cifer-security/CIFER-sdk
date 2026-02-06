@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.3.0**](../../index.md)
+[**cifer-sdk API Reference v0.3.0-rc.2**](../../index.md)
 
 ***
 
@@ -19,7 +19,7 @@ two modes:
 
 ### CreateSecretResult
 
-Defined in: [flows/create-secret.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/create-secret.ts#L27)
+Defined in: [flows/create-secret.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/create-secret.ts#L27)
 
 Result of createSecretAndWaitReady flow
 
@@ -29,7 +29,7 @@ Result of createSecretAndWaitReady flow
 
 > **secretId**: `bigint`
 
-Defined in: [flows/create-secret.ts:29](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/create-secret.ts#L29)
+Defined in: [flows/create-secret.ts:29](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/create-secret.ts#L29)
 
 The new secret ID
 
@@ -37,7 +37,7 @@ The new secret ID
 
 > **state**: [`SecretState`](../../index.md#secretstate)
 
-Defined in: [flows/create-secret.ts:31](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/create-secret.ts#L31)
+Defined in: [flows/create-secret.ts:31](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/create-secret.ts#L31)
 
 The final secret state
 
@@ -45,7 +45,7 @@ The final secret state
 
 ### RetrieveAndDecryptParams
 
-Defined in: [flows/decrypt-from-logs.ts:24](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/decrypt-from-logs.ts#L24)
+Defined in: [flows/decrypt-from-logs.ts:24](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/decrypt-from-logs.ts#L24)
 
 Parameters for retrieve-and-decrypt flow
 
@@ -55,7 +55,7 @@ Parameters for retrieve-and-decrypt flow
 
 > **secretId**: `bigint`
 
-Defined in: [flows/decrypt-from-logs.ts:26](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/decrypt-from-logs.ts#L26)
+Defined in: [flows/decrypt-from-logs.ts:26](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/decrypt-from-logs.ts#L26)
 
 Secret ID used for encryption
 
@@ -63,7 +63,7 @@ Secret ID used for encryption
 
 > **dataId**: `` `0x${string}` ``
 
-Defined in: [flows/decrypt-from-logs.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/decrypt-from-logs.ts#L28)
+Defined in: [flows/decrypt-from-logs.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/decrypt-from-logs.ts#L28)
 
 Data ID to retrieve
 
@@ -71,7 +71,7 @@ Data ID to retrieve
 
 > **commitmentContract**: `` `0x${string}` ``
 
-Defined in: [flows/decrypt-from-logs.ts:30](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/decrypt-from-logs.ts#L30)
+Defined in: [flows/decrypt-from-logs.ts:30](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/decrypt-from-logs.ts#L30)
 
 Contract address where the commitment is stored
 
@@ -79,7 +79,7 @@ Contract address where the commitment is stored
 
 > `optional` **storedAtBlock**: `number`
 
-Defined in: [flows/decrypt-from-logs.ts:32](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/decrypt-from-logs.ts#L32)
+Defined in: [flows/decrypt-from-logs.ts:32](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/decrypt-from-logs.ts#L32)
 
 Block number where the data was stored (optional - fetched if not provided)
 
@@ -87,7 +87,7 @@ Block number where the data was stored (optional - fetched if not provided)
 
 > `optional` **skipIntegrityCheck**: `boolean`
 
-Defined in: [flows/decrypt-from-logs.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/decrypt-from-logs.ts#L34)
+Defined in: [flows/decrypt-from-logs.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/decrypt-from-logs.ts#L34)
 
 Skip integrity verification (default: false)
 
@@ -95,7 +95,7 @@ Skip integrity verification (default: false)
 
 ### RetrieveAndDecryptResult
 
-Defined in: [flows/decrypt-from-logs.ts:40](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/decrypt-from-logs.ts#L40)
+Defined in: [flows/decrypt-from-logs.ts:40](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/decrypt-from-logs.ts#L40)
 
 Result of retrieveFromLogsThenDecrypt flow
 
@@ -105,7 +105,7 @@ Result of retrieveFromLogsThenDecrypt flow
 
 > **decryptedMessage**: `string`
 
-Defined in: [flows/decrypt-from-logs.ts:42](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/decrypt-from-logs.ts#L42)
+Defined in: [flows/decrypt-from-logs.ts:42](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/decrypt-from-logs.ts#L42)
 
 The decrypted plaintext
 
@@ -113,7 +113,7 @@ The decrypted plaintext
 
 > **secretId**: `bigint`
 
-Defined in: [flows/decrypt-from-logs.ts:44](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/decrypt-from-logs.ts#L44)
+Defined in: [flows/decrypt-from-logs.ts:44](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/decrypt-from-logs.ts#L44)
 
 The secret ID used
 
@@ -121,7 +121,7 @@ The secret ID used
 
 > **storedAtBlock**: `number`
 
-Defined in: [flows/decrypt-from-logs.ts:46](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/decrypt-from-logs.ts#L46)
+Defined in: [flows/decrypt-from-logs.ts:46](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/decrypt-from-logs.ts#L46)
 
 Block where the commitment was stored
 
@@ -129,7 +129,7 @@ Block where the commitment was stored
 
 ### EncryptThenCommitParams
 
-Defined in: [flows/encrypt-commit.ts:24](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/encrypt-commit.ts#L24)
+Defined in: [flows/encrypt-commit.ts:24](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/encrypt-commit.ts#L24)
 
 Parameters for encrypt-then-commit flow
 
@@ -139,7 +139,7 @@ Parameters for encrypt-then-commit flow
 
 > **secretId**: `bigint`
 
-Defined in: [flows/encrypt-commit.ts:26](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/encrypt-commit.ts#L26)
+Defined in: [flows/encrypt-commit.ts:26](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/encrypt-commit.ts#L26)
 
 Secret ID to use for encryption
 
@@ -147,7 +147,7 @@ Secret ID to use for encryption
 
 > **plaintext**: `string`
 
-Defined in: [flows/encrypt-commit.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/encrypt-commit.ts#L28)
+Defined in: [flows/encrypt-commit.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/encrypt-commit.ts#L28)
 
 The plaintext to encrypt
 
@@ -155,7 +155,7 @@ The plaintext to encrypt
 
 > **key**: `` `0x${string}` ``
 
-Defined in: [flows/encrypt-commit.ts:30](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/encrypt-commit.ts#L30)
+Defined in: [flows/encrypt-commit.ts:30](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/encrypt-commit.ts#L30)
 
 Key for the commitment (bytes32)
 
@@ -163,7 +163,7 @@ Key for the commitment (bytes32)
 
 > **commitmentContract**: `` `0x${string}` ``
 
-Defined in: [flows/encrypt-commit.ts:32](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/encrypt-commit.ts#L32)
+Defined in: [flows/encrypt-commit.ts:32](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/encrypt-commit.ts#L32)
 
 Contract address for storing the commitment
 
@@ -171,7 +171,7 @@ Contract address for storing the commitment
 
 > `optional` **storeFunction**: [`AbiFunction`](commitments.md#abifunction)
 
-Defined in: [flows/encrypt-commit.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/encrypt-commit.ts#L34)
+Defined in: [flows/encrypt-commit.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/encrypt-commit.ts#L34)
 
 Store function ABI (optional - uses default if not provided)
 
@@ -179,7 +179,7 @@ Store function ABI (optional - uses default if not provided)
 
 ### EncryptThenCommitResult
 
-Defined in: [flows/encrypt-commit.ts:40](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/encrypt-commit.ts#L40)
+Defined in: [flows/encrypt-commit.ts:40](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/encrypt-commit.ts#L40)
 
 Result of encryptThenPrepareCommitTx flow
 
@@ -189,7 +189,7 @@ Result of encryptThenPrepareCommitTx flow
 
 > **cifer**: `` `0x${string}` ``
 
-Defined in: [flows/encrypt-commit.ts:42](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/encrypt-commit.ts#L42)
+Defined in: [flows/encrypt-commit.ts:42](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/encrypt-commit.ts#L42)
 
 The CIFER envelope
 
@@ -197,7 +197,7 @@ The CIFER envelope
 
 > **encryptedMessage**: `` `0x${string}` ``
 
-Defined in: [flows/encrypt-commit.ts:44](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/encrypt-commit.ts#L44)
+Defined in: [flows/encrypt-commit.ts:44](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/encrypt-commit.ts#L44)
 
 The encrypted message
 
@@ -205,7 +205,7 @@ The encrypted message
 
 > **txIntent**: [`TxIntentWithMeta`](../../index.md#txintentwithmeta)
 
-Defined in: [flows/encrypt-commit.ts:46](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/encrypt-commit.ts#L46)
+Defined in: [flows/encrypt-commit.ts:46](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/encrypt-commit.ts#L46)
 
 The prepared transaction intent
 
@@ -213,7 +213,7 @@ The prepared transaction intent
 
 ### EncryptFileFlowParams
 
-Defined in: [flows/file-jobs.ts:25](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L25)
+Defined in: [flows/file-jobs.ts:25](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L25)
 
 Parameters for file encryption flow
 
@@ -223,7 +223,7 @@ Parameters for file encryption flow
 
 > **secretId**: `bigint`
 
-Defined in: [flows/file-jobs.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L27)
+Defined in: [flows/file-jobs.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L27)
 
 Secret ID to use for encryption
 
@@ -231,7 +231,7 @@ Secret ID to use for encryption
 
 > **file**: `Blob` \| `File`
 
-Defined in: [flows/file-jobs.ts:29](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L29)
+Defined in: [flows/file-jobs.ts:29](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L29)
 
 The file to encrypt
 
@@ -239,7 +239,7 @@ The file to encrypt
 
 ### EncryptFileFlowResult
 
-Defined in: [flows/file-jobs.ts:35](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L35)
+Defined in: [flows/file-jobs.ts:35](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L35)
 
 Result of file encryption flow
 
@@ -249,7 +249,7 @@ Result of file encryption flow
 
 > **jobId**: `string`
 
-Defined in: [flows/file-jobs.ts:37](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L37)
+Defined in: [flows/file-jobs.ts:37](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L37)
 
 The job ID
 
@@ -257,7 +257,7 @@ The job ID
 
 > **job**: [`JobInfo`](../../index.md#jobinfo)
 
-Defined in: [flows/file-jobs.ts:39](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L39)
+Defined in: [flows/file-jobs.ts:39](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L39)
 
 Final job status
 
@@ -265,7 +265,7 @@ Final job status
 
 > **encryptedFile**: `Blob`
 
-Defined in: [flows/file-jobs.ts:41](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L41)
+Defined in: [flows/file-jobs.ts:41](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L41)
 
 The encrypted file blob
 
@@ -273,7 +273,7 @@ The encrypted file blob
 
 ### DecryptFileFlowParams
 
-Defined in: [flows/file-jobs.ts:181](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L181)
+Defined in: [flows/file-jobs.ts:181](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L181)
 
 Parameters for file decryption flow
 
@@ -283,7 +283,7 @@ Parameters for file decryption flow
 
 > **secretId**: `bigint`
 
-Defined in: [flows/file-jobs.ts:183](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L183)
+Defined in: [flows/file-jobs.ts:183](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L183)
 
 Secret ID used for encryption
 
@@ -291,7 +291,7 @@ Secret ID used for encryption
 
 > **file**: `Blob` \| `File`
 
-Defined in: [flows/file-jobs.ts:185](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L185)
+Defined in: [flows/file-jobs.ts:185](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L185)
 
 The encrypted .cifer file
 
@@ -299,7 +299,7 @@ The encrypted .cifer file
 
 ### DecryptFileFlowResult
 
-Defined in: [flows/file-jobs.ts:191](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L191)
+Defined in: [flows/file-jobs.ts:191](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L191)
 
 Result of file decryption flow
 
@@ -309,7 +309,7 @@ Result of file decryption flow
 
 > **jobId**: `string`
 
-Defined in: [flows/file-jobs.ts:193](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L193)
+Defined in: [flows/file-jobs.ts:193](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L193)
 
 The job ID
 
@@ -317,7 +317,7 @@ The job ID
 
 > **job**: [`JobInfo`](../../index.md#jobinfo)
 
-Defined in: [flows/file-jobs.ts:195](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L195)
+Defined in: [flows/file-jobs.ts:195](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L195)
 
 Final job status
 
@@ -325,7 +325,7 @@ Final job status
 
 > **decryptedFile**: `Blob`
 
-Defined in: [flows/file-jobs.ts:197](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L197)
+Defined in: [flows/file-jobs.ts:197](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L197)
 
 The decrypted file blob
 
@@ -333,7 +333,7 @@ The decrypted file blob
 
 ### DecryptExistingFileFlowParams
 
-Defined in: [flows/file-jobs.ts:341](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L341)
+Defined in: [flows/file-jobs.ts:341](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L341)
 
 Parameters for decrypting from an existing encrypt job
 
@@ -343,7 +343,7 @@ Parameters for decrypting from an existing encrypt job
 
 > **secretId**: `bigint`
 
-Defined in: [flows/file-jobs.ts:343](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L343)
+Defined in: [flows/file-jobs.ts:343](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L343)
 
 Secret ID used for the original encryption
 
@@ -351,7 +351,7 @@ Secret ID used for the original encryption
 
 > **encryptJobId**: `string`
 
-Defined in: [flows/file-jobs.ts:345](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L345)
+Defined in: [flows/file-jobs.ts:345](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L345)
 
 Job ID of the completed encrypt job
 
@@ -359,7 +359,7 @@ Job ID of the completed encrypt job
 
 ### FlowStep
 
-Defined in: [flows/types.ts:24](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L24)
+Defined in: [flows/types.ts:24](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L24)
 
 A single step in a flow
 
@@ -369,7 +369,7 @@ A single step in a flow
 
 > **id**: `string`
 
-Defined in: [flows/types.ts:26](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L26)
+Defined in: [flows/types.ts:26](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L26)
 
 Step identifier
 
@@ -377,7 +377,7 @@ Step identifier
 
 > **description**: `string`
 
-Defined in: [flows/types.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L28)
+Defined in: [flows/types.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L28)
 
 Human-readable description
 
@@ -385,7 +385,7 @@ Human-readable description
 
 > **type**: `"transaction"` \| `"api_call"` \| `"poll"` \| `"read"` \| `"compute"`
 
-Defined in: [flows/types.ts:30](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L30)
+Defined in: [flows/types.ts:30](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L30)
 
 Step type
 
@@ -393,7 +393,7 @@ Step type
 
 > **status**: [`StepStatus`](#stepstatus)
 
-Defined in: [flows/types.ts:32](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L32)
+Defined in: [flows/types.ts:32](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L32)
 
 Current status
 
@@ -401,7 +401,7 @@ Current status
 
 > `optional` **txIntent**: [`TxIntent`](../../index.md#txintent)
 
-Defined in: [flows/types.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L34)
+Defined in: [flows/types.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L34)
 
 Transaction intent (for transaction steps)
 
@@ -409,7 +409,7 @@ Transaction intent (for transaction steps)
 
 > `optional` **result**: `unknown`
 
-Defined in: [flows/types.ts:36](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L36)
+Defined in: [flows/types.ts:36](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L36)
 
 Result data (after completion)
 
@@ -417,7 +417,7 @@ Result data (after completion)
 
 > `optional` **error**: `Error`
 
-Defined in: [flows/types.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L38)
+Defined in: [flows/types.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L38)
 
 Error (if failed)
 
@@ -425,7 +425,7 @@ Error (if failed)
 
 ### FlowPlan
 
-Defined in: [flows/types.ts:44](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L44)
+Defined in: [flows/types.ts:44](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L44)
 
 Flow plan returned in plan mode
 
@@ -435,7 +435,7 @@ Flow plan returned in plan mode
 
 > **name**: `string`
 
-Defined in: [flows/types.ts:46](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L46)
+Defined in: [flows/types.ts:46](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L46)
 
 Flow name
 
@@ -443,7 +443,7 @@ Flow name
 
 > **description**: `string`
 
-Defined in: [flows/types.ts:48](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L48)
+Defined in: [flows/types.ts:48](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L48)
 
 Human-readable description
 
@@ -451,7 +451,7 @@ Human-readable description
 
 > **steps**: [`FlowStep`](#flowstep)[]
 
-Defined in: [flows/types.ts:50](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L50)
+Defined in: [flows/types.ts:50](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L50)
 
 Ordered list of steps
 
@@ -459,7 +459,7 @@ Ordered list of steps
 
 > `optional` **estimatedDurationMs**: `number`
 
-Defined in: [flows/types.ts:52](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L52)
+Defined in: [flows/types.ts:52](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L52)
 
 Estimated total duration (if known)
 
@@ -467,7 +467,7 @@ Estimated total duration (if known)
 
 ### PollingStrategy
 
-Defined in: [flows/types.ts:58](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L58)
+Defined in: [flows/types.ts:58](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L58)
 
 Polling strategy configuration
 
@@ -477,7 +477,7 @@ Polling strategy configuration
 
 > **intervalMs**: `number`
 
-Defined in: [flows/types.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L60)
+Defined in: [flows/types.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L60)
 
 Interval between polls in milliseconds
 
@@ -485,7 +485,7 @@ Interval between polls in milliseconds
 
 > **maxAttempts**: `number`
 
-Defined in: [flows/types.ts:62](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L62)
+Defined in: [flows/types.ts:62](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L62)
 
 Maximum number of polling attempts
 
@@ -493,7 +493,7 @@ Maximum number of polling attempts
 
 > `optional` **backoffMultiplier**: `number`
 
-Defined in: [flows/types.ts:64](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L64)
+Defined in: [flows/types.ts:64](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L64)
 
 Backoff multiplier (default: 1 = no backoff)
 
@@ -501,7 +501,7 @@ Backoff multiplier (default: 1 = no backoff)
 
 > `optional` **maxIntervalMs**: `number`
 
-Defined in: [flows/types.ts:66](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L66)
+Defined in: [flows/types.ts:66](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L66)
 
 Maximum interval (for exponential backoff)
 
@@ -509,7 +509,7 @@ Maximum interval (for exponential backoff)
 
 ### FlowContext
 
-Defined in: [flows/types.ts:81](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L81)
+Defined in: [flows/types.ts:81](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L81)
 
 Flow context with all dependencies and callbacks
 
@@ -519,7 +519,7 @@ Flow context with all dependencies and callbacks
 
 > **signer**: [`SignerAdapter`](../../index.md#signeradapter)
 
-Defined in: [flows/types.ts:83](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L83)
+Defined in: [flows/types.ts:83](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L83)
 
 Signer for authentication
 
@@ -527,7 +527,7 @@ Signer for authentication
 
 > **readClient**: [`ReadClient`](../../index.md#readclient-1)
 
-Defined in: [flows/types.ts:85](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L85)
+Defined in: [flows/types.ts:85](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L85)
 
 Read client for blockchain queries
 
@@ -535,7 +535,7 @@ Read client for blockchain queries
 
 > **blackboxUrl**: `string`
 
-Defined in: [flows/types.ts:87](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L87)
+Defined in: [flows/types.ts:87](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L87)
 
 Blackbox URL
 
@@ -543,7 +543,7 @@ Blackbox URL
 
 > **chainId**: `number`
 
-Defined in: [flows/types.ts:89](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L89)
+Defined in: [flows/types.ts:89](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L89)
 
 Chain ID
 
@@ -551,7 +551,7 @@ Chain ID
 
 > `optional` **controllerAddress**: `` `0x${string}` ``
 
-Defined in: [flows/types.ts:91](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L91)
+Defined in: [flows/types.ts:91](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L91)
 
 SecretsController address (optional - can be resolved from discovery)
 
@@ -559,7 +559,7 @@ SecretsController address (optional - can be resolved from discovery)
 
 > `optional` **txExecutor**: [`TxExecutor`](../../index.md#txexecutor)
 
-Defined in: [flows/types.ts:101](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L101)
+Defined in: [flows/types.ts:101](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L101)
 
 Transaction executor callback
 
@@ -570,7 +570,7 @@ The SDK doesn't handle gas estimation or nonce management.
 
 > `optional` **pollingStrategy**: [`PollingStrategy`](#pollingstrategy)
 
-Defined in: [flows/types.ts:106](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L106)
+Defined in: [flows/types.ts:106](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L106)
 
 Polling strategy for operations that require waiting
 
@@ -578,7 +578,7 @@ Polling strategy for operations that require waiting
 
 > `optional` **logger**: (`message`) => `void`
 
-Defined in: [flows/types.ts:111](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L111)
+Defined in: [flows/types.ts:111](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L111)
 
 Logger for progress updates
 
@@ -596,7 +596,7 @@ Logger for progress updates
 
 > `optional` **abortSignal**: `AbortSignal`
 
-Defined in: [flows/types.ts:116](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L116)
+Defined in: [flows/types.ts:116](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L116)
 
 Abort signal for cancellation
 
@@ -604,7 +604,7 @@ Abort signal for cancellation
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [flows/types.ts:121](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L121)
+Defined in: [flows/types.ts:121](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L121)
 
 Custom fetch implementation
 
@@ -628,7 +628,7 @@ Custom fetch implementation
 
 ### FlowOptions
 
-Defined in: [flows/types.ts:127](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L127)
+Defined in: [flows/types.ts:127](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L127)
 
 Options for flow execution
 
@@ -638,7 +638,7 @@ Options for flow execution
 
 > `optional` **mode**: [`FlowMode`](#flowmode)
 
-Defined in: [flows/types.ts:133](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L133)
+Defined in: [flows/types.ts:133](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L133)
 
 Execution mode
 - 'plan': Return a plan without executing
@@ -648,7 +648,7 @@ Execution mode
 
 > `optional` **onStepProgress**: (`step`) => `void`
 
-Defined in: [flows/types.ts:138](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L138)
+Defined in: [flows/types.ts:138](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L138)
 
 Callback for step progress updates
 
@@ -666,7 +666,7 @@ Callback for step progress updates
 
 ### FlowResult
 
-Defined in: [flows/types.ts:144](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L144)
+Defined in: [flows/types.ts:144](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L144)
 
 Flow execution result
 
@@ -682,7 +682,7 @@ Flow execution result
 
 > **success**: `boolean`
 
-Defined in: [flows/types.ts:146](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L146)
+Defined in: [flows/types.ts:146](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L146)
 
 Whether the flow completed successfully
 
@@ -690,7 +690,7 @@ Whether the flow completed successfully
 
 > **plan**: [`FlowPlan`](#flowplan)
 
-Defined in: [flows/types.ts:148](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L148)
+Defined in: [flows/types.ts:148](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L148)
 
 The flow plan (steps that were/would be executed)
 
@@ -698,7 +698,7 @@ The flow plan (steps that were/would be executed)
 
 > `optional` **data**: `T`
 
-Defined in: [flows/types.ts:150](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L150)
+Defined in: [flows/types.ts:150](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L150)
 
 Result data (if successful)
 
@@ -706,7 +706,7 @@ Result data (if successful)
 
 > `optional` **error**: `Error`
 
-Defined in: [flows/types.ts:152](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L152)
+Defined in: [flows/types.ts:152](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L152)
 
 Error (if failed)
 
@@ -714,7 +714,7 @@ Error (if failed)
 
 > `optional` **receipts**: [`TransactionReceipt`](../../index.md#transactionreceipt)[]
 
-Defined in: [flows/types.ts:154](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L154)
+Defined in: [flows/types.ts:154](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L154)
 
 Transaction receipts (for flows that submit transactions)
 
@@ -724,7 +724,7 @@ Transaction receipts (for flows that submit transactions)
 
 > **FlowMode** = `"plan"` \| `"execute"`
 
-Defined in: [flows/types.ts:14](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L14)
+Defined in: [flows/types.ts:14](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L14)
 
 Flow execution mode
 
@@ -734,7 +734,7 @@ Flow execution mode
 
 > **StepStatus** = `"pending"` \| `"in_progress"` \| `"completed"` \| `"failed"` \| `"skipped"`
 
-Defined in: [flows/types.ts:19](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L19)
+Defined in: [flows/types.ts:19](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L19)
 
 Flow step status
 
@@ -744,7 +744,7 @@ Flow step status
 
 > `const` **DEFAULT\_POLLING\_STRATEGY**: [`PollingStrategy`](#pollingstrategy)
 
-Defined in: [flows/types.ts:72](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/types.ts#L72)
+Defined in: [flows/types.ts:72](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/types.ts#L72)
 
 Default polling strategy
 
@@ -754,7 +754,7 @@ Default polling strategy
 
 > **createSecretAndWaitReady**(`ctx`, `options?`): `Promise`\<[`FlowResult`](#flowresult)\<[`CreateSecretResult`](#createsecretresult)\>\>
 
-Defined in: [flows/create-secret.ts:66](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/create-secret.ts#L66)
+Defined in: [flows/create-secret.ts:66](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/create-secret.ts#L66)
 
 Create a new secret and wait until it's ready for use
 
@@ -810,7 +810,7 @@ console.log('Public key CID:', result.data.state.publicKeyCid);
 
 > **retrieveFromLogsThenDecrypt**(`ctx`, `params`, `options?`): `Promise`\<[`FlowResult`](#flowresult)\<[`RetrieveAndDecryptResult`](#retrieveanddecryptresult)\>\>
 
-Defined in: [flows/decrypt-from-logs.ts:76](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/decrypt-from-logs.ts#L76)
+Defined in: [flows/decrypt-from-logs.ts:76](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/decrypt-from-logs.ts#L76)
 
 Retrieve encrypted data from on-chain logs and decrypt it
 
@@ -866,7 +866,7 @@ if (result.success) {
 
 > **encryptThenPrepareCommitTx**(`ctx`, `params`, `options?`): `Promise`\<[`FlowResult`](#flowresult)\<[`EncryptThenCommitResult`](#encryptthencommitresult)\>\>
 
-Defined in: [flows/encrypt-commit.ts:81](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/encrypt-commit.ts#L81)
+Defined in: [flows/encrypt-commit.ts:81](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/encrypt-commit.ts#L81)
 
 Encrypt data and prepare a transaction to store it on-chain
 
@@ -927,7 +927,7 @@ if (result.success) {
 
 > **encryptFileJobFlow**(`ctx`, `params`, `options?`): `Promise`\<[`FlowResult`](#flowresult)\<[`EncryptFileFlowResult`](#encryptfileflowresult)\>\>
 
-Defined in: [flows/file-jobs.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L57)
+Defined in: [flows/file-jobs.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L57)
 
 Encrypt a file and download the result
 
@@ -968,7 +968,7 @@ Flow result with encrypted file
 
 > **decryptFileJobFlow**(`ctx`, `params`, `options?`): `Promise`\<[`FlowResult`](#flowresult)\<[`DecryptFileFlowResult`](#decryptfileflowresult)\>\>
 
-Defined in: [flows/file-jobs.ts:213](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L213)
+Defined in: [flows/file-jobs.ts:213](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L213)
 
 Decrypt a file and download the result
 
@@ -1009,7 +1009,7 @@ Flow result with decrypted file
 
 > **decryptExistingFileJobFlow**(`ctx`, `params`, `options?`): `Promise`\<[`FlowResult`](#flowresult)\<[`DecryptFileFlowResult`](#decryptfileflowresult)\>\>
 
-Defined in: [flows/file-jobs.ts:356](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/flows/file-jobs.ts#L356)
+Defined in: [flows/file-jobs.ts:356](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/flows/file-jobs.ts#L356)
 
 Decrypt from an existing encrypt job and download the result
 

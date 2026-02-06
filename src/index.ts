@@ -20,7 +20,7 @@
  *
  * // Create the SDK instance with auto-discovery
  * const sdk = await createCiferSdk({
- *   blackboxUrl: 'https://blackbox.cifer.network',
+ *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
  * });
  *
  * // Connect any EIP-1193 wallet
@@ -327,14 +327,14 @@ export interface CiferSdk {
  * @example Basic usage with discovery
  * ```typescript
  * const sdk = await createCiferSdk({
- *   blackboxUrl: 'https://blackbox.cifer.network',
+ *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
  * });
  * ```
  *
  * @example With signer and custom overrides
  * ```typescript
  * const sdk = await createCiferSdk({
- *   blackboxUrl: 'https://blackbox.cifer.network',
+ *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
  *   signer: new Eip1193SignerAdapter(window.ethereum),
  *   chainOverrides: {
  *     752025: {
@@ -449,7 +449,7 @@ export async function createCiferSdk(config: CiferSdkConfig): Promise<CiferSdk> 
  * @example
  * ```typescript
  * const sdk = createCiferSdkSync({
- *   blackboxUrl: 'https://blackbox.cifer.network',
+ *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
  *   readClient: myReadClient,
  *   chainOverrides: {
  *     752025: {

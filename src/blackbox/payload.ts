@@ -80,7 +80,7 @@ export interface EncryptPayloadParams {
  *   plaintext: 'My secret message',
  *   signer,
  *   readClient,
- *   blackboxUrl: 'https://blackbox.cifer.network',
+ *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
  * });
  *
  * console.log('Cifer:', result.cifer);
@@ -218,7 +218,7 @@ export interface DecryptPayloadParams {
  *   cifer: commitmentData.cifer,
  *   signer,
  *   readClient,
- *   blackboxUrl: 'https://blackbox.cifer.network',
+ *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
  * });
  *
  * console.log('Decrypted:', result.decryptedMessage);

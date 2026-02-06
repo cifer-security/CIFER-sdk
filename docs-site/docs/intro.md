@@ -7,6 +7,10 @@ slug: /
 
 Welcome to the **CIFER SDK** documentation. CIFER (Cryptographic Infrastructure for Encrypted Records) provides quantum-resistant encryption for blockchain applications using ML-KEM-768 key encapsulation and AES-GCM symmetric encryption.
 
+:::tip Using AI Assistants?
+Point your AI agent (ChatGPT, Claude, Cursor, etc.) to [`llm.txt`](/llm.txt) — a comprehensive plaintext reference designed for AI consumption. This helps agents understand the SDK and implement features more accurately.
+:::
+
 ## What is CIFER?
 
 CIFER is a decentralized encryption infrastructure that enables:
@@ -66,7 +70,7 @@ import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
 
 // Initialize SDK with auto-discovery
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://blackbox.cifer.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
 });
 
 // Connect wallet

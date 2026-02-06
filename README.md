@@ -37,7 +37,7 @@ import {
 
 // 1. Create SDK with discovery
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://blackbox.cifer.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 // 2. Connect any EIP-1193 wallet
@@ -92,7 +92,7 @@ The SDK uses automatic discovery to fetch chain configurations:
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://blackbox.cifer.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 // Get supported chains
@@ -109,7 +109,7 @@ You can also provide explicit overrides:
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://blackbox.cifer.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
   chainOverrides: {
     752025: {
       rpcUrl: 'https://my-private-rpc.example.com',
@@ -389,7 +389,7 @@ The SDK **does not log to console by default**. To enable debug output, pass a `
 ```typescript
 // SDK-level logging
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://blackbox.cifer.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
   logger: console.log,
 });
 

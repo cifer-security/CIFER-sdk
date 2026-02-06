@@ -6,6 +6,10 @@ sidebar_position: 2
 
 Get up and running with CIFER encryption in 5 minutes.
 
+:::tip Using AI Assistants?
+Point your AI agent (ChatGPT, Claude, Cursor, etc.) to [`llm.txt`](/llm.txt) — a comprehensive plaintext reference designed for AI consumption. This helps agents understand the SDK and implement features more accurately.
+:::
+
 ## 1. Initialize the SDK
 
 ```typescript
@@ -13,7 +17,7 @@ import { createCiferSdk, Eip1193SignerAdapter } from 'cifer-sdk';
 
 // Create SDK with auto-discovery
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://blackbox.cifer.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
 });
 
 // Connect your wallet
@@ -154,7 +158,7 @@ import {
 async function main() {
   // 1. Initialize
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://blackbox.cifer.network',
+    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   

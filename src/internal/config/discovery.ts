@@ -59,7 +59,7 @@ const DEFAULT_CACHE_TTL_MS = 5 * 60 * 1000;
  *
  * @example
  * ```typescript
- * const discovery = await discover('https://blackbox.cifer.network');
+ * const discovery = await discover('https://cifer-blackbox.ternoa.dev:3010');
  *
  * console.log('Supported chains:', discovery.supportedChains);
  * // [752025, 11155111]

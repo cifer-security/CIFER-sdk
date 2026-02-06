@@ -6,6 +6,10 @@ sidebar_position: 1
 
 Install the CIFER SDK using your preferred package manager.
 
+:::tip Using AI Assistants?
+Point your AI agent (ChatGPT, Claude, Cursor, etc.) to [`llm.txt`](/llm.txt) — a comprehensive plaintext reference designed for AI consumption. This helps agents understand the SDK and implement features more accurately.
+:::
+
 ## Package Managers
 
 ```bash npm2yarn
@@ -90,7 +94,7 @@ import { createCiferSdk } from 'cifer-sdk';
 
 async function verify() {
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://blackbox.cifer.network',
+    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
   });
   
   console.log('Supported chains:', sdk.getSupportedChainIds());

@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.3.0**](../../../../../index.md)
+[**cifer-sdk API Reference v0.3.0-rc.2**](../../../../../index.md)
 
 ***
 
@@ -14,7 +14,7 @@ Payload encryption and decryption via the blackbox API
 
 ### EncryptPayloadResult
 
-Defined in: [blackbox/payload.ts:23](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L23)
+Defined in: [blackbox/payload.ts:23](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L23)
 
 Result of encrypting a payload
 
@@ -24,7 +24,7 @@ Result of encrypting a payload
 
 > **cifer**: `string`
 
-Defined in: [blackbox/payload.ts:25](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L25)
+Defined in: [blackbox/payload.ts:25](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L25)
 
 The CIFER envelope (ML-KEM ciphertext + AES-GCM tag)
 
@@ -32,7 +32,7 @@ The CIFER envelope (ML-KEM ciphertext + AES-GCM tag)
 
 > **encryptedMessage**: `string`
 
-Defined in: [blackbox/payload.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L27)
+Defined in: [blackbox/payload.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L27)
 
 The AES-encrypted message
 
@@ -40,7 +40,7 @@ The AES-encrypted message
 
 > **chainId**: `number`
 
-Defined in: [blackbox/payload.ts:29](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L29)
+Defined in: [blackbox/payload.ts:29](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L29)
 
 Chain ID used
 
@@ -48,7 +48,7 @@ Chain ID used
 
 > **secretId**: `bigint`
 
-Defined in: [blackbox/payload.ts:31](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L31)
+Defined in: [blackbox/payload.ts:31](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L31)
 
 Secret ID used
 
@@ -56,7 +56,7 @@ Secret ID used
 
 > **outputFormat**: [`OutputFormat`](../../../../../index.md#outputformat)
 
-Defined in: [blackbox/payload.ts:33](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L33)
+Defined in: [blackbox/payload.ts:33](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L33)
 
 Output format used
 
@@ -64,7 +64,7 @@ Output format used
 
 ### DecryptPayloadResult
 
-Defined in: [blackbox/payload.ts:39](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L39)
+Defined in: [blackbox/payload.ts:39](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L39)
 
 Result of decrypting a payload
 
@@ -74,7 +74,7 @@ Result of decrypting a payload
 
 > **decryptedMessage**: `string`
 
-Defined in: [blackbox/payload.ts:41](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L41)
+Defined in: [blackbox/payload.ts:41](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L41)
 
 The decrypted plaintext message
 
@@ -82,7 +82,7 @@ The decrypted plaintext message
 
 ### EncryptPayloadParams
 
-Defined in: [blackbox/payload.ts:47](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L47)
+Defined in: [blackbox/payload.ts:47](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L47)
 
 Parameters for encrypting a payload
 
@@ -92,7 +92,7 @@ Parameters for encrypting a payload
 
 > **chainId**: `number`
 
-Defined in: [blackbox/payload.ts:49](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L49)
+Defined in: [blackbox/payload.ts:49](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L49)
 
 Chain ID where the secret exists
 
@@ -100,7 +100,7 @@ Chain ID where the secret exists
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [blackbox/payload.ts:51](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L51)
+Defined in: [blackbox/payload.ts:51](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L51)
 
 Secret ID to use for encryption
 
@@ -108,7 +108,7 @@ Secret ID to use for encryption
 
 > **plaintext**: `string`
 
-Defined in: [blackbox/payload.ts:53](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L53)
+Defined in: [blackbox/payload.ts:53](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L53)
 
 The plaintext to encrypt
 
@@ -116,7 +116,7 @@ The plaintext to encrypt
 
 > **signer**: [`SignerAdapter`](../../../../../index.md#signeradapter)
 
-Defined in: [blackbox/payload.ts:55](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L55)
+Defined in: [blackbox/payload.ts:55](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L55)
 
 Signer for authentication
 
@@ -124,7 +124,7 @@ Signer for authentication
 
 > **readClient**: [`ReadClient`](../../../../../index.md#readclient-1)
 
-Defined in: [blackbox/payload.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L57)
+Defined in: [blackbox/payload.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L57)
 
 Read client for fetching block numbers
 
@@ -132,7 +132,7 @@ Read client for fetching block numbers
 
 > **blackboxUrl**: `string`
 
-Defined in: [blackbox/payload.ts:59](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L59)
+Defined in: [blackbox/payload.ts:59](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L59)
 
 Blackbox URL
 
@@ -140,7 +140,7 @@ Blackbox URL
 
 > `optional` **outputFormat**: [`OutputFormat`](../../../../../index.md#outputformat)
 
-Defined in: [blackbox/payload.ts:61](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L61)
+Defined in: [blackbox/payload.ts:61](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L61)
 
 Output format (default: 'hex')
 
@@ -148,7 +148,7 @@ Output format (default: 'hex')
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [blackbox/payload.ts:63](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L63)
+Defined in: [blackbox/payload.ts:63](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L63)
 
 Custom fetch implementation
 
@@ -172,7 +172,7 @@ Custom fetch implementation
 
 ### DecryptPayloadParams
 
-Defined in: [blackbox/payload.ts:179](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L179)
+Defined in: [blackbox/payload.ts:179](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L179)
 
 Parameters for decrypting a payload
 
@@ -182,7 +182,7 @@ Parameters for decrypting a payload
 
 > **chainId**: `number`
 
-Defined in: [blackbox/payload.ts:181](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L181)
+Defined in: [blackbox/payload.ts:181](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L181)
 
 Chain ID where the secret exists
 
@@ -190,7 +190,7 @@ Chain ID where the secret exists
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [blackbox/payload.ts:183](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L183)
+Defined in: [blackbox/payload.ts:183](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L183)
 
 Secret ID used for encryption
 
@@ -198,7 +198,7 @@ Secret ID used for encryption
 
 > **encryptedMessage**: `string`
 
-Defined in: [blackbox/payload.ts:185](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L185)
+Defined in: [blackbox/payload.ts:185](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L185)
 
 The encrypted message (from encrypt result or on-chain logs)
 
@@ -206,7 +206,7 @@ The encrypted message (from encrypt result or on-chain logs)
 
 > **cifer**: `string`
 
-Defined in: [blackbox/payload.ts:187](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L187)
+Defined in: [blackbox/payload.ts:187](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L187)
 
 The CIFER envelope (from encrypt result or on-chain logs)
 
@@ -214,7 +214,7 @@ The CIFER envelope (from encrypt result or on-chain logs)
 
 > **signer**: [`SignerAdapter`](../../../../../index.md#signeradapter)
 
-Defined in: [blackbox/payload.ts:189](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L189)
+Defined in: [blackbox/payload.ts:189](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L189)
 
 Signer for authentication (must be owner or delegate)
 
@@ -222,7 +222,7 @@ Signer for authentication (must be owner or delegate)
 
 > **readClient**: [`ReadClient`](../../../../../index.md#readclient-1)
 
-Defined in: [blackbox/payload.ts:191](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L191)
+Defined in: [blackbox/payload.ts:191](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L191)
 
 Read client for fetching block numbers
 
@@ -230,7 +230,7 @@ Read client for fetching block numbers
 
 > **blackboxUrl**: `string`
 
-Defined in: [blackbox/payload.ts:193](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L193)
+Defined in: [blackbox/payload.ts:193](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L193)
 
 Blackbox URL
 
@@ -238,7 +238,7 @@ Blackbox URL
 
 > `optional` **inputFormat**: [`InputFormat`](../../../../../index.md#inputformat)
 
-Defined in: [blackbox/payload.ts:195](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L195)
+Defined in: [blackbox/payload.ts:195](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L195)
 
 Input format (default: 'hex')
 
@@ -246,7 +246,7 @@ Input format (default: 'hex')
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [blackbox/payload.ts:197](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L197)
+Defined in: [blackbox/payload.ts:197](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L197)
 
 Custom fetch implementation
 
@@ -272,7 +272,7 @@ Custom fetch implementation
 
 > **encryptPayload**(`params`): `Promise`\<[`EncryptPayloadResult`](#encryptpayloadresult)\>
 
-Defined in: [blackbox/payload.ts:90](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L90)
+Defined in: [blackbox/payload.ts:90](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L90)
 
 Encrypt a payload using the blackbox API
 
@@ -302,7 +302,7 @@ const result = await encryptPayload({
   plaintext: 'My secret message',
   signer,
   readClient,
-  blackboxUrl: 'https://blackbox.cifer.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 console.log('Cifer:', result.cifer);
@@ -315,7 +315,7 @@ console.log('Encrypted message:', result.encryptedMessage);
 
 > **decryptPayload**(`params`): `Promise`\<[`DecryptPayloadResult`](#decryptpayloadresult)\>
 
-Defined in: [blackbox/payload.ts:227](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1e11a88c69460b0ffd7cd10f8f07c611e4574095/src/blackbox/payload.ts#L227)
+Defined in: [blackbox/payload.ts:227](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/blackbox/payload.ts#L227)
 
 Decrypt a payload using the blackbox API
 
@@ -349,7 +349,7 @@ const result = await decryptPayload({
   cifer: commitmentData.cifer,
   signer,
   readClient,
-  blackboxUrl: 'https://blackbox.cifer.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 console.log('Decrypted:', result.decryptedMessage);

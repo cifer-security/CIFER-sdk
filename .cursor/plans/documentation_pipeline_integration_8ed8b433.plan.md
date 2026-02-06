@@ -224,7 +224,7 @@ Enhanced TSDoc style:
  *   plaintext: 'My secret message',
  *   signer,
  *   readClient,
- *   blackboxUrl: 'https://blackbox.cifer.network',
+ *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
  * });
  * ```
  *

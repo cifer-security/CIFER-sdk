@@ -20,7 +20,7 @@ import {
 import { keyManagement, blackbox, flows } from 'cifer-sdk';
 
 // Constants
-const BLACKBOX_URL = 'https://blackbox.cifer.network';
+const BLACKBOX_URL = 'https://cifer-blackbox.ternoa.dev:3010';
 const CHAIN_ID = 752025; // Ternoa mainnet
 
 // Extend window for TypeScript

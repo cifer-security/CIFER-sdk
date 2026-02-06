@@ -68,7 +68,7 @@ export interface FileOperationParams {
  *   file: myFile,
  *   signer,
  *   readClient,
- *   blackboxUrl: 'https://blackbox.cifer.network',
+ *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
  * });
  *
  * console.log('Job ID:', job.jobId);
@@ -180,7 +180,7 @@ export async function encryptFile(
  *   file: encryptedCiferFile,
  *   signer,
  *   readClient,
- *   blackboxUrl: 'https://blackbox.cifer.network',
+ *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
  * });
  *
  * // Poll and download (auth required for decrypt jobs)
@@ -302,7 +302,7 @@ export interface DecryptExistingFileParams {
  *   encryptJobId: 'previous-encrypt-job-id',
  *   signer,
  *   readClient,
- *   blackboxUrl: 'https://blackbox.cifer.network',
+ *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
  * });
  * ```
  */

@@ -48,7 +48,9 @@ ${SEPARATOR}
    - Encryption Model
    - Block Freshness
    - Transaction Intents
-5. SDK INITIALIZATION
+5. SDK INITIALIZATION & WALLET INTEGRATION
+   - Discovery
+   - Wallet Adapters (MetaMask, WalletConnect, Thirdweb, Private Key, wagmi, Coinbase)
 6. NAMESPACE REFERENCE
    - keyManagement
    - blackbox.payload
@@ -123,7 +125,7 @@ ${SEPARATOR}
 import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
 
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://blackbox.cifer.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 // 2. Connect wallet (browser)
@@ -273,7 +275,7 @@ ${SUB_SEPARATOR}
 ${SUB_SEPARATOR}
 
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://blackbox.cifer.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 // Get supported chains
@@ -290,7 +292,7 @@ ${SUB_SEPARATOR}
 ${SUB_SEPARATOR}
 
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://blackbox.cifer.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
   chainOverrides: {
     752025: {
       rpcUrl: 'https://my-private-rpc.example.com',
@@ -312,7 +314,7 @@ const readClient = new RpcReadClient({
 });
 
 const sdk = createCiferSdkSync({
-  blackboxUrl: 'https://blackbox.cifer.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
   readClient,
   chainOverrides: {
     752025: {
@@ -323,40 +325,185 @@ const sdk = createCiferSdkSync({
 });
 
 ${SUB_SEPARATOR}
-5.4 WALLET ADAPTERS
+5.4 WALLET INTEGRATION
 ${SUB_SEPARATOR}
 
-Browser Wallet (MetaMask, WalletConnect, etc.):
-import { Eip1193SignerAdapter } from 'cifer-sdk';
-const signer = new Eip1193SignerAdapter(window.ethereum);
+The SDK is wallet-agnostic. All wallets implement this interface:
 
-With wagmi:
-const provider = await connector.getProvider();
+interface SignerAdapter {
+  getAddress(): Promise<string>;
+  signMessage(message: string): Promise<string>; // EIP-191 personal_sign
+  sendTransaction?(txRequest: TxIntent): Promise<TxExecutionResult>; // optional
+}
+
+--- MetaMask ---
+
+import { Eip1193SignerAdapter } from 'cifer-sdk';
+
+// Check if MetaMask is installed
+if (typeof window.ethereum === 'undefined') {
+  throw new Error('MetaMask is not installed');
+}
+
+// Request account access
+await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+// Create signer
+const signer = new Eip1193SignerAdapter(window.ethereum);
+const address = await signer.getAddress();
+
+// Handle account changes
+window.ethereum.on('accountsChanged', (accounts) => {
+  signer.clearCache();
+  console.log('Switched to:', accounts[0]);
+});
+
+--- WalletConnect v2 ---
+
+npm install @walletconnect/modal @walletconnect/ethereum-provider
+
+import { EthereumProvider } from '@walletconnect/ethereum-provider';
+
+const provider = await EthereumProvider.init({
+  projectId: 'YOUR_WALLETCONNECT_PROJECT_ID',
+  chains: [752025],
+  showQrModal: true,
+  metadata: {
+    name: 'My CIFER App',
+    description: 'Quantum-resistant encryption',
+    url: 'https://myapp.com',
+    icons: ['https://myapp.com/icon.png'],
+  },
+});
+
+await provider.connect();
 const signer = new Eip1193SignerAdapter(provider);
 
-Custom Signer:
-const customSigner = {
-  async getAddress() {
-    return '0x...';
-  },
-  async signMessage(message) {
-    // Use EIP-191 personal_sign
-    return await wallet.signMessage(message);
-  },
+--- Thirdweb ---
+
+npm install thirdweb
+
+import { createThirdwebClient, defineChain } from 'thirdweb';
+import { createWallet, injectedProvider } from 'thirdweb/wallets';
+
+const thirdwebClient = createThirdwebClient({
+  clientId: 'YOUR_THIRDWEB_CLIENT_ID',
+});
+
+const ternoa = defineChain({
+  id: 752025,
+  name: 'Ternoa',
+  nativeCurrency: { name: 'CAPS', symbol: 'CAPS', decimals: 18 },
+  rpcUrls: { default: { http: ['https://mainnet.ternoa.network'] } },
+});
+
+const wallet = createWallet('io.metamask');
+await wallet.connect({ client: thirdwebClient, chain: ternoa });
+
+const provider = injectedProvider('io.metamask');
+const signer = new Eip1193SignerAdapter(provider);
+
+// For in-app wallets (email/social login):
+import { inAppWallet } from 'thirdweb/wallets';
+
+const wallet = inAppWallet();
+const account = await wallet.connect({
+  client: thirdwebClient,
+  chain: ternoa,
+  strategy: 'email',
+  email: 'user@example.com',
+});
+
+const signer = {
+  async getAddress() { return account.address; },
+  async signMessage(message) { return account.signMessage({ message }); },
 };
 
-Server-side with ethers:
+--- Private Key (Server-Side) ---
+
+WARNING: Never expose private keys in frontend code!
+
+Using ethers.js:
+npm install ethers
+
 import { Wallet } from 'ethers';
+
+const privateKey = process.env.PRIVATE_KEY;
 const wallet = new Wallet(privateKey);
 
-const serverSigner = {
-  async getAddress() {
-    return wallet.address;
-  },
-  async signMessage(message) {
-    return await wallet.signMessage(message);
-  },
+const signer = {
+  async getAddress() { return wallet.address; },
+  async signMessage(message) { return wallet.signMessage(message); },
 };
+
+Using viem:
+npm install viem
+
+import { privateKeyToAccount } from 'viem/accounts';
+
+const privateKey = process.env.PRIVATE_KEY;
+const account = privateKeyToAccount(privateKey);
+
+const signer = {
+  async getAddress() { return account.address; },
+  async signMessage(message) { return account.signMessage({ message }); },
+};
+
+--- wagmi (React) ---
+
+npm install wagmi viem @tanstack/react-query
+
+import { useAccount, useConnectorClient } from 'wagmi';
+
+function useCiferSigner() {
+  const { address, isConnected } = useAccount();
+  const { data: connectorClient } = useConnectorClient();
+
+  const getSigner = async () => {
+    if (!isConnected || !connectorClient) {
+      throw new Error('Wallet not connected');
+    }
+    const provider = await connectorClient.transport;
+    return new Eip1193SignerAdapter(provider);
+  };
+
+  return { getSigner, address, isConnected };
+}
+
+--- Coinbase Wallet ---
+
+npm install @coinbase/wallet-sdk
+
+import { CoinbaseWalletSDK } from '@coinbase/wallet-sdk';
+
+const coinbaseWallet = new CoinbaseWalletSDK({
+  appName: 'My CIFER App',
+  appLogoUrl: 'https://myapp.com/logo.png',
+});
+
+const provider = coinbaseWallet.makeWeb3Provider({ options: 'all' });
+await provider.request({ method: 'eth_requestAccounts' });
+
+const signer = new Eip1193SignerAdapter(provider);
+
+--- Supporting Multiple Wallets ---
+
+type WalletType = 'metamask' | 'walletconnect' | 'coinbase';
+
+async function createSigner(type: WalletType): Promise<SignerAdapter> {
+  switch (type) {
+    case 'metamask':
+      return new Eip1193SignerAdapter(window.ethereum);
+    case 'walletconnect':
+      const wcProvider = await EthereumProvider.init({ /* config */ });
+      await wcProvider.connect();
+      return new Eip1193SignerAdapter(wcProvider);
+    case 'coinbase':
+      const cbProvider = coinbaseWallet.makeWeb3Provider();
+      await cbProvider.request({ method: 'eth_requestAccounts' });
+      return new Eip1193SignerAdapter(cbProvider);
+  }
+}
 `;
 }
 
@@ -1401,7 +1548,7 @@ import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
 async function encryptDecryptExample() {
   // Initialize
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://blackbox.cifer.network',
+    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
@@ -1442,7 +1589,7 @@ import { createCiferSdk, Eip1193SignerAdapter, flows } from 'cifer-sdk';
 
 async function createSecretExample() {
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://blackbox.cifer.network',
+    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
@@ -1495,7 +1642,7 @@ import { createCiferSdk, Eip1193SignerAdapter, flows, commitments } from 'cifer-
 
 async function onChainExample() {
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://blackbox.cifer.network',
+    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
@@ -1543,7 +1690,7 @@ import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
 
 async function fileEncryptionExample() {
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://blackbox.cifer.network',
+    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
@@ -1606,7 +1753,7 @@ async function serverSideExample() {
   
   // Initialize SDK
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://blackbox.cifer.network',
+    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
     readClient,
   });
   

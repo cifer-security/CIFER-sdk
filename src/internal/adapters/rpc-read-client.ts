@@ -70,7 +70,7 @@ export class RpcReadClient implements ReadClient {
    */
   constructor(config: RpcReadClientConfig) {
     this.rpcUrlByChainId = { ...config.rpcUrlByChainId };
-    this.fetchFn = config.fetch ?? fetch;
+    this.fetchFn = config.fetch ?? globalThis.fetch.bind(globalThis);
   }
 
   /**
@@ -273,7 +273,8 @@ interface RpcLog {
  * ```
  */
 export function createReadClientFromDiscovery(
-  chains: Array<{ chainId: ChainId; rpcUrl: string }>
+  chains: Array<{ chainId: ChainId; rpcUrl: string }>,
+  options?: { fetch?: typeof fetch }
 ): RpcReadClient {
   const rpcUrlByChainId: Record<ChainId, string> = {};
 
@@ -281,5 +282,5 @@ export function createReadClientFromDiscovery(
     rpcUrlByChainId[chain.chainId] = chain.rpcUrl;
   }
 
-  return new RpcReadClient({ rpcUrlByChainId });
+  return new RpcReadClient({ rpcUrlByChainId, fetch: options?.fetch });
 }

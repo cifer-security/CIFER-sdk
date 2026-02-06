@@ -92,10 +92,10 @@ export const MAX_PAYLOAD_BYTES = 16384; // 16 KiB
  * Function selectors
  */
 export const CIFER_ENCRYPTED_SELECTORS = {
-  CIFER_ENVELOPE_BYTES: '0x3a86cdaa' as Hex,
-  MAX_PAYLOAD_BYTES: '0x23b872dd' as Hex, // Placeholder - compute actual
-  getCIFERMetadata: '0x1234abcd' as Hex, // Placeholder - compute actual
-  ciferDataExists: '0x5678efgh' as Hex, // Placeholder - compute actual
+  CIFER_ENVELOPE_BYTES: '0xe759b48d' as Hex,
+  MAX_PAYLOAD_BYTES: '0xd31ecaa7' as Hex,
+  getCIFERMetadata: '0x183b7021' as Hex,
+  ciferDataExists: '0x200880f6' as Hex,
 } as const;
 
 /**
@@ -103,11 +103,11 @@ export const CIFER_ENCRYPTED_SELECTORS = {
  */
 export const CIFER_ENCRYPTED_TOPICS = {
   CIFERDataStored:
-    '0x' as Hex, // Will be computed
+    '0x54d564244beef53abea650e9891767ae254ba12a95350cfbd6c81ac838efc3ea' as Hex,
   CIFERDataUpdated:
-    '0x' as Hex, // Will be computed
+    '0xc902a8ea9d9da6a4ba78de0905bd343e185133e2ea49cab8fe55517c480c533e' as Hex,
   CIFERDataDeleted:
-    '0x' as Hex, // Will be computed
+    '0xbb6d02273787e993a43d0045289f43b7f1c1ed69ae4a74a3099bc963e210f8e8' as Hex,
 } as const;
 
 // ============================================================================
@@ -126,7 +126,7 @@ function encodeBytes32(value: Bytes32): string {
  */
 export function encodeGetCIFERMetadata(dataId: Bytes32): Hex {
   // Function selector: keccak256("getCIFERMetadata(bytes32)") first 4 bytes
-  const selector = '6a9e4174'; // Pre-computed
+  const selector = '183b7021'; // Pre-computed
   const dataIdEncoded = encodeBytes32(dataId);
   return `0x${selector}${dataIdEncoded}` as Hex;
 }
@@ -136,7 +136,7 @@ export function encodeGetCIFERMetadata(dataId: Bytes32): Hex {
  */
 export function encodeCiferDataExists(dataId: Bytes32): Hex {
   // Function selector: keccak256("ciferDataExists(bytes32)") first 4 bytes
-  const selector = '5e8e5012'; // Pre-computed
+  const selector = '200880f6'; // Pre-computed
   const dataIdEncoded = encodeBytes32(dataId);
   return `0x${selector}${dataIdEncoded}` as Hex;
 }
@@ -146,7 +146,7 @@ export function encodeCiferDataExists(dataId: Bytes32): Hex {
  */
 export function encodeCIFER_ENVELOPE_BYTES(): Hex {
   // Function selector: keccak256("CIFER_ENVELOPE_BYTES()") first 4 bytes
-  return '0x3a86cdaa' as Hex; // Pre-computed
+  return '0xe759b48d' as Hex; // Pre-computed
 }
 
 /**
@@ -154,7 +154,7 @@ export function encodeCIFER_ENVELOPE_BYTES(): Hex {
  */
 export function encodeMAX_PAYLOAD_BYTES(): Hex {
   // Function selector: keccak256("MAX_PAYLOAD_BYTES()") first 4 bytes
-  return '0xbe38c5ff' as Hex; // Pre-computed
+  return '0xd31ecaa7' as Hex; // Pre-computed
 }
 
 // ============================================================================
@@ -223,7 +223,7 @@ export function decodeCiferDataExists(data: Hex): boolean {
  */
 export function getCIFERDataStoredTopic(): Hex {
   // Pre-computed keccak256 of the signature
-  return '0x4c0c51c1e0f8a5d7b6c0e0e4f5b8c9a1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6b0' as Hex;
+  return '0x54d564244beef53abea650e9891767ae254ba12a95350cfbd6c81ac838efc3ea' as Hex;
 }
 
 /**
@@ -231,7 +231,7 @@ export function getCIFERDataStoredTopic(): Hex {
  */
 export function getCIFERDataUpdatedTopic(): Hex {
   // Pre-computed keccak256 of the signature
-  return '0x5c0c51c1e0f8a5d7b6c0e0e4f5b8c9a1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6b1' as Hex;
+  return '0xc902a8ea9d9da6a4ba78de0905bd343e185133e2ea49cab8fe55517c480c533e' as Hex;
 }
 
 /**
@@ -239,7 +239,7 @@ export function getCIFERDataUpdatedTopic(): Hex {
  */
 export function getCIFERDataDeletedTopic(): Hex {
   // Pre-computed keccak256 of the signature
-  return '0x6c0c51c1e0f8a5d7b6c0e0e4f5b8c9a1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6b2' as Hex;
+  return '0xbb6d02273787e993a43d0045289f43b7f1c1ed69ae4a74a3099bc963e210f8e8' as Hex;
 }
 
 /**

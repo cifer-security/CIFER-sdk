@@ -173,7 +173,7 @@ export function extractSecretIdFromReceipt(logs: Log[]): bigint {
   // SecretCreated event signature topic
   // This is keccak256("SecretCreated(uint256,address,uint8)")
   const secretCreatedTopic =
-    '0x2c4d2e7974a7ef9593e886a5c6f7514bf3699f9cf8fd619cd4f9c4df6dcdff5d';
+    '0x37b4b901c8ebed314689cc4d38f8c7b2d893bb9c472df1598e30c7f0bef2af81';
 
   const secretCreatedLog = logs.find(
     (log) => log.topics[0]?.toLowerCase() === secretCreatedTopic.toLowerCase()

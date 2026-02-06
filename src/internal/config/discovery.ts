@@ -81,7 +81,7 @@ export async function discover(
 ): Promise<DiscoveryResult> {
   const cacheTtlMs = options?.cacheTtlMs ?? DEFAULT_CACHE_TTL_MS;
   const forceRefresh = options?.forceRefresh ?? false;
-  const fetchFn = options?.fetch ?? fetch;
+  const fetchFn = options?.fetch ?? globalThis.fetch.bind(globalThis);
 
   // Normalize URL (remove trailing slash)
   const normalizedUrl = blackboxUrl.replace(/\/$/, '');

@@ -151,18 +151,18 @@ export const SECRETS_CONTROLLER_ABI = [
  */
 export const SECRETS_CONTROLLER_SELECTORS = {
   // Reads
-  secretCreationFee: '0x8dc654a2' as Hex,
-  defaultSecretType: '0x7d7eee42' as Hex,
-  nextSecretId: '0x0e5d3deb' as Hex,
-  getSecretState: '0x7f770061' as Hex,
-  getSecretOwner: '0x2176d1f8' as Hex,
-  getDelegate: '0x9b4e7358' as Hex,
-  getSecretsByWallet: '0x75c4b3a5' as Hex,
-  getSecretsCountByWallet: '0x33f4e3f9' as Hex,
+  secretCreationFee: '0xb9387101' as Hex,
+  defaultSecretType: '0x5f5f38bf' as Hex,
+  nextSecretId: '0x28e32de1' as Hex,
+  getSecretState: '0xd3d63b51' as Hex,
+  getSecretOwner: '0x7c4e39a4' as Hex,
+  getDelegate: '0xdcc66cc2' as Hex,
+  getSecretsByWallet: '0xfb618966' as Hex,
+  getSecretsCountByWallet: '0xe55a2c36' as Hex,
   // Writes
-  createSecret: '0xffdb5aa5' as Hex,
-  setDelegate: '0xca5eb5e1' as Hex,
-  transferSecret: '0x10c11bfc' as Hex,
+  createSecret: '0xc9354af2' as Hex,
+  setDelegate: '0x94dcf2e6' as Hex,
+  transferSecret: '0x75cec53c' as Hex,
 } as const;
 
 /**
@@ -170,13 +170,13 @@ export const SECRETS_CONTROLLER_SELECTORS = {
  */
 export const SECRETS_CONTROLLER_TOPICS = {
   SecretCreated:
-    '0x2c4d2e7974a7ef9593e886a5c6f7514bf3699f9cf8fd619cd4f9c4df6dcdff5d' as Hex,
+    '0x37b4b901c8ebed314689cc4d38f8c7b2d893bb9c472df1598e30c7f0bef2af81' as Hex,
   SecretSynced:
-    '0x6e0c51c1e0f8a5d7b6c0e0e4f5b8c9a1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7' as Hex,
+    '0x792957745e170c30a6d1b00d24be4300d460f1345171fec4e7155309f54f8fd1' as Hex,
   DelegateUpdated:
-    '0x5e0c51c1e0f8a5d7b6c0e0e4f5b8c9a1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a8' as Hex,
+    '0x8682660f5651eae4e317da0c532f4b8612a4aab7fbdda5dcade609634c78419f' as Hex,
   SecretOwnershipTransferred:
-    '0x4e0c51c1e0f8a5d7b6c0e0e4f5b8c9a1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a9' as Hex,
+    '0xeb69ed772c6ac53a4d25fb83d3efd61497881f29561ce3e09de3a204c301af77' as Hex,
 } as const;
 
 // ============================================================================

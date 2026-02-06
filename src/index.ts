@@ -347,7 +347,7 @@ export interface CiferSdk {
  * @public
  */
 export async function createCiferSdk(config: CiferSdkConfig): Promise<CiferSdk> {
-  const fetchFn = config.fetch ?? fetch;
+  const fetchFn = config.fetch ?? globalThis.fetch.bind(globalThis);
   const log = config.logger ?? (() => {});
 
   let discovery: DiscoveryResult | null = null;
@@ -364,7 +364,7 @@ export async function createCiferSdk(config: CiferSdkConfig): Promise<CiferSdk> 
 
     // Create read client from discovery if not provided
     if (!config.readClient) {
-      readClient = createReadClientFromDiscovery(discovery.chains);
+      readClient = createReadClientFromDiscovery(discovery.chains, { fetch: fetchFn });
     } else {
       readClient = config.readClient;
     }

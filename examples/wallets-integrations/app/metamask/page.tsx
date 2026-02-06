@@ -204,7 +204,7 @@ export default function MetaMaskPage() {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-8 items-start">
             {/* ---- Left Column: Steps + SDK Operations ---- */}
             <div className="space-y-6">
               {/* Step 1: SDK Status + Chain Selector */}
@@ -361,8 +361,8 @@ export default function MetaMaskPage() {
               )}
             </div>
 
-            {/* ---- Right Column: Logs + Error ---- */}
-            <div className="space-y-6">
+            {/* ---- Right Column: Logs + Error (sticky so it follows scroll) ---- */}
+            <div className="space-y-6 lg:sticky lg:top-6 lg:self-start">
               {/* Error Display */}
               {error && (
                 <div className="glow-card-subtle p-4 border-l-2 border-red-500/50">

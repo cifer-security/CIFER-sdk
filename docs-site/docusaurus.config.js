@@ -12,10 +12,10 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://cifer-security.com',
+  url: 'https://sdk.cifer-security.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/sdk/',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -42,8 +42,9 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Edit URL for GitHub
           editUrl: 'https://github.com/cifer-security/cifer-sdk/tree/main/docs-site/',
-          // Show last updated time
-          showLastUpdateTime: true,
+          // Disable git-based last update time (not available in Vercel's build environment)
+          showLastUpdateTime: false,
+          showLastUpdateAuthor: false,
           // Breadcrumbs for navigation
           breadcrumbs: true,
         },

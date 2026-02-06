@@ -9,7 +9,7 @@ const darkCodeTheme = themes.dracula;
 const config = {
   title: 'CIFER SDK',
   tagline: 'Quantum-resistant encryption for blockchain applications',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/logo.png',
 
   // Set the production url of your site here
   url: 'https://sdk.cifer-security.com',
@@ -62,6 +62,7 @@ const config = {
       // Social card image
       image: 'img/cifer-social-card.jpg',
       navbar: {
+        style: 'dark',
         title: 'CIFER SDK',
         logo: {
           alt: 'CIFER Logo',
@@ -145,16 +146,16 @@ const config = {
       // },
       colorMode: {
         defaultMode: 'dark',
-        disableSwitch: false,
-        respectPrefersColorScheme: true,
+        disableSwitch: true,
+        respectPrefersColorScheme: false,
       },
       // Announcement bar
       announcementBar: {
         id: 'beta_notice',
         content:
           '🚧 This SDK is in beta. API may change. Please report issues on GitHub.',
-        backgroundColor: '#fafbfc',
-        textColor: '#091E42',
+        backgroundColor: '#18181b',
+        textColor: '#f4f4f5',
         isCloseable: true,
       },
     }),

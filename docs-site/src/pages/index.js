@@ -45,40 +45,49 @@ function HeroBanner() {
 
 const features = [
   {
-    title: '🔐 Quantum-Resistant',
+    title: 'Quantum-Resistant',
+    icon: '🔐',
     description: 'Built on ML-KEM-768 (NIST post-quantum standard) for encryption that stays secure against future quantum computers.',
     link: '/docs/getting-started/concepts',
   },
   {
-    title: '🌐 Multi-Chain Ready',
+    title: 'Multi-Chain Ready',
+    icon: '🌐',
     description: 'Automatic chain discovery with support for multiple networks. Deploy secrets once, use across chains.',
     link: '/docs/getting-started/concepts',
   },
   {
-    title: '💼 Wallet Agnostic',
+    title: 'Wallet Agnostic',
+    icon: '💼',
     description: 'Works with any EIP-1193 wallet—MetaMask, WalletConnect, Coinbase, or your own custom signer.',
     link: '/docs/getting-started/quick-start',
   },
   {
-    title: '📦 Zero Dependencies',
+    title: 'Zero Dependencies',
+    icon: '📦',
     description: 'No wallet library lock-in. Bring your own wallet stack—ethers, viem, wagmi, or vanilla JS.',
     link: '/docs/getting-started/concepts',
   },
   {
-    title: '📁 File Encryption',
+    title: 'File Encryption',
+    icon: '📁',
     description: 'Encrypt files of any size with async job processing. Perfect for NFT metadata, documents, and media.',
     link: '/docs/guides/encryption',
   },
   {
-    title: '⛓️ On-Chain Commitments',
+    title: 'On-Chain Commitments',
+    icon: '⛓️',
     description: 'Store encrypted data commitments on-chain with log-based retrieval and integrity verification.',
     link: '/docs/guides/commitments',
   },
 ];
 
-function FeatureCard({title, description, link}) {
+function FeatureCard({title, icon, description, link}) {
   return (
     <div className={styles.featureCard}>
+      <div className={styles.featureIcon}>
+        {icon}
+      </div>
       <h3 className={styles.featureTitle}>{title}</h3>
       <p className={styles.featureDescription}>{description}</p>
       <Link to={link} className={styles.featureLink}>
@@ -92,7 +101,9 @@ function FeaturesSection() {
   return (
     <section className={styles.features}>
       <div className="container">
-        <h2 className={styles.sectionTitle}>Why CIFER SDK?</h2>
+        <h2 className={styles.sectionTitle}>
+          Why <span className={styles.sectionTitleAccent}>CIFER</span> SDK?
+        </h2>
         <div className={styles.featureGrid}>
           {features.map((feature, idx) => (
             <FeatureCard key={idx} {...feature} />
@@ -107,7 +118,9 @@ function CodeExample() {
   return (
     <section className={styles.codeSection}>
       <div className="container">
-        <h2 className={styles.sectionTitle}>Simple, Powerful API</h2>
+        <h2 className={styles.sectionTitle}>
+          Simple, <span className={styles.sectionTitleAccent}>Powerful</span> API
+        </h2>
         <div className={styles.codeWrapper}>
           <pre className={styles.codeBlock}>
             <code>{`import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
@@ -143,7 +156,9 @@ function ArchitectureSection() {
   return (
     <section className={styles.architectureSection}>
       <div className="container">
-        <h2 className={styles.sectionTitle}>How It Works</h2>
+        <h2 className={styles.sectionTitle}>
+          How It <span className={styles.sectionTitleAccent}>Works</span>
+        </h2>
         <div className={styles.architectureGrid}>
           <div className={styles.archStep}>
             <div className={styles.archNumber}>1</div>
@@ -175,7 +190,9 @@ function CTASection() {
   return (
     <section className={styles.ctaSection}>
       <div className="container">
-        <h2 className={styles.ctaTitle}>Ready to Build?</h2>
+        <h2 className={styles.ctaTitle}>
+          Ready to <span className={styles.ctaTitleAccent}>Build</span>?
+        </h2>
         <p className={styles.ctaText}>
           Start encrypting your blockchain data with quantum-resistant security in minutes.
         </p>

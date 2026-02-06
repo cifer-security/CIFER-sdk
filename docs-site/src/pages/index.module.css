@@ -1,7 +1,7 @@
-/* Hero Section */
+/* ── Hero Section ───────────────────────────────────── */
 .heroBanner {
   padding: 6rem 0;
-  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 40%, #0f2847 100%);
+  background: #09090b;
   position: relative;
   overflow: hidden;
 }
@@ -13,9 +13,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(0, 102, 204, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(77, 166, 255, 0.1) 0%, transparent 40%);
+  background:
+    radial-gradient(circle at 30% 70%, rgba(0, 255, 157, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(0, 255, 157, 0.05) 0%, transparent 40%);
   pointer-events: none;
 }
 
@@ -37,15 +37,13 @@
 }
 
 .heroTitleAccent {
-  background: linear-gradient(135deg, #4da6ff 0%, #00d4aa 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #00ff9d;
+  text-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
 }
 
 .heroSubtitle {
   font-size: 1.25rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: #a1a1aa;
   line-height: 1.7;
   margin-bottom: 2rem;
   max-width: 600px;
@@ -62,48 +60,54 @@
 }
 
 .heroButton {
-  background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
-  border: none;
+  background: #00ff9d !important;
+  color: #09090b !important;
+  border: none !important;
   padding: 0.875rem 2rem;
   font-weight: 600;
   transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
 }
 
 .heroButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
+  box-shadow: 0 0 30px rgba(0, 255, 157, 0.5);
+  color: #09090b !important;
 }
 
 .heroButtonSecondary {
-  border-color: rgba(255, 255, 255, 0.4);
-  color: #ffffff;
+  border-color: #27272a !important;
+  color: #f4f4f5 !important;
+  background: transparent !important;
 }
 
 .heroButtonSecondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.6);
-  color: #ffffff;
+  background: rgba(0, 255, 157, 0.05) !important;
+  border-color: rgba(0, 255, 157, 0.5) !important;
+  color: #00ff9d !important;
 }
 
 .installCommand {
   display: inline-block;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 8px;
+  background: rgba(24, 24, 27, 0.6);
+  border: 1px solid #27272a;
+  border-radius: 12px;
   padding: 0.75rem 1.5rem;
 }
 
 .installCommand code {
-  color: #4da6ff;
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  color: #00ff9d;
+  font-family: 'Geist Mono', 'Fira Code', monospace;
   font-size: 0.95rem;
   background: none;
+  border: none;
 }
 
-/* Features Section */
+/* ── Features Section ──────────────────────────────── */
 .features {
   padding: 5rem 0;
-  background: var(--ifm-background-color);
+  background: #09090b;
+  border-top: 1px solid #18181b;
 }
 
 .sectionTitle {
@@ -111,7 +115,11 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 3rem;
-  color: var(--ifm-heading-color);
+  color: #ffffff;
+}
+
+.sectionTitleAccent {
+  color: #00ff9d;
 }
 
 .featureGrid {
@@ -123,8 +131,8 @@
 }
 
 .featureCard {
-  background: var(--ifm-card-background-color);
-  border: 1px solid var(--ifm-color-emphasis-200);
+  background: rgba(24, 24, 27, 0.5);
+  border: 1px solid #27272a;
   border-radius: 12px;
   padding: 1.75rem;
   transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
@@ -132,41 +140,58 @@
 
 .featureCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-  border-color: var(--ifm-color-primary);
+  border-color: rgba(0, 255, 157, 0.5);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 157, 0.08);
 }
 
-[data-theme='dark'] .featureCard:hover {
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+.featureIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: #27272a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  transition: background-color 0.2s;
+}
+
+.featureCard:hover .featureIcon {
+  background: rgba(0, 255, 157, 0.1);
 }
 
 .featureTitle {
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: var(--ifm-heading-color);
+  color: #ffffff;
 }
 
 .featureDescription {
-  color: var(--ifm-color-emphasis-700);
+  color: #a1a1aa;
   line-height: 1.6;
   margin-bottom: 1rem;
 }
 
 .featureLink {
   font-weight: 600;
-  color: var(--ifm-color-primary);
+  color: #00ff9d;
   text-decoration: none;
+  transition: opacity 0.2s;
 }
 
 .featureLink:hover {
-  text-decoration: underline;
+  opacity: 0.8;
+  text-decoration: none;
+  color: #00ff9d;
 }
 
-/* Code Section */
+/* ── Code Section ──────────────────────────────────── */
 .codeSection {
   padding: 5rem 0;
-  background: linear-gradient(180deg, var(--ifm-background-color) 0%, var(--ifm-background-surface-color) 100%);
+  background: #09090b;
+  border-top: 1px solid #18181b;
 }
 
 .codeWrapper {
@@ -175,26 +200,29 @@
 }
 
 .codeBlock {
-  background: #1e1e2e;
+  background: #18181b;
+  border: 1px solid #27272a;
   border-radius: 12px;
   padding: 1.5rem;
   overflow-x: auto;
   font-size: 0.875rem;
   line-height: 1.6;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .codeBlock code {
-  color: #cdd6f4;
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  color: #d4d4d8;
+  font-family: 'Geist Mono', 'Fira Code', monospace;
   background: none;
   padding: 0;
+  border: none;
 }
 
-/* Architecture Section */
+/* ── Architecture Section ──────────────────────────── */
 .architectureSection {
   padding: 5rem 0;
-  background: var(--ifm-background-color);
+  background: #09090b;
+  border-top: 1px solid #18181b;
 }
 
 .architectureGrid {
@@ -214,34 +242,50 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
-  color: white;
+  background: #00ff9d;
+  color: #09090b;
   font-size: 1.25rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1rem;
+  box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
 }
 
 .archStep h3 {
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: var(--ifm-heading-color);
+  color: #ffffff;
 }
 
 .archStep p {
-  color: var(--ifm-color-emphasis-700);
+  color: #a1a1aa;
   font-size: 0.95rem;
   line-height: 1.6;
 }
 
-/* CTA Section */
+/* ── CTA Section ───────────────────────────────────── */
 .ctaSection {
   padding: 5rem 0;
-  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 100%);
+  background: #09090b;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid #18181b;
+}
+
+.ctaSection::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 255, 157, 0.06) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .ctaTitle {
@@ -249,15 +293,22 @@
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 1rem;
+  position: relative;
+}
+
+.ctaTitleAccent {
+  color: #00ff9d;
+  text-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
 }
 
 .ctaText {
   font-size: 1.125rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: #a1a1aa;
   margin-bottom: 2rem;
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
 }
 
 .ctaButtons {
@@ -265,20 +316,34 @@
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+  position: relative;
+}
+
+.ctaButtons .button--primary {
+  background: #00ff9d;
+  color: #09090b;
+  border: none;
+  box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ctaButtons .button--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(0, 255, 157, 0.5);
 }
 
 .ctaButtons .button--outline {
-  border-color: rgba(255, 255, 255, 0.4);
-  color: #ffffff;
+  border-color: #27272a;
+  color: #f4f4f5;
 }
 
 .ctaButtons .button--outline:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.6);
-  color: #ffffff;
+  background: rgba(0, 255, 157, 0.05);
+  border-color: rgba(0, 255, 157, 0.5);
+  color: #00ff9d;
 }
 
-/* Responsive */
+/* ── Responsive ────────────────────────────────────── */
 @media screen and (max-width: 768px) {
   .heroBanner {
     padding: 4rem 1rem;

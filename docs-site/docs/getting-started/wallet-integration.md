@@ -31,7 +31,7 @@ import { createCiferSdk, Eip1193SignerAdapter } from 'cifer-sdk';
 
 // Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 // Check if MetaMask is installed
@@ -88,7 +88,7 @@ import { EthereumProvider } from '@walletconnect/ethereum-provider';
 
 // Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 // Create WalletConnect provider
@@ -141,7 +141,7 @@ import { createWallet, injectedProvider } from 'thirdweb/wallets';
 
 // Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 // Create Thirdweb client
@@ -226,7 +226,7 @@ import type { SignerAdapter } from 'cifer-sdk';
 
 // Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 // Create ethers wallet from private key
@@ -259,7 +259,7 @@ import type { SignerAdapter } from 'cifer-sdk';
 
 // Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 // Create account from private key
@@ -291,7 +291,7 @@ import type { SignerAdapter } from 'cifer-sdk';
 
 // Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 const privateKeyHex = process.env.PRIVATE_KEY!.replace('0x', '');
@@ -371,7 +371,7 @@ function EncryptButton() {
 
   const handleEncrypt = async () => {
     const sdk = await createCiferSdk({
-      blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+      blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
     });
     
     const signer = await getSigner();
@@ -412,7 +412,7 @@ import { CoinbaseWalletSDK } from '@coinbase/wallet-sdk';
 
 // Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 // Create Coinbase Wallet SDK

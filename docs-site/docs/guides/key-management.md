@@ -250,7 +250,7 @@ Enable SDK-level logging for troubleshooting:
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
   logger: console.log,
 });
 ```

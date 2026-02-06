@@ -268,7 +268,7 @@ The SDK doesn't log by default. To see progress messages, pass a `logger` when c
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
   logger: console.log,
 });
 ```

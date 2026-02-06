@@ -218,7 +218,7 @@ The SDK can automatically fetch chain configuration:
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 // Configuration is auto-discovered from /healthz
@@ -253,7 +253,7 @@ To see progress messages during SDK operations, pass a `logger` function:
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
   logger: console.log, // Enable debug output
 });
 ```

@@ -327,7 +327,7 @@ The SDK doesn't log by default. Enable debug output when troubleshooting:
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
   logger: console.log,
 });
 ```

@@ -17,7 +17,7 @@ import { createCiferSdk, Eip1193SignerAdapter } from 'cifer-sdk';
 
 // Create SDK with auto-discovery
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 // Connect your wallet
@@ -158,7 +158,7 @@ import {
 async function main() {
   // 1. Initialize
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   

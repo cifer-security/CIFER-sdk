@@ -15,7 +15,7 @@ function HeroBanner() {
             <h1 className={styles.heroTitle}>
               <span className={styles.heroTitleAccent}>Quantum-Resistant</span>
               <br />
-              Encryption for Web3
+              Encryption
             </h1>
             <p className={styles.heroSubtitle}>
               CIFER SDK provides post-quantum cryptographic infrastructure for blockchain applications. 
@@ -114,7 +114,7 @@ function CodeExample() {
 
 // Initialize SDK with automatic chain discovery
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010.network',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
 });
 
 // Connect your wallet

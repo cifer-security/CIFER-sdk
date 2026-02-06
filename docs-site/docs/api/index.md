@@ -1,8 +1,8 @@
-**cifer-sdk API Reference v0.3.0-rc.2**
+**cifer-sdk API Reference v0.3.1**
 
 ***
 
-# cifer-sdk API Reference v0.3.0-rc.2
+# cifer-sdk API Reference v0.3.1
 
 CIFER SDK - Cryptographic Infrastructure for Encrypted Records.
 
@@ -92,7 +92,7 @@ console.log(decrypted.decryptedMessage); // 'My secret message'
 
 ### Eip1193SignerAdapter
 
-Defined in: [internal/adapters/eip1193-signer.ts:37](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/adapters/eip1193-signer.ts#L37)
+Defined in: [internal/adapters/eip1193-signer.ts:37](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/adapters/eip1193-signer.ts#L37)
 
 Signer adapter for EIP-1193 compatible providers
 
@@ -127,7 +127,7 @@ const signature = await signer.signMessage('Hello, CIFER!');
 
 > **new Eip1193SignerAdapter**(`provider`): [`Eip1193SignerAdapter`](#eip1193signeradapter)
 
-Defined in: [internal/adapters/eip1193-signer.ts:46](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/adapters/eip1193-signer.ts#L46)
+Defined in: [internal/adapters/eip1193-signer.ts:46](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/adapters/eip1193-signer.ts#L46)
 
 Create a new EIP-1193 signer adapter
 
@@ -149,7 +149,7 @@ An EIP-1193 compatible provider
 
 > **getAddress**(): `Promise`\<`` `0x${string}` ``\>
 
-Defined in: [internal/adapters/eip1193-signer.ts:59](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/adapters/eip1193-signer.ts#L59)
+Defined in: [internal/adapters/eip1193-signer.ts:59](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/adapters/eip1193-signer.ts#L59)
 
 Get the address of the connected account
 
@@ -174,7 +174,7 @@ AuthError if no account is connected
 
 > **signMessage**(`message`): `Promise`\<`` `0x${string}` ``\>
 
-Defined in: [internal/adapters/eip1193-signer.ts:106](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/adapters/eip1193-signer.ts#L106)
+Defined in: [internal/adapters/eip1193-signer.ts:106](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/adapters/eip1193-signer.ts#L106)
 
 Sign a message using personal_sign (EIP-191)
 
@@ -202,7 +202,7 @@ The signature as a hex string
 
 > **sendTransaction**(`txRequest`): `Promise`\<[`TxExecutionResult`](#txexecutionresult)\>
 
-Defined in: [internal/adapters/eip1193-signer.ts:137](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/adapters/eip1193-signer.ts#L137)
+Defined in: [internal/adapters/eip1193-signer.ts:137](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/adapters/eip1193-signer.ts#L137)
 
 Optional: Send a transaction via the provider
 
@@ -232,7 +232,7 @@ Transaction hash and wait function
 
 > **clearCache**(): `void`
 
-Defined in: [internal/adapters/eip1193-signer.ts:235](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/adapters/eip1193-signer.ts#L235)
+Defined in: [internal/adapters/eip1193-signer.ts:235](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/adapters/eip1193-signer.ts#L235)
 
 Clear the cached address
 
@@ -246,7 +246,7 @@ Call this when the user disconnects or switches accounts.
 
 ### RpcReadClient
 
-Defined in: [internal/adapters/rpc-read-client.ts:61](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/adapters/rpc-read-client.ts#L61)
+Defined in: [internal/adapters/rpc-read-client.ts:61](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/adapters/rpc-read-client.ts#L61)
 
 RPC read client for making blockchain queries
 
@@ -281,7 +281,7 @@ const logs = await readClient.getLogs(752025, {
 
 > **new RpcReadClient**(`config`): [`RpcReadClient`](#rpcreadclient)
 
-Defined in: [internal/adapters/rpc-read-client.ts:71](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/adapters/rpc-read-client.ts#L71)
+Defined in: [internal/adapters/rpc-read-client.ts:71](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/adapters/rpc-read-client.ts#L71)
 
 Create a new RPC read client
 
@@ -303,7 +303,7 @@ Configuration with RPC URLs per chain
 
 > **setRpcUrl**(`chainId`, `rpcUrl`): `void`
 
-Defined in: [internal/adapters/rpc-read-client.ts:82](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/adapters/rpc-read-client.ts#L82)
+Defined in: [internal/adapters/rpc-read-client.ts:82](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/adapters/rpc-read-client.ts#L82)
 
 Add or update an RPC URL for a chain
 
@@ -329,7 +329,7 @@ The RPC URL
 
 > **getBlockNumber**(`chainId`): `Promise`\<`number`\>
 
-Defined in: [internal/adapters/rpc-read-client.ts:92](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/adapters/rpc-read-client.ts#L92)
+Defined in: [internal/adapters/rpc-read-client.ts:92](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/adapters/rpc-read-client.ts#L92)
 
 Get the current block number for a chain
 
@@ -355,7 +355,7 @@ The current block number
 
 > **getLogs**(`chainId`, `filter`): `Promise`\<[`Log`](#log)[]\>
 
-Defined in: [internal/adapters/rpc-read-client.ts:104](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/adapters/rpc-read-client.ts#L104)
+Defined in: [internal/adapters/rpc-read-client.ts:104](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/adapters/rpc-read-client.ts#L104)
 
 Get logs matching a filter
 
@@ -387,7 +387,7 @@ Array of matching logs
 
 > **call**(`chainId`, `callRequest`): `Promise`\<`` `0x${string}` ``\>
 
-Defined in: [internal/adapters/rpc-read-client.ts:151](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/adapters/rpc-read-client.ts#L151)
+Defined in: [internal/adapters/rpc-read-client.ts:151](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/adapters/rpc-read-client.ts#L151)
 
 Make an eth_call to read contract state
 
@@ -419,7 +419,7 @@ The return data as a hex string
 
 ### CiferError
 
-Defined in: [internal/errors/index.ts:44](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L44)
+Defined in: [internal/errors/index.ts:44](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L44)
 
 Base error class for all CIFER SDK errors.
 
@@ -447,7 +447,7 @@ if an unknown error is a CIFER SDK error.
 
 > **new CiferError**(`message`, `code`, `cause?`): [`CiferError`](#cifererror)
 
-Defined in: [internal/errors/index.ts:69](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L69)
+Defined in: [internal/errors/index.ts:69](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L69)
 
 Create a new CIFER error.
 
@@ -485,7 +485,7 @@ Original error that caused this error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -503,7 +503,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -511,7 +511,7 @@ Original error that caused this error (for error chaining)
 
 ### ConfigError
 
-Defined in: [internal/errors/index.ts:94](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L94)
+Defined in: [internal/errors/index.ts:94](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L94)
 
 Error thrown when SDK configuration is invalid or missing.
 
@@ -530,7 +530,7 @@ Error thrown when SDK configuration is invalid or missing.
 
 > **new ConfigError**(`message`, `cause?`): [`ConfigError`](#configerror)
 
-Defined in: [internal/errors/index.ts:99](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L99)
+Defined in: [internal/errors/index.ts:99](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L99)
 
 ###### Parameters
 
@@ -560,7 +560,7 @@ Original error if this wraps another error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -582,7 +582,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -594,7 +594,7 @@ Original error that caused this error (for error chaining)
 
 ### DiscoveryError
 
-Defined in: [internal/errors/index.ts:114](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L114)
+Defined in: [internal/errors/index.ts:114](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L114)
 
 Error thrown when discovery fails.
 
@@ -613,7 +613,7 @@ the blackbox `/healthz` endpoint.
 
 > **new DiscoveryError**(`message`, `blackboxUrl`, `cause?`): [`DiscoveryError`](#discoveryerror)
 
-Defined in: [internal/errors/index.ts:123](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L123)
+Defined in: [internal/errors/index.ts:123](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L123)
 
 ###### Parameters
 
@@ -649,7 +649,7 @@ Original network or parsing error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -671,7 +671,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -683,7 +683,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` **blackboxUrl**: `string`
 
-Defined in: [internal/errors/index.ts:116](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L116)
+Defined in: [internal/errors/index.ts:116](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L116)
 
 The blackbox URL that failed
 
@@ -691,7 +691,7 @@ The blackbox URL that failed
 
 ### ChainNotSupportedError
 
-Defined in: [internal/errors/index.ts:135](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L135)
+Defined in: [internal/errors/index.ts:135](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L135)
 
 Error thrown when a chain is not supported or not configured.
 
@@ -705,7 +705,7 @@ Error thrown when a chain is not supported or not configured.
 
 > **new ChainNotSupportedError**(`chainId`, `cause?`): [`ChainNotSupportedError`](#chainnotsupportederror)
 
-Defined in: [internal/errors/index.ts:143](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L143)
+Defined in: [internal/errors/index.ts:143](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L143)
 
 ###### Parameters
 
@@ -735,7 +735,7 @@ Original error if this wraps another error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -757,7 +757,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -769,7 +769,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` **chainId**: `number`
 
-Defined in: [internal/errors/index.ts:137](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L137)
+Defined in: [internal/errors/index.ts:137](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L137)
 
 The chain ID that is not supported
 
@@ -777,7 +777,7 @@ The chain ID that is not supported
 
 ### AuthError
 
-Defined in: [internal/errors/index.ts:159](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L159)
+Defined in: [internal/errors/index.ts:159](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L159)
 
 Error thrown when authentication or signing fails.
 
@@ -797,7 +797,7 @@ Error thrown when authentication or signing fails.
 
 > **new AuthError**(`message`, `cause?`): [`AuthError`](#autherror)
 
-Defined in: [internal/errors/index.ts:164](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L164)
+Defined in: [internal/errors/index.ts:164](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L164)
 
 ###### Parameters
 
@@ -827,7 +827,7 @@ Original signing or wallet error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -849,7 +849,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -861,7 +861,7 @@ Original error that caused this error (for error chaining)
 
 ### SignatureError
 
-Defined in: [internal/errors/index.ts:175](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L175)
+Defined in: [internal/errors/index.ts:175](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L175)
 
 Error thrown when signature verification fails.
 
@@ -875,7 +875,7 @@ Error thrown when signature verification fails.
 
 > **new SignatureError**(`message`, `cause?`): [`SignatureError`](#signatureerror)
 
-Defined in: [internal/errors/index.ts:180](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L180)
+Defined in: [internal/errors/index.ts:180](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L180)
 
 ###### Parameters
 
@@ -905,7 +905,7 @@ Original verification error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -927,7 +927,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -939,7 +939,7 @@ Original error that caused this error (for error chaining)
 
 ### BlockStaleError
 
-Defined in: [internal/errors/index.ts:197](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L197)
+Defined in: [internal/errors/index.ts:197](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L197)
 
 Error thrown when block number is stale (outside the freshness window).
 
@@ -960,7 +960,7 @@ The SDK automatically retries with a fresh block number (up to 3 times).
 
 > **new BlockStaleError**(`blockNumber`, `currentBlock`, `maxWindow`, `cause?`): [`BlockStaleError`](#blockstaleerror)
 
-Defined in: [internal/errors/index.ts:211](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L211)
+Defined in: [internal/errors/index.ts:211](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L211)
 
 ###### Parameters
 
@@ -1002,7 +1002,7 @@ Original error from the server
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -1024,7 +1024,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -1036,7 +1036,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` **blockNumber**: `number`
 
-Defined in: [internal/errors/index.ts:199](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L199)
+Defined in: [internal/errors/index.ts:199](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L199)
 
 The block number that was used in the signature
 
@@ -1044,7 +1044,7 @@ The block number that was used in the signature
 
 > `readonly` **currentBlock**: `number`
 
-Defined in: [internal/errors/index.ts:201](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L201)
+Defined in: [internal/errors/index.ts:201](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L201)
 
 The current block number on-chain when the error occurred
 
@@ -1052,7 +1052,7 @@ The current block number on-chain when the error occurred
 
 > `readonly` **maxWindow**: `number`
 
-Defined in: [internal/errors/index.ts:203](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L203)
+Defined in: [internal/errors/index.ts:203](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L203)
 
 The maximum allowed difference (typically ~100 blocks / 10 minutes)
 
@@ -1060,7 +1060,7 @@ The maximum allowed difference (typically ~100 blocks / 10 minutes)
 
 ### SignerMismatchError
 
-Defined in: [internal/errors/index.ts:233](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L233)
+Defined in: [internal/errors/index.ts:233](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L233)
 
 Error thrown when signer address doesn't match expected.
 
@@ -1074,7 +1074,7 @@ Error thrown when signer address doesn't match expected.
 
 > **new SignerMismatchError**(`expected`, `actual`, `cause?`): [`SignerMismatchError`](#signermismatcherror)
 
-Defined in: [internal/errors/index.ts:244](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L244)
+Defined in: [internal/errors/index.ts:244](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L244)
 
 ###### Parameters
 
@@ -1110,7 +1110,7 @@ Original verification error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -1132,7 +1132,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -1144,7 +1144,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` **expected**: `string`
 
-Defined in: [internal/errors/index.ts:235](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L235)
+Defined in: [internal/errors/index.ts:235](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L235)
 
 The expected signer address
 
@@ -1152,7 +1152,7 @@ The expected signer address
 
 > `readonly` **actual**: `string`
 
-Defined in: [internal/errors/index.ts:237](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L237)
+Defined in: [internal/errors/index.ts:237](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L237)
 
 The actual signer address
 
@@ -1160,7 +1160,7 @@ The actual signer address
 
 ### BlackboxError
 
-Defined in: [internal/errors/index.ts:261](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L261)
+Defined in: [internal/errors/index.ts:261](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L261)
 
 Error thrown when a blackbox API call fails.
 
@@ -1181,7 +1181,7 @@ Error thrown when a blackbox API call fails.
 
 > **new BlackboxError**(`message`, `options?`): [`BlackboxError`](#blackboxerror)
 
-Defined in: [internal/errors/index.ts:271](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L271)
+Defined in: [internal/errors/index.ts:271](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L271)
 
 ###### Parameters
 
@@ -1221,7 +1221,7 @@ Additional error details
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -1243,7 +1243,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -1255,7 +1255,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` `optional` **statusCode**: `number`
 
-Defined in: [internal/errors/index.ts:263](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L263)
+Defined in: [internal/errors/index.ts:263](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L263)
 
 HTTP status code (if applicable)
 
@@ -1263,7 +1263,7 @@ HTTP status code (if applicable)
 
 > `readonly` `optional` **endpoint**: `string`
 
-Defined in: [internal/errors/index.ts:265](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L265)
+Defined in: [internal/errors/index.ts:265](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L265)
 
 The endpoint that failed (e.g., '/encrypt-payload')
 
@@ -1271,7 +1271,7 @@ The endpoint that failed (e.g., '/encrypt-payload')
 
 ### EncryptionError
 
-Defined in: [internal/errors/index.ts:287](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L287)
+Defined in: [internal/errors/index.ts:287](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L287)
 
 Error thrown when encryption fails.
 
@@ -1285,7 +1285,7 @@ Error thrown when encryption fails.
 
 > **new EncryptionError**(`message`, `cause?`): [`EncryptionError`](#encryptionerror)
 
-Defined in: [internal/errors/index.ts:292](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L292)
+Defined in: [internal/errors/index.ts:292](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L292)
 
 ###### Parameters
 
@@ -1315,7 +1315,7 @@ Original error from the blackbox
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -1337,7 +1337,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -1349,7 +1349,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` `optional` **statusCode**: `number`
 
-Defined in: [internal/errors/index.ts:263](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L263)
+Defined in: [internal/errors/index.ts:263](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L263)
 
 HTTP status code (if applicable)
 
@@ -1361,7 +1361,7 @@ HTTP status code (if applicable)
 
 > `readonly` `optional` **endpoint**: `string`
 
-Defined in: [internal/errors/index.ts:265](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L265)
+Defined in: [internal/errors/index.ts:265](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L265)
 
 The endpoint that failed (e.g., '/encrypt-payload')
 
@@ -1373,7 +1373,7 @@ The endpoint that failed (e.g., '/encrypt-payload')
 
 ### DecryptionError
 
-Defined in: [internal/errors/index.ts:303](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L303)
+Defined in: [internal/errors/index.ts:303](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L303)
 
 Error thrown when decryption fails.
 
@@ -1387,7 +1387,7 @@ Error thrown when decryption fails.
 
 > **new DecryptionError**(`message`, `cause?`): [`DecryptionError`](#decryptionerror)
 
-Defined in: [internal/errors/index.ts:308](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L308)
+Defined in: [internal/errors/index.ts:308](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L308)
 
 ###### Parameters
 
@@ -1417,7 +1417,7 @@ Original error from the blackbox
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -1439,7 +1439,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -1451,7 +1451,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` `optional` **statusCode**: `number`
 
-Defined in: [internal/errors/index.ts:263](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L263)
+Defined in: [internal/errors/index.ts:263](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L263)
 
 HTTP status code (if applicable)
 
@@ -1463,7 +1463,7 @@ HTTP status code (if applicable)
 
 > `readonly` `optional` **endpoint**: `string`
 
-Defined in: [internal/errors/index.ts:265](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L265)
+Defined in: [internal/errors/index.ts:265](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L265)
 
 The endpoint that failed (e.g., '/encrypt-payload')
 
@@ -1475,7 +1475,7 @@ The endpoint that failed (e.g., '/encrypt-payload')
 
 ### JobError
 
-Defined in: [internal/errors/index.ts:319](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L319)
+Defined in: [internal/errors/index.ts:319](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L319)
 
 Error thrown when a job operation fails.
 
@@ -1489,7 +1489,7 @@ Error thrown when a job operation fails.
 
 > **new JobError**(`message`, `jobId`, `cause?`): [`JobError`](#joberror)
 
-Defined in: [internal/errors/index.ts:328](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L328)
+Defined in: [internal/errors/index.ts:328](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L328)
 
 ###### Parameters
 
@@ -1525,7 +1525,7 @@ Original error from the blackbox
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -1547,7 +1547,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -1559,7 +1559,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` `optional` **statusCode**: `number`
 
-Defined in: [internal/errors/index.ts:263](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L263)
+Defined in: [internal/errors/index.ts:263](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L263)
 
 HTTP status code (if applicable)
 
@@ -1571,7 +1571,7 @@ HTTP status code (if applicable)
 
 > `readonly` `optional` **endpoint**: `string`
 
-Defined in: [internal/errors/index.ts:265](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L265)
+Defined in: [internal/errors/index.ts:265](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L265)
 
 The endpoint that failed (e.g., '/encrypt-payload')
 
@@ -1583,7 +1583,7 @@ The endpoint that failed (e.g., '/encrypt-payload')
 
 > `readonly` **jobId**: `string`
 
-Defined in: [internal/errors/index.ts:321](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L321)
+Defined in: [internal/errors/index.ts:321](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L321)
 
 The job ID that failed
 
@@ -1591,7 +1591,7 @@ The job ID that failed
 
 ### SecretNotReadyError
 
-Defined in: [internal/errors/index.ts:345](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L345)
+Defined in: [internal/errors/index.ts:345](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L345)
 
 Error thrown when a secret is not ready (still syncing).
 
@@ -1611,7 +1611,7 @@ cannot be used for encryption or decryption.
 
 > **new SecretNotReadyError**(`secretId`, `cause?`): [`SecretNotReadyError`](#secretnotreadyerror)
 
-Defined in: [internal/errors/index.ts:353](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L353)
+Defined in: [internal/errors/index.ts:353](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L353)
 
 ###### Parameters
 
@@ -1641,7 +1641,7 @@ Original error from the server
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -1663,7 +1663,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -1675,7 +1675,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` `optional` **statusCode**: `number`
 
-Defined in: [internal/errors/index.ts:263](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L263)
+Defined in: [internal/errors/index.ts:263](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L263)
 
 HTTP status code (if applicable)
 
@@ -1687,7 +1687,7 @@ HTTP status code (if applicable)
 
 > `readonly` `optional` **endpoint**: `string`
 
-Defined in: [internal/errors/index.ts:265](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L265)
+Defined in: [internal/errors/index.ts:265](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L265)
 
 The endpoint that failed (e.g., '/encrypt-payload')
 
@@ -1699,7 +1699,7 @@ The endpoint that failed (e.g., '/encrypt-payload')
 
 > `readonly` **secretId**: `bigint`
 
-Defined in: [internal/errors/index.ts:347](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L347)
+Defined in: [internal/errors/index.ts:347](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L347)
 
 The secret ID that is not ready
 
@@ -1707,7 +1707,7 @@ The secret ID that is not ready
 
 ### KeyManagementError
 
-Defined in: [internal/errors/index.ts:369](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L369)
+Defined in: [internal/errors/index.ts:369](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L369)
 
 Error thrown when a key management operation fails.
 
@@ -1726,7 +1726,7 @@ Error thrown when a key management operation fails.
 
 > **new KeyManagementError**(`message`, `cause?`): [`KeyManagementError`](#keymanagementerror)
 
-Defined in: [internal/errors/index.ts:374](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L374)
+Defined in: [internal/errors/index.ts:374](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L374)
 
 ###### Parameters
 
@@ -1756,7 +1756,7 @@ Original RPC or contract error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -1778,7 +1778,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -1790,7 +1790,7 @@ Original error that caused this error (for error chaining)
 
 ### SecretNotFoundError
 
-Defined in: [internal/errors/index.ts:385](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L385)
+Defined in: [internal/errors/index.ts:385](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L385)
 
 Error thrown when a secret is not found.
 
@@ -1804,7 +1804,7 @@ Error thrown when a secret is not found.
 
 > **new SecretNotFoundError**(`secretId`, `cause?`): [`SecretNotFoundError`](#secretnotfounderror)
 
-Defined in: [internal/errors/index.ts:393](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L393)
+Defined in: [internal/errors/index.ts:393](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L393)
 
 ###### Parameters
 
@@ -1834,7 +1834,7 @@ Original contract error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -1856,7 +1856,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -1868,7 +1868,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` **secretId**: `bigint`
 
-Defined in: [internal/errors/index.ts:387](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L387)
+Defined in: [internal/errors/index.ts:387](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L387)
 
 The secret ID that was not found
 
@@ -1876,7 +1876,7 @@ The secret ID that was not found
 
 ### NotAuthorizedError
 
-Defined in: [internal/errors/index.ts:405](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L405)
+Defined in: [internal/errors/index.ts:405](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L405)
 
 Error thrown when caller is not authorized for a secret operation.
 
@@ -1890,7 +1890,7 @@ Error thrown when caller is not authorized for a secret operation.
 
 > **new NotAuthorizedError**(`secretId`, `caller`, `cause?`): [`NotAuthorizedError`](#notauthorizederror)
 
-Defined in: [internal/errors/index.ts:416](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L416)
+Defined in: [internal/errors/index.ts:416](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L416)
 
 ###### Parameters
 
@@ -1926,7 +1926,7 @@ Original contract error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -1948,7 +1948,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -1960,7 +1960,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` **secretId**: `bigint`
 
-Defined in: [internal/errors/index.ts:407](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L407)
+Defined in: [internal/errors/index.ts:407](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L407)
 
 The secret ID
 
@@ -1968,7 +1968,7 @@ The secret ID
 
 > `readonly` **caller**: `string`
 
-Defined in: [internal/errors/index.ts:409](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L409)
+Defined in: [internal/errors/index.ts:409](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L409)
 
 The caller address that is not authorized
 
@@ -1976,7 +1976,7 @@ The caller address that is not authorized
 
 ### CommitmentsError
 
-Defined in: [internal/errors/index.ts:433](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L433)
+Defined in: [internal/errors/index.ts:433](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L433)
 
 Error thrown when a commitment operation fails.
 
@@ -1997,7 +1997,7 @@ Error thrown when a commitment operation fails.
 
 > **new CommitmentsError**(`message`, `cause?`): [`CommitmentsError`](#commitmentserror)
 
-Defined in: [internal/errors/index.ts:438](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L438)
+Defined in: [internal/errors/index.ts:438](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L438)
 
 ###### Parameters
 
@@ -2027,7 +2027,7 @@ Original RPC or contract error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -2049,7 +2049,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -2061,7 +2061,7 @@ Original error that caused this error (for error chaining)
 
 ### CommitmentNotFoundError
 
-Defined in: [internal/errors/index.ts:449](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L449)
+Defined in: [internal/errors/index.ts:449](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L449)
 
 Error thrown when commitment data is not found.
 
@@ -2075,7 +2075,7 @@ Error thrown when commitment data is not found.
 
 > **new CommitmentNotFoundError**(`dataId`, `cause?`): [`CommitmentNotFoundError`](#commitmentnotfounderror)
 
-Defined in: [internal/errors/index.ts:457](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L457)
+Defined in: [internal/errors/index.ts:457](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L457)
 
 ###### Parameters
 
@@ -2105,7 +2105,7 @@ Original error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -2127,7 +2127,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -2139,7 +2139,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` **dataId**: `string`
 
-Defined in: [internal/errors/index.ts:451](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L451)
+Defined in: [internal/errors/index.ts:451](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L451)
 
 The data ID that was not found
 
@@ -2147,7 +2147,7 @@ The data ID that was not found
 
 ### IntegrityError
 
-Defined in: [internal/errors/index.ts:474](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L474)
+Defined in: [internal/errors/index.ts:474](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L474)
 
 Error thrown when commitment integrity check fails.
 
@@ -2167,7 +2167,7 @@ or tampering.
 
 > **new IntegrityError**(`field`, `expectedHash`, `actualHash`, `cause?`): [`IntegrityError`](#integrityerror)
 
-Defined in: [internal/errors/index.ts:488](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L488)
+Defined in: [internal/errors/index.ts:488](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L488)
 
 ###### Parameters
 
@@ -2209,7 +2209,7 @@ Original error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -2231,7 +2231,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -2243,7 +2243,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` **field**: `"cifer"` \| `"encryptedMessage"`
 
-Defined in: [internal/errors/index.ts:476](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L476)
+Defined in: [internal/errors/index.ts:476](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L476)
 
 Which field failed verification ('cifer' or 'encryptedMessage')
 
@@ -2251,7 +2251,7 @@ Which field failed verification ('cifer' or 'encryptedMessage')
 
 > `readonly` **expectedHash**: `string`
 
-Defined in: [internal/errors/index.ts:478](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L478)
+Defined in: [internal/errors/index.ts:478](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L478)
 
 Expected hash from on-chain metadata
 
@@ -2259,7 +2259,7 @@ Expected hash from on-chain metadata
 
 > `readonly` **actualHash**: `string`
 
-Defined in: [internal/errors/index.ts:480](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L480)
+Defined in: [internal/errors/index.ts:480](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L480)
 
 Actual hash computed from retrieved data
 
@@ -2267,7 +2267,7 @@ Actual hash computed from retrieved data
 
 ### InvalidCiferSizeError
 
-Defined in: [internal/errors/index.ts:513](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L513)
+Defined in: [internal/errors/index.ts:513](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L513)
 
 Error thrown when cifer size is invalid.
 
@@ -2285,7 +2285,7 @@ The CIFER envelope must be exactly 1104 bytes (ML-KEM-768 ciphertext + AES-GCM t
 
 > **new InvalidCiferSizeError**(`actualSize`, `expectedSize`, `cause?`): [`InvalidCiferSizeError`](#invalidcifersizeerror)
 
-Defined in: [internal/errors/index.ts:524](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L524)
+Defined in: [internal/errors/index.ts:524](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L524)
 
 ###### Parameters
 
@@ -2321,7 +2321,7 @@ Original error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -2343,7 +2343,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -2355,7 +2355,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` **actualSize**: `number`
 
-Defined in: [internal/errors/index.ts:515](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L515)
+Defined in: [internal/errors/index.ts:515](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L515)
 
 The actual size in bytes
 
@@ -2363,7 +2363,7 @@ The actual size in bytes
 
 > `readonly` **expectedSize**: `number`
 
-Defined in: [internal/errors/index.ts:517](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L517)
+Defined in: [internal/errors/index.ts:517](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L517)
 
 The expected size in bytes (1104)
 
@@ -2371,7 +2371,7 @@ The expected size in bytes (1104)
 
 ### PayloadTooLargeError
 
-Defined in: [internal/errors/index.ts:543](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L543)
+Defined in: [internal/errors/index.ts:543](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L543)
 
 Error thrown when encrypted message is too large.
 
@@ -2389,7 +2389,7 @@ The maximum payload size is 16KB (16384 bytes) for on-chain commitments.
 
 > **new PayloadTooLargeError**(`actualSize`, `maxSize`, `cause?`): [`PayloadTooLargeError`](#payloadtoolargeerror)
 
-Defined in: [internal/errors/index.ts:554](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L554)
+Defined in: [internal/errors/index.ts:554](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L554)
 
 ###### Parameters
 
@@ -2425,7 +2425,7 @@ Original error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -2447,7 +2447,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -2459,7 +2459,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` **actualSize**: `number`
 
-Defined in: [internal/errors/index.ts:545](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L545)
+Defined in: [internal/errors/index.ts:545](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L545)
 
 The actual size in bytes
 
@@ -2467,7 +2467,7 @@ The actual size in bytes
 
 > `readonly` **maxSize**: `number`
 
-Defined in: [internal/errors/index.ts:547](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L547)
+Defined in: [internal/errors/index.ts:547](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L547)
 
 The maximum allowed size in bytes (16384)
 
@@ -2475,7 +2475,7 @@ The maximum allowed size in bytes (16384)
 
 ### FlowError
 
-Defined in: [internal/errors/index.ts:574](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L574)
+Defined in: [internal/errors/index.ts:574](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L574)
 
 Error thrown when a flow operation fails.
 
@@ -2494,7 +2494,7 @@ Error thrown when a flow operation fails.
 
 > **new FlowError**(`message`, `flowName`, `stepName?`, `cause?`): [`FlowError`](#flowerror)
 
-Defined in: [internal/errors/index.ts:586](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L586)
+Defined in: [internal/errors/index.ts:586](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L586)
 
 ###### Parameters
 
@@ -2536,7 +2536,7 @@ Original error from the failed step
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -2558,7 +2558,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -2570,7 +2570,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` **flowName**: `string`
 
-Defined in: [internal/errors/index.ts:576](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L576)
+Defined in: [internal/errors/index.ts:576](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L576)
 
 The flow that failed (e.g., 'createSecretAndWaitReady')
 
@@ -2578,7 +2578,7 @@ The flow that failed (e.g., 'createSecretAndWaitReady')
 
 > `readonly` `optional` **stepName**: `string`
 
-Defined in: [internal/errors/index.ts:578](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L578)
+Defined in: [internal/errors/index.ts:578](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L578)
 
 The step that failed (if applicable)
 
@@ -2586,7 +2586,7 @@ The step that failed (if applicable)
 
 ### FlowAbortedError
 
-Defined in: [internal/errors/index.ts:608](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L608)
+Defined in: [internal/errors/index.ts:608](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L608)
 
 Error thrown when a flow is aborted.
 
@@ -2605,7 +2605,7 @@ When the signal is aborted, this error is thrown.
 
 > **new FlowAbortedError**(`flowName`, `stepName?`, `cause?`): [`FlowAbortedError`](#flowabortederror)
 
-Defined in: [internal/errors/index.ts:614](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L614)
+Defined in: [internal/errors/index.ts:614](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L614)
 
 ###### Parameters
 
@@ -2641,7 +2641,7 @@ Original abort error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -2663,7 +2663,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -2675,7 +2675,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` **flowName**: `string`
 
-Defined in: [internal/errors/index.ts:576](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L576)
+Defined in: [internal/errors/index.ts:576](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L576)
 
 The flow that failed (e.g., 'createSecretAndWaitReady')
 
@@ -2687,7 +2687,7 @@ The flow that failed (e.g., 'createSecretAndWaitReady')
 
 > `readonly` `optional` **stepName**: `string`
 
-Defined in: [internal/errors/index.ts:578](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L578)
+Defined in: [internal/errors/index.ts:578](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L578)
 
 The step that failed (if applicable)
 
@@ -2699,7 +2699,7 @@ The step that failed (if applicable)
 
 ### FlowTimeoutError
 
-Defined in: [internal/errors/index.ts:625](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L625)
+Defined in: [internal/errors/index.ts:625](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L625)
 
 Error thrown when a flow times out.
 
@@ -2713,7 +2713,7 @@ Error thrown when a flow times out.
 
 > **new FlowTimeoutError**(`flowName`, `timeoutMs`, `stepName?`, `cause?`): [`FlowTimeoutError`](#flowtimeouterror)
 
-Defined in: [internal/errors/index.ts:635](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L635)
+Defined in: [internal/errors/index.ts:635](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L635)
 
 ###### Parameters
 
@@ -2755,7 +2755,7 @@ Original timeout error
 
 > `readonly` **code**: `string`
 
-Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L57)
+Defined in: [internal/errors/index.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L57)
 
 Error code for programmatic handling.
 
@@ -2777,7 +2777,7 @@ Possible codes:
 
 > `readonly` `optional` **cause**: `Error`
 
-Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L60)
+Defined in: [internal/errors/index.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L60)
 
 Original error that caused this error (for error chaining)
 
@@ -2789,7 +2789,7 @@ Original error that caused this error (for error chaining)
 
 > `readonly` **flowName**: `string`
 
-Defined in: [internal/errors/index.ts:576](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L576)
+Defined in: [internal/errors/index.ts:576](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L576)
 
 The flow that failed (e.g., 'createSecretAndWaitReady')
 
@@ -2801,7 +2801,7 @@ The flow that failed (e.g., 'createSecretAndWaitReady')
 
 > `readonly` `optional` **stepName**: `string`
 
-Defined in: [internal/errors/index.ts:578](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L578)
+Defined in: [internal/errors/index.ts:578](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L578)
 
 The step that failed (if applicable)
 
@@ -2813,7 +2813,7 @@ The step that failed (if applicable)
 
 > `readonly` **timeoutMs**: `number`
 
-Defined in: [internal/errors/index.ts:627](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L627)
+Defined in: [internal/errors/index.ts:627](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L627)
 
 Timeout in milliseconds
 
@@ -2821,7 +2821,7 @@ Timeout in milliseconds
 
 ### CiferSdk
 
-Defined in: [index.ts:222](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L222)
+Defined in: [index.ts:222](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L222)
 
 CIFER SDK instance.
 
@@ -2839,7 +2839,7 @@ or [createCiferSdkSync](#createcifersdksync) (sync without discovery).
 
 > `readonly` **keyManagement**: [`keyManagement`](cifer-sdk-API-Reference/namespaces/keyManagement.md)
 
-Defined in: [index.ts:230](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L230)
+Defined in: [index.ts:230](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L230)
 
 Key management operations (SecretsController).
 
@@ -2852,7 +2852,7 @@ intents, and parsing events.
 
 > `readonly` **blackbox**: [`blackbox`](cifer-sdk-API-Reference/namespaces/blackbox/index.md)
 
-Defined in: [index.ts:238](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L238)
+Defined in: [index.ts:238](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L238)
 
 Blackbox API operations (encryption/decryption).
 
@@ -2864,7 +2864,7 @@ Provides namespaces for payload, file, and job operations.
 
 > `readonly` **commitments**: [`commitments`](cifer-sdk-API-Reference/namespaces/commitments.md)
 
-Defined in: [index.ts:247](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L247)
+Defined in: [index.ts:247](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L247)
 
 On-chain commitment operations.
 
@@ -2877,7 +2877,7 @@ commitments on-chain.
 
 > `readonly` **flows**: [`flows`](cifer-sdk-API-Reference/namespaces/flows.md)
 
-Defined in: [index.ts:256](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L256)
+Defined in: [index.ts:256](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L256)
 
 High-level orchestrated flows.
 
@@ -2890,7 +2890,7 @@ secrets, encrypting data, and decrypting from logs.
 
 > `readonly` **blackboxUrl**: `string`
 
-Defined in: [index.ts:261](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L261)
+Defined in: [index.ts:261](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L261)
 
 The configured blackbox URL.
 
@@ -2898,7 +2898,7 @@ The configured blackbox URL.
 
 > `readonly` **discovery**: [`DiscoveryResult`](#discoveryresult) \| `null`
 
-Defined in: [index.ts:266](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L266)
+Defined in: [index.ts:266](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L266)
 
 The discovery result (null if discovery was not performed).
 
@@ -2906,7 +2906,7 @@ The discovery result (null if discovery was not performed).
 
 > `readonly` `optional` **signer**: [`SignerAdapter`](#signeradapter)
 
-Defined in: [index.ts:271](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L271)
+Defined in: [index.ts:271](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L271)
 
 The default signer (if configured).
 
@@ -2914,7 +2914,7 @@ The default signer (if configured).
 
 > `readonly` **readClient**: [`ReadClient`](#readclient-1)
 
-Defined in: [index.ts:276](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L276)
+Defined in: [index.ts:276](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L276)
 
 The default read client.
 
@@ -2924,7 +2924,7 @@ The default read client.
 
 > **getControllerAddress**(`chainId`): `` `0x${string}` ``
 
-Defined in: [index.ts:285](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L285)
+Defined in: [index.ts:285](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L285)
 
 Get the SecretsController address for a chain.
 
@@ -2950,7 +2950,7 @@ The SecretsController contract address
 
 > **getRpcUrl**(`chainId`): `string`
 
-Defined in: [index.ts:294](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L294)
+Defined in: [index.ts:294](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L294)
 
 Get the RPC URL for a chain.
 
@@ -2976,7 +2976,7 @@ The RPC URL
 
 > **getSupportedChainIds**(): `number`[]
 
-Defined in: [index.ts:301](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L301)
+Defined in: [index.ts:301](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L301)
 
 Get supported chain IDs.
 
@@ -2990,7 +2990,7 @@ Array of supported chain IDs
 
 > **refreshDiscovery**(): `Promise`\<`void`\>
 
-Defined in: [index.ts:312](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L312)
+Defined in: [index.ts:312](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L312)
 
 Refresh discovery (re-fetch /healthz).
 
@@ -3014,7 +3014,7 @@ Call this to update chain configuration after changes on the server.
 
 ### SignerAdapter
 
-Defined in: [types/adapters.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L57)
+Defined in: [types/adapters.ts:57](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L57)
 
 Minimal signer adapter interface for wallet abstraction.
 
@@ -3054,7 +3054,7 @@ const customSigner: SignerAdapter = {
 
 > **getAddress**(): `Promise`\<`` `0x${string}` ``\>
 
-Defined in: [types/adapters.ts:65](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L65)
+Defined in: [types/adapters.ts:65](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L65)
 
 Get the address of the signer.
 
@@ -3072,7 +3072,7 @@ A promise resolving to the checksummed Ethereum address
 
 > **signMessage**(`message`): `Promise`\<`` `0x${string}` ``\>
 
-Defined in: [types/adapters.ts:82](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L82)
+Defined in: [types/adapters.ts:82](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L82)
 
 Sign a message using EIP-191 personal_sign semantics.
 
@@ -3106,7 +3106,7 @@ The message should NOT be pre-hashed or prefixed by the caller.
 
 > `optional` **sendTransaction**(`txRequest`): `Promise`\<[`TxExecutionResult`](#txexecutionresult)\>
 
-Defined in: [types/adapters.ts:99](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L99)
+Defined in: [types/adapters.ts:99](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L99)
 
 Optional: Send a transaction.
 
@@ -3140,7 +3140,7 @@ transactions directly.
 
 ### CallRequest
 
-Defined in: [types/adapters.ts:107](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L107)
+Defined in: [types/adapters.ts:107](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L107)
 
 Call request for making eth_call.
 
@@ -3150,7 +3150,7 @@ Call request for making eth_call.
 
 > **to**: `` `0x${string}` ``
 
-Defined in: [types/adapters.ts:109](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L109)
+Defined in: [types/adapters.ts:109](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L109)
 
 Contract address to call
 
@@ -3158,7 +3158,7 @@ Contract address to call
 
 > **data**: `` `0x${string}` ``
 
-Defined in: [types/adapters.ts:111](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L111)
+Defined in: [types/adapters.ts:111](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L111)
 
 Encoded calldata
 
@@ -3166,7 +3166,7 @@ Encoded calldata
 
 > `optional` **blockTag**: `number` \| `"pending"` \| `"latest"`
 
-Defined in: [types/adapters.ts:113](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L113)
+Defined in: [types/adapters.ts:113](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L113)
 
 Block tag or number (default: 'latest')
 
@@ -3174,7 +3174,7 @@ Block tag or number (default: 'latest')
 
 ### ReadClient
 
-Defined in: [types/adapters.ts:142](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L142)
+Defined in: [types/adapters.ts:142](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L142)
 
 Minimal read client interface for RPC abstraction.
 
@@ -3207,7 +3207,7 @@ const blockNumber = await readClient.getBlockNumber(752025);
 
 > **getBlockNumber**(`chainId`): `Promise`\<`number`\>
 
-Defined in: [types/adapters.ts:151](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L151)
+Defined in: [types/adapters.ts:151](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L151)
 
 Get the current block number for a chain.
 
@@ -3233,7 +3233,7 @@ A promise resolving to the current block number
 
 > **getLogs**(`chainId`, `filter`): `Promise`\<[`Log`](#log)[]\>
 
-Defined in: [types/adapters.ts:162](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L162)
+Defined in: [types/adapters.ts:162](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L162)
 
 Get logs matching a filter.
 
@@ -3265,7 +3265,7 @@ A promise resolving to an array of matching logs
 
 > `optional` **call**(`chainId`, `callRequest`): `Promise`\<`` `0x${string}` ``\>
 
-Defined in: [types/adapters.ts:178](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L178)
+Defined in: [types/adapters.ts:178](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L178)
 
 Optional: Make an eth_call for reading contract state.
 
@@ -3303,7 +3303,7 @@ method is not available.
 
 ### Eip1193Provider
 
-Defined in: [types/adapters.ts:192](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L192)
+Defined in: [types/adapters.ts:192](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L192)
 
 EIP-1193 provider interface (minimal subset).
 
@@ -3322,7 +3322,7 @@ Most wallets (MetaMask, WalletConnect, Coinbase Wallet, etc.) implement this.
 
 > **request**(`args`): `Promise`\<`unknown`\>
 
-Defined in: [types/adapters.ts:199](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L199)
+Defined in: [types/adapters.ts:199](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L199)
 
 Make a JSON-RPC request.
 
@@ -3350,7 +3350,7 @@ A promise resolving to the response
 
 ### RpcReadClientConfig
 
-Defined in: [types/adapters.ts:210](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L210)
+Defined in: [types/adapters.ts:210](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L210)
 
 Configuration for the RpcReadClient.
 
@@ -3360,7 +3360,7 @@ Configuration for the RpcReadClient.
 
 > **rpcUrlByChainId**: `Record`\<[`ChainId`](#chainid-1), `string`\>
 
-Defined in: [types/adapters.ts:222](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L222)
+Defined in: [types/adapters.ts:222](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L222)
 
 Map of chain IDs to RPC URLs.
 
@@ -3377,7 +3377,7 @@ Map of chain IDs to RPC URLs.
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [types/adapters.ts:230](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/adapters.ts#L230)
+Defined in: [types/adapters.ts:230](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/adapters.ts#L230)
 
 Optional: Custom fetch implementation.
 
@@ -3405,7 +3405,7 @@ Useful for testing or environments without native fetch.
 
 ### Log
 
-Defined in: [types/common.ts:138](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L138)
+Defined in: [types/common.ts:138](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L138)
 
 Represents an EVM log entry from a transaction receipt.
 
@@ -3420,7 +3420,7 @@ in events rather than stored directly in contract storage.
 
 > **address**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:140](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L140)
+Defined in: [types/common.ts:140](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L140)
 
 Contract address that emitted the log
 
@@ -3428,7 +3428,7 @@ Contract address that emitted the log
 
 > **topics**: `` `0x${string}` ``[]
 
-Defined in: [types/common.ts:142](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L142)
+Defined in: [types/common.ts:142](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L142)
 
 Array of indexed topics (topic[0] is the event signature)
 
@@ -3436,7 +3436,7 @@ Array of indexed topics (topic[0] is the event signature)
 
 > **data**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:144](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L144)
+Defined in: [types/common.ts:144](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L144)
 
 Non-indexed data (ABI-encoded)
 
@@ -3444,7 +3444,7 @@ Non-indexed data (ABI-encoded)
 
 > **blockNumber**: `number`
 
-Defined in: [types/common.ts:146](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L146)
+Defined in: [types/common.ts:146](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L146)
 
 Block number where log was emitted
 
@@ -3452,7 +3452,7 @@ Block number where log was emitted
 
 > **transactionHash**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:148](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L148)
+Defined in: [types/common.ts:148](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L148)
 
 Transaction hash
 
@@ -3460,7 +3460,7 @@ Transaction hash
 
 > **logIndex**: `number`
 
-Defined in: [types/common.ts:150](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L150)
+Defined in: [types/common.ts:150](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L150)
 
 Log index within the block
 
@@ -3468,7 +3468,7 @@ Log index within the block
 
 > **transactionIndex**: `number`
 
-Defined in: [types/common.ts:152](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L152)
+Defined in: [types/common.ts:152](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L152)
 
 Transaction index within the block
 
@@ -3476,7 +3476,7 @@ Transaction index within the block
 
 ### LogFilter
 
-Defined in: [types/common.ts:163](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L163)
+Defined in: [types/common.ts:163](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L163)
 
 Filter for querying logs via eth_getLogs.
 
@@ -3490,7 +3490,7 @@ Used with [ReadClient.getLogs](#getlogs-2) to retrieve event logs from the block
 
 > `optional` **address**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:165](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L165)
+Defined in: [types/common.ts:165](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L165)
 
 Contract address to filter by
 
@@ -3498,7 +3498,7 @@ Contract address to filter by
 
 > `optional` **topics**: (`` `0x${string}` `` \| `null`)[]
 
-Defined in: [types/common.ts:167](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L167)
+Defined in: [types/common.ts:167](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L167)
 
 Topics to filter by (null for wildcard at that position)
 
@@ -3506,7 +3506,7 @@ Topics to filter by (null for wildcard at that position)
 
 > `optional` **fromBlock**: `number` \| `"latest"`
 
-Defined in: [types/common.ts:169](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L169)
+Defined in: [types/common.ts:169](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L169)
 
 Start block (inclusive)
 
@@ -3514,7 +3514,7 @@ Start block (inclusive)
 
 > `optional` **toBlock**: `number` \| `"latest"`
 
-Defined in: [types/common.ts:171](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L171)
+Defined in: [types/common.ts:171](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L171)
 
 End block (inclusive)
 
@@ -3522,7 +3522,7 @@ End block (inclusive)
 
 ### TransactionReceipt
 
-Defined in: [types/common.ts:179](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L179)
+Defined in: [types/common.ts:179](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L179)
 
 Transaction receipt returned after a transaction is mined.
 
@@ -3532,7 +3532,7 @@ Transaction receipt returned after a transaction is mined.
 
 > **transactionHash**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:181](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L181)
+Defined in: [types/common.ts:181](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L181)
 
 Transaction hash
 
@@ -3540,7 +3540,7 @@ Transaction hash
 
 > **blockNumber**: `number`
 
-Defined in: [types/common.ts:183](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L183)
+Defined in: [types/common.ts:183](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L183)
 
 Block number where transaction was included
 
@@ -3548,7 +3548,7 @@ Block number where transaction was included
 
 > `optional` **contractAddress**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:185](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L185)
+Defined in: [types/common.ts:185](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L185)
 
 Contract address if this was a contract creation
 
@@ -3556,7 +3556,7 @@ Contract address if this was a contract creation
 
 > **status**: `0` \| `1`
 
-Defined in: [types/common.ts:187](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L187)
+Defined in: [types/common.ts:187](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L187)
 
 Status (1 = success, 0 = failure/revert)
 
@@ -3564,7 +3564,7 @@ Status (1 = success, 0 = failure/revert)
 
 > **gasUsed**: `bigint`
 
-Defined in: [types/common.ts:189](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L189)
+Defined in: [types/common.ts:189](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L189)
 
 Gas used by this transaction
 
@@ -3572,7 +3572,7 @@ Gas used by this transaction
 
 > **logs**: [`Log`](#log)[]
 
-Defined in: [types/common.ts:191](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L191)
+Defined in: [types/common.ts:191](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L191)
 
 Logs emitted by this transaction
 
@@ -3580,7 +3580,7 @@ Logs emitted by this transaction
 
 ### SecretState
 
-Defined in: [types/common.ts:208](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L208)
+Defined in: [types/common.ts:208](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L208)
 
 Secret state as stored on-chain in the SecretsController contract.
 
@@ -3600,7 +3600,7 @@ A secret is ready for use when:
 
 > **owner**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:210](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L210)
+Defined in: [types/common.ts:210](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L210)
 
 Owner address of the secret (can transfer, set delegate, decrypt)
 
@@ -3608,7 +3608,7 @@ Owner address of the secret (can transfer, set delegate, decrypt)
 
 > **delegate**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:212](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L212)
+Defined in: [types/common.ts:212](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L212)
 
 Delegate address (can decrypt on owner's behalf, zero address if none)
 
@@ -3616,7 +3616,7 @@ Delegate address (can decrypt on owner's behalf, zero address if none)
 
 > **isSyncing**: `boolean`
 
-Defined in: [types/common.ts:214](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L214)
+Defined in: [types/common.ts:214](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L214)
 
 Whether the secret is still syncing (not ready for use)
 
@@ -3624,7 +3624,7 @@ Whether the secret is still syncing (not ready for use)
 
 > **clusterId**: `number`
 
-Defined in: [types/common.ts:216](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L216)
+Defined in: [types/common.ts:216](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L216)
 
 Cluster ID where the secret's private key shards are stored
 
@@ -3632,7 +3632,7 @@ Cluster ID where the secret's private key shards are stored
 
 > **secretType**: `number`
 
-Defined in: [types/common.ts:218](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L218)
+Defined in: [types/common.ts:218](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L218)
 
 Secret type (1 = standard ML-KEM-768 encryption)
 
@@ -3640,7 +3640,7 @@ Secret type (1 = standard ML-KEM-768 encryption)
 
 > **publicKeyCid**: `string`
 
-Defined in: [types/common.ts:220](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L220)
+Defined in: [types/common.ts:220](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L220)
 
 IPFS CID of the public key (empty string if still syncing)
 
@@ -3648,7 +3648,7 @@ IPFS CID of the public key (empty string if still syncing)
 
 ### CIFERMetadata
 
-Defined in: [types/common.ts:233](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L233)
+Defined in: [types/common.ts:233](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L233)
 
 CIFER metadata stored on-chain for encrypted commitments.
 
@@ -3664,7 +3664,7 @@ This metadata is stored in contract storage and used to:
 
 > **secretId**: `bigint`
 
-Defined in: [types/common.ts:235](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L235)
+Defined in: [types/common.ts:235](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L235)
 
 Secret ID used for encryption
 
@@ -3672,7 +3672,7 @@ Secret ID used for encryption
 
 > **storedAtBlock**: `number`
 
-Defined in: [types/common.ts:237](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L237)
+Defined in: [types/common.ts:237](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L237)
 
 Block number when data was stored/updated
 
@@ -3680,7 +3680,7 @@ Block number when data was stored/updated
 
 > **ciferHash**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:239](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L239)
+Defined in: [types/common.ts:239](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L239)
 
 keccak256 hash of the cifer bytes
 
@@ -3688,7 +3688,7 @@ keccak256 hash of the cifer bytes
 
 > **encryptedMessageHash**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:241](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L241)
+Defined in: [types/common.ts:241](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L241)
 
 keccak256 hash of the encrypted message bytes
 
@@ -3696,7 +3696,7 @@ keccak256 hash of the encrypted message bytes
 
 ### CommitmentData
 
-Defined in: [types/common.ts:253](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L253)
+Defined in: [types/common.ts:253](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L253)
 
 Encrypted commitment data retrieved from event logs.
 
@@ -3711,7 +3711,7 @@ and must be retrieved from logs to decrypt the content.
 
 > **cifer**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:255](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L255)
+Defined in: [types/common.ts:255](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L255)
 
 The CIFER envelope bytes (exactly 1104 bytes: ML-KEM ciphertext + AES-GCM tag)
 
@@ -3719,7 +3719,7 @@ The CIFER envelope bytes (exactly 1104 bytes: ML-KEM ciphertext + AES-GCM tag)
 
 > **encryptedMessage**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:257](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L257)
+Defined in: [types/common.ts:257](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L257)
 
 The AES-GCM encrypted message bytes (variable length, max 16KB)
 
@@ -3727,7 +3727,7 @@ The AES-GCM encrypted message bytes (variable length, max 16KB)
 
 > **ciferHash**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:259](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L259)
+Defined in: [types/common.ts:259](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L259)
 
 keccak256(cifer) - for integrity verification
 
@@ -3735,7 +3735,7 @@ keccak256(cifer) - for integrity verification
 
 > **encryptedMessageHash**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:261](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L261)
+Defined in: [types/common.ts:261](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L261)
 
 keccak256(encryptedMessage) - for integrity verification
 
@@ -3743,7 +3743,7 @@ keccak256(encryptedMessage) - for integrity verification
 
 ### JobInfo
 
-Defined in: [types/common.ts:273](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L273)
+Defined in: [types/common.ts:273](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L273)
 
 Job information returned by the blackbox.
 
@@ -3758,7 +3758,7 @@ represents the state of a job at any point in its lifecycle.
 
 > **id**: `string`
 
-Defined in: [types/common.ts:275](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L275)
+Defined in: [types/common.ts:275](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L275)
 
 Unique job identifier (UUID)
 
@@ -3766,7 +3766,7 @@ Unique job identifier (UUID)
 
 > **type**: [`JobType`](#jobtype)
 
-Defined in: [types/common.ts:277](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L277)
+Defined in: [types/common.ts:277](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L277)
 
 Type of job (encrypt or decrypt)
 
@@ -3774,7 +3774,7 @@ Type of job (encrypt or decrypt)
 
 > **status**: [`JobStatus`](#jobstatus)
 
-Defined in: [types/common.ts:279](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L279)
+Defined in: [types/common.ts:279](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L279)
 
 Current status
 
@@ -3782,7 +3782,7 @@ Current status
 
 > **progress**: `number`
 
-Defined in: [types/common.ts:281](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L281)
+Defined in: [types/common.ts:281](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L281)
 
 Progress percentage (0-100)
 
@@ -3790,7 +3790,7 @@ Progress percentage (0-100)
 
 > **secretId**: `number`
 
-Defined in: [types/common.ts:283](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L283)
+Defined in: [types/common.ts:283](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L283)
 
 Secret ID used for this job
 
@@ -3798,7 +3798,7 @@ Secret ID used for this job
 
 > **chainId**: `number`
 
-Defined in: [types/common.ts:285](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L285)
+Defined in: [types/common.ts:285](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L285)
 
 Chain ID
 
@@ -3806,7 +3806,7 @@ Chain ID
 
 > **createdAt**: `number`
 
-Defined in: [types/common.ts:287](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L287)
+Defined in: [types/common.ts:287](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L287)
 
 Unix timestamp (ms) when job was created
 
@@ -3814,7 +3814,7 @@ Unix timestamp (ms) when job was created
 
 > `optional` **completedAt**: `number`
 
-Defined in: [types/common.ts:289](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L289)
+Defined in: [types/common.ts:289](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L289)
 
 Unix timestamp (ms) when job completed (if completed)
 
@@ -3822,7 +3822,7 @@ Unix timestamp (ms) when job completed (if completed)
 
 > `optional` **expiredAt**: `number`
 
-Defined in: [types/common.ts:291](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L291)
+Defined in: [types/common.ts:291](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L291)
 
 Unix timestamp (ms) when job will expire
 
@@ -3830,7 +3830,7 @@ Unix timestamp (ms) when job will expire
 
 > `optional` **error**: `string`
 
-Defined in: [types/common.ts:293](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L293)
+Defined in: [types/common.ts:293](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L293)
 
 Error message if job failed
 
@@ -3838,7 +3838,7 @@ Error message if job failed
 
 > `optional` **resultFileName**: `string`
 
-Defined in: [types/common.ts:295](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L295)
+Defined in: [types/common.ts:295](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L295)
 
 Result filename for download
 
@@ -3846,7 +3846,7 @@ Result filename for download
 
 > **ttl**: `number`
 
-Defined in: [types/common.ts:297](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L297)
+Defined in: [types/common.ts:297](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L297)
 
 Time-to-live in milliseconds
 
@@ -3854,7 +3854,7 @@ Time-to-live in milliseconds
 
 > `optional` **originalSize**: `number`
 
-Defined in: [types/common.ts:299](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L299)
+Defined in: [types/common.ts:299](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L299)
 
 Original file size in bytes
 
@@ -3862,7 +3862,7 @@ Original file size in bytes
 
 ### DataConsumption
 
-Defined in: [types/common.ts:311](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L311)
+Defined in: [types/common.ts:311](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L311)
 
 Data consumption/usage statistics for a wallet.
 
@@ -3877,7 +3877,7 @@ for rate limiting and billing purposes.
 
 > **wallet**: `` `0x${string}` ``
 
-Defined in: [types/common.ts:313](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L313)
+Defined in: [types/common.ts:313](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L313)
 
 Wallet address
 
@@ -3885,7 +3885,7 @@ Wallet address
 
 > **encryption**: `object`
 
-Defined in: [types/common.ts:315](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L315)
+Defined in: [types/common.ts:315](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L315)
 
 Encryption usage statistics
 
@@ -3935,7 +3935,7 @@ Remaining in GB
 
 > **decryption**: `object`
 
-Defined in: [types/common.ts:332](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L332)
+Defined in: [types/common.ts:332](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L332)
 
 Decryption usage statistics
 
@@ -3985,7 +3985,7 @@ Remaining in GB
 
 ### ChainConfig
 
-Defined in: [types/config.ts:26](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L26)
+Defined in: [types/config.ts:26](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L26)
 
 Per-chain configuration from discovery or overrides.
 
@@ -4007,7 +4007,7 @@ Overrides take precedence over discovery values.
 
 > **chainId**: `number`
 
-Defined in: [types/config.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L28)
+Defined in: [types/config.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L28)
 
 Chain ID
 
@@ -4015,7 +4015,7 @@ Chain ID
 
 > `optional` **name**: `string`
 
-Defined in: [types/config.ts:30](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L30)
+Defined in: [types/config.ts:30](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L30)
 
 Human-readable chain name (e.g., 'Ternoa Mainnet')
 
@@ -4023,7 +4023,7 @@ Human-readable chain name (e.g., 'Ternoa Mainnet')
 
 > **rpcUrl**: `string`
 
-Defined in: [types/config.ts:32](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L32)
+Defined in: [types/config.ts:32](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L32)
 
 HTTP RPC URL for this chain
 
@@ -4031,7 +4031,7 @@ HTTP RPC URL for this chain
 
 > `optional` **wsRpcUrl**: `string`
 
-Defined in: [types/config.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L34)
+Defined in: [types/config.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L34)
 
 WebSocket RPC URL for this chain (optional, for subscriptions)
 
@@ -4039,7 +4039,7 @@ WebSocket RPC URL for this chain (optional, for subscriptions)
 
 > **secretsControllerAddress**: `` `0x${string}` ``
 
-Defined in: [types/config.ts:36](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L36)
+Defined in: [types/config.ts:36](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L36)
 
 SecretsController contract address on this chain
 
@@ -4047,7 +4047,7 @@ SecretsController contract address on this chain
 
 > `optional` **blockTimeMs**: `number`
 
-Defined in: [types/config.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L38)
+Defined in: [types/config.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L38)
 
 Block time in milliseconds (used for timeout calculations)
 
@@ -4055,7 +4055,7 @@ Block time in milliseconds (used for timeout calculations)
 
 ### DiscoveryResult
 
-Defined in: [types/config.ts:54](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L54)
+Defined in: [types/config.ts:54](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L54)
 
 Result of calling the blackbox /healthz endpoint.
 
@@ -4074,7 +4074,7 @@ This allows the SDK to work without hardcoded configuration.
 
 > **status**: `string`
 
-Defined in: [types/config.ts:56](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L56)
+Defined in: [types/config.ts:56](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L56)
 
 Status of the blackbox service ('ok' when healthy)
 
@@ -4082,7 +4082,7 @@ Status of the blackbox service ('ok' when healthy)
 
 > **enclaveWalletAddress**: `` `0x${string}` ``
 
-Defined in: [types/config.ts:58](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L58)
+Defined in: [types/config.ts:58](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L58)
 
 Enclave wallet address used by the blackbox for on-chain verification
 
@@ -4090,7 +4090,7 @@ Enclave wallet address used by the blackbox for on-chain verification
 
 > **supportedChains**: `number`[]
 
-Defined in: [types/config.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L60)
+Defined in: [types/config.ts:60](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L60)
 
 List of supported chain IDs
 
@@ -4098,7 +4098,7 @@ List of supported chain IDs
 
 > **chains**: [`ChainConfig`](#chainconfig)[]
 
-Defined in: [types/config.ts:62](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L62)
+Defined in: [types/config.ts:62](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L62)
 
 Per-chain configuration
 
@@ -4106,7 +4106,7 @@ Per-chain configuration
 
 > `optional` **ipfsGatewayUrl**: `string`
 
-Defined in: [types/config.ts:64](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L64)
+Defined in: [types/config.ts:64](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L64)
 
 IPFS gateway URL for fetching public keys
 
@@ -4114,7 +4114,7 @@ IPFS gateway URL for fetching public keys
 
 > **fetchedAt**: `number`
 
-Defined in: [types/config.ts:66](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L66)
+Defined in: [types/config.ts:66](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L66)
 
 Unix timestamp (ms) when this discovery result was fetched
 
@@ -4122,7 +4122,7 @@ Unix timestamp (ms) when this discovery result was fetched
 
 ### CiferSdkConfig
 
-Defined in: [types/config.ts:105](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L105)
+Defined in: [types/config.ts:105](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L105)
 
 SDK configuration options.
 
@@ -4164,7 +4164,7 @@ const sdk = await createCiferSdk({
 
 > `optional` **blackboxUrl**: `string`
 
-Defined in: [types/config.ts:116](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L116)
+Defined in: [types/config.ts:116](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L116)
 
 Blackbox URL (e.g., 'https://cifer-blackbox.ternoa.dev:3010').
 
@@ -4180,7 +4180,7 @@ via `chainOverrides` for all operations.
 
 > `optional` **signer**: [`SignerAdapter`](#signeradapter)
 
-Defined in: [types/config.ts:125](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L125)
+Defined in: [types/config.ts:125](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L125)
 
 Default signer adapter to use for signing operations.
 
@@ -4193,7 +4193,7 @@ that requires signing must receive a signer explicitly.
 
 > `optional` **readClient**: [`ReadClient`](#readclient-1)
 
-Defined in: [types/config.ts:134](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L134)
+Defined in: [types/config.ts:134](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L134)
 
 Default read client for RPC operations.
 
@@ -4206,7 +4206,7 @@ create a read client using RPC URLs from discovery.
 
 > `optional` **chainOverrides**: `Record`\<`number`, `Partial`\<[`ChainConfig`](#chainconfig)\>\>
 
-Defined in: [types/config.ts:158](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L158)
+Defined in: [types/config.ts:158](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L158)
 
 Chain configuration overrides.
 
@@ -4235,7 +4235,7 @@ taking precedence.
 
 > `optional` **discoveryCacheTtlMs**: `number`
 
-Defined in: [types/config.ts:168](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L168)
+Defined in: [types/config.ts:168](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L168)
 
 Discovery cache TTL in milliseconds.
 
@@ -4253,7 +4253,7 @@ Discovery results are cached in memory to avoid repeated network calls.
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [types/config.ts:176](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L176)
+Defined in: [types/config.ts:176](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L176)
 
 Custom fetch implementation.
 
@@ -4281,7 +4281,7 @@ Useful for testing or environments without native fetch.
 
 > `optional` **logger**: (`message`) => `void`
 
-Defined in: [types/config.ts:191](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L191)
+Defined in: [types/config.ts:191](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L191)
 
 Logger function for debugging.
 
@@ -4311,7 +4311,7 @@ Called with progress messages during SDK operations.
 
 ### ResolvedChainConfig
 
-Defined in: [types/config.ts:202](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L202)
+Defined in: [types/config.ts:202](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L202)
 
 Resolved configuration for a specific chain.
 
@@ -4329,7 +4329,7 @@ This extends [ChainConfig](#chainconfig) with metadata about the configuration s
 
 > **chainId**: `number`
 
-Defined in: [types/config.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L28)
+Defined in: [types/config.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L28)
 
 Chain ID
 
@@ -4341,7 +4341,7 @@ Chain ID
 
 > `optional` **name**: `string`
 
-Defined in: [types/config.ts:30](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L30)
+Defined in: [types/config.ts:30](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L30)
 
 Human-readable chain name (e.g., 'Ternoa Mainnet')
 
@@ -4353,7 +4353,7 @@ Human-readable chain name (e.g., 'Ternoa Mainnet')
 
 > **rpcUrl**: `string`
 
-Defined in: [types/config.ts:32](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L32)
+Defined in: [types/config.ts:32](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L32)
 
 HTTP RPC URL for this chain
 
@@ -4365,7 +4365,7 @@ HTTP RPC URL for this chain
 
 > `optional` **wsRpcUrl**: `string`
 
-Defined in: [types/config.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L34)
+Defined in: [types/config.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L34)
 
 WebSocket RPC URL for this chain (optional, for subscriptions)
 
@@ -4377,7 +4377,7 @@ WebSocket RPC URL for this chain (optional, for subscriptions)
 
 > **secretsControllerAddress**: `` `0x${string}` ``
 
-Defined in: [types/config.ts:36](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L36)
+Defined in: [types/config.ts:36](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L36)
 
 SecretsController contract address on this chain
 
@@ -4389,7 +4389,7 @@ SecretsController contract address on this chain
 
 > `optional` **blockTimeMs**: `number`
 
-Defined in: [types/config.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L38)
+Defined in: [types/config.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L38)
 
 Block time in milliseconds (used for timeout calculations)
 
@@ -4401,7 +4401,7 @@ Block time in milliseconds (used for timeout calculations)
 
 > **fromDiscovery**: `boolean`
 
-Defined in: [types/config.ts:204](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L204)
+Defined in: [types/config.ts:204](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L204)
 
 Whether this config came from discovery (true) or overrides only (false)
 
@@ -4409,7 +4409,7 @@ Whether this config came from discovery (true) or overrides only (false)
 
 ### SdkContext
 
-Defined in: [types/config.ts:216](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L216)
+Defined in: [types/config.ts:216](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L216)
 
 **`Internal`**
 
@@ -4426,7 +4426,7 @@ between SDK modules. It should not be used directly by SDK consumers.
 
 > **blackboxUrl**: `string`
 
-Defined in: [types/config.ts:218](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L218)
+Defined in: [types/config.ts:218](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L218)
 
 Blackbox base URL
 
@@ -4434,7 +4434,7 @@ Blackbox base URL
 
 > **discovery**: [`DiscoveryResult`](#discoveryresult) \| `null`
 
-Defined in: [types/config.ts:220](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L220)
+Defined in: [types/config.ts:220](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L220)
 
 Discovery result (may be null if not yet fetched)
 
@@ -4442,7 +4442,7 @@ Discovery result (may be null if not yet fetched)
 
 > **chainOverrides**: `Record`\<[`ChainId`](#chainid-1), `Partial`\<[`ChainConfig`](#chainconfig)\>\>
 
-Defined in: [types/config.ts:222](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L222)
+Defined in: [types/config.ts:222](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L222)
 
 Chain configuration overrides
 
@@ -4450,7 +4450,7 @@ Chain configuration overrides
 
 > `optional` **signer**: [`SignerAdapter`](#signeradapter)
 
-Defined in: [types/config.ts:224](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L224)
+Defined in: [types/config.ts:224](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L224)
 
 Default signer
 
@@ -4458,7 +4458,7 @@ Default signer
 
 > `optional` **readClient**: [`ReadClient`](#readclient-1)
 
-Defined in: [types/config.ts:226](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L226)
+Defined in: [types/config.ts:226](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L226)
 
 Default read client
 
@@ -4466,7 +4466,7 @@ Default read client
 
 > **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [types/config.ts:228](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L228)
+Defined in: [types/config.ts:228](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L228)
 
 Fetch implementation
 
@@ -4490,7 +4490,7 @@ Fetch implementation
 
 > **logger**: (`message`) => `void`
 
-Defined in: [types/config.ts:230](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/config.ts#L230)
+Defined in: [types/config.ts:230](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/config.ts#L230)
 
 Logger
 
@@ -4508,7 +4508,7 @@ Logger
 
 ### TxIntent
 
-Defined in: [types/tx-intent.ts:67](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L67)
+Defined in: [types/tx-intent.ts:67](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L67)
 
 A transaction intent represents a transaction that can be executed
 by any EIP-1193 compatible wallet or transaction executor.
@@ -4569,7 +4569,7 @@ const hash = await provider.request({
 
 > **chainId**: `number`
 
-Defined in: [types/tx-intent.ts:75](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L75)
+Defined in: [types/tx-intent.ts:75](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L75)
 
 The chain ID where this transaction should be executed.
 
@@ -4582,7 +4582,7 @@ before submitting the transaction.
 
 > **to**: `` `0x${string}` ``
 
-Defined in: [types/tx-intent.ts:80](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L80)
+Defined in: [types/tx-intent.ts:80](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L80)
 
 The recipient address (contract address for contract calls).
 
@@ -4590,7 +4590,7 @@ The recipient address (contract address for contract calls).
 
 > **data**: `` `0x${string}` ``
 
-Defined in: [types/tx-intent.ts:85](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L85)
+Defined in: [types/tx-intent.ts:85](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L85)
 
 The calldata for the transaction (ABI-encoded function call).
 
@@ -4598,7 +4598,7 @@ The calldata for the transaction (ABI-encoded function call).
 
 > `optional` **value**: `bigint`
 
-Defined in: [types/tx-intent.ts:94](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L94)
+Defined in: [types/tx-intent.ts:94](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L94)
 
 The value to send with the transaction (in wei).
 
@@ -4611,7 +4611,7 @@ this will be `undefined`.
 
 ### TxIntentWithMeta
 
-Defined in: [types/tx-intent.ts:106](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L106)
+Defined in: [types/tx-intent.ts:106](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L106)
 
 Extended transaction intent with additional metadata useful for UX and debugging.
 
@@ -4630,7 +4630,7 @@ human-readable descriptions and decoded arguments for display purposes.
 
 > **chainId**: `number`
 
-Defined in: [types/tx-intent.ts:75](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L75)
+Defined in: [types/tx-intent.ts:75](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L75)
 
 The chain ID where this transaction should be executed.
 
@@ -4647,7 +4647,7 @@ before submitting the transaction.
 
 > **to**: `` `0x${string}` ``
 
-Defined in: [types/tx-intent.ts:80](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L80)
+Defined in: [types/tx-intent.ts:80](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L80)
 
 The recipient address (contract address for contract calls).
 
@@ -4659,7 +4659,7 @@ The recipient address (contract address for contract calls).
 
 > **data**: `` `0x${string}` ``
 
-Defined in: [types/tx-intent.ts:85](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L85)
+Defined in: [types/tx-intent.ts:85](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L85)
 
 The calldata for the transaction (ABI-encoded function call).
 
@@ -4671,7 +4671,7 @@ The calldata for the transaction (ABI-encoded function call).
 
 > `optional` **value**: `bigint`
 
-Defined in: [types/tx-intent.ts:94](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L94)
+Defined in: [types/tx-intent.ts:94](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L94)
 
 The value to send with the transaction (in wei).
 
@@ -4688,7 +4688,7 @@ this will be `undefined`.
 
 > **description**: `string`
 
-Defined in: [types/tx-intent.ts:112](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L112)
+Defined in: [types/tx-intent.ts:112](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L112)
 
 Human-readable description of what this transaction does.
 
@@ -4702,7 +4702,7 @@ Human-readable description of what this transaction does.
 
 > **functionName**: `string`
 
-Defined in: [types/tx-intent.ts:119](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L119)
+Defined in: [types/tx-intent.ts:119](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L119)
 
 The function being called (for display purposes).
 
@@ -4716,7 +4716,7 @@ The function being called (for display purposes).
 
 > `optional` **args**: `Record`\<`string`, `unknown`\>
 
-Defined in: [types/tx-intent.ts:128](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L128)
+Defined in: [types/tx-intent.ts:128](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L128)
 
 The decoded arguments (for display purposes).
 
@@ -4729,7 +4729,7 @@ BigInt values are converted to strings for JSON serialization.
 
 ### TxExecutionResult
 
-Defined in: [types/tx-intent.ts:136](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L136)
+Defined in: [types/tx-intent.ts:136](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L136)
 
 Result of executing a transaction intent.
 
@@ -4739,7 +4739,7 @@ Result of executing a transaction intent.
 
 > **hash**: `` `0x${string}` ``
 
-Defined in: [types/tx-intent.ts:140](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L140)
+Defined in: [types/tx-intent.ts:140](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L140)
 
 The transaction hash.
 
@@ -4747,7 +4747,7 @@ The transaction hash.
 
 > **waitReceipt**: () => `Promise`\<[`TransactionReceipt`](#transactionreceipt)\>
 
-Defined in: [types/tx-intent.ts:147](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L147)
+Defined in: [types/tx-intent.ts:147](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L147)
 
 Function to wait for the transaction receipt.
 
@@ -4763,7 +4763,7 @@ A promise resolving to the transaction receipt
 
 > **Address** = `` `0x${string}` ``
 
-Defined in: [types/common.ts:29](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L29)
+Defined in: [types/common.ts:29](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L29)
 
 Ethereum address (0x-prefixed, 40 hex characters).
 
@@ -4784,7 +4784,7 @@ const address: Address = '0x1234567890123456789012345678901234567890';
 
 > **Bytes32** = `` `0x${string}` ``
 
-Defined in: [types/common.ts:44](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L44)
+Defined in: [types/common.ts:44](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L44)
 
 Bytes32 hex string (0x-prefixed, 64 hex characters).
 
@@ -4804,7 +4804,7 @@ const hash: Bytes32 = '0x1234567890123456789012345678901234567890123456789012345
 
 > **Hex** = `` `0x${string}` ``
 
-Defined in: [types/common.ts:55](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L55)
+Defined in: [types/common.ts:55](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L55)
 
 Generic hex string (0x-prefixed).
 
@@ -4819,7 +4819,7 @@ signatures, and encoded messages.
 
 > **ChainId** = `number`
 
-Defined in: [types/common.ts:67](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L67)
+Defined in: [types/common.ts:67](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L67)
 
 Chain ID as a number.
 
@@ -4835,7 +4835,7 @@ Common chain IDs used with CIFER:
 
 > **SecretId** = `bigint`
 
-Defined in: [types/common.ts:78](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L78)
+Defined in: [types/common.ts:78](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L78)
 
 Secret ID (uint256 on-chain, represented as bigint).
 
@@ -4850,7 +4850,7 @@ when new secrets are created.
 
 > **BlockNumber** = `number`
 
-Defined in: [types/common.ts:85](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L85)
+Defined in: [types/common.ts:85](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L85)
 
 Block number.
 
@@ -4860,7 +4860,7 @@ Block number.
 
 > **OutputFormat** = `"hex"` \| `"base64"`
 
-Defined in: [types/common.ts:96](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L96)
+Defined in: [types/common.ts:96](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L96)
 
 Output format for blackbox encryption operations.
 
@@ -4875,7 +4875,7 @@ Output format for blackbox encryption operations.
 
 > **InputFormat** = `"hex"` \| `"base64"`
 
-Defined in: [types/common.ts:107](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L107)
+Defined in: [types/common.ts:107](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L107)
 
 Input format for blackbox decryption operations.
 
@@ -4890,7 +4890,7 @@ Input format for blackbox decryption operations.
 
 > **JobStatus** = `"pending"` \| `"processing"` \| `"completed"` \| `"failed"` \| `"expired"`
 
-Defined in: [types/common.ts:120](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L120)
+Defined in: [types/common.ts:120](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L120)
 
 Job status as returned by the blackbox.
 
@@ -4907,7 +4907,7 @@ Job lifecycle:
 
 > **JobType** = `"encrypt"` \| `"decrypt"`
 
-Defined in: [types/common.ts:127](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/common.ts#L127)
+Defined in: [types/common.ts:127](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/common.ts#L127)
 
 Job type as returned by the blackbox.
 
@@ -4917,7 +4917,7 @@ Job type as returned by the blackbox.
 
 > **TxExecutor** = (`intent`) => `Promise`\<[`TxExecutionResult`](#txexecutionresult)\>
 
-Defined in: [types/tx-intent.ts:175](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/types/tx-intent.ts#L175)
+Defined in: [types/tx-intent.ts:175](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/types/tx-intent.ts#L175)
 
 Callback type for executing transaction intents.
 
@@ -4959,7 +4959,7 @@ const txExecutor: TxExecutor = async (intent) => {
 
 > `const` **CIFER\_ENCRYPTED\_ABI**: readonly \[\{ `type`: `"function"`; `name`: `"CIFER_ENVELOPE_BYTES"`; `inputs`: readonly \[\]; `outputs`: readonly \[\{ `name`: `""`; `type`: `"uint256"`; \}\]; `stateMutability`: `"pure"`; \}, \{ `type`: `"function"`; `name`: `"MAX_PAYLOAD_BYTES"`; `inputs`: readonly \[\]; `outputs`: readonly \[\{ `name`: `""`; `type`: `"uint256"`; \}\]; `stateMutability`: `"pure"`; \}, \{ `type`: `"function"`; `name`: `"getCIFERMetadata"`; `inputs`: readonly \[\{ `name`: `"dataId"`; `type`: `"bytes32"`; \}\]; `outputs`: readonly \[\{ `name`: `"secretId"`; `type`: `"uint256"`; \}, \{ `name`: `"storedAtBlock"`; `type`: `"uint64"`; \}, \{ `name`: `"ciferHash"`; `type`: `"bytes32"`; \}, \{ `name`: `"encryptedMessageHash"`; `type`: `"bytes32"`; \}\]; `stateMutability`: `"view"`; \}, \{ `type`: `"function"`; `name`: `"ciferDataExists"`; `inputs`: readonly \[\{ `name`: `"dataId"`; `type`: `"bytes32"`; \}\]; `outputs`: readonly \[\{ `name`: `"exists"`; `type`: `"bool"`; \}\]; `stateMutability`: `"view"`; \}, \{ `type`: `"event"`; `name`: `"CIFERDataStored"`; `inputs`: readonly \[\{ `name`: `"dataId"`; `type`: `"bytes32"`; `indexed`: `true`; \}, \{ `name`: `"secretId"`; `type`: `"uint256"`; `indexed`: `true`; \}, \{ `name`: `"cifer"`; `type`: `"bytes"`; `indexed`: `false`; \}, \{ `name`: `"encryptedMessage"`; `type`: `"bytes"`; `indexed`: `false`; \}, \{ `name`: `"ciferHash"`; `type`: `"bytes32"`; `indexed`: `false`; \}, \{ `name`: `"encryptedMessageHash"`; `type`: `"bytes32"`; `indexed`: `false`; \}\]; \}, \{ `type`: `"event"`; `name`: `"CIFERDataUpdated"`; `inputs`: readonly \[\{ `name`: `"dataId"`; `type`: `"bytes32"`; `indexed`: `true`; \}, \{ `name`: `"secretId"`; `type`: `"uint256"`; `indexed`: `true`; \}, \{ `name`: `"cifer"`; `type`: `"bytes"`; `indexed`: `false`; \}, \{ `name`: `"encryptedMessage"`; `type`: `"bytes"`; `indexed`: `false`; \}, \{ `name`: `"ciferHash"`; `type`: `"bytes32"`; `indexed`: `false`; \}, \{ `name`: `"encryptedMessageHash"`; `type`: `"bytes32"`; `indexed`: `false`; \}\]; \}, \{ `type`: `"event"`; `name`: `"CIFERDataDeleted"`; `inputs`: readonly \[\{ `name`: `"dataId"`; `type`: `"bytes32"`; `indexed`: `true`; \}\]; \}\]
 
-Defined in: [internal/abi/cifer-encrypted.ts:17](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/abi/cifer-encrypted.ts#L17)
+Defined in: [internal/abi/cifer-encrypted.ts:17](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/abi/cifer-encrypted.ts#L17)
 
 Minimal ABI fragment for ICiferEncrypted interface
 
@@ -4972,7 +4972,7 @@ that all contracts implementing ICiferEncrypted should have.
 
 > `const` **CIFER\_ENVELOPE\_BYTES**: `1104` = `1104`
 
-Defined in: [internal/abi/cifer-encrypted.ts:88](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/abi/cifer-encrypted.ts#L88)
+Defined in: [internal/abi/cifer-encrypted.ts:88](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/abi/cifer-encrypted.ts#L88)
 
 Constants for CIFER envelope sizes
 
@@ -4982,7 +4982,7 @@ Constants for CIFER envelope sizes
 
 > `const` **MAX\_PAYLOAD\_BYTES**: `16384` = `16384`
 
-Defined in: [internal/abi/cifer-encrypted.ts:89](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/abi/cifer-encrypted.ts#L89)
+Defined in: [internal/abi/cifer-encrypted.ts:89](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/abi/cifer-encrypted.ts#L89)
 
 ***
 
@@ -4990,7 +4990,7 @@ Defined in: [internal/abi/cifer-encrypted.ts:89](https://github.com/capsule-corp
 
 > `const` **SECRETS\_CONTROLLER\_ABI**: readonly \[\{ `type`: `"function"`; `name`: `"secretCreationFee"`; `inputs`: readonly \[\]; `outputs`: readonly \[\{ `name`: `""`; `type`: `"uint256"`; \}\]; `stateMutability`: `"view"`; \}, \{ `type`: `"function"`; `name`: `"defaultSecretType"`; `inputs`: readonly \[\]; `outputs`: readonly \[\{ `name`: `""`; `type`: `"uint8"`; \}\]; `stateMutability`: `"view"`; \}, \{ `type`: `"function"`; `name`: `"nextSecretId"`; `inputs`: readonly \[\]; `outputs`: readonly \[\{ `name`: `""`; `type`: `"uint256"`; \}\]; `stateMutability`: `"view"`; \}, \{ `type`: `"function"`; `name`: `"getSecretState"`; `inputs`: readonly \[\{ `name`: `"secretId"`; `type`: `"uint256"`; \}\]; `outputs`: readonly \[\{ `name`: `"owner"`; `type`: `"address"`; \}, \{ `name`: `"delegate"`; `type`: `"address"`; \}, \{ `name`: `"isSyncing"`; `type`: `"bool"`; \}, \{ `name`: `"clusterId"`; `type`: `"uint8"`; \}, \{ `name`: `"secretType"`; `type`: `"uint8"`; \}, \{ `name`: `"publicKeyCid"`; `type`: `"string"`; \}\]; `stateMutability`: `"view"`; \}, \{ `type`: `"function"`; `name`: `"getSecretOwner"`; `inputs`: readonly \[\{ `name`: `"secretId"`; `type`: `"uint256"`; \}\]; `outputs`: readonly \[\{ `name`: `""`; `type`: `"address"`; \}\]; `stateMutability`: `"view"`; \}, \{ `type`: `"function"`; `name`: `"getDelegate"`; `inputs`: readonly \[\{ `name`: `"secretId"`; `type`: `"uint256"`; \}\]; `outputs`: readonly \[\{ `name`: `""`; `type`: `"address"`; \}\]; `stateMutability`: `"view"`; \}, \{ `type`: `"function"`; `name`: `"getSecretsByWallet"`; `inputs`: readonly \[\{ `name`: `"wallet"`; `type`: `"address"`; \}\]; `outputs`: readonly \[\{ `name`: `"owned"`; `type`: `"uint256[]"`; \}, \{ `name`: `"delegated"`; `type`: `"uint256[]"`; \}\]; `stateMutability`: `"view"`; \}, \{ `type`: `"function"`; `name`: `"getSecretsCountByWallet"`; `inputs`: readonly \[\{ `name`: `"wallet"`; `type`: `"address"`; \}\]; `outputs`: readonly \[\{ `name`: `"ownedCount"`; `type`: `"uint256"`; \}, \{ `name`: `"delegatedCount"`; `type`: `"uint256"`; \}\]; `stateMutability`: `"view"`; \}, \{ `type`: `"function"`; `name`: `"createSecret"`; `inputs`: readonly \[\]; `outputs`: readonly \[\{ `name`: `"secretId"`; `type`: `"uint256"`; \}\]; `stateMutability`: `"payable"`; \}, \{ `type`: `"function"`; `name`: `"setDelegate"`; `inputs`: readonly \[\{ `name`: `"secretId"`; `type`: `"uint256"`; \}, \{ `name`: `"newDelegate"`; `type`: `"address"`; \}\]; `outputs`: readonly \[\]; `stateMutability`: `"nonpayable"`; \}, \{ `type`: `"function"`; `name`: `"transferSecret"`; `inputs`: readonly \[\{ `name`: `"secretId"`; `type`: `"uint256"`; \}, \{ `name`: `"newOwner"`; `type`: `"address"`; \}\]; `outputs`: readonly \[\]; `stateMutability`: `"nonpayable"`; \}, \{ `type`: `"event"`; `name`: `"SecretCreated"`; `inputs`: readonly \[\{ `name`: `"secretId"`; `type`: `"uint256"`; `indexed`: `true`; \}, \{ `name`: `"owner"`; `type`: `"address"`; `indexed`: `true`; \}, \{ `name`: `"secretType"`; `type`: `"uint8"`; `indexed`: `false`; \}\]; \}, \{ `type`: `"event"`; `name`: `"SecretSynced"`; `inputs`: readonly \[\{ `name`: `"secretId"`; `type`: `"uint256"`; `indexed`: `true`; \}, \{ `name`: `"clusterId"`; `type`: `"uint8"`; `indexed`: `true`; \}, \{ `name`: `"publicKeyCid"`; `type`: `"string"`; `indexed`: `false`; \}\]; \}, \{ `type`: `"event"`; `name`: `"DelegateUpdated"`; `inputs`: readonly \[\{ `name`: `"secretId"`; `type`: `"uint256"`; `indexed`: `true`; \}, \{ `name`: `"newDelegate"`; `type`: `"address"`; `indexed`: `true`; \}\]; \}, \{ `type`: `"event"`; `name`: `"SecretOwnershipTransferred"`; `inputs`: readonly \[\{ `name`: `"secretId"`; `type`: `"uint256"`; `indexed`: `true`; \}, \{ `name`: `"oldOwner"`; `type`: `"address"`; `indexed`: `true`; \}, \{ `name`: `"newOwner"`; `type`: `"address"`; `indexed`: `true`; \}\]; \}\]
 
-Defined in: [internal/abi/secrets-controller.ts:12](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/abi/secrets-controller.ts#L12)
+Defined in: [internal/abi/secrets-controller.ts:12](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/abi/secrets-controller.ts#L12)
 
 SecretsController ABI - user-facing subset for SDK
 Excludes admin/internal functions (addWhitelistedBlackBox, markSecretSynced, etc.)
@@ -5001,7 +5001,7 @@ Excludes admin/internal functions (addWhitelistedBlackBox, markSecretSynced, etc
 
 > **createCiferSdk**(`config`): `Promise`\<[`CiferSdk`](#cifersdk)\>
 
-Defined in: [index.ts:349](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L349)
+Defined in: [index.ts:349](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L349)
 
 Create a CIFER SDK instance with automatic discovery.
 
@@ -5056,7 +5056,7 @@ const sdk = await createCiferSdk({
 
 > **createCiferSdkSync**(`config`): [`CiferSdk`](#cifersdk)
 
-Defined in: [index.ts:465](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/index.ts#L465)
+Defined in: [index.ts:465](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/index.ts#L465)
 
 Create a CIFER SDK instance synchronously (without discovery).
 
@@ -5100,9 +5100,9 @@ const sdk = createCiferSdkSync({
 
 ### createReadClientFromDiscovery()
 
-> **createReadClientFromDiscovery**(`chains`): [`RpcReadClient`](#rpcreadclient)
+> **createReadClientFromDiscovery**(`chains`, `options?`): [`RpcReadClient`](#rpcreadclient)
 
-Defined in: [internal/adapters/rpc-read-client.ts:275](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/adapters/rpc-read-client.ts#L275)
+Defined in: [internal/adapters/rpc-read-client.ts:275](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/adapters/rpc-read-client.ts#L275)
 
 Create a read client from discovery result
 
@@ -5113,6 +5113,12 @@ Create a read client from discovery result
 `object`[]
 
 Array of chain configs from discovery
+
+##### options?
+
+###### fetch?
+
+(`input`, `init?`) => `Promise`\<`Response`\>
 
 #### Returns
 
@@ -5133,7 +5139,7 @@ const readClient = createReadClientFromDiscovery(discovery.chains);
 
 > **getFreshBlockNumber**(`chainId`, `readClient`): `Promise`\<`number`\>
 
-Defined in: [internal/auth/block-freshness.ts:56](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/auth/block-freshness.ts#L56)
+Defined in: [internal/auth/block-freshness.ts:56](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/auth/block-freshness.ts#L56)
 
 Get a fresh block number for signing
 
@@ -5179,7 +5185,7 @@ const dataString = buildEncryptPayloadDataString({
 
 > **withBlockFreshRetry**\<`T`\>(`fn`, `readClient`, `chainId`, `options?`): `Promise`\<`T`\>
 
-Defined in: [internal/auth/block-freshness.ts:116](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/auth/block-freshness.ts#L116)
+Defined in: [internal/auth/block-freshness.ts:116](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/auth/block-freshness.ts#L116)
 
 Wrap an async function with block freshness retry logic
 
@@ -5253,7 +5259,7 @@ const result = await withBlockFreshRetry(
 
 > **buildDataString**(`parts`): `string`
 
-Defined in: [internal/auth/data-string.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/auth/data-string.ts#L27)
+Defined in: [internal/auth/data-string.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/auth/data-string.ts#L27)
 
 Build an underscore-delimited data string from parts
 
@@ -5288,7 +5294,7 @@ const data = buildDataString(['752025', '123', '0xabc...', '4200000', 'my secret
 
 > **buildEncryptPayloadDataString**(`params`): `string`
 
-Defined in: [internal/auth/data-string.ts:42](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/auth/data-string.ts#L42)
+Defined in: [internal/auth/data-string.ts:42](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/auth/data-string.ts#L42)
 
 Build data string for encrypt-payload endpoint
 
@@ -5335,7 +5341,7 @@ The data string to be signed
 
 > **buildDecryptPayloadDataString**(`params`): `string`
 
-Defined in: [internal/auth/data-string.ts:66](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/auth/data-string.ts#L66)
+Defined in: [internal/auth/data-string.ts:66](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/auth/data-string.ts#L66)
 
 Build data string for decrypt-payload endpoint
 
@@ -5379,7 +5385,7 @@ The data string to be signed
 
 > **buildFileOperationDataString**(`params`): `string`
 
-Defined in: [internal/auth/data-string.ts:90](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/auth/data-string.ts#L90)
+Defined in: [internal/auth/data-string.ts:90](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/auth/data-string.ts#L90)
 
 Build data string for file operations (encrypt-file, decrypt-file, decrypt-existing-file)
 
@@ -5419,7 +5425,7 @@ The data string to be signed
 
 > **buildJobDownloadDataString**(`params`): `string`
 
-Defined in: [internal/auth/data-string.ts:112](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/auth/data-string.ts#L112)
+Defined in: [internal/auth/data-string.ts:112](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/auth/data-string.ts#L112)
 
 Build data string for job download
 
@@ -5463,7 +5469,7 @@ The data string to be signed
 
 > **buildJobDeleteDataString**(`params`): `string`
 
-Defined in: [internal/auth/data-string.ts:137](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/auth/data-string.ts#L137)
+Defined in: [internal/auth/data-string.ts:137](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/auth/data-string.ts#L137)
 
 Build data string for job delete
 
@@ -5507,7 +5513,7 @@ The data string to be signed
 
 > **buildJobsListDataString**(`params`): `string`
 
-Defined in: [internal/auth/data-string.ts:163](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/auth/data-string.ts#L163)
+Defined in: [internal/auth/data-string.ts:163](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/auth/data-string.ts#L163)
 
 Build data string for jobs list and data consumption
 
@@ -5548,7 +5554,7 @@ The data string to be signed
 
 > **signDataString**(`data`, `signer`): `Promise`\<`SignedData`\>
 
-Defined in: [internal/auth/signer.ts:46](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/auth/signer.ts#L46)
+Defined in: [internal/auth/signer.ts:46](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/auth/signer.ts#L46)
 
 Sign a data string using the provided signer
 
@@ -5596,7 +5602,7 @@ const signed = await signDataString(dataString, signerAdapter);
 
 > **discover**(`blackboxUrl`, `options?`): `Promise`\<[`DiscoveryResult`](#discoveryresult)\>
 
-Defined in: [internal/config/discovery.ts:71](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/config/discovery.ts#L71)
+Defined in: [internal/config/discovery.ts:71](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/config/discovery.ts#L71)
 
 Discover blackbox configuration by calling /healthz
 
@@ -5659,7 +5665,7 @@ console.log('Ternoa RPC:', ternoaConfig?.rpcUrl);
 
 > **clearDiscoveryCache**(`blackboxUrl?`): `void`
 
-Defined in: [internal/config/discovery.ts:168](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/config/discovery.ts#L168)
+Defined in: [internal/config/discovery.ts:168](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/config/discovery.ts#L168)
 
 Clear the discovery cache
 
@@ -5681,7 +5687,7 @@ If provided, only clear cache for this URL. Otherwise clear all.
 
 > **getSupportedChainIds**(`discovery`): `number`[]
 
-Defined in: [internal/config/discovery.ts:180](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/config/discovery.ts#L180)
+Defined in: [internal/config/discovery.ts:180](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/config/discovery.ts#L180)
 
 Get supported chain IDs from discovery result
 
@@ -5701,7 +5707,7 @@ Get supported chain IDs from discovery result
 
 > **isChainSupported**(`discovery`, `chainId`): `boolean`
 
-Defined in: [internal/config/discovery.ts:187](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/config/discovery.ts#L187)
+Defined in: [internal/config/discovery.ts:187](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/config/discovery.ts#L187)
 
 Check if a chain ID is supported
 
@@ -5725,7 +5731,7 @@ Check if a chain ID is supported
 
 > **resolveChain**(`chainId`, `discovery`, `overrides?`): [`ResolvedChainConfig`](#resolvedchainconfig)
 
-Defined in: [internal/config/resolver.ts:43](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/config/resolver.ts#L43)
+Defined in: [internal/config/resolver.ts:43](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/config/resolver.ts#L43)
 
 Resolve chain configuration by merging discovery with overrides
 
@@ -5783,7 +5789,7 @@ const config = resolveChain(752025, null, {
 
 > **resolveAllChains**(`discovery`, `overrides?`): `Map`\<`number`, [`ResolvedChainConfig`](#resolvedchainconfig)\>
 
-Defined in: [internal/config/resolver.ts:95](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/config/resolver.ts#L95)
+Defined in: [internal/config/resolver.ts:95](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/config/resolver.ts#L95)
 
 Resolve all chains from discovery, applying overrides
 
@@ -5807,7 +5813,7 @@ Resolve all chains from discovery, applying overrides
 
 > **getRpcUrl**(`chainId`, `discovery`, `overrides?`): `string`
 
-Defined in: [internal/config/resolver.ts:131](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/config/resolver.ts#L131)
+Defined in: [internal/config/resolver.ts:131](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/config/resolver.ts#L131)
 
 Get the RPC URL for a chain
 
@@ -5835,7 +5841,7 @@ Get the RPC URL for a chain
 
 > **getSecretsControllerAddress**(`chainId`, `discovery`, `overrides?`): `string`
 
-Defined in: [internal/config/resolver.ts:143](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/config/resolver.ts#L143)
+Defined in: [internal/config/resolver.ts:143](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/config/resolver.ts#L143)
 
 Get the SecretsController address for a chain
 
@@ -5863,7 +5869,7 @@ Get the SecretsController address for a chain
 
 > **isCiferError**(`error`): `error is CiferError`
 
-Defined in: [internal/errors/index.ts:677](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L677)
+Defined in: [internal/errors/index.ts:677](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L677)
 
 Check if an error is a CIFER SDK error.
 
@@ -5901,7 +5907,7 @@ try {
 
 > **isBlockStaleError**(`error`): `error is BlockStaleError`
 
-Defined in: [internal/errors/index.ts:689](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L689)
+Defined in: [internal/errors/index.ts:689](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L689)
 
 Check if an error indicates a stale block number.
 
@@ -5925,7 +5931,7 @@ The error to check
 
 > **isSecretNotReadyError**(`error`): `error is SecretNotReadyError`
 
-Defined in: [internal/errors/index.ts:701](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L701)
+Defined in: [internal/errors/index.ts:701](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L701)
 
 Check if an error indicates the secret is not ready.
 
@@ -5949,7 +5955,7 @@ The error to check
 
 > **parseBlackboxErrorResponse**(`response`, `statusCode`, `endpoint`): [`BlackboxError`](#blackboxerror)
 
-Defined in: [internal/errors/index.ts:722](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/1201f5773b5043db0124e6cc685a9c29cc3e677f/src/internal/errors/index.ts#L722)
+Defined in: [internal/errors/index.ts:722](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/9e54f19f9c97288adfe41940d0eb2984cd23f717/src/internal/errors/index.ts#L722)
 
 **`Internal`**
 

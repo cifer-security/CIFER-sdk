@@ -517,7 +517,9 @@ export function createCiferSdkSync(config: CiferSdkConfig & {
 export function createReadClientFromDiscovery(chains: Array<{
     chainId: ChainId;
     rpcUrl: string;
-}>): RpcReadClient;
+}>, options?: {
+    fetch?: typeof fetch;
+}): RpcReadClient;
 
 // @public
 function createSecretAndWaitReady(ctx: FlowContext, options?: FlowOptions): Promise<FlowResult<CreateSecretResult>>;

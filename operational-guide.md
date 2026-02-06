@@ -31,6 +31,10 @@ npm version patch  # or minor/major
 
 # 3. Build and publish (prepublishOnly runs automatically)
 npm publish --access public
+
+or
+# Build and publish release candidate (make sure package.json have version with rc like 1.0.0-rc1)
+npm publish --access public --tag rc
 ```
 
 ## Build Documentation

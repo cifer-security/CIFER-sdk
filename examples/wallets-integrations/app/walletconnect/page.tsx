@@ -21,6 +21,7 @@
  *   - fetch-fee.tsx        → getSecretCreationFee      (read)
  *   - get-secrets.tsx      → getSecretsByWallet        (read)
  *   - get-secret.tsx       → getSecret                 (read)
+ *   - create-secret.tsx    → buildCreateSecretTx       (write via WalletConnect)
  *   - set-delegate.tsx     → buildSetDelegateTx        (write via WalletConnect)
  *   - remove-delegation.tsx→ buildRemoveDelegationTx   (write via WalletConnect)
  *   - transfer-secret.tsx  → buildTransferSecretTx     (write via WalletConnect)
@@ -62,6 +63,7 @@ import EthereumProvider from "@walletconnect/ethereum-provider"
 import { FetchFee } from "./fetch-fee"
 import { GetSecrets } from "./get-secrets"
 import { GetSecret } from "./get-secret"
+import { CreateSecret } from "./create-secret"
 import { SetDelegate } from "./set-delegate"
 import { RemoveDelegation } from "./remove-delegation"
 import { TransferSecret } from "./transfer-secret"
@@ -431,6 +433,17 @@ export default function WalletConnectPage() {
                       sdk={sdk}
                       chainId={chainId}
                       address={address}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Create Secret — write, sends tx via WalletConnect provider */}
+                  {address && wcProviderRef.current && (
+                    <CreateSecret
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={address}
+                      provider={wcProviderRef.current}
                       log={log}
                     />
                   )}

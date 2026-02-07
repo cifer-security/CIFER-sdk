@@ -19,6 +19,7 @@
  *   - fetch-fee.tsx        → getSecretCreationFee      (read)
  *   - get-secrets.tsx      → getSecretsByWallet        (read)
  *   - get-secret.tsx       → getSecret                 (read)
+ *   - create-secret.tsx    → buildCreateSecretTx       (write via Thirdweb Account)
  *   - set-delegate.tsx     → buildSetDelegateTx        (write via Thirdweb Account)
  *   - remove-delegation.tsx→ buildRemoveDelegationTx   (write via Thirdweb Account)
  *   - transfer-secret.tsx  → buildTransferSecretTx     (write via Thirdweb Account)
@@ -69,6 +70,7 @@ import type { Account } from "thirdweb/wallets"
 import { FetchFee } from "./fetch-fee"
 import { GetSecrets } from "./get-secrets"
 import { GetSecret } from "./get-secret"
+import { CreateSecret } from "./create-secret"
 import { SetDelegate } from "./set-delegate"
 import { RemoveDelegation } from "./remove-delegation"
 import { TransferSecret } from "./transfer-secret"
@@ -432,6 +434,18 @@ function ThirdwebIntegration() {
                       sdk={sdk}
                       chainId={chainId}
                       address={account.address}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Create Secret — write, sends tx via Thirdweb Account */}
+                  {account && (
+                    <CreateSecret
+                      sdk={sdk}
+                      chainId={chainId}
+                      account={account}
+                      thirdwebClient={thirdwebClient}
+                      getThirdwebChain={getThirdwebChain}
                       log={log}
                     />
                   )}

@@ -23,6 +23,7 @@
  *   - fetch-fee.tsx        → getSecretCreationFee      (read)
  *   - get-secrets.tsx      → getSecretsByWallet        (read)
  *   - get-secret.tsx       → getSecret                 (read)
+ *   - create-secret.tsx    → buildCreateSecretTx       (write via MetaMask)
  *   - set-delegate.tsx     → buildSetDelegateTx        (write via MetaMask)
  *   - remove-delegation.tsx→ buildRemoveDelegationTx   (write via MetaMask)
  *   - transfer-secret.tsx  → buildTransferSecretTx     (write via MetaMask)
@@ -56,6 +57,7 @@ import {
 import { FetchFee } from "./fetch-fee"
 import { GetSecrets } from "./get-secrets"
 import { GetSecret } from "./get-secret"
+import { CreateSecret } from "./create-secret"
 import { SetDelegate } from "./set-delegate"
 import { RemoveDelegation } from "./remove-delegation"
 import { TransferSecret } from "./transfer-secret"
@@ -368,6 +370,16 @@ export default function MetaMaskPage() {
                   {/* Get Secrets — read-only, needs wallet address */}
                   {address && (
                     <GetSecrets
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={address}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Create Secret — write, sends tx via MetaMask */}
+                  {address && (
+                    <CreateSecret
                       sdk={sdk}
                       chainId={chainId}
                       address={address}

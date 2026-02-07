@@ -253,10 +253,24 @@ export default function MetaMaskPage() {
                     <div className="relative">
                       <select
                         value={chainId ?? ""}
-                        onChange={(e) => {
+                        onChange={async (e) => {
                           const newChain = Number(e.target.value)
                           setChainId(newChain)
                           log(`Switched to ${getChainName(newChain)} (${newChain})`)
+
+                          // Ask MetaMask to switch to the selected chain
+                          if (window.ethereum && address) {
+                            try {
+                              await window.ethereum.request({
+                                method: "wallet_switchEthereumChain",
+                                params: [{ chainId: `0x${newChain.toString(16)}` }],
+                              })
+                              log(`MetaMask switched to chain ${newChain}`)
+                            } catch (err) {
+                              const msg = err instanceof Error ? err.message : String(err)
+                              log(`MetaMask chain switch failed: ${msg}`)
+                            }
+                          }
                         }}
                         className="
                           w-full appearance-none

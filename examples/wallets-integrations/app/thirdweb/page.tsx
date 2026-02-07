@@ -319,10 +319,21 @@ function ThirdwebIntegration() {
                     <div className="relative">
                       <select
                         value={chainId ?? ""}
-                        onChange={(e) => {
+                        onChange={async (e) => {
                           const newChain = Number(e.target.value)
                           setChainId(newChain)
                           log(`Switched to ${getChainName(newChain)} (${newChain})`)
+
+                          // Ask Thirdweb wallet to switch to the selected chain
+                          if (wallet) {
+                            try {
+                              await wallet.switchChain(getThirdwebChain(newChain))
+                              log(`Wallet switched to chain ${newChain}`)
+                            } catch (err) {
+                              const msg = err instanceof Error ? err.message : String(err)
+                              log(`Wallet chain switch failed: ${msg}`)
+                            }
+                          }
                         }}
                         className="
                           w-full appearance-none

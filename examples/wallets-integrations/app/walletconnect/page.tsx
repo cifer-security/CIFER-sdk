@@ -69,6 +69,8 @@ import { RemoveDelegation } from "./remove-delegation"
 import { TransferSecret } from "./transfer-secret"
 import { EncryptPayload } from "./encrypt-payload"
 import { DecryptPayload } from "./decrypt-payload"
+import { EncryptFile } from "./encrypt-file"
+import { DecryptFile } from "./decrypt-file"
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -495,6 +497,28 @@ export default function WalletConnectPage() {
                   {/* Decrypt Payload — blackbox API, needs signer */}
                   {address && wcProviderRef.current && (
                     <DecryptPayload
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={address}
+                      provider={wcProviderRef.current}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Encrypt File — flow, needs signer */}
+                  {address && wcProviderRef.current && (
+                    <EncryptFile
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={address}
+                      provider={wcProviderRef.current}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Decrypt File — flow, needs signer */}
+                  {address && wcProviderRef.current && (
+                    <DecryptFile
                       sdk={sdk}
                       chainId={chainId}
                       address={address}

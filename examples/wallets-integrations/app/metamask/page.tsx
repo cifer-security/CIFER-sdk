@@ -63,6 +63,8 @@ import { RemoveDelegation } from "./remove-delegation"
 import { TransferSecret } from "./transfer-secret"
 import { EncryptPayload } from "./encrypt-payload"
 import { DecryptPayload } from "./decrypt-payload"
+import { EncryptFile } from "./encrypt-file"
+import { DecryptFile } from "./decrypt-file"
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -70,6 +72,7 @@ import { DecryptPayload } from "./decrypt-payload"
 
 /** The Blackbox API URL used for SDK discovery */
 const BLACKBOX_URL = "https://cifer-blackbox.ternoa.dev:3010"
+// const BLACKBOX_URL = "http://localhost:3001"
 
 // ---------------------------------------------------------------------------
 // TypeScript: Extend Window to include MetaMask's ethereum provider
@@ -430,6 +433,26 @@ export default function MetaMaskPage() {
                   {/* Decrypt Payload — blackbox API, needs signer */}
                   {address && (
                     <DecryptPayload
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={address}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Encrypt File — flow, needs signer */}
+                  {address && (
+                    <EncryptFile
+                      sdk={sdk}
+                      chainId={chainId}
+                      address={address}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Decrypt File — flow, needs signer */}
+                  {address && (
+                    <DecryptFile
                       sdk={sdk}
                       chainId={chainId}
                       address={address}

@@ -76,6 +76,8 @@ import { RemoveDelegation } from "./remove-delegation"
 import { TransferSecret } from "./transfer-secret"
 import { EncryptPayload } from "./encrypt-payload"
 import { DecryptPayload } from "./decrypt-payload"
+import { EncryptFile } from "./encrypt-file"
+import { DecryptFile } from "./decrypt-file"
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -499,6 +501,26 @@ function ThirdwebIntegration() {
                   {/* Decrypt Payload — blackbox API, needs signer */}
                   {account && (
                     <DecryptPayload
+                      sdk={sdk}
+                      chainId={chainId}
+                      account={account}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Encrypt File — flow, needs signer */}
+                  {account && (
+                    <EncryptFile
+                      sdk={sdk}
+                      chainId={chainId}
+                      account={account}
+                      log={log}
+                    />
+                  )}
+
+                  {/* Decrypt File — flow, needs signer */}
+                  {account && (
+                    <DecryptFile
                       sdk={sdk}
                       chainId={chainId}
                       account={account}

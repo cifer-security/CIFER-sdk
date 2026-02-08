@@ -39,31 +39,36 @@ import { flows, Eip1193SignerAdapter, type CiferSdk } from "cifer-sdk"
 import type EthereumProvider from "@walletconnect/ethereum-provider"
 
 // ---------------------------------------------------------------------------
-// Upload progress tracking
+// Transfer progress tracking (upload + download)
 // ---------------------------------------------------------------------------
 
 /**
- * Create a fetch wrapper that reports upload progress for POST+FormData
- * requests. Uses XMLHttpRequest under the hood for upload.onprogress support.
+ * Create a fetch wrapper that reports upload and download progress.
+ * - Upload: POST+FormData requests use XMLHttpRequest for upload.onprogress.
+ * - Download: Responses from /download URLs are streamed via ReadableStream
+ *   to track bytes received against Content-Length.
  * All other requests fall through to native fetch.
  */
-function createTrackedFetch(
-  onProgress: (loaded: number, total: number) => void
-): typeof fetch {
-  return ((input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
-    if (init?.method?.toUpperCase() === "POST" && init?.body instanceof FormData) {
+function createTrackedFetch(callbacks: {
+  onUploadProgress?: (loaded: number, total: number) => void
+  onDownloadProgress?: (loaded: number, total: number) => void
+}): typeof fetch {
+  return (async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+    const url =
+      typeof input === "string"
+        ? input
+        : input instanceof URL
+          ? input.toString()
+          : (input as Request).url
+
+    // Upload tracking: POST+FormData → use XHR for upload.onprogress
+    if (callbacks.onUploadProgress && init?.method?.toUpperCase() === "POST" && init?.body instanceof FormData) {
       return new Promise<Response>((resolve, reject) => {
         const xhr = new XMLHttpRequest()
-        const url =
-          typeof input === "string"
-            ? input
-            : input instanceof URL
-              ? input.toString()
-              : (input as Request).url
         xhr.open("POST", url)
 
         xhr.upload.onprogress = (e) => {
-          if (e.lengthComputable) onProgress(e.loaded, e.total)
+          if (e.lengthComputable) callbacks.onUploadProgress!(e.loaded, e.total)
         }
 
         xhr.onload = () => {
@@ -76,10 +81,40 @@ function createTrackedFetch(
         }
 
         xhr.onerror = () => reject(new TypeError("Network request failed"))
-        xhr.send(init.body)
+        xhr.send(init.body as FormData)
       })
     }
-    return fetch(input, init)
+
+    // Normal fetch for all other requests
+    const response = await fetch(input, init)
+
+    // Download tracking: wrap response body for /download URLs
+    if (callbacks.onDownloadProgress && response.body && url.includes("/download")) {
+      const contentLength = Number(response.headers.get("content-length") || 0)
+      if (contentLength > 0) {
+        let loaded = 0
+        const reader = response.body.getReader()
+        const stream = new ReadableStream({
+          async pull(controller) {
+            const { done, value } = await reader.read()
+            if (done) {
+              controller.close()
+              return
+            }
+            loaded += value.byteLength
+            callbacks.onDownloadProgress!(loaded, contentLength)
+            controller.enqueue(value)
+          },
+        })
+        return new Response(stream, {
+          status: response.status,
+          statusText: response.statusText,
+          headers: response.headers,
+        })
+      }
+    }
+
+    return response
   }) as typeof fetch
 }
 
@@ -134,6 +169,9 @@ export function DecryptFile({ sdk, chainId, address, provider, log }: DecryptFil
   const [uploadProgress, setUploadProgress] = useState<number>(0)
   const [uploadSpeed, setUploadSpeed] = useState<string>("")
   const uploadStartRef = useRef<number>(0)
+  const [downloadProgress, setDownloadProgress] = useState<number>(0)
+  const [downloadSpeed, setDownloadSpeed] = useState<string>("")
+  const downloadStartRef = useRef<number>(0)
 
   // =========================================================================
   // Validate that file has .cifer.zip extension
@@ -202,6 +240,9 @@ export function DecryptFile({ sdk, chainId, address, provider, log }: DecryptFil
       setProgress(0)
       setUploadProgress(0)
       setUploadSpeed("")
+      setDownloadProgress(0)
+      setDownloadSpeed("")
+      downloadStartRef.current = 0
       setSteps([
         { id: "upload", description: "Upload encrypted file for decryption", status: "pending" },
         { id: "poll", description: "Wait for decryption to complete", status: "pending" },
@@ -213,7 +254,7 @@ export function DecryptFile({ sdk, chainId, address, provider, log }: DecryptFil
       // Create a signer from the WalletConnect EIP-1193 provider
       const signer = new Eip1193SignerAdapter(provider as any)
 
-      // Build the flow context with upload progress tracking
+      // Build the flow context with upload + download progress tracking
       uploadStartRef.current = Date.now()
 
       const ctx: flows.FlowContext = {
@@ -226,13 +267,24 @@ export function DecryptFile({ sdk, chainId, address, provider, log }: DecryptFil
           const match = msg.match(/Progress: (\d+)%/)
           if (match) setProgress(Number(match[1]))
         },
-        fetch: createTrackedFetch((loaded, total) => {
-          const pct = Math.round((loaded / total) * 100)
-          setUploadProgress(pct)
-          const elapsed = (Date.now() - uploadStartRef.current) / 1000
-          if (elapsed > 0.3) {
-            setUploadSpeed(formatSpeed(loaded / elapsed))
-          }
+        fetch: createTrackedFetch({
+          onUploadProgress: (loaded, total) => {
+            const pct = Math.round((loaded / total) * 100)
+            setUploadProgress(pct)
+            const elapsed = (Date.now() - uploadStartRef.current) / 1000
+            if (elapsed > 0.3) {
+              setUploadSpeed(formatSpeed(loaded / elapsed))
+            }
+          },
+          onDownloadProgress: (loaded, total) => {
+            if (downloadStartRef.current === 0) downloadStartRef.current = Date.now()
+            const pct = Math.round((loaded / total) * 100)
+            setDownloadProgress(pct)
+            const elapsed = (Date.now() - downloadStartRef.current) / 1000
+            if (elapsed > 0.3) {
+              setDownloadSpeed(formatSpeed(loaded / elapsed))
+            }
+          },
         }),
       }
 
@@ -290,6 +342,8 @@ export function DecryptFile({ sdk, chainId, address, provider, log }: DecryptFil
     setProgress(0)
     setUploadProgress(0)
     setUploadSpeed("")
+    setDownloadProgress(0)
+    setDownloadSpeed("")
     setSteps([])
     if (fileInputRef.current) fileInputRef.current.value = ""
   }, [])
@@ -481,6 +535,21 @@ export function DecryptFile({ sdk, chainId, address, provider, log }: DecryptFil
                 />
               </div>
               <p className="text-xs text-zinc-500 mt-1">{progress}%</p>
+            </div>
+          )}
+          {/* Download progress bar */}
+          {steps.some((s) => s.id === "download" && s.status === "in_progress") && downloadProgress > 0 && (
+            <div className="mt-1 ml-5">
+              <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-[#00ff9d] rounded-full transition-all duration-300"
+                  style={{ width: `${downloadProgress}%` }}
+                />
+              </div>
+              <div className="flex justify-between mt-1">
+                <p className="text-xs text-zinc-500">{downloadProgress}%</p>
+                {downloadSpeed && <p className="text-xs text-zinc-500">{downloadSpeed}</p>}
+              </div>
             </div>
           )}
         </div>

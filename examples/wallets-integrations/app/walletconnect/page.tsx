@@ -170,8 +170,8 @@ export default function WalletConnectPage() {
 
       const provider = await EthereumProvider.init({
         projectId: WC_PROJECT_ID,
-        chains: [1],
-        optionalChains: chainId ? [chainId] : [752025],
+        chains: [chainId ?? supportedChains[0] ?? 1],
+        optionalChains: supportedChains.length > 0 ? supportedChains : [1],
         showQrModal: true,
         metadata: {
           name: "CIFER SDK — Wallet Integrations Example",
@@ -211,7 +211,7 @@ export default function WalletConnectPage() {
     } finally {
       setIsConnecting(false)
     }
-  }, [chainId, log])
+  }, [chainId, supportedChains, log])
 
   // =========================================================================
   // Disconnect handler
@@ -305,10 +305,24 @@ export default function WalletConnectPage() {
                     <div className="relative">
                       <select
                         value={chainId ?? ""}
-                        onChange={(e) => {
+                        onChange={async (e) => {
                           const newChain = Number(e.target.value)
                           setChainId(newChain)
                           log(`Switched to ${getChainName(newChain)} (${newChain})`)
+
+                          // Ask the connected wallet to switch chains via WalletConnect
+                          if (wcProviderRef.current && address) {
+                            try {
+                              await wcProviderRef.current.request({
+                                method: "wallet_switchEthereumChain",
+                                params: [{ chainId: `0x${newChain.toString(16)}` }],
+                              })
+                              log(`Wallet switched to chain ${newChain}`)
+                            } catch (err) {
+                              const msg = err instanceof Error ? err.message : String(err)
+                              log(`Wallet chain switch failed: ${msg}`)
+                            }
+                          }
                         }}
                         className="
                           w-full appearance-none

@@ -57,3 +57,4 @@ export * as delegate from './delegate.js';
 export * as permit from './permit.js';
 export * as principal from './principal.js';
 export * as blackbox from './blackbox/index.js';
+export { createClient, type Web2Client, type Web2ClientConfig } from './client.js';

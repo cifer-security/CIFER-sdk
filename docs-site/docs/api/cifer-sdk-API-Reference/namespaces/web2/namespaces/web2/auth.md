@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.3.1**](../../../../../index.md)
+[**cifer-sdk API Reference v0.4.0**](../../../../../index.md)
 
 ***
 
@@ -22,7 +22,7 @@ Also includes password reset and OTP resend helpers.
 
 > **register**(`params`): `Promise`\<[`RegisterResult`](../../../../../index.md#registerresult)\>
 
-Defined in: [web2/auth.ts:79](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/0a837c3346c5c5087534315fa77c34b851d312a9/src/web2/auth.ts#L79)
+Defined in: [web2/auth.ts:79](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/33551518d32b352cff52f96930b45a166fc73f41/src/web2/auth.ts#L79)
 
 Register a new Web2 principal with email and password.
 
@@ -60,7 +60,7 @@ console.log('Principal ID:', result.principalId);
 
 > **verifyEmail**(`params`): `Promise`\<[`VerifyEmailResult`](../../../../../index.md#verifyemailresult)\>
 
-Defined in: [web2/auth.ts:125](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/0a837c3346c5c5087534315fa77c34b851d312a9/src/web2/auth.ts#L125)
+Defined in: [web2/auth.ts:125](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/33551518d32b352cff52f96930b45a166fc73f41/src/web2/auth.ts#L125)
 
 Verify the email OTP sent during registration.
 
@@ -95,7 +95,7 @@ console.log('Verified:', result.emailVerified);
 
 > **registerKey**(`params`): `Promise`\<[`RegisterKeyResult`](../../../../../index.md#registerkeyresult)\>
 
-Defined in: [web2/auth.ts:182](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/0a837c3346c5c5087534315fa77c34b851d312a9/src/web2/auth.ts#L182)
+Defined in: [web2/auth.ts:182](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/33551518d32b352cff52f96930b45a166fc73f41/src/web2/auth.ts#L182)
 
 Register an Ed25519 public key and propagate the principal to cluster nodes.
 
@@ -141,7 +141,7 @@ if (result.nodeRegistrationStatus !== 'complete') {
 
 > **resendOtp**(`params`): `Promise`\<\{ `message`: `string`; \}\>
 
-Defined in: [web2/auth.ts:238](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/0a837c3346c5c5087534315fa77c34b851d312a9/src/web2/auth.ts#L238)
+Defined in: [web2/auth.ts:238](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/33551518d32b352cff52f96930b45a166fc73f41/src/web2/auth.ts#L238)
 
 Resend the email verification OTP.
 
@@ -167,7 +167,7 @@ Server message
 
 > **forgotPassword**(`params`): `Promise`\<\{ `message`: `string`; \}\>
 
-Defined in: [web2/auth.ts:266](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/0a837c3346c5c5087534315fa77c34b851d312a9/src/web2/auth.ts#L266)
+Defined in: [web2/auth.ts:266](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/33551518d32b352cff52f96930b45a166fc73f41/src/web2/auth.ts#L266)
 
 Send a password-reset OTP to a verified email.
 
@@ -193,7 +193,7 @@ Server message
 
 > **resetPassword**(`params`): `Promise`\<\{ `message`: `string`; \}\>
 
-Defined in: [web2/auth.ts:292](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/0a837c3346c5c5087534315fa77c34b851d312a9/src/web2/auth.ts#L292)
+Defined in: [web2/auth.ts:292](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/33551518d32b352cff52f96930b45a166fc73f41/src/web2/auth.ts#L292)
 
 Reset a password using the OTP from forgotPassword.
 
@@ -217,7 +217,7 @@ Server message
 
 > **retryNodeRegistration**(`params`): `Promise`\<[`RetryNodeRegistrationResult`](../../../../../index.md#retrynoderegistrationresult)\>
 
-Defined in: [web2/auth.ts:323](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/0a837c3346c5c5087534315fa77c34b851d312a9/src/web2/auth.ts#L323)
+Defined in: [web2/auth.ts:323](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/33551518d32b352cff52f96930b45a166fc73f41/src/web2/auth.ts#L323)
 
 Retry node registration for a principal whose initial registration
 was partial or pending.
@@ -242,7 +242,7 @@ Updated registration status
 
 > **nodeRegistrationStatus**(`principalId`, `blackboxUrl`, `options?`): `Promise`\<[`NodeRegistrationStatusResult`](../../../../../index.md#noderegistrationstatusresult)\>
 
-Defined in: [web2/auth.ts:362](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/0a837c3346c5c5087534315fa77c34b851d312a9/src/web2/auth.ts#L362)
+Defined in: [web2/auth.ts:362](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/33551518d32b352cff52f96930b45a166fc73f41/src/web2/auth.ts#L362)
 
 Check node registration status for a principal.
 

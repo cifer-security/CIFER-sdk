@@ -30,6 +30,19 @@ export type Address = `0x${string}`;
 // @public
 function assertCommitmentIntegrity(data: CommitmentData, metadata?: CIFERMetadata): void;
 
+declare namespace auth {
+    export {
+        register,
+        verifyEmail,
+        registerKey,
+        resendOtp,
+        forgotPassword,
+        resetPassword,
+        retryNodeRegistration,
+        nodeRegistrationStatus
+    }
+}
+
 // @public
 export class AuthError extends CiferError {
     constructor(message: string, cause?: Error);
@@ -52,6 +65,14 @@ declare namespace blackbox {
         ListJobsParams,
         ListJobsResult,
         DataConsumptionParams
+    }
+}
+
+declare namespace blackbox_2 {
+    export {
+        payload_2 as payload,
+        files_2 as files,
+        jobs_2 as jobs
     }
 }
 
@@ -514,12 +535,30 @@ export function createCiferSdkSync(config: CiferSdkConfig & {
 }): CiferSdk;
 
 // @public
+function createClient(config: Web2ClientConfig): Web2Client;
+
+// @public
+function createManagedSession(params: CreateManagedSessionParams): Promise<Web2Session>;
+
+// @public
+export interface CreateManagedSessionParams {
+    blackboxUrl: string;
+    ed25519Signer: Ed25519Signer;
+    fetch?: typeof fetch;
+    principalId: string;
+    ttl?: number;
+}
+
+// @public
 export function createReadClientFromDiscovery(chains: Array<{
     chainId: ChainId;
     rpcUrl: string;
 }>, options?: {
     fetch?: typeof fetch;
 }): RpcReadClient;
+
+// @public
+function createSecret(params: CreateWeb2SecretParams): Promise<CreateWeb2SecretResult>;
 
 // @public
 function createSecretAndWaitReady(ctx: FlowContext, options?: FlowOptions): Promise<FlowResult<CreateSecretResult>>;
@@ -531,30 +570,49 @@ interface CreateSecretResult {
 }
 
 // @public
+export interface CreateSessionResult {
+    expiresAt: string;
+    quorumProof: Array<{
+        nodeAddress: string;
+        signature: string;
+    }>;
+    sessionAddress: Address;
+    sessionToken: string;
+}
+
+// @public
+export interface CreateWeb2SecretParams {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    session: Web2Session;
+}
+
+// @public
+export interface CreateWeb2SecretResult {
+    clusterId: number;
+    publicKeyCid: string;
+    secretId: number;
+    status: 'complete' | 'propagating';
+    success: boolean;
+}
+
+// @public
 export interface DataConsumption {
-    decryption: {
-        limit: number;
-        used: number;
-        remaining: number;
-        count: number;
-        limitGB: number;
-        usedGB: number;
-        remainingGB: number;
-    };
-    encryption: {
-        limit: number;
-        used: number;
-        remaining: number;
-        count: number;
-        limitGB: number;
-        usedGB: number;
-        remainingGB: number;
-    };
-    wallet: Address;
+    cycleType: string;
+    decryption: UsageStats;
+    encryption: UsageStats;
+    periodEnd: string;
+    periodStart: string;
+    planId: string;
+    userId: string;
+    userType: string;
 }
 
 // @public
 function dataConsumption(params: DataConsumptionParams): Promise<DataConsumption>;
+
+// @public
+function dataConsumption_2(params: Web2DataConsumptionParams): Promise<DataConsumption>;
 
 // @public
 interface DataConsumptionParams {
@@ -567,6 +625,9 @@ interface DataConsumptionParams {
 
 // @public
 function decryptExistingFile(params: DecryptExistingFileParams): Promise<FileJobResult>;
+
+// @public
+function decryptExistingFile_2(params: Web2DecryptExistingFileParams): Promise<FileJobResult>;
 
 // @public
 interface DecryptExistingFileFlowParams {
@@ -590,6 +651,9 @@ interface DecryptExistingFileParams {
 
 // @public
 function decryptFile(params: FileOperationParams): Promise<FileJobResult>;
+
+// @public
+function decryptFile_2(params: Web2DecryptFileParams): Promise<FileJobResult>;
 
 // @public
 interface DecryptFileFlowParams {
@@ -616,6 +680,9 @@ export class DecryptionError extends BlackboxError {
 function decryptPayload(params: DecryptPayloadParams): Promise<DecryptPayloadResult>;
 
 // @public
+function decryptPayload_2(params: Web2DecryptPayloadParams): Promise<DecryptPayloadResult>;
+
+// @public
 interface DecryptPayloadParams {
     blackboxUrl: string;
     chainId: ChainId;
@@ -636,8 +703,17 @@ interface DecryptPayloadResult {
 // @public
 const DEFAULT_POLLING_STRATEGY: PollingStrategy;
 
+declare namespace delegate {
+    export {
+        setDelegate
+    }
+}
+
 // @public
 function deleteJob(jobId: string, params: DeleteParams): Promise<void>;
+
+// @public
+function deleteJob_2(jobId: string, params: Web2DeleteJobParams): Promise<void>;
 
 // @public
 interface DeleteParams {
@@ -676,6 +752,9 @@ export interface DiscoveryResult {
 function download(jobId: string, params: DownloadParams): Promise<Blob>;
 
 // @public
+function download_2(jobId: string, params: Web2DownloadParams): Promise<Blob>;
+
+// @public
 interface DownloadParams {
     blackboxUrl: string;
     chainId?: ChainId;
@@ -683,6 +762,12 @@ interface DownloadParams {
     readClient?: ReadClient;
     secretId?: bigint | number;
     signer?: SignerAdapter;
+}
+
+// @public
+export interface Ed25519Signer {
+    getPublicKey(): Uint8Array;
+    sign(message: Uint8Array): Promise<Uint8Array>;
 }
 
 // @public
@@ -704,6 +789,9 @@ export class Eip1193SignerAdapter implements SignerAdapter {
 
 // @public
 function encryptFile(params: FileOperationParams): Promise<FileJobResult>;
+
+// @public
+function encryptFile_2(params: Web2EncryptFileParams): Promise<FileJobResult>;
 
 // @public
 interface EncryptFileFlowParams {
@@ -728,6 +816,9 @@ export class EncryptionError extends BlackboxError {
 
 // @public
 function encryptPayload(params: EncryptPayloadParams): Promise<EncryptPayloadResult>;
+
+// @public
+function encryptPayload_2(params: Web2EncryptPayloadParams): Promise<EncryptPayloadResult>;
 
 // @public
 interface EncryptPayloadParams {
@@ -815,6 +906,17 @@ declare namespace files {
         FileJobResult,
         FileOperationParams,
         DecryptExistingFileParams
+    }
+}
+
+declare namespace files_2 {
+    export {
+        encryptFile_2 as encryptFile,
+        decryptFile_2 as decryptFile,
+        decryptExistingFile_2 as decryptExistingFile,
+        Web2EncryptFileParams,
+        Web2DecryptFileParams,
+        Web2DecryptExistingFileParams
     }
 }
 
@@ -948,6 +1050,23 @@ export class FlowTimeoutError extends FlowError {
 }
 
 // @public
+function forgotPassword(params: ForgotPasswordParams): Promise<{
+    message: string;
+}>;
+
+// @public
+export interface ForgotPasswordParams {
+    blackboxUrl: string;
+    email: string;
+    fetch?: typeof fetch;
+}
+
+// @public
+function getByEmail(email: string, blackboxUrl: string, options?: {
+    fetch?: typeof fetch;
+}): Promise<PrincipalByEmailResult>;
+
+// @public
 function getCIFERMetadata(params: CommitmentReadParams, dataId: Bytes32): Promise<CIFERMetadata>;
 
 // @public
@@ -1058,6 +1177,12 @@ export function isSecretNotReadyError(error: unknown): error is SecretNotReadyEr
 function isSecretReady(params: ReadParams, secretId: bigint): Promise<boolean>;
 
 // @public
+export function isWeb2Error(error: unknown): error is Web2Error;
+
+// @public
+export function isWeb2SessionError(error: unknown): error is Web2SessionError;
+
+// @public
 export class JobError extends BlackboxError {
     constructor(message: string, jobId: string, cause?: Error);
     readonly jobId: string;
@@ -1093,6 +1218,21 @@ declare namespace jobs {
         ListJobsParams,
         ListJobsResult,
         DataConsumptionParams
+    }
+}
+
+declare namespace jobs_2 {
+    export {
+        download_2 as download,
+        deleteJob_2 as deleteJob,
+        list_2 as list,
+        dataConsumption_2 as dataConsumption,
+        getStatus,
+        pollUntilComplete,
+        Web2DownloadParams,
+        Web2DeleteJobParams,
+        Web2ListJobsParams,
+        Web2DataConsumptionParams
     }
 }
 
@@ -1165,6 +1305,9 @@ declare namespace keyManagementNs {
 function list(params: ListJobsParams): Promise<ListJobsResult>;
 
 // @public
+function list_2(params: Web2ListJobsParams): Promise<ListJobsResult>;
+
+// @public
 interface ListJobsParams {
     blackboxUrl: string;
     chainId: ChainId;
@@ -1179,6 +1322,22 @@ interface ListJobsResult {
     count: number;
     includeExpired: boolean;
     jobs: JobInfo[];
+}
+
+// @public
+function listSecrets(params: ListWeb2SecretsParams): Promise<ListWeb2SecretsResult>;
+
+// @public
+export interface ListWeb2SecretsParams {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    session: Web2Session;
+}
+
+// @public
+export interface ListWeb2SecretsResult {
+    secrets: Web2SecretInfo[];
+    success: boolean;
 }
 
 // @public
@@ -1202,6 +1361,19 @@ export interface LogFilter {
 
 // @public (undocumented)
 export const MAX_PAYLOAD_BYTES = 16384;
+
+// @public
+function nodeRegistrationStatus(principalId: string, blackboxUrl: string, options?: {
+    fetch?: typeof fetch;
+}): Promise<NodeRegistrationStatusResult>;
+
+// @public
+export interface NodeRegistrationStatusResult {
+    failedNodes: string[];
+    nodeRegistrationStatus: 'complete' | 'partial' | 'pending' | 'failed';
+    principalId: string;
+    successNodes: string[];
+}
 
 // @public
 export class NotAuthorizedError extends KeyManagementError {
@@ -1267,12 +1439,30 @@ declare namespace payload {
     }
 }
 
+declare namespace payload_2 {
+    export {
+        encryptPayload_2 as encryptPayload,
+        decryptPayload_2 as decryptPayload,
+        Web2EncryptPayloadParams,
+        Web2DecryptPayloadParams
+    }
+}
+
 // @public
 export class PayloadTooLargeError extends CommitmentsError {
     constructor(actualSize: number, maxSize: number, cause?: Error);
     readonly actualSize: number;
     readonly maxSize: number;
 }
+
+declare namespace permit {
+    export {
+        requestPermit
+    }
+}
+
+// @public
+export type PermitAction = 'rotate' | 'transfer' | 'delegate';
 
 // @public
 interface PollingStrategy {
@@ -1291,6 +1481,27 @@ function pollUntilComplete(jobId: string, blackboxUrl: string, options?: {
     fetch?: typeof fetch;
 }): Promise<JobInfo>;
 
+declare namespace principal {
+    export {
+        getByEmail
+    }
+}
+
+// @public
+export interface PrincipalByEmailResult {
+    emailHex: string;
+    principalId: string;
+}
+
+// @public
+export class PrivateKeySignerAdapter implements SignerAdapter {
+    constructor(privateKeyHex: string);
+    static generate(): PrivateKeySignerAdapter;
+    getAddress(): Promise<Address>;
+    getPrivateKeyHex(): string;
+    signMessage(message: string): Promise<Hex>;
+}
+
 // @public
 export interface ReadClient {
     call?(chainId: ChainId, callRequest: CallRequest): Promise<Hex>;
@@ -1303,6 +1514,111 @@ interface ReadParams {
     chainId: ChainId;
     controllerAddress: Address;
     readClient: ReadClient;
+}
+
+// @public
+function register(params: RegisterParams): Promise<RegisterResult>;
+
+// @public
+function registerKey(params: RegisterKeyParams): Promise<RegisterKeyResult>;
+
+// @public
+export interface RegisterKeyParams {
+    blackboxUrl: string;
+    ed25519Signer: Ed25519Signer;
+    fetch?: typeof fetch;
+    password: string;
+    principalId: string;
+}
+
+// @public
+export interface RegisterKeyResult {
+    emailHex: string;
+    failedNodes: string[];
+    nodeErrors: string[];
+    nodeRegistrationStatus: 'complete' | 'partial' | 'pending' | 'failed';
+    principalId: string;
+}
+
+// @public
+export interface RegisterParams {
+    blackboxUrl: string;
+    email: string;
+    fetch?: typeof fetch;
+    password: string;
+}
+
+// @public
+export interface RegisterResult {
+    message: string;
+    principalId: string;
+}
+
+// @public
+function requestPermit(params: RequestPermitParams): Promise<RequestPermitResult>;
+
+// @public
+export type RequestPermitParams = RequestRotatePermitParams | RequestTransferOrDelegatePermitParams;
+
+// @public
+export interface RequestPermitResult {
+    action: PermitAction;
+    clusterId: number;
+    expiresAt: string;
+    message: string;
+    permitId: string;
+    success: boolean;
+}
+
+// @public
+export interface RequestRotatePermitParams {
+    action: 'rotate';
+    blackboxUrl: string;
+    email: string;
+    fetch?: typeof fetch;
+    password: string;
+    payload: {
+        newPublicKey: string;
+    };
+}
+
+// @public
+export interface RequestTransferOrDelegatePermitParams {
+    action: 'transfer' | 'delegate';
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    payload: {
+        newOwnerPrincipalId?: string;
+        delegatePrincipalId?: string;
+    };
+    secretId: number | bigint;
+    session: Web2Session;
+}
+
+// @public
+function resendOtp(params: ResendOtpParams): Promise<{
+    message: string;
+}>;
+
+// @public
+export interface ResendOtpParams {
+    blackboxUrl: string;
+    email: string;
+    fetch?: typeof fetch;
+}
+
+// @public
+function resetPassword(params: ResetPasswordParams): Promise<{
+    message: string;
+}>;
+
+// @public
+export interface ResetPasswordParams {
+    blackboxUrl: string;
+    email: string;
+    fetch?: typeof fetch;
+    newPassword: string;
+    otp: string;
 }
 
 // @public
@@ -1334,6 +1650,24 @@ interface RetrieveAndDecryptResult {
 
 // @public
 function retrieveFromLogsThenDecrypt(ctx: FlowContext, params: RetrieveAndDecryptParams, options?: FlowOptions): Promise<FlowResult<RetrieveAndDecryptResult>>;
+
+// @public
+function retryNodeRegistration(params: RetryNodeRegistrationParams): Promise<RetryNodeRegistrationResult>;
+
+// @public
+export interface RetryNodeRegistrationParams {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    principalId: string;
+}
+
+// @public
+export interface RetryNodeRegistrationResult {
+    failedNodes: string[];
+    message?: string;
+    nodeRegistrationStatus: 'complete' | 'partial' | 'pending' | 'failed';
+    principalId: string;
+}
 
 // @public
 interface RetryOptions {
@@ -1368,6 +1702,13 @@ export interface SdkContext {
     logger: (message: string) => void;
     readClient?: ReadClient;
     signer?: SignerAdapter;
+}
+
+declare namespace secret {
+    export {
+        createSecret,
+        listSecrets
+    }
 }
 
 // @public
@@ -1611,6 +1952,31 @@ export interface SecretState {
     secretType: number;
 }
 
+declare namespace session {
+    export {
+        createManagedSession,
+        useExistingSessionKey
+    }
+}
+
+// @public
+function setDelegate(params: SetWeb2DelegateParams): Promise<SetWeb2DelegateResult>;
+
+// @public
+export interface SetWeb2DelegateParams {
+    blackboxUrl: string;
+    delegatePrincipalId: string;
+    fetch?: typeof fetch;
+    secretId: number | bigint;
+    session: Web2Session;
+}
+
+// @public
+export interface SetWeb2DelegateResult {
+    secretId: number;
+    success: boolean;
+}
+
 // @public
 export class SignatureError extends AuthError {
     constructor(message: string, cause?: Error);
@@ -1680,10 +2046,339 @@ export interface TxIntentWithMeta extends TxIntent {
 }
 
 // @public
+export interface UsageStats {
+    count: number;
+    limit: number;
+    limitGB: number;
+    rateLimit: number;
+    remaining: number;
+    remainingGB: number;
+    requestLimit: number;
+    used: number;
+    usedGB: number;
+}
+
+// @public
+function useExistingSessionKey(params: UseExistingSessionKeyParams): Web2Session;
+
+// @public
+export interface UseExistingSessionKeyParams {
+    principalId?: string;
+    sessionPrivateKey: string;
+}
+
+// @public
 function validateForStorage(cifer: Hex | Uint8Array, encryptedMessage: Hex | Uint8Array): void;
 
 // @public
 function verifyCommitmentIntegrity(data: CommitmentData, metadata?: CIFERMetadata): IntegrityResult;
+
+// @public
+function verifyEmail(params: VerifyEmailParams): Promise<VerifyEmailResult>;
+
+// @public
+export interface VerifyEmailParams {
+    blackboxUrl: string;
+    email: string;
+    fetch?: typeof fetch;
+    otp: string;
+}
+
+// @public
+export interface VerifyEmailResult {
+    emailVerified: boolean;
+    principalId: string;
+}
+
+declare namespace web2 {
+    export {
+        auth,
+        session,
+        secret,
+        delegate,
+        permit,
+        principal,
+        blackbox_2 as blackbox,
+        createClient,
+        Web2Client,
+        Web2ClientConfig
+    }
+}
+
+// @public
+export const WEB2_CHAIN_ID: -1;
+
+// @public
+export class Web2AuthError extends Web2Error {
+    constructor(message: string, cause?: Error);
+}
+
+// @public
+export interface Web2BlackboxBaseParams {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    readClient: ReadClient;
+    session: Web2Session;
+}
+
+// @public
+interface Web2Client {
+    readonly blackboxUrl: string;
+    createManagedSession(params: {
+        principalId: string;
+        ed25519Signer: Ed25519Signer;
+        ttl?: number;
+        blackboxUrl?: string;
+        fetch?: typeof fetch;
+    }): Promise<Web2Session>;
+    createSecret(params?: {
+        session?: Web2Session;
+        blackboxUrl?: string;
+        fetch?: typeof fetch;
+    }): Promise<CreateWeb2SecretResult>;
+    // (undocumented)
+    files: {
+        encryptFile(params: {
+            secretId: bigint | number;
+            file: File | Blob;
+            session?: Web2Session;
+            blackboxUrl?: string;
+            readClient?: ReadClient;
+            fetch?: typeof fetch;
+        }): Promise<FileJobResult>;
+        decryptFile(params: {
+            secretId: bigint | number;
+            file: File | Blob;
+            session?: Web2Session;
+            blackboxUrl?: string;
+            readClient?: ReadClient;
+            fetch?: typeof fetch;
+        }): Promise<FileJobResult>;
+        decryptExistingFile(params: {
+            secretId: bigint | number;
+            encryptJobId: string;
+            session?: Web2Session;
+            blackboxUrl?: string;
+            readClient?: ReadClient;
+            fetch?: typeof fetch;
+        }): Promise<FileJobResult>;
+    };
+    getByEmail(email: string, blackboxUrl?: string, options?: {
+        fetch?: typeof fetch;
+    }): Promise<PrincipalByEmailResult>;
+    // (undocumented)
+    jobs: {
+        getStatus(jobId: string, blackboxUrl?: string, options?: {
+            fetch?: typeof fetch;
+        }): Promise<JobInfo>;
+        pollUntilComplete(jobId: string, blackboxUrl?: string, options?: {
+            intervalMs?: number;
+            maxAttempts?: number;
+            onProgress?: (job: JobInfo) => void;
+            fetch?: typeof fetch;
+        }): Promise<JobInfo>;
+        download(jobId: string, params: {
+            secretId: bigint | number;
+            session?: Web2Session;
+            blackboxUrl?: string;
+            readClient?: ReadClient;
+            fetch?: typeof fetch;
+        }): Promise<Blob>;
+        deleteJob(jobId: string, params: {
+            secretId: bigint | number;
+            session?: Web2Session;
+            blackboxUrl?: string;
+            readClient?: ReadClient;
+            fetch?: typeof fetch;
+        }): Promise<void>;
+        list(params?: {
+            includeExpired?: boolean;
+            session?: Web2Session;
+            blackboxUrl?: string;
+            readClient?: ReadClient;
+            fetch?: typeof fetch;
+        }): Promise<ListJobsResult>;
+        dataConsumption(params?: {
+            session?: Web2Session;
+            blackboxUrl?: string;
+            readClient?: ReadClient;
+            fetch?: typeof fetch;
+        }): Promise<DataConsumption>;
+    };
+    listSecrets(params?: {
+        session?: Web2Session;
+        blackboxUrl?: string;
+        fetch?: typeof fetch;
+    }): Promise<ListWeb2SecretsResult>;
+    // (undocumented)
+    payload: {
+        encryptPayload(params: {
+            secretId: bigint | number;
+            plaintext: string;
+            outputFormat?: OutputFormat;
+            session?: Web2Session;
+            blackboxUrl?: string;
+            readClient?: ReadClient;
+            fetch?: typeof fetch;
+        }): Promise<EncryptPayloadResult>;
+        decryptPayload(params: {
+            secretId: bigint | number;
+            encryptedMessage: string;
+            cifer: string;
+            inputFormat?: InputFormat;
+            session?: Web2Session;
+            blackboxUrl?: string;
+            readClient?: ReadClient;
+            fetch?: typeof fetch;
+        }): Promise<DecryptPayloadResult>;
+    };
+    readonly readClient: ReadClient | undefined;
+    requestPermit(params: (Omit<RequestRotatePermitParams, 'blackboxUrl'> & {
+        blackboxUrl?: string;
+    }) | (Omit<RequestTransferOrDelegatePermitParams, 'session' | 'blackboxUrl'> & {
+        session?: Web2Session;
+        blackboxUrl?: string;
+    })): Promise<RequestPermitResult>;
+    readonly session: Web2Session | null;
+    setDelegate(params: {
+        secretId: number | bigint;
+        delegatePrincipalId: string;
+        session?: Web2Session;
+        blackboxUrl?: string;
+        fetch?: typeof fetch;
+    }): Promise<SetWeb2DelegateResult>;
+    setSession(session: Web2Session): void;
+    useExistingSessionKey(params: UseExistingSessionKeyParams): Web2Session;
+}
+
+// @public
+interface Web2ClientConfig {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    readClient?: ReadClient;
+}
+
+// @public
+interface Web2DataConsumptionParams {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    readClient: ReadClient;
+    session: Web2Session;
+}
+
+// @public
+interface Web2DecryptExistingFileParams {
+    blackboxUrl: string;
+    encryptJobId: string;
+    fetch?: typeof fetch;
+    readClient: ReadClient;
+    secretId: bigint | number;
+    session: Web2Session;
+}
+
+// @public
+interface Web2DecryptFileParams {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    file: File | Blob;
+    readClient: ReadClient;
+    secretId: bigint | number;
+    session: Web2Session;
+}
+
+// @public
+interface Web2DecryptPayloadParams {
+    blackboxUrl: string;
+    cifer: string;
+    encryptedMessage: string;
+    fetch?: typeof fetch;
+    inputFormat?: InputFormat;
+    readClient: ReadClient;
+    secretId: bigint | number;
+    session: Web2Session;
+}
+
+// @public
+interface Web2DeleteJobParams {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    readClient: ReadClient;
+    secretId: bigint | number;
+    session: Web2Session;
+}
+
+// @public
+interface Web2DownloadParams {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    readClient: ReadClient;
+    secretId: bigint | number;
+    session: Web2Session;
+}
+
+// @public
+interface Web2EncryptFileParams {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    file: File | Blob;
+    readClient: ReadClient;
+    secretId: bigint | number;
+    session: Web2Session;
+}
+
+// @public
+interface Web2EncryptPayloadParams {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    outputFormat?: OutputFormat;
+    plaintext: string;
+    readClient: ReadClient;
+    secretId: bigint | number;
+    session: Web2Session;
+}
+
+// @public
+export class Web2Error extends CiferError {
+    constructor(message: string, cause?: Error);
+}
+
+// @public
+interface Web2ListJobsParams {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    includeExpired?: boolean;
+    readClient: ReadClient;
+    session: Web2Session;
+}
+
+// @public
+export interface Web2SecretInfo {
+    clusterId: number;
+    createdAt: string;
+    delegatePrincipalId: string | null;
+    isSyncing: number;
+    ownerPrincipalId: string;
+    publicKeyCid: string;
+    secretId: number;
+    secretType: number;
+    updatedAt: string;
+}
+
+// @public
+export interface Web2Session {
+    ensureValid(): Promise<void>;
+    readonly expiresAt: string;
+    readonly isManaged: boolean;
+    readonly principalId: string;
+    renew(): Promise<void>;
+    readonly sessionAddress: Address;
+    readonly signer: SignerAdapter;
+}
+
+// @public
+export class Web2SessionError extends Web2Error {
+    constructor(message: string, cause?: Error);
+}
 
 // Warning: (ae-forgotten-export) The symbol "RetryOptions" needs to be exported by the entry point index.d.ts
 //

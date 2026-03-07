@@ -1,6 +1,6 @@
 {
   "name": "cifer-sdk",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "CIFER SDK - Post-Quantum Cryptographic Infrastructure",
   "type": "module",
   "main": "./dist/cjs/index.js",
@@ -105,6 +105,7 @@
     "encryption",
     "blockchain",
     "web3",
+    "web2",
     "cryptography",
     "secrets",
     "ml-kem",

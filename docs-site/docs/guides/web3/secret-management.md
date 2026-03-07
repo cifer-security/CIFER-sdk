@@ -1,12 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
-# Key Management Guide
-
-:::note Web3 Mode
-This guide covers **Web3** (wallet-based) key management. For Web2 (email + password), see the [Web2 Guide](/docs/guides/web2).
-:::
+# Secret Management
 
 Learn how to create, manage, and delegate CIFER secrets.
 
@@ -269,3 +265,10 @@ See [Debugging & Logging](/docs/getting-started/concepts#debugging--logging) for
 3. **Handle sync time** - Budget ~60 seconds for new secret sync
 4. **Validate ownership** - Check authorization before attempting decryption
 5. **Monitor events** - Use WebSocket subscriptions for real-time updates
+
+## Next Steps
+
+- [Text Encryption](/docs/guides/web3/text-encryption) - Encrypt and decrypt text payloads
+- [File Encryption](/docs/guides/web3/file-encryption) - Encrypt and decrypt large files
+- [Flows](/docs/guides/web3/flows) - High-level orchestrated operations
+- Looking for Web2? See [Secret Management (Web2)](/docs/guides/web2/secret-management)

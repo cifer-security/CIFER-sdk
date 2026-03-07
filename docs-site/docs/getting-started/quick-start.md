@@ -210,6 +210,7 @@ main().catch(console.error);
 ## Next Steps
 
 - [Core Concepts](/docs/getting-started/concepts) - Understand secrets, delegation, and the encryption model
-- [Key Management Guide](/docs/guides/key-management) - Deep dive into secret management
-- [Encryption Guide](/docs/guides/encryption) - Learn about payload and file encryption
+- [Secret Management](/docs/guides/web3/secret-management) - Deep dive into secret management
+- [Text Encryption](/docs/guides/web3/text-encryption) - Learn about payload encryption
+- [File Encryption](/docs/guides/web3/file-encryption) - Encrypt and decrypt large files
 - [Quick Start (Web2)](/docs/getting-started/quick-start-web2) - Use CIFER with email + password (no wallet)

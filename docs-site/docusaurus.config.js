@@ -98,12 +98,12 @@ const config = {
                 to: '/docs/getting-started/installation',
               },
               {
-                label: 'Guides',
-                to: '/docs/guides/key-management',
+                label: 'Web3 Guides',
+                to: '/docs/guides/web3/secret-management',
               },
               {
-                label: 'Web2 Guide',
-                to: '/docs/guides/web2',
+                label: 'Web2 Guides',
+                to: '/docs/guides/web2/authentication',
               },
               {
                 label: 'API Reference',

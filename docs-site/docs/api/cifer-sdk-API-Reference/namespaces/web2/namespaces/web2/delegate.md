@@ -16,7 +16,7 @@ Web2 delegate management
 
 > **setDelegate**(`params`): `Promise`\<[`SetWeb2DelegateResult`](../../../../../index.md#setweb2delegateresult)\>
 
-Defined in: [web2/delegate.ts:53](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/33551518d32b352cff52f96930b45a166fc73f41/src/web2/delegate.ts#L53)
+Defined in: [web2/delegate.ts:53](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/c596a8f77c8ded58caea31c9290fd8ecdb62e433/src/web2/delegate.ts#L53)
 
 Set or remove a delegate for a Web2 secret.
 

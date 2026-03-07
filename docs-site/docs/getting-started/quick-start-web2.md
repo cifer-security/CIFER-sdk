@@ -224,6 +224,9 @@ const encrypted = await web2.blackbox.payload.encryptPayload({
 
 ## Next Steps
 
-- [Web2 Guide (Advanced)](/docs/guides/web2) - Delegates, permits, file encryption, password reset, and more
+- [Authentication & Sessions](/docs/guides/web2/authentication) - Registration, keys, sessions, and password reset
+- [Secret Management (Web2)](/docs/guides/web2/secret-management) - Delegates, permits, and more
+- [Text Encryption (Web2)](/docs/guides/web2/text-encryption) - Encrypt and decrypt text payloads
+- [File Encryption (Web2)](/docs/guides/web2/file-encryption) - Encrypt and decrypt large files
 - [Core Concepts](/docs/getting-started/concepts) - Understand secrets, delegation, and the encryption model
 - [API Reference](/docs/api) - Complete API documentation

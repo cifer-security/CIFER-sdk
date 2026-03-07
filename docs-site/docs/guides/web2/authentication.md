@@ -1,14 +1,10 @@
 ---
-sidebar_position: 5
+sidebar_position: 1
 ---
 
-# Web2 Guide (Advanced)
+# Authentication & Sessions
 
-:::tip New to Web2 mode?
-For a quick introduction, see the [Quick Start (Web2)](/docs/getting-started/quick-start-web2) to get up and running in 5 minutes.
-:::
-
-Learn how to use CIFER encryption with email-based authentication instead of blockchain wallets.
+Learn how to register, authenticate, and manage sessions for CIFER Web2 mode.
 
 ## Overview
 
@@ -112,7 +108,7 @@ client.setSession(session);
 ```
 
 :::tip Stateless API
-The original stateless `web2.*` functions (`web2.secret.createSecret()`, `web2.blackbox.payload.encryptPayload()`, etc.) remain available. Use them when you need full control or are managing multiple sessions. All examples below use both styles.
+The original stateless `web2.*` functions (`web2.secret.createSecret()`, `web2.blackbox.payload.encryptPayload()`, etc.) remain available. Use them when you need full control or are managing multiple sessions.
 :::
 
 ## Registration Flow
@@ -268,205 +264,6 @@ const session = web2.session.useExistingSessionKey({
 Sessions created with `useExistingSessionKey` cannot renew. Calling `session.renew()` will throw a `Web2SessionError`. The session must be recreated externally when it expires.
 :::
 
-## Creating and Managing Secrets
-
-### Create a Secret
-
-```typescript
-const secret = await web2.secret.createSecret({
-  session,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-});
-
-console.log('Secret ID:', secret.secretId);
-```
-
-### List Secrets
-
-```typescript
-const result = await web2.secret.listSecrets({
-  session,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-});
-
-for (const s of result.secrets) {
-  console.log(`Secret ${s.secretId}: ${s.status}`);
-}
-```
-
-## Delegates
-
-Allow another principal to decrypt your secrets:
-
-```typescript
-// Set a delegate
-await web2.delegate.setDelegate({
-  session,
-  secretId: 42,
-  delegatePrincipalId: 'delegate-principal-uuid',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-});
-
-// Remove a delegate (pass empty string)
-await web2.delegate.setDelegate({
-  session,
-  secretId: 42,
-  delegatePrincipalId: '',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-});
-```
-
-:::tip Finding a Principal ID
-Use `web2.principal.getByEmail()` to look up a principal ID by email address:
-
-```typescript
-const principal = await web2.principal.getByEmail(
-  'colleague@example.com',
-  'https://cifer-blackbox.ternoa.dev:3010'
-);
-console.log('Delegate principal:', principal.principalId);
-```
-:::
-
-## Permits
-
-Request permits for key rotation, ownership transfer, or delegation:
-
-```typescript
-// Key rotation (uses email + password, no session needed)
-const rotateResult = await web2.permit.requestPermit({
-  action: 'rotate',
-  email: 'user@example.com',
-  password: 'securePassword123',
-  payload: { newPublicKey: '...' },
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-});
-
-// Transfer ownership (uses session)
-const transferResult = await web2.permit.requestPermit({
-  action: 'transfer',
-  session,
-  secretId: 42,
-  payload: { newOwnerPrincipalId: 'new-owner-uuid' },
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-});
-```
-
-## Encryption and Decryption
-
-The `web2.blackbox` namespace provides session-first wrappers that automatically set `chainId = -1` and use the session signer.
-
-### Payload Encryption
-
-```typescript
-// Encrypt
-const encrypted = await web2.blackbox.payload.encryptPayload({
-  session,
-  secretId: 42,
-  plaintext: 'My secret message',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-  readClient: sdk.readClient,
-});
-
-console.log('Cifer:', encrypted.cifer);
-console.log('Encrypted message:', encrypted.encryptedMessage);
-
-// Decrypt
-const decrypted = await web2.blackbox.payload.decryptPayload({
-  session,
-  secretId: 42,
-  encryptedMessage: encrypted.encryptedMessage,
-  cifer: encrypted.cifer,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-  readClient: sdk.readClient,
-});
-
-console.log('Decrypted:', decrypted.decryptedMessage);
-```
-
-### File Encryption
-
-```typescript
-// Encrypt a file
-const job = await web2.blackbox.files.encryptFile({
-  session,
-  secretId: 42,
-  file: myFile,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-  readClient: sdk.readClient,
-});
-
-// Poll until complete (no session needed)
-const status = await web2.blackbox.jobs.pollUntilComplete(
-  job.jobId,
-  'https://cifer-blackbox.ternoa.dev:3010',
-  {
-    onProgress: (job) => console.log(`Progress: ${job.progress}%`),
-  }
-);
-
-// Download encrypted file (no session needed for encrypt jobs)
-const { download } = await import('cifer-sdk/blackbox');
-const encryptedBlob = await download(job.jobId, {
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-});
-```
-
-### File Decryption
-
-```typescript
-// Decrypt a file (session needed)
-const decryptJob = await web2.blackbox.files.decryptFile({
-  session,
-  secretId: 42,
-  file: encryptedCiferFile,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-  readClient: sdk.readClient,
-});
-
-await web2.blackbox.jobs.pollUntilComplete(
-  decryptJob.jobId,
-  'https://cifer-blackbox.ternoa.dev:3010'
-);
-
-// Download decrypted file (session needed for decrypt jobs)
-const decryptedBlob = await web2.blackbox.jobs.download(
-  decryptJob.jobId,
-  {
-    session,
-    secretId: 42,
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-    readClient: sdk.readClient,
-  }
-);
-```
-
-### Job Management
-
-```typescript
-// List all jobs
-const jobs = await web2.blackbox.jobs.list({
-  session,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-  readClient: sdk.readClient,
-});
-
-// Delete a job
-await web2.blackbox.jobs.deleteJob('job-id', {
-  session,
-  secretId: 42,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-  readClient: sdk.readClient,
-});
-
-// Check data consumption
-const usage = await web2.blackbox.jobs.dataConsumption({
-  session,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
-  readClient: sdk.readClient,
-});
-```
-
 ## Password Reset
 
 ```typescript
@@ -498,7 +295,7 @@ import {
 } from 'cifer-sdk';
 
 try {
-  await web2.blackbox.payload.encryptPayload({ ... });
+  await web2.auth.register({ ... });
 } catch (error) {
   if (isWeb2SessionError(error)) {
     // Session expired or cannot be renewed
@@ -511,115 +308,24 @@ try {
     // Generic Web2 error
     console.log('Web2 error:', error.code, error.message);
   } else if (isCiferError(error)) {
-    // Any other CIFER SDK error (blackbox, block stale, etc.)
+    // Any other CIFER SDK error
     console.log('CIFER error:', error.code, error.message);
   }
 }
 ```
 
-## Complete Example
-
-End-to-end Web2 flow from registration to encryption using the Web2 client:
-
-```typescript
-import { createCiferSdk, web2 } from 'cifer-sdk';
-import * as ed from '@noble/ed25519';
-
-async function web2Example() {
-  const blackboxUrl = 'https://cifer-blackbox.ternoa.dev:3010';
-
-  // Initialize SDK + Web2 client
-  const sdk = await createCiferSdk({ blackboxUrl });
-  const client = web2.createClient({
-    blackboxUrl,
-    readClient: sdk.readClient,
-  });
-
-  // --- Ed25519 key setup ---
-  const privateKey = ed.utils.randomPrivateKey();
-  const publicKey = await ed.getPublicKeyAsync(privateKey);
-
-  const ed25519Signer = {
-    async sign(message: Uint8Array) {
-      return ed.signAsync(message, privateKey);
-    },
-    getPublicKey() {
-      return publicKey;
-    },
-  };
-
-  // --- Registration ---
-  const reg = await web2.auth.register({
-    email: 'user@example.com',
-    password: 'securePassword123',
-    blackboxUrl,
-  });
-
-  // (User receives OTP via email)
-  await web2.auth.verifyEmail({
-    email: 'user@example.com',
-    otp: '123456',
-    blackboxUrl,
-  });
-
-  await web2.auth.registerKey({
-    principalId: reg.principalId,
-    password: 'securePassword123',
-    ed25519Signer,
-    blackboxUrl,
-  });
-
-  // --- Session (auto-stored in client) ---
-  await client.createManagedSession({
-    principalId: reg.principalId,
-    ed25519Signer,
-  });
-
-  // --- Create a secret (no session/blackboxUrl needed!) ---
-  const secret = await client.createSecret();
-
-  // --- Encrypt ---
-  const encrypted = await client.payload.encryptPayload({
-    secretId: secret.secretId,
-    plaintext: 'Hello from Web2!',
-  });
-
-  // --- Decrypt ---
-  const decrypted = await client.payload.decryptPayload({
-    secretId: secret.secretId,
-    encryptedMessage: encrypted.encryptedMessage,
-    cifer: encrypted.cifer,
-  });
-
-  console.log('Decrypted:', decrypted.decryptedMessage);
-  // Output: "Hello from Web2!"
-}
-
-web2Example().catch(console.error);
-```
-
 ## Best Practices
 
-### 1. Use the Web2 Client
+1. **Use the Web2 Client** - Prefer `web2.createClient()` over individual stateless functions. The client stores your session and defaults, reducing boilerplate.
+2. **Secure Your Ed25519 Key** - Store Ed25519 private keys securely (e.g. environment variables, HSMs, or secret managers). Never expose them in client-side code.
+3. **Use Managed Sessions** - Prefer `createManagedSession()` over `useExistingSessionKey()` for automatic renewal and simpler lifecycle management.
+4. **Let `ensureValid()` Handle Renewal** - The `web2.blackbox.*` wrappers and the Web2 client call `session.ensureValid()` automatically before each request.
+5. **Handle Node Registration Failures** - After `registerKey()`, check `nodeRegistrationStatus`. If it's not `'complete'`, use `retryNodeRegistration()` to retry failed nodes.
+6. **Respect Rate Limits** - `resendOtp()` and `forgotPassword()` have a 60-second cooldown.
 
-Prefer `web2.createClient()` over individual stateless functions. The client stores your session and defaults, reducing boilerplate and the risk of forgetting to pass required parameters.
+## Next Steps
 
-### 2. Secure Your Ed25519 Key
-
-Store Ed25519 private keys securely (e.g. environment variables, HSMs, or secret managers). Never expose them in client-side code.
-
-### 3. Use Managed Sessions
-
-Prefer `createManagedSession()` over `useExistingSessionKey()` for automatic renewal and simpler lifecycle management.
-
-### 4. Let `ensureValid()` Handle Renewal
-
-The `web2.blackbox.*` wrappers and the Web2 client call `session.ensureValid()` automatically before each request. You don't need to manually check session expiry.
-
-### 5. Handle Node Registration Failures
-
-After `registerKey()`, check `nodeRegistrationStatus`. If it's not `'complete'`, use `retryNodeRegistration()` to retry failed nodes before creating sessions.
-
-### 6. Respect Rate Limits
-
-`resendOtp()` and `forgotPassword()` have a 60-second cooldown. Build appropriate UI feedback for users.
+- [Secret Management (Web2)](/docs/guides/web2/secret-management) - Create and manage secrets
+- [Text Encryption (Web2)](/docs/guides/web2/text-encryption) - Encrypt and decrypt text payloads
+- [File Encryption (Web2)](/docs/guides/web2/file-encryption) - Encrypt and decrypt large files
+- [Quick Start (Web2)](/docs/getting-started/quick-start-web2) - Concise end-to-end walkthrough

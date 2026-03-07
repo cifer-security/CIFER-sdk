@@ -1,12 +1,8 @@
 ---
-sidebar_position: 4
+sidebar_position: 6
 ---
 
-# Flows Guide
-
-:::note Web3 Mode
-This guide covers **Web3** (wallet-based) flows. For Web2 (email + password) operations, see the [Web2 Guide](/docs/guides/web2).
-:::
+# Flows
 
 Learn how to use high-level orchestrated flows for common operations.
 
@@ -414,3 +410,9 @@ if (result.success && result.receipts) {
   }
 }
 ```
+
+## Next Steps
+
+- [Secret Management](/docs/guides/web3/secret-management) - Create and manage secrets
+- [Text Encryption](/docs/guides/web3/text-encryption) - Encrypt and decrypt text payloads
+- [On-Chain Commitments](/docs/guides/web3/commitments) - Store encrypted data on-chain

@@ -141,4 +141,6 @@ const encrypted = await client.payload.encryptPayload({
 - [Quick Start (Web3)](/docs/getting-started/quick-start) - Get up and running with wallet-based encryption
 - [Quick Start (Web2)](/docs/getting-started/quick-start-web2) - Get up and running with email + password
 - [Core Concepts](/docs/getting-started/concepts) - Understand secrets, delegation, and encryption
+- [Web3 Guides](/docs/guides/web3) - Wallet integration, secret management, encryption, commitments, and flows
+- [Web2 Guides](/docs/guides/web2) - Authentication, secret management, and encryption
 - [API Reference](/docs/api) - Complete API documentation

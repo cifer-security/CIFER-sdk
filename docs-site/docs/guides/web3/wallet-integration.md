@@ -1,12 +1,8 @@
 ---
-sidebar_position: 4
+sidebar_position: 1
 ---
 
 # Wallet Integration
-
-:::note Web3 Mode
-This page is for **Web3** (wallet-based) integration. Web2 mode uses email + password instead — see [Quick Start (Web2)](/docs/getting-started/quick-start-web2).
-:::
 
 The CIFER SDK is wallet-agnostic—it works with any wallet that can sign messages. This guide shows you how to connect popular wallet solutions.
 
@@ -517,6 +513,6 @@ async function createSigner(type: WalletType): Promise<SignerAdapter> {
 
 ## Next Steps
 
-- [Quick Start](/docs/getting-started/quick-start) - Use your connected wallet to encrypt data
+- [Quick Start (Web3)](/docs/getting-started/quick-start) - Use your connected wallet to encrypt data
+- [Secret Management](/docs/guides/web3/secret-management) - Create and manage secrets
 - [Core Concepts](/docs/getting-started/concepts) - Understand secrets and the encryption model
-- [Key Management Guide](/docs/guides/key-management) - Create and manage secrets

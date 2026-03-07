@@ -78,13 +78,13 @@ const features = [
     title: 'File Encryption',
     icon: '📁',
     description: 'Encrypt files of any size with async job processing. Perfect for NFT metadata, documents, and media.',
-    link: '/docs/guides/encryption',
+    link: '/docs/guides/web3/file-encryption',
   },
   {
     title: 'On-Chain Commitments',
     icon: '⛓️',
     description: 'Store encrypted data commitments on-chain with log-based retrieval and integrity verification.',
-    link: '/docs/guides/commitments',
+    link: '/docs/guides/web3/commitments',
   },
 ];
 

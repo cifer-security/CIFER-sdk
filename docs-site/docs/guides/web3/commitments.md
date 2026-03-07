@@ -1,12 +1,8 @@
 ---
-sidebar_position: 3
+sidebar_position: 5
 ---
 
-# Commitments Guide
-
-:::note Web3 Mode
-This guide covers **on-chain commitments**, which are a Web3-only feature. Web2 mode does not use on-chain storage.
-:::
+# On-Chain Commitments
 
 Learn how to store and retrieve encrypted data on-chain.
 
@@ -346,3 +342,9 @@ See [Debugging & Logging](/docs/getting-started/concepts#debugging--logging) for
 3. **Use retry logic** - Log queries may fail due to RPC issues
 4. **Cache metadata** - Store block numbers to avoid redundant queries
 5. **Batch operations** - Fetch multiple logs in a single query when possible
+
+## Next Steps
+
+- [Text Encryption](/docs/guides/web3/text-encryption) - Encrypt and decrypt text payloads
+- [Flows](/docs/guides/web3/flows) - High-level orchestrated operations
+- [Secret Management](/docs/guides/web3/secret-management) - Create and manage secrets

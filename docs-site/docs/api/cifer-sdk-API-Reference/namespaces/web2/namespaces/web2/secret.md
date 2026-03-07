@@ -16,7 +16,7 @@ Web2 secret creation and listing
 
 > **createSecret**(`params`): `Promise`\<[`CreateWeb2SecretResult`](../../../../../index.md#createweb2secretresult)\>
 
-Defined in: [web2/secret.ts:45](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/33551518d32b352cff52f96930b45a166fc73f41/src/web2/secret.ts#L45)
+Defined in: [web2/secret.ts:45](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/c596a8f77c8ded58caea31c9290fd8ecdb62e433/src/web2/secret.ts#L45)
 
 Create a new Web2 secret.
 
@@ -52,7 +52,7 @@ console.log('Secret ID:', result.secretId);
 
 > **listSecrets**(`params`): `Promise`\<[`ListWeb2SecretsResult`](../../../../../index.md#listweb2secretsresult)\>
 
-Defined in: [web2/secret.ts:103](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/33551518d32b352cff52f96930b45a166fc73f41/src/web2/secret.ts#L103)
+Defined in: [web2/secret.ts:103](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/c596a8f77c8ded58caea31c9290fd8ecdb62e433/src/web2/secret.ts#L103)
 
 List all Web2 secrets for the current principal.
 

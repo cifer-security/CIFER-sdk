@@ -4,6 +4,10 @@ sidebar_position: 3
 
 # Commitments Guide
 
+:::note Web3 Mode
+This guide covers **on-chain commitments**, which are a Web3-only feature. Web2 mode does not use on-chain storage.
+:::
+
 Learn how to store and retrieve encrypted data on-chain.
 
 ## Overview

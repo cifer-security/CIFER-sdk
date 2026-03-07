@@ -4,6 +4,10 @@ sidebar_position: 2
 
 # Encryption Guide
 
+:::note Web3 Mode
+This guide covers **Web3** (wallet-based) encryption. For Web2 (email + password) encryption, see the [Web2 Guide](/docs/guides/web2).
+:::
+
 Learn how to encrypt and decrypt data using the CIFER blackbox API.
 
 ## Overview

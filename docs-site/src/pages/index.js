@@ -18,8 +18,8 @@ function HeroBanner() {
               Encryption
             </h1>
             <p className={styles.heroSubtitle}>
-              CIFER SDK provides post-quantum cryptographic infrastructure for blockchain applications. 
-              Secure your on-chain data with ML-KEM-768 key encapsulation and AES-GCM encryption.
+              CIFER SDK provides post-quantum cryptographic infrastructure for your applications. 
+              Secure your data with ML-KEM-768 key encapsulation and AES-GCM encryption — with Web3 wallets or Web2 email + password.
             </p>
             <div className={styles.heroButtons}>
               <Link
@@ -51,16 +51,22 @@ const features = [
     link: '/docs/getting-started/concepts',
   },
   {
-    title: 'Multi-Chain Ready',
+    title: 'Web3 + Web2 Ready',
     icon: '🌐',
-    description: 'Automatic chain discovery with support for multiple networks. Deploy secrets once, use across chains.',
-    link: '/docs/getting-started/concepts',
+    description: 'Use blockchain wallets (MetaMask, WalletConnect) or email + password — choose the integration that fits your app.',
+    link: '/docs/',
   },
   {
     title: 'Wallet Agnostic',
     icon: '💼',
     description: 'Works with any EIP-1193 wallet—MetaMask, WalletConnect, Coinbase, or your own custom signer.',
     link: '/docs/getting-started/quick-start',
+  },
+  {
+    title: 'Web2 Support',
+    icon: '✉️',
+    description: 'Use CIFER with email + password registration—no wallet needed. Session-based auth for server-side and traditional web apps.',
+    link: '/docs/getting-started/quick-start-web2',
   },
   {
     title: 'Zero Dependencies',
@@ -163,22 +169,22 @@ function ArchitectureSection() {
           <div className={styles.archStep}>
             <div className={styles.archNumber}>1</div>
             <h3>Create a Secret</h3>
-            <p>Register a quantum-resistant keypair on the SecretsController contract. The private key is secured in the CIFER network.</p>
+            <p>Register a quantum-resistant keypair via on-chain transaction (Web3) or API call (Web2). The private key is secured across the CIFER enclave network.</p>
           </div>
           <div className={styles.archStep}>
             <div className={styles.archNumber}>2</div>
-            <h3>Encrypt Data</h3>
-            <p>Send plaintext to the Blackbox API with wallet signature authorization. Data is encrypted using your secret's public key.</p>
+            <h3>Authenticate</h3>
+            <p>Authorize via wallet signature (Web3) or session token (Web2). Both paths use the same Blackbox encryption pipeline.</p>
           </div>
           <div className={styles.archStep}>
             <div className={styles.archNumber}>3</div>
-            <h3>Store On-Chain</h3>
-            <p>Commit the encrypted envelope to any CIFER-compatible smart contract. The encrypted payload can be stored anywhere.</p>
+            <h3>Encrypt Data</h3>
+            <p>Send plaintext to the Blackbox API. Data is encrypted with your secret's ML-KEM public key. Store the result on-chain, in a database, or anywhere.</p>
           </div>
           <div className={styles.archStep}>
             <div className={styles.archNumber}>4</div>
             <h3>Decrypt Anytime</h3>
-            <p>Authorized users can decrypt by signing a request. The Blackbox verifies ownership and returns plaintext.</p>
+            <p>Authorized users (owner or delegate) can decrypt by signing a request. The Blackbox verifies authorization and returns plaintext.</p>
           </div>
         </div>
       </div>
@@ -194,7 +200,7 @@ function CTASection() {
           Ready to <span className={styles.ctaTitleAccent}>Build</span>?
         </h2>
         <p className={styles.ctaText}>
-          Start encrypting your blockchain data with quantum-resistant security in minutes.
+          Start encrypting your data with quantum-resistant security in minutes — with Web3 wallets or Web2 email + password.
         </p>
         <div className={styles.ctaButtons}>
           <Link
@@ -217,8 +223,8 @@ export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title="Quantum-Resistant Encryption for Web3"
-      description="CIFER SDK provides post-quantum cryptographic infrastructure for blockchain applications using ML-KEM-768 and AES-GCM encryption.">
+      title="Quantum-Resistant Encryption for Web3 and Web2"
+      description="CIFER SDK provides post-quantum cryptographic infrastructure using ML-KEM-768 and AES-GCM encryption. Works with blockchain wallets or email + password.">
       <HeroBanner />
       <main>
         <FeaturesSection />

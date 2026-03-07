@@ -28,6 +28,7 @@ const sidebars = {
       items: [
         'getting-started/installation',
         'getting-started/quick-start',
+        'getting-started/quick-start-web2',
         'getting-started/wallet-integration',
         'getting-started/concepts',
       ],

@@ -48,6 +48,7 @@ ${SEPARATOR}
    - Encryption Model
    - Block Freshness
    - Transaction Intents
+   - Web2 Mode
 5. SDK INITIALIZATION & WALLET INTEGRATION
    - Discovery
    - Wallet Adapters (MetaMask, WalletConnect, Thirdweb, Private Key, wagmi, Coinbase)
@@ -58,9 +59,17 @@ ${SEPARATOR}
    - blackbox.jobs
    - commitments
    - flows
-7. TYPE DEFINITIONS
-8. ERROR HANDLING
-9. COMPLETE EXAMPLES
+7. WEB2 NAMESPACE REFERENCE
+   - web2.auth
+   - web2.session
+   - web2.secret
+   - web2.delegate
+   - web2.permit
+   - web2.principal
+   - web2.blackbox (payload, files, jobs)
+8. TYPE DEFINITIONS
+9. ERROR HANDLING
+10. COMPLETE EXAMPLES
 `;
 }
 
@@ -82,6 +91,7 @@ Key Features:
 - File encryption with async job system
 - On-chain commitments with log-based retrieval
 - High-level flows for common operations
+- Web2 mode - email + password registration with session-based auth (no wallet needed)
 
 Architecture:
 - SecretsController (on-chain): Manages secret ownership and delegation
@@ -107,11 +117,20 @@ Requirements:
 - Node.js 18.0 or higher
 - TypeScript 5.0+ (recommended)
 
+Runtime Dependencies:
+- @noble/secp256k1 (for PrivateKeySignerAdapter / Web2 sessions)
+- @noble/hashes (for keccak256 address derivation)
+
 ESM Import:
-import { createCiferSdk, keyManagement, blackbox, commitments, flows } from 'cifer-sdk';
+import { createCiferSdk, keyManagement, blackbox, commitments, flows, web2 } from 'cifer-sdk';
 
 CommonJS Import:
-const { createCiferSdk, keyManagement, blackbox } = require('cifer-sdk');
+const { createCiferSdk, keyManagement, blackbox, web2 } = require('cifer-sdk');
+
+Sub-path Imports:
+import * as web2 from 'cifer-sdk/web2';
+import { encryptPayload } from 'cifer-sdk/blackbox';
+import { Eip1193SignerAdapter } from 'cifer-sdk/adapters';
 `;
 }
 
@@ -261,6 +280,31 @@ await sendTransaction({ to: txIntent.to, data: txIntent.data, value: txIntent.va
 
 // viem
 await walletClient.sendTransaction({ to: txIntent.to, data: txIntent.data, value: txIntent.value });
+
+${SUB_SEPARATOR}
+4.6 WEB2 MODE
+${SUB_SEPARATOR}
+
+CIFER supports Web2 mode for apps that don't use blockchain wallets.
+Users register with email + password and authenticate via Ed25519-signed sessions.
+
+Web2 vs Web3:
+| Feature          | Web3                          | Web2                                   |
+|------------------|-------------------------------|----------------------------------------|
+| Auth             | EIP-1193 wallet               | Email + password + Ed25519 key         |
+| Chain ID         | Real chain ID (e.g. 752025)   | WEB2_CHAIN_ID = -1 (sentinel)          |
+| Block freshness  | RPC eth_blockNumber           | Date.now() (no RPC needed)             |
+| Signer           | Wallet personal_sign          | Session EOA personal_sign              |
+| Secret creation  | On-chain transaction          | POST /web2/secret API call             |
+
+WEB2_CHAIN_ID = -1: Sentinel value used for all Web2 operations.
+When chainId is -1, the SDK uses Date.now() instead of an RPC block number.
+
+Sessions:
+1. An ephemeral secp256k1 keypair is generated (session key)
+2. The session is authenticated with an Ed25519 signature
+3. The session key signs blackbox requests (same EIP-191 format as wallets)
+4. Sessions expire and can be auto-renewed (managed sessions)
 `;
 }
 
@@ -1280,10 +1324,332 @@ Parameters:
 `;
 }
 
+function generateWeb2Reference() {
+  return `
+${SEPARATOR}
+7. WEB2 NAMESPACE REFERENCE
+${SEPARATOR}
+
+The web2 namespace provides email-based registration, session management,
+and session-first blackbox wrappers.
+
+import { web2 } from 'cifer-sdk';
+// or
+import * as web2 from 'cifer-sdk/web2';
+
+${SUB_SEPARATOR}
+7.1 web2.auth
+${SUB_SEPARATOR}
+
+register(params): Promise<RegisterResult>
+  Register a new Web2 principal with email and password.
+
+  Parameters:
+    - email: string
+    - password: string
+    - blackboxUrl: string
+    - fetch?: typeof fetch
+
+  Returns: { principalId: string }
+
+  Example:
+    const result = await web2.auth.register({
+      email: 'user@example.com',
+      password: 'securePassword123',
+      blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    });
+    // An OTP is sent to the email
+
+${SUB_SEPARATOR}
+
+verifyEmail(params): Promise<VerifyEmailResult>
+  Verify the email OTP sent during registration.
+
+  Parameters:
+    - email: string
+    - otp: string
+    - blackboxUrl: string
+
+  Returns: { emailVerified: boolean }
+
+${SUB_SEPARATOR}
+
+registerKey(params): Promise<RegisterKeyResult>
+  Register an Ed25519 public key for a principal.
+
+  Parameters:
+    - principalId: string
+    - password: string
+    - ed25519Signer: Ed25519Signer
+    - blackboxUrl: string
+
+  Returns: { principalId: string, nodeRegistrationStatus: string }
+
+  NOTE: After registerKey, check nodeRegistrationStatus.
+        If not 'complete', call retryNodeRegistration().
+
+${SUB_SEPARATOR}
+
+resendOtp(params): Promise<ResendOtpResult>
+  Resend the email OTP. 60-second cooldown between requests.
+
+  Parameters:
+    - email: string
+    - blackboxUrl: string
+
+${SUB_SEPARATOR}
+
+forgotPassword(params): Promise<ForgotPasswordResult>
+  Request a password reset OTP. 60-second cooldown.
+
+  Parameters:
+    - email: string
+    - blackboxUrl: string
+
+${SUB_SEPARATOR}
+
+resetPassword(params): Promise<ResetPasswordResult>
+  Reset password using the OTP from forgotPassword.
+
+  Parameters:
+    - email: string
+    - otp: string
+    - newPassword: string
+    - blackboxUrl: string
+
+${SUB_SEPARATOR}
+
+retryNodeRegistration(params): Promise<RetryNodeRegistrationResult>
+  Retry registration on failed enclave nodes.
+
+  Parameters:
+    - principalId: string
+    - blackboxUrl: string
+
+${SUB_SEPARATOR}
+
+nodeRegistrationStatus(params): Promise<NodeRegistrationStatusResult>
+  Check node registration status.
+
+  Parameters:
+    - principalId: string
+    - blackboxUrl: string
+
+${SUB_SEPARATOR}
+7.2 web2.session
+${SUB_SEPARATOR}
+
+createManagedSession(params): Promise<Web2Session>
+  Create a managed session with auto-renewal.
+
+  Parameters:
+    - principalId: string
+    - ed25519Signer: Ed25519Signer
+    - blackboxUrl: string
+    - ttl?: number (seconds, default: 900 = 15 minutes)
+    - fetch?: typeof fetch
+
+  Returns: Web2Session object with:
+    - signer: SignerAdapter (ephemeral EOA)
+    - sessionAddress: string
+    - principalId: string
+    - expiresAt: number
+    - isManaged: true
+    - ensureValid(): Promise<void> (auto-renews if expired)
+    - renew(): Promise<void>
+
+  Example:
+    const session = await web2.session.createManagedSession({
+      principalId: 'your-uuid',
+      ed25519Signer: myEd25519Signer,
+      blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    });
+
+${SUB_SEPARATOR}
+
+useExistingSessionKey(params): Web2Session
+  Wrap an existing session private key (no auto-renewal).
+
+  Parameters:
+    - sessionPrivateKey: string (hex-encoded secp256k1 private key)
+    - principalId?: string
+
+  Returns: Web2Session (isManaged = false, renew() throws Web2SessionError)
+
+  WARNING: Cannot renew. Must recreate session externally when it expires.
+
+${SUB_SEPARATOR}
+7.3 web2.secret
+${SUB_SEPARATOR}
+
+createSecret(params): Promise<CreateWeb2SecretResult>
+  Create a new Web2 secret.
+
+  Parameters:
+    - session: Web2Session
+    - blackboxUrl: string
+    - fetch?: typeof fetch
+
+  Returns: { secretId: number }
+
+  Example:
+    const result = await web2.secret.createSecret({
+      session,
+      blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    });
+
+${SUB_SEPARATOR}
+
+listSecrets(params): Promise<ListWeb2SecretsResult>
+  List all secrets for the session principal.
+
+  Parameters:
+    - session: Web2Session
+    - blackboxUrl: string
+    - fetch?: typeof fetch
+
+  Returns: { secrets: Array<{ secretId, status }> }
+
+${SUB_SEPARATOR}
+7.4 web2.delegate
+${SUB_SEPARATOR}
+
+setDelegate(params): Promise<SetWeb2DelegateResult>
+  Set or remove a delegate for a Web2 secret.
+
+  Parameters:
+    - session: Web2Session
+    - secretId: number
+    - delegatePrincipalId: string (empty string to remove)
+    - blackboxUrl: string
+
+  Example:
+    // Set delegate
+    await web2.delegate.setDelegate({
+      session, secretId: 42,
+      delegatePrincipalId: 'delegate-uuid',
+      blackboxUrl,
+    });
+
+    // Remove delegate
+    await web2.delegate.setDelegate({
+      session, secretId: 42,
+      delegatePrincipalId: '',
+      blackboxUrl,
+    });
+
+${SUB_SEPARATOR}
+7.5 web2.permit
+${SUB_SEPARATOR}
+
+requestPermit(params): Promise<RequestPermitResult>
+  Request a permit for key rotation, transfer, or delegation.
+
+  Rotate permits use email+password (no session):
+    Parameters:
+      - action: 'rotate'
+      - email: string
+      - password: string
+      - payload: object
+      - blackboxUrl: string
+
+  Transfer/delegate permits use session:
+    Parameters:
+      - action: 'transfer' | 'delegate'
+      - session: Web2Session
+      - secretId: number
+      - payload: object
+      - blackboxUrl: string
+
+  Returns: { permitId: string }
+
+${SUB_SEPARATOR}
+7.6 web2.principal
+${SUB_SEPARATOR}
+
+getByEmail(email, blackboxUrl, options?): Promise<PrincipalByEmailResult>
+  Look up a principal by email address.
+
+  Returns: { principalId: string, emailHex: string }
+
+  Example:
+    const principal = await web2.principal.getByEmail(
+      'colleague@example.com',
+      'https://cifer-blackbox.ternoa.dev:3010'
+    );
+
+${SUB_SEPARATOR}
+7.7 web2.blackbox (payload, files, jobs)
+${SUB_SEPARATOR}
+
+Session-first wrappers around the core blackbox functions.
+Automatically fills in chainId = -1 and uses the session signer.
+
+--- web2.blackbox.payload ---
+
+encryptPayload(params): Promise<EncryptPayloadResult>
+  Parameters:
+    - session: Web2Session
+    - secretId: bigint | number
+    - plaintext: string
+    - blackboxUrl: string
+    - readClient: ReadClient
+    - outputFormat?: 'hex' | 'base64'
+
+  Example:
+    const encrypted = await web2.blackbox.payload.encryptPayload({
+      session, secretId: 42, plaintext: 'Hello!',
+      blackboxUrl, readClient: sdk.readClient,
+    });
+
+decryptPayload(params): Promise<DecryptPayloadResult>
+  Parameters:
+    - session: Web2Session
+    - secretId: bigint | number
+    - encryptedMessage: string
+    - cifer: string
+    - blackboxUrl: string
+    - readClient: ReadClient
+    - inputFormat?: 'hex' | 'base64'
+
+--- web2.blackbox.files ---
+
+encryptFile(params): Promise<FileJobResult>
+  Parameters: session, secretId, file, blackboxUrl, readClient
+
+decryptFile(params): Promise<FileJobResult>
+  Parameters: session, secretId, file, blackboxUrl, readClient
+
+decryptExistingFile(params): Promise<FileJobResult>
+  Parameters: session, secretId, encryptJobId, blackboxUrl, readClient
+
+--- web2.blackbox.jobs ---
+
+getStatus(jobId, blackboxUrl, options?): Promise<JobInfo>
+  Re-exported from core (no session needed).
+
+pollUntilComplete(jobId, blackboxUrl, options?): Promise<JobInfo>
+  Re-exported from core (no session needed).
+
+download(jobId, params): Promise<Blob>
+  For decrypt jobs (session required).
+  Parameters: session, secretId, blackboxUrl, readClient
+
+deleteJob(jobId, params): Promise<void>
+  Parameters: session, secretId, blackboxUrl, readClient
+
+list(params): Promise<ListJobsResult>
+  Parameters: session, blackboxUrl, readClient
+
+dataConsumption(params): Promise<DataConsumption>
+  Parameters: session, blackboxUrl, readClient
+`;
+}
+
 function generateTypeDefinitions() {
   return `
 ${SEPARATOR}
-7. TYPE DEFINITIONS
+8. TYPE DEFINITIONS
 ${SEPARATOR}
 
 ${SUB_SEPARATOR}
@@ -1414,13 +1780,72 @@ interface CiferSdkConfig {
   fetch?: typeof fetch;
   logger?: (message: string) => void;
 }
+
+${SUB_SEPARATOR}
+WEB2 TYPES
+${SUB_SEPARATOR}
+
+const WEB2_CHAIN_ID = -1
+  Sentinel chain ID for Web2 operations.
+
+interface Ed25519Signer {
+  sign(message: Uint8Array): Promise<Uint8Array>;
+  getPublicKey(): Uint8Array;
+}
+
+interface Web2Session {
+  signer: SignerAdapter;        // Ephemeral EOA signer
+  sessionAddress: string;       // Session EOA address
+  principalId: string;          // UUID
+  expiresAt: number;            // Unix timestamp ms
+  isManaged: boolean;           // true = auto-renew capable
+  ensureValid(): Promise<void>; // Check expiry, auto-renew if needed
+  renew(): Promise<void>;       // Force renewal
+}
+
+interface RegisterParams {
+  email: string;
+  password: string;
+  blackboxUrl: string;
+  fetch?: typeof fetch;
+}
+
+interface CreateManagedSessionParams {
+  principalId: string;
+  ed25519Signer: Ed25519Signer;
+  blackboxUrl: string;
+  ttl?: number; // seconds
+  fetch?: typeof fetch;
+}
+
+interface CreateWeb2SecretParams {
+  session: Web2Session;
+  blackboxUrl: string;
+  fetch?: typeof fetch;
+}
+
+interface SetWeb2DelegateParams {
+  session: Web2Session;
+  secretId: number;
+  delegatePrincipalId: string;
+  blackboxUrl: string;
+  fetch?: typeof fetch;
+}
+
+interface RequestPermitParams {
+  // Discriminated union on 'action'
+  action: 'rotate' | 'transfer' | 'delegate';
+  // For rotate: email, password, payload
+  // For transfer/delegate: session, secretId, payload
+  blackboxUrl: string;
+}
 `;
 }
 
 function generateErrorHandling() {
   return `
 ${SEPARATOR}
-8. ERROR HANDLING
+9. ERROR HANDLING
 ${SEPARATOR}
 
 All SDK errors extend CiferError with typed subclasses.
@@ -1450,6 +1875,9 @@ CiferError (base class)
 │   ├── IntegrityError
 │   ├── InvalidCiferSizeError
 │   └── PayloadTooLargeError
+├── Web2Error (code: WEB2_ERROR)
+│   ├── Web2SessionError (session expired, cannot renew)
+│   └── Web2AuthError (registration, OTP, password errors)
 └── FlowError (code: FLOW_ERROR)
     ├── FlowAbortedError
     └── FlowTimeoutError
@@ -1467,6 +1895,12 @@ isBlockStaleError(error): error is BlockStaleError
 isSecretNotReadyError(error): error is SecretNotReadyError
   Check if error is a secret not ready error.
 
+isWeb2Error(error): error is Web2Error
+  Check if error is any Web2 error.
+
+isWeb2SessionError(error): error is Web2SessionError
+  Check if error is a Web2 session error.
+
 ${SUB_SEPARATOR}
 ERROR HANDLING EXAMPLE
 ${SUB_SEPARATOR}
@@ -1474,9 +1908,12 @@ ${SUB_SEPARATOR}
 import {
   isCiferError,
   isBlockStaleError,
+  isWeb2Error,
+  isWeb2SessionError,
   SecretNotFoundError,
   SecretNotReadyError,
   CommitmentNotFoundError,
+  Web2AuthError,
 } from 'cifer-sdk';
 
 try {
@@ -1536,7 +1973,7 @@ ${SUB_SEPARATOR}
 function generateCompleteExamples() {
   return `
 ${SEPARATOR}
-9. COMPLETE EXAMPLES
+10. COMPLETE EXAMPLES
 ${SEPARATOR}
 
 ${SUB_SEPARATOR}
@@ -1780,6 +2217,80 @@ async function serverSideExample() {
   
   console.log('Encrypted on server:', encrypted);
 }
+
+${SUB_SEPARATOR}
+EXAMPLE 6: WEB2 - EMAIL REGISTRATION + ENCRYPT/DECRYPT
+${SUB_SEPARATOR}
+
+import { createCiferSdk, web2 } from 'cifer-sdk';
+import * as ed from '@noble/ed25519';
+
+async function web2Example() {
+  const blackboxUrl = 'https://cifer-blackbox.ternoa.dev:3010';
+
+  // Initialize SDK (for readClient)
+  const sdk = await createCiferSdk({ blackboxUrl });
+
+  // --- Ed25519 key setup ---
+  const privateKey = ed.utils.randomPrivateKey();
+  const publicKey = await ed.getPublicKeyAsync(privateKey);
+
+  const ed25519Signer = {
+    async sign(message) { return ed.signAsync(message, privateKey); },
+    getPublicKey() { return publicKey; },
+  };
+
+  // --- Registration ---
+  const reg = await web2.auth.register({
+    email: 'user@example.com',
+    password: 'securePassword123',
+    blackboxUrl,
+  });
+
+  // (User receives OTP via email)
+  await web2.auth.verifyEmail({
+    email: 'user@example.com', otp: '123456', blackboxUrl,
+  });
+
+  await web2.auth.registerKey({
+    principalId: reg.principalId,
+    password: 'securePassword123',
+    ed25519Signer,
+    blackboxUrl,
+  });
+
+  // --- Session ---
+  const session = await web2.session.createManagedSession({
+    principalId: reg.principalId,
+    ed25519Signer,
+    blackboxUrl,
+  });
+
+  // --- Create secret ---
+  const secret = await web2.secret.createSecret({ session, blackboxUrl });
+
+  // --- Encrypt ---
+  const encrypted = await web2.blackbox.payload.encryptPayload({
+    session,
+    secretId: secret.secretId,
+    plaintext: 'Hello from Web2!',
+    blackboxUrl,
+    readClient: sdk.readClient,
+  });
+
+  // --- Decrypt ---
+  const decrypted = await web2.blackbox.payload.decryptPayload({
+    session,
+    secretId: secret.secretId,
+    encryptedMessage: encrypted.encryptedMessage,
+    cifer: encrypted.cifer,
+    blackboxUrl,
+    readClient: sdk.readClient,
+  });
+
+  console.log('Decrypted:', decrypted.decryptedMessage);
+  // Output: "Hello from Web2!"
+}
 `;
 }
 
@@ -1812,6 +2323,7 @@ function generateLlmTxt() {
     generateBlackboxJobsReference(),
     generateCommitmentsReference(),
     generateFlowsReference(),
+    generateWeb2Reference(),
     generateTypeDefinitions(),
     generateErrorHandling(),
     generateCompleteExamples(),

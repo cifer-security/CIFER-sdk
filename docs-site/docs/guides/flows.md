@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # Flows Guide
 
+:::note Web3 Mode
+This guide covers **Web3** (wallet-based) flows. For Web2 (email + password) operations, see the [Web2 Guide](/docs/guides/web2).
+:::
+
 Learn how to use high-level orchestrated flows for common operations.
 
 ## Overview

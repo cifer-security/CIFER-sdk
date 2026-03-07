@@ -2,9 +2,13 @@
 sidebar_position: 2
 ---
 
-# Quick Start
+# Quick Start (Web3)
 
-Get up and running with CIFER encryption in 5 minutes.
+Get up and running with CIFER wallet-based encryption in 5 minutes.
+
+:::info Looking for Web2?
+This guide covers **Web3** (wallet-based) usage. If you want to use CIFER with **email + password** instead of a wallet, see the [Quick Start (Web2)](/docs/getting-started/quick-start-web2).
+:::
 
 :::tip Using AI Assistants?
 Point your AI agent (ChatGPT, Claude, Cursor, etc.) to [`llm.txt`](/llm.txt) — a comprehensive plaintext reference designed for AI consumption. This helps agents understand the SDK and implement features more accurately.
@@ -208,3 +212,4 @@ main().catch(console.error);
 - [Core Concepts](/docs/getting-started/concepts) - Understand secrets, delegation, and the encryption model
 - [Key Management Guide](/docs/guides/key-management) - Deep dive into secret management
 - [Encryption Guide](/docs/guides/encryption) - Learn about payload and file encryption
+- [Quick Start (Web2)](/docs/getting-started/quick-start-web2) - Use CIFER with email + password (no wallet)

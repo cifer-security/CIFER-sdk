@@ -4,6 +4,10 @@ sidebar_position: 1
 
 # Key Management Guide
 
+:::note Web3 Mode
+This guide covers **Web3** (wallet-based) key management. For Web2 (email + password), see the [Web2 Guide](/docs/guides/web2).
+:::
+
 Learn how to create, manage, and delegate CIFER secrets.
 
 ## Overview

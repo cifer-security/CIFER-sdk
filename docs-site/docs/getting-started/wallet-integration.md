@@ -1,8 +1,12 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # Wallet Integration
+
+:::note Web3 Mode
+This page is for **Web3** (wallet-based) integration. Web2 mode uses email + password instead — see [Quick Start (Web2)](/docs/getting-started/quick-start-web2).
+:::
 
 The CIFER SDK is wallet-agnostic—it works with any wallet that can sign messages. This guide shows you how to connect popular wallet solutions.
 

@@ -102,6 +102,10 @@ const config = {
                 to: '/docs/guides/key-management',
               },
               {
+                label: 'Web2 Guide',
+                to: '/docs/guides/web2',
+              },
+              {
                 label: 'API Reference',
                 to: '/docs/api',
               },

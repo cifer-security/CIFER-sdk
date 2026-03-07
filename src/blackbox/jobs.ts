@@ -494,6 +494,8 @@ export interface DataConsumptionParams {
  *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
  * });
  *
+ * console.log('User:', usage.userId, '(', usage.userType, ')');
+ * console.log('Plan:', usage.planId, '— cycle:', usage.cycleType);
  * console.log('Encryption used:', usage.encryption.usedGB, 'GB');
  * console.log('Encryption remaining:', usage.encryption.remainingGB, 'GB');
  * ```
@@ -544,12 +546,19 @@ export async function dataConsumption(
 
       const result = (await response.json()) as {
         success: boolean;
-        wallet: string;
+        user_id: string;
+        user_type: string;
+        plan_id: string;
+        cycle_type: string;
+        period_start: string;
+        period_end: string;
         encryption: {
           limit: number;
           used: number;
           remaining: number;
           count: number;
+          requestLimit: number;
+          rateLimit: number;
           limitGB: number;
           usedGB: number;
           remainingGB: number;
@@ -559,6 +568,8 @@ export async function dataConsumption(
           used: number;
           remaining: number;
           count: number;
+          requestLimit: number;
+          rateLimit: number;
           limitGB: number;
           usedGB: number;
           remainingGB: number;
@@ -566,7 +577,12 @@ export async function dataConsumption(
       };
 
       return {
-        wallet: result.wallet as `0x${string}`,
+        userId: result.user_id,
+        userType: result.user_type,
+        planId: result.plan_id,
+        cycleType: result.cycle_type,
+        periodStart: result.period_start,
+        periodEnd: result.period_end,
         encryption: result.encryption,
         decryption: result.decryption,
       };

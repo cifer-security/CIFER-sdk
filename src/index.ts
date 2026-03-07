@@ -143,6 +143,24 @@ export * as commitments from './commitments/index.js';
  */
 export * as flows from './flows/index.js';
 
+/**
+ * Web2 namespace for email-based registration, session management,
+ * and session-first blackbox operations.
+ *
+ * @remarks
+ * This namespace provides:
+ * - `auth`: Registration, email verification, key registration
+ * - `session`: Managed and existing-key session creation
+ * - `secret`: Web2 secret creation and listing
+ * - `delegate`: Delegate management
+ * - `permit`: Permit requests (rotate/transfer/delegate)
+ * - `principal`: Principal lookup by email
+ * - `blackbox`: Session-first wrappers for payload/file/job operations
+ *
+ * @public
+ */
+export * as web2 from './web2/index.js';
+
 // ============================================================================
 // Internal Utilities (exported for advanced usage)
 // ============================================================================
@@ -178,6 +196,7 @@ export {
   Eip1193SignerAdapter,
   RpcReadClient,
   createReadClientFromDiscovery,
+  PrivateKeySignerAdapter,
 } from './internal/adapters/index.js';
 
 // Errors

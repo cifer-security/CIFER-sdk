@@ -61,10 +61,23 @@ export type Hex = `0x${string}`;
  * Common chain IDs used with CIFER:
  * - `752025` - Ternoa Mainnet
  * - `11155111` - Ethereum Sepolia (testnet)
+ * - `-1` - Web2 mode (see {@link WEB2_CHAIN_ID})
  *
  * @public
  */
 export type ChainId = number;
+
+/**
+ * Sentinel chain ID for Web2 mode.
+ *
+ * @remarks
+ * When `chainId` is set to `WEB2_CHAIN_ID` (`-1`), the SDK uses
+ * timestamp-based freshness (milliseconds) instead of block numbers,
+ * and session-based EOA signatures instead of wallet signatures.
+ *
+ * @public
+ */
+export const WEB2_CHAIN_ID = -1 as const;
 
 /**
  * Secret ID (uint256 on-chain, represented as bigint).
@@ -300,49 +313,56 @@ export interface JobInfo {
 }
 
 /**
- * Data consumption/usage statistics for a wallet.
+ * Usage statistics for a single direction (encryption or decryption).
+ *
+ * @public
+ */
+export interface UsageStats {
+  /** Data limit in bytes */
+  limit: number;
+  /** Data used in bytes */
+  used: number;
+  /** Data remaining in bytes */
+  remaining: number;
+  /** Number of operations performed */
+  count: number;
+  /** Request limit per billing cycle */
+  requestLimit: number;
+  /** Rate limit (requests per second) */
+  rateLimit: number;
+  /** Limit in GB */
+  limitGB: number;
+  /** Used in GB */
+  usedGB: number;
+  /** Remaining in GB */
+  remainingGB: number;
+}
+
+/**
+ * Data consumption/usage statistics for a user.
  *
  * @remarks
- * The blackbox tracks encryption and decryption usage per wallet
- * for rate limiting and billing purposes.
+ * The blackbox tracks encryption and decryption usage per user
+ * for rate limiting and billing purposes. The `userId` identifies
+ * the user (wallet address for Web3, principalId for Web2).
  *
  * @public
  */
 export interface DataConsumption {
-  /** Wallet address */
-  wallet: Address;
+  /** User identifier (wallet address for web3, principalId for web2) */
+  userId: string;
+  /** User type ('web3' or 'web2') */
+  userType: string;
+  /** Plan identifier (e.g. 'free') */
+  planId: string;
+  /** Billing cycle type (e.g. 'monthly') */
+  cycleType: string;
+  /** Billing period start (ISO 8601) */
+  periodStart: string;
+  /** Billing period end (ISO 8601) */
+  periodEnd: string;
   /** Encryption usage statistics */
-  encryption: {
-    /** Limit in bytes */
-    limit: number;
-    /** Used in bytes */
-    used: number;
-    /** Remaining in bytes */
-    remaining: number;
-    /** Number of encryption operations */
-    count: number;
-    /** Limit in GB */
-    limitGB: number;
-    /** Used in GB */
-    usedGB: number;
-    /** Remaining in GB */
-    remainingGB: number;
-  };
+  encryption: UsageStats;
   /** Decryption usage statistics */
-  decryption: {
-    /** Limit in bytes */
-    limit: number;
-    /** Used in bytes */
-    used: number;
-    /** Remaining in bytes */
-    remaining: number;
-    /** Number of decryption operations */
-    count: number;
-    /** Limit in GB */
-    limitGB: number;
-    /** Used in GB */
-    usedGB: number;
-    /** Remaining in GB */
-    remainingGB: number;
-  };
+  decryption: UsageStats;
 }

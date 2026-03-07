@@ -47,6 +47,7 @@ const sidebars = {
         'guides/encryption',
         'guides/commitments',
         'guides/flows',
+        'guides/web2',
       ],
     },
     {

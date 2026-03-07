@@ -5,3 +5,4 @@
 
 export { Eip1193SignerAdapter } from './eip1193-signer.js';
 export { RpcReadClient, createReadClientFromDiscovery } from './rpc-read-client.js';
+export { PrivateKeySignerAdapter } from './private-key-signer.js';

@@ -41,7 +41,7 @@ export async function getByEmail(
   options?: { fetch?: typeof fetch }
 ): Promise<PrincipalByEmailResult> {
   const fetchFn = options?.fetch ?? fetch;
-  const url = `${normalizeUrl(blackboxUrl)}/web2/auth/principal-by-email?email=${encodeURIComponent(email)}`;
+  const url = `${normalizeUrl(blackboxUrl)}/web2/principal/byEmail?email=${encodeURIComponent(email)}`;
 
   const response = await fetchFn(url, {
     method: 'GET',

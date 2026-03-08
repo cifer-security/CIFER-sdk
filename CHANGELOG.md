@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-03-09
+
 ### ⚠️ Breaking Changes
 
 - **`DataConsumption` type redesigned** — The `wallet` field has been removed. It is replaced by `userId`, `userType`, `planId`, `cycleType`, `periodStart`, and `periodEnd` to align with the updated blackbox `/jobs/dataConsumption` response which now supports both Web3 and Web2 users. The `encryption` and `decryption` objects now also include `requestLimit` and `rateLimit` fields (via the new `UsageStats` interface).

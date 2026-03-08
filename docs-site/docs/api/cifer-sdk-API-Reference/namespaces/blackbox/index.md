@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.4.0**](../../../index.md)
+[**cifer-sdk API Reference v0.4.1**](../../../index.md)
 
 ***
 

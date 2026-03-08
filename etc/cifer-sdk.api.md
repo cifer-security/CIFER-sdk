@@ -1200,6 +1200,8 @@ export interface JobInfo {
     progress: number;
     resultFileName?: string;
     secretId: number;
+    secretOwnerPrincipalId?: string | null;
+    signerPrincipalId?: string | null;
     status: JobStatus;
     ttl: number;
     type: JobType;

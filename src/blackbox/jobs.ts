@@ -81,6 +81,8 @@ export async function getStatus(
       resultFileName?: string;
       ttl: number;
       originalSize?: number;
+      signerPrincipalId?: string | null;
+      secretOwnerPrincipalId?: string | null;
     };
   };
 
@@ -98,6 +100,8 @@ export async function getStatus(
     resultFileName: result.job.resultFileName,
     ttl: result.job.ttl,
     originalSize: result.job.originalSize,
+    signerPrincipalId: result.job.signerPrincipalId,
+    secretOwnerPrincipalId: result.job.secretOwnerPrincipalId,
   };
 }
 
@@ -432,6 +436,8 @@ export async function list(params: ListJobsParams): Promise<ListJobsResult> {
           resultFileName?: string;
           ttl: number;
           originalSize?: number;
+          signerPrincipalId?: string | null;
+          secretOwnerPrincipalId?: string | null;
         }>;
         count: number;
         includeExpired: boolean;
@@ -452,6 +458,8 @@ export async function list(params: ListJobsParams): Promise<ListJobsResult> {
           resultFileName: job.resultFileName,
           ttl: job.ttl,
           originalSize: job.originalSize,
+          signerPrincipalId: job.signerPrincipalId,
+          secretOwnerPrincipalId: job.secretOwnerPrincipalId,
         })),
         count: result.count,
         includeExpired: result.includeExpired,

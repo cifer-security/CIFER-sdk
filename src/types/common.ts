@@ -310,6 +310,10 @@ export interface JobInfo {
   ttl: number;
   /** Original file size in bytes */
   originalSize?: number;
+  /** Web2 principalId of job initiator. null for Web3 jobs. */
+  signerPrincipalId?: string | null;
+  /** Web2 principalId of secret owner. null for Web3 jobs. */
+  secretOwnerPrincipalId?: string | null;
 }
 
 /**

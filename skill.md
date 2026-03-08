@@ -11,6 +11,7 @@ CIFER (Cryptographic Infrastructure for Encrypted Records) SDK provides quantum-
 - **Quantum-Resistant Encryption**: ML-KEM-768 (NIST standardized) key encapsulation
 - **Multi-Chain Support**: Automatic chain discovery and configuration
 - **Wallet Agnostic**: Works with MetaMask, WalletConnect, Coinbase, Thirdweb, and custom signers
+- **Web2 Mode**: Email + password registration with session-based auth (no wallet needed)
 - **File Encryption**: Async job system for large file encryption/decryption
 - **On-Chain Commitments**: Store encrypted data references on-chain with log-based retrieval
 - **Transaction Intents**: Non-custodial pattern - you control transaction execution
@@ -24,6 +25,7 @@ Use the CIFER SDK when you need to:
 - Manage encryption keys with owner/delegate authorization
 - Encrypt files larger than 16KB using the job system
 - Build applications requiring post-quantum security
+- Build walletless apps with email-based authentication (Web2 mode)
 
 ## Installation
 
@@ -72,6 +74,65 @@ const decrypted = await blackbox.payload.decryptPayload({
 });
 
 console.log(decrypted.decryptedMessage); // 'My secret message'
+```
+
+### Quick Start (Web2 - No Wallet)
+
+```typescript
+import { createCiferSdk, web2 } from 'cifer-sdk';
+import * as ed from '@noble/ed25519';
+
+// 1. Initialize SDK
+const sdk = await createCiferSdk({
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+
+// 2. Ed25519 key setup
+const privateKey = ed.utils.randomPrivateKey();
+const publicKey = await ed.getPublicKeyAsync(privateKey);
+const ed25519Signer = {
+  async sign(message: Uint8Array) { return ed.signAsync(message, privateKey); },
+  getPublicKey() { return publicKey; },
+};
+
+// 3. Register (one-time)
+const reg = await web2.auth.register({
+  email: 'user@example.com',
+  password: 'securePassword123',
+  blackboxUrl: sdk.blackboxUrl,
+});
+await web2.auth.verifyEmail({ email: 'user@example.com', otp: '123456', blackboxUrl: sdk.blackboxUrl });
+await web2.auth.registerKey({ principalId: reg.principalId, password: 'securePassword123', ed25519Signer, blackboxUrl: sdk.blackboxUrl });
+
+// 4. Create session
+const session = await web2.session.createManagedSession({
+  principalId: reg.principalId,
+  ed25519Signer,
+  blackboxUrl: sdk.blackboxUrl,
+});
+
+// 5. Create secret & encrypt
+const secret = await web2.secret.createSecret({ session, blackboxUrl: sdk.blackboxUrl });
+
+const encrypted = await web2.blackbox.payload.encryptPayload({
+  session,
+  secretId: secret.secretId,
+  plaintext: 'Hello from Web2!',
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+
+// 6. Decrypt
+const decrypted = await web2.blackbox.payload.decryptPayload({
+  session,
+  secretId: secret.secretId,
+  encryptedMessage: encrypted.encryptedMessage,
+  cifer: encrypted.cifer,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+
+console.log(decrypted.decryptedMessage); // 'Hello from Web2!'
 ```
 
 ---
@@ -124,6 +185,49 @@ interface TxIntent {
 ```
 
 Execute with any wallet library (ethers, wagmi, viem).
+
+### Web2 Mode
+
+CIFER supports Web2 mode for apps that don't use blockchain wallets. Users register with email + password and authenticate via Ed25519-signed sessions.
+
+**`WEB2_CHAIN_ID = -1`**: Sentinel value used for all Web2 operations. When `chainId` is `-1`, the SDK uses `Date.now()` instead of an RPC block number for freshness.
+
+| Feature | Web3 | Web2 |
+|---------|------|------|
+| Auth | EIP-1193 wallet | Email + password + Ed25519 key |
+| Chain ID | Real chain ID (e.g. 752025) | `WEB2_CHAIN_ID = -1` (sentinel) |
+| Block freshness | RPC `eth_blockNumber` | `Date.now()` (no RPC needed) |
+| Signer | Wallet `personal_sign` | Session EOA `personal_sign` |
+| Secret creation | On-chain transaction | `POST /web2/secret` API call |
+
+**How sessions work**:
+1. An ephemeral secp256k1 keypair is generated (session key)
+2. The session is authenticated with an Ed25519 signature
+3. The session key signs blackbox requests (same EIP-191 format as wallets)
+4. Sessions expire and can be auto-renewed (managed sessions)
+
+**Ed25519 Signer Interface** (bring-your-own-library):
+
+```typescript
+interface Ed25519Signer {
+  sign(message: Uint8Array): Promise<Uint8Array>;
+  getPublicKey(): Uint8Array;
+}
+```
+
+Use `@noble/ed25519` or any Ed25519 library:
+
+```typescript
+import * as ed from '@noble/ed25519';
+
+const privateKey = ed.utils.randomPrivateKey();
+const publicKey = await ed.getPublicKeyAsync(privateKey);
+
+const ed25519Signer: Ed25519Signer = {
+  async sign(message) { return ed.signAsync(message, privateKey); },
+  getPublicKey() { return publicKey; },
+};
+```
 
 ---
 
@@ -579,6 +683,366 @@ const result = await flows.decryptFileJobFlow(ctx, {
 
 ---
 
+### web2.auth Namespace
+
+Registration and authentication for Web2 mode (two-phase flow).
+
+```typescript
+import { web2 } from 'cifer-sdk';
+
+// Phase 1: Register with email + password (sends OTP)
+const reg = await web2.auth.register({
+  email: 'user@example.com',
+  password: 'securePassword123',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+// Returns: { principalId: string, message: string }
+
+// Phase 2: Verify email OTP
+const verified = await web2.auth.verifyEmail({
+  email: 'user@example.com',
+  otp: '123456',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+// Returns: { principalId: string, emailVerified: boolean }
+
+// Phase 3: Register Ed25519 key (propagated to cluster nodes)
+const keyResult = await web2.auth.registerKey({
+  principalId: reg.principalId,
+  password: 'securePassword123',
+  ed25519Signer,
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+// Returns: { principalId: string, nodeRegistrationStatus: string }
+
+// If nodeRegistrationStatus !== 'complete', retry:
+await web2.auth.retryNodeRegistration({
+  principalId: reg.principalId,
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+
+// Check node registration status
+const status = await web2.auth.nodeRegistrationStatus({
+  principalId: reg.principalId,
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+```
+
+#### Helper Functions
+
+```typescript
+// Resend OTP (60-second cooldown)
+await web2.auth.resendOtp({
+  email: 'user@example.com',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+
+// Forgot password (sends OTP)
+await web2.auth.forgotPassword({
+  email: 'user@example.com',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+
+// Reset password with OTP
+await web2.auth.resetPassword({
+  email: 'user@example.com',
+  otp: '123456',
+  newPassword: 'newSecurePassword456',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+```
+
+---
+
+### web2.session Namespace
+
+Create and manage Web2 sessions. Two modes available:
+
+#### Managed Session (Recommended)
+
+SDK manages session lifecycle with auto-renewal:
+
+```typescript
+const session = await web2.session.createManagedSession({
+  principalId: 'your-uuid',
+  ed25519Signer,
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  ttl: 900, // seconds (default: 900 = 15 minutes)
+});
+
+// Session properties:
+session.signer;         // SignerAdapter (ephemeral EOA)
+session.sessionAddress; // EOA address
+session.principalId;    // UUID
+session.expiresAt;      // ISO 8601 timestamp
+session.isManaged;      // true
+
+// Auto-renew if near expiry (60s skew)
+await session.ensureValid();
+
+// Force renewal
+await session.renew();
+```
+
+#### Existing Session Key (Advanced)
+
+Wrap a pre-existing session private key (e.g. from a TEE web front):
+
+```typescript
+const session = web2.session.useExistingSessionKey({
+  sessionPrivateKey: '0xabc123...', // hex-encoded secp256k1 private key
+  principalId: 'your-uuid',        // optional
+});
+
+// session.isManaged === false
+// session.renew() throws Web2SessionError
+// session.ensureValid() is a no-op
+```
+
+---
+
+### web2.secret Namespace
+
+Create and list Web2 secrets.
+
+```typescript
+// Create a new secret
+const result = await web2.secret.createSecret({
+  session,
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+// Returns: { secretId: number }
+
+// List all secrets for the principal
+const list = await web2.secret.listSecrets({
+  session,
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+// Returns: { secrets: Array<{ secretId, status }> }
+```
+
+---
+
+### web2.delegate Namespace
+
+Set or remove delegates on Web2 secrets.
+
+```typescript
+// Set a delegate
+await web2.delegate.setDelegate({
+  session,
+  secretId: 42,
+  delegatePrincipalId: 'delegate-principal-uuid',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+
+// Remove a delegate (empty string)
+await web2.delegate.setDelegate({
+  session,
+  secretId: 42,
+  delegatePrincipalId: '',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+```
+
+---
+
+### web2.permit Namespace
+
+Request permits for key rotation, ownership transfer, or delegation changes.
+
+```typescript
+// Key rotation (email+password, no session needed)
+const result = await web2.permit.requestPermit({
+  action: 'rotate',
+  email: 'user@example.com',
+  password: 'securePassword123',
+  payload: { newPublicKey: '...' },
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+// Returns: { permitId: string }
+
+// Transfer ownership (session required)
+const result = await web2.permit.requestPermit({
+  action: 'transfer',
+  session,
+  secretId: 42,
+  payload: { newOwnerPrincipalId: 'new-owner-uuid' },
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+
+// Delegate permit (session required)
+const result = await web2.permit.requestPermit({
+  action: 'delegate',
+  session,
+  secretId: 42,
+  payload: { delegatePrincipalId: 'delegate-uuid' },
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+});
+```
+
+---
+
+### web2.principal Namespace
+
+Look up principals by email.
+
+```typescript
+const principal = await web2.principal.getByEmail(
+  'colleague@example.com',
+  'https://cifer-blackbox.ternoa.dev:3010',
+);
+// Returns: { principalId: string, emailHex: string }
+```
+
+---
+
+### web2.blackbox Namespace
+
+Session-first wrappers around the core `blackbox.*` functions. Automatically fills `chainId = -1` and uses the session signer. Calls `session.ensureValid()` before each request.
+
+#### web2.blackbox.payload
+
+```typescript
+// Encrypt
+const encrypted = await web2.blackbox.payload.encryptPayload({
+  session,
+  secretId: 42,
+  plaintext: 'Hello, Web2!',
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  readClient: sdk.readClient,
+  outputFormat: 'hex', // optional, default: 'hex'
+});
+// Returns: { cifer: string, encryptedMessage: string }
+
+// Decrypt
+const decrypted = await web2.blackbox.payload.decryptPayload({
+  session,
+  secretId: 42,
+  encryptedMessage: encrypted.encryptedMessage,
+  cifer: encrypted.cifer,
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  readClient: sdk.readClient,
+  inputFormat: 'hex', // optional
+});
+// Returns: { decryptedMessage: string }
+```
+
+#### web2.blackbox.files
+
+```typescript
+// Encrypt file
+const job = await web2.blackbox.files.encryptFile({
+  session,
+  secretId: 42,
+  file: myFile,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+// Returns: { jobId: string, message: string }
+
+// Decrypt file
+const job = await web2.blackbox.files.decryptFile({
+  session,
+  secretId: 42,
+  file: encryptedFile,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+
+// Decrypt from existing encrypt job
+const job = await web2.blackbox.files.decryptExistingFile({
+  session,
+  secretId: 42,
+  encryptJobId: previousJobId,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+```
+
+#### web2.blackbox.jobs
+
+```typescript
+// These are re-exported from core (no session needed):
+const status = await web2.blackbox.jobs.getStatus(jobId, sdk.blackboxUrl);
+const final = await web2.blackbox.jobs.pollUntilComplete(jobId, sdk.blackboxUrl, {
+  onProgress: (job) => console.log(`${job.progress}%`),
+});
+
+// These require a session:
+const blob = await web2.blackbox.jobs.download(jobId, {
+  session,
+  secretId: 42,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+
+await web2.blackbox.jobs.deleteJob(jobId, {
+  session,
+  secretId: 42,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+
+const jobs = await web2.blackbox.jobs.list({
+  session,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+  includeExpired: false,
+});
+
+const stats = await web2.blackbox.jobs.dataConsumption({
+  session,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+```
+
+---
+
+### web2.createClient Factory
+
+Stateful client that stores session, `blackboxUrl`, and `readClient` so you don't pass them on every call.
+
+```typescript
+import { web2 } from 'cifer-sdk';
+
+const client = web2.createClient({
+  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  readClient: sdk.readClient,
+});
+
+// Session is auto-stored after creation
+await client.createManagedSession({
+  principalId: 'your-uuid',
+  ed25519Signer,
+});
+
+// No need to pass session or blackboxUrl!
+const secret = await client.createSecret();
+
+const encrypted = await client.payload.encryptPayload({
+  secretId: secret.secretId,
+  plaintext: 'Hello!',
+});
+
+const decrypted = await client.payload.decryptPayload({
+  secretId: secret.secretId,
+  encryptedMessage: encrypted.encryptedMessage,
+  cifer: encrypted.cifer,
+});
+
+// Other client methods:
+await client.listSecrets();
+await client.setDelegate({ secretId: 42, delegatePrincipalId: 'uuid' });
+await client.getByEmail('colleague@example.com');
+client.setSession(anotherSession); // manually replace stored session
+```
+
+The `Web2Client` interface provides: `session`, `blackboxUrl`, `readClient`, `createManagedSession()`, `useExistingSessionKey()`, `setSession()`, `createSecret()`, `listSecrets()`, `setDelegate()`, `requestPermit()`, `getByEmail()`, `payload.*`, `files.*`, `jobs.*`.
+
+---
+
 ## Error Handling
 
 All SDK errors extend `CiferError` with typed subclasses:
@@ -605,6 +1069,9 @@ CiferError
 │   ├── IntegrityError
 │   ├── InvalidCiferSizeError
 │   └── PayloadTooLargeError
+├── Web2Error
+│   ├── Web2SessionError (session expired, cannot renew)
+│   └── Web2AuthError (registration, OTP, password errors)
 └── FlowError
     ├── FlowAbortedError
     └── FlowTimeoutError
@@ -617,6 +1084,8 @@ import {
   isCiferError,
   isBlockStaleError,
   isSecretNotReadyError,
+  isWeb2Error,
+  isWeb2SessionError,
 } from 'cifer-sdk';
 ```
 
@@ -632,6 +1101,10 @@ try {
     console.log('Wait for secret to sync');
   } else if (error instanceof SecretNotFoundError) {
     console.log('Secret not found:', error.secretId);
+  } else if (isWeb2SessionError(error)) {
+    console.log('Web2 session expired or cannot renew');
+  } else if (isWeb2Error(error)) {
+    console.log('Web2 error:', error.message);
   } else if (isCiferError(error)) {
     console.log('CIFER error:', error.code, error.message);
   } else {
@@ -648,6 +1121,9 @@ try {
 | "Secret is syncing" | Key generation in progress | Wait 30-60s; use `isSecretReady()` |
 | "Signature verification failed" | Wrong signing method | Use EIP-191 `personal_sign` |
 | "Not authorized" | Not owner/delegate | Check with `isAuthorized()` |
+| "No active Web2 session" | Session not created or expired | Call `createManagedSession()` or pass session explicitly |
+| "Web2 session expired" | Existing-key session cannot renew | Recreate session externally |
+| "OTP verification failed" | Invalid or expired OTP | Use `resendOtp()` and try again |
 
 ---
 
@@ -776,6 +1252,122 @@ async function fileEncryptionExample() {
 }
 ```
 
+### Web2: Email Registration + Encrypt/Decrypt
+
+```typescript
+import { createCiferSdk, web2 } from 'cifer-sdk';
+import * as ed from '@noble/ed25519';
+
+async function web2Example() {
+  const blackboxUrl = 'https://cifer-blackbox.ternoa.dev:3010';
+
+  // Initialize SDK (for readClient)
+  const sdk = await createCiferSdk({ blackboxUrl });
+
+  // --- Ed25519 key setup ---
+  const privateKey = ed.utils.randomPrivateKey();
+  const publicKey = await ed.getPublicKeyAsync(privateKey);
+
+  const ed25519Signer = {
+    async sign(message: Uint8Array) { return ed.signAsync(message, privateKey); },
+    getPublicKey() { return publicKey; },
+  };
+
+  // --- Registration (one-time) ---
+  const reg = await web2.auth.register({
+    email: 'user@example.com',
+    password: 'securePassword123',
+    blackboxUrl,
+  });
+
+  // (User receives OTP via email)
+  await web2.auth.verifyEmail({
+    email: 'user@example.com',
+    otp: '123456',
+    blackboxUrl,
+  });
+
+  await web2.auth.registerKey({
+    principalId: reg.principalId,
+    password: 'securePassword123',
+    ed25519Signer,
+    blackboxUrl,
+  });
+
+  // --- Session ---
+  const session = await web2.session.createManagedSession({
+    principalId: reg.principalId,
+    ed25519Signer,
+    blackboxUrl,
+  });
+
+  // --- Create secret ---
+  const secret = await web2.secret.createSecret({ session, blackboxUrl });
+
+  // --- Encrypt ---
+  const encrypted = await web2.blackbox.payload.encryptPayload({
+    session,
+    secretId: secret.secretId,
+    plaintext: 'Hello from Web2!',
+    blackboxUrl,
+    readClient: sdk.readClient,
+  });
+
+  // --- Decrypt ---
+  const decrypted = await web2.blackbox.payload.decryptPayload({
+    session,
+    secretId: secret.secretId,
+    encryptedMessage: encrypted.encryptedMessage,
+    cifer: encrypted.cifer,
+    blackboxUrl,
+    readClient: sdk.readClient,
+  });
+
+  console.log('Decrypted:', decrypted.decryptedMessage);
+  // Output: "Hello from Web2!"
+}
+```
+
+### Web2: Using the Client Factory
+
+```typescript
+import { createCiferSdk, web2 } from 'cifer-sdk';
+
+async function web2ClientExample() {
+  const sdk = await createCiferSdk({
+    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  });
+
+  // Create stateful client
+  const client = web2.createClient({
+    blackboxUrl: sdk.blackboxUrl,
+    readClient: sdk.readClient,
+  });
+
+  // Create session (auto-stored in client)
+  await client.createManagedSession({
+    principalId: 'your-uuid',
+    ed25519Signer,
+  });
+
+  // All calls auto-use stored session + blackboxUrl + readClient
+  const secret = await client.createSecret();
+
+  const encrypted = await client.payload.encryptPayload({
+    secretId: secret.secretId,
+    plaintext: 'Simplified Web2 API!',
+  });
+
+  const decrypted = await client.payload.decryptPayload({
+    secretId: secret.secretId,
+    encryptedMessage: encrypted.encryptedMessage,
+    cifer: encrypted.cifer,
+  });
+
+  console.log('Decrypted:', decrypted.decryptedMessage);
+}
+```
+
 ---
 
 ## Type Definitions
@@ -820,6 +1412,48 @@ interface FlowResult<T> {
   data?: T;
   error?: Error;
   receipts?: TransactionReceipt[];
+}
+
+// --- Web2 Types ---
+
+const WEB2_CHAIN_ID = -1; // Sentinel chain ID for Web2 operations
+
+interface Ed25519Signer {
+  sign(message: Uint8Array): Promise<Uint8Array>;
+  getPublicKey(): Uint8Array;
+}
+
+interface Web2Session {
+  readonly principalId: string;       // UUID
+  readonly sessionAddress: string;    // Session EOA address
+  readonly expiresAt: string;         // ISO 8601 timestamp
+  readonly signer: SignerAdapter;     // Ephemeral EOA signer
+  readonly isManaged: boolean;        // true = auto-renew capable
+  ensureValid(): Promise<void>;       // Check expiry, auto-renew if needed
+  renew(): Promise<void>;             // Force renewal (managed only)
+}
+
+interface Web2ClientConfig {
+  blackboxUrl: string;
+  readClient?: ReadClient;
+  fetch?: typeof fetch;
+}
+
+interface Web2Client {
+  readonly session: Web2Session | null;
+  readonly blackboxUrl: string;
+  readonly readClient: ReadClient | undefined;
+  createManagedSession(params): Promise<Web2Session>;
+  useExistingSessionKey(params): Web2Session;
+  setSession(session: Web2Session): void;
+  createSecret(params?): Promise<CreateWeb2SecretResult>;
+  listSecrets(params?): Promise<ListWeb2SecretsResult>;
+  setDelegate(params): Promise<SetWeb2DelegateResult>;
+  requestPermit(params): Promise<RequestPermitResult>;
+  getByEmail(email, blackboxUrl?): Promise<PrincipalByEmailResult>;
+  payload: { encryptPayload(params), decryptPayload(params) };
+  files: { encryptFile(params), decryptFile(params), decryptExistingFile(params) };
+  jobs: { getStatus(), pollUntilComplete(), download(), deleteJob(), list(), dataConsumption() };
 }
 ```
 

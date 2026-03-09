@@ -1404,6 +1404,8 @@ interface JobInfo {
   resultFileName?: string;
   ttl: number;
   originalSize?: number;
+  signerPrincipalId?: string | null;        // Web2 principalId of job initiator (null for Web3)
+  secretOwnerPrincipalId?: string | null;   // Web2 principalId of secret owner (null for Web3)
 }
 
 interface FlowResult<T> {

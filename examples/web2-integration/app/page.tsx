@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Container, Section } from "@/components/ui/container"
 import {
   UserPlus,
+  KeyRound,
   Key,
   Shield,
   Users,
@@ -25,6 +26,15 @@ const pages = [
     icon: UserPlus,
     tag: "web2.auth",
     functions: ["register", "verifyEmail", "registerKey", "resendOtp"],
+  },
+  {
+    name: "Reset Password",
+    description:
+      "Forgot your password? Request a password-reset OTP via email, then verify the OTP and set a new password.",
+    href: "/reset-password",
+    icon: KeyRound,
+    tag: "web2.auth",
+    functions: ["forgotPassword", "resetPassword"],
   },
   {
     name: "Session",

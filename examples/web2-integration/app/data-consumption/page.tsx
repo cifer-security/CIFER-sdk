@@ -435,7 +435,8 @@ export default function DataConsumptionPage() {
                           Period Start
                         </p>
                         <p className="text-xs font-mono text-zinc-300">
-                          {data.periodStart}
+                          {new Date(data.periodStart).toLocaleString()}{" "}
+                          <span className="text-zinc-600">({data.periodStart})</span>
                         </p>
                       </div>
                       <div>
@@ -443,7 +444,8 @@ export default function DataConsumptionPage() {
                           Period End
                         </p>
                         <p className="text-xs font-mono text-zinc-300">
-                          {data.periodEnd}
+                          {new Date(data.periodEnd).toLocaleString()}{" "}
+                          <span className="text-zinc-600">({data.periodEnd})</span>
                         </p>
                       </div>
                     </div>

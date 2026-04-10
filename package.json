@@ -1,6 +1,6 @@
 {
   "name": "cifer-sdk",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "CIFER SDK - Post-Quantum Cryptographic Infrastructure",
   "type": "module",
   "main": "./dist/cjs/index.js",
@@ -91,7 +91,6 @@
     "test:watch": "vitest",
     "clean": "rm -rf dist temp",
     "prepublishOnly": "npm run clean && npm run build",
-    
     "docs:api-extractor": "api-extractor run --local --verbose",
     "docs:api-report": "api-extractor run --local",
     "docs:typedoc": "typedoc",

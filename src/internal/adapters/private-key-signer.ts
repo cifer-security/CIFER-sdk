@@ -6,6 +6,10 @@
 import type { Address, Hex } from '../../types/common.js';
 import type { SignerAdapter } from '../../types/adapters.js';
 import { AuthError } from '../errors/index.js';
+import { getPublicKey, sign, etc as secpEtc } from '@noble/secp256k1';
+import { hmac } from '@noble/hashes/hmac';
+import { sha256 } from '@noble/hashes/sha256';
+import { keccak_256 } from '@noble/hashes/sha3';
 
 /**
  * Signer adapter backed by a raw secp256k1 private key.
@@ -96,17 +100,8 @@ export class PrivateKeySignerAdapter implements SignerAdapter {
     }
 
     try {
-      // Lazy-load @noble/secp256k1
-      const { getPublicKey } = await import('@noble/secp256k1');
-      const { keccak_256 } = await import('@noble/hashes/sha3');
-
-      // Get uncompressed public key (65 bytes: 0x04 || x || y)
       const publicKey = getPublicKey(this.privateKeyBytes, false);
-
-      // keccak256 of the 64-byte key (skip the 0x04 prefix)
       const hash = keccak_256(publicKey.slice(1));
-
-      // Take the last 20 bytes as the address
       const addressBytes = hash.slice(-20);
       this.cachedAddress = `0x${bytesToHex(addressBytes)}` as Address;
 
@@ -128,34 +123,20 @@ export class PrivateKeySignerAdapter implements SignerAdapter {
    */
   async signMessage(message: string): Promise<Hex> {
     try {
-      const secp = await import('@noble/secp256k1');
-      const { hmac } = await import('@noble/hashes/hmac');
-      const { sha256 } = await import('@noble/hashes/sha256');
-      const { keccak_256 } = await import('@noble/hashes/sha3');
+      secpEtc.hmacSha256Sync = (k: Uint8Array, ...m: Uint8Array[]) =>
+        hmac(sha256, k, secpEtc.concatBytes(...m));
 
-      // Configure @noble/secp256k1 with hashing primitives
-      secp.etc.hmacSha256Sync = (k: Uint8Array, ...m: Uint8Array[]) =>
-        hmac(sha256, k, secp.etc.concatBytes(...m));
-
-      const { sign } = secp;
-
-      // EIP-191 prefix
       const prefix = `\x19Ethereum Signed Message:\n${message.length}`;
       const prefixBytes = new TextEncoder().encode(prefix);
       const messageBytes = new TextEncoder().encode(message);
 
-      // Concatenate prefix + message
       const combined = new Uint8Array(prefixBytes.length + messageBytes.length);
       combined.set(prefixBytes, 0);
       combined.set(messageBytes, prefixBytes.length);
 
-      // keccak256 hash
       const hash = keccak_256(combined);
-
-      // Sign (returns { r, s, recovery })
       const sig = sign(hash, this.privateKeyBytes);
 
-      // Build the 65-byte signature: r (32) + s (32) + v (1)
       const r = sig.r.toString(16).padStart(64, '0');
       const s = sig.s.toString(16).padStart(64, '0');
       const v = (sig.recovery + 27).toString(16).padStart(2, '0');

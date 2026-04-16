@@ -156,10 +156,13 @@ A **secret** is the core primitive in CIFER. Each secret represents an ML-KEM-76
 
 ### Authorization Model
 
-| Role | Capabilities |
-|------|-------------|
-| **Owner** | Encrypt, decrypt, transfer, set delegate |
-| **Delegate** | Decrypt only |
+Encryption requires only a valid signature — **any wallet** can encrypt for any secret. Decryption and management operations are restricted by role:
+
+| Role | Encrypt | Decrypt | Transfer | Set Delegate |
+|------|---------|---------|----------|--------------|
+| **Owner** | Yes | Yes | Yes | Yes |
+| **Delegate** | Yes | Yes | No | No |
+| **Any wallet** | Yes | No | No | No |
 
 ### Encryption Model
 

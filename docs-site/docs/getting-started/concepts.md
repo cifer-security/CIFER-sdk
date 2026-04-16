@@ -55,12 +55,13 @@ interface SecretState {
 
 ## Authorization Model
 
-CIFER uses a simple two-role authorization model:
+CIFER uses a simple two-role authorization model. Encryption requires only a valid signature — **any wallet** can encrypt for any secret. Decryption and management operations are restricted by role:
 
-| Role | Capabilities |
-|------|-------------|
-| **Owner** | Encrypt, decrypt, transfer ownership, set delegate |
-| **Delegate** | Decrypt only (cannot encrypt or modify secret) |
+| Role | Encrypt | Decrypt | Transfer | Set Delegate |
+|------|---------|---------|----------|--------------|
+| **Owner** | Yes | Yes | Yes | Yes |
+| **Delegate** | Yes | Yes | No | No |
+| **Any wallet** | Yes | No | No | No |
 
 ### Setting a Delegate
 

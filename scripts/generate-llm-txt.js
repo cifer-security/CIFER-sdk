@@ -210,12 +210,14 @@ ${SUB_SEPARATOR}
 4.2 AUTHORIZATION MODEL
 ${SUB_SEPARATOR}
 
-Two-role authorization:
+Two-role authorization. Encryption requires only a valid signature — any wallet
+can encrypt for any secret. Decryption and management are restricted by role:
 
-| Role     | Capabilities                              |
-|----------|-------------------------------------------|
-| Owner    | Encrypt, decrypt, transfer, set delegate  |
-| Delegate | Decrypt only (cannot encrypt or modify)   |
+| Role       | Encrypt | Decrypt | Transfer | Set Delegate |
+|------------|---------|---------|----------|--------------|
+| Owner      | Yes     | Yes     | Yes      | Yes          |
+| Delegate   | Yes     | Yes     | No       | No           |
+| Any wallet | Yes     | No      | No       | No           |
 
 Setting a delegate:
 const txIntent = keyManagement.buildSetDelegateTx({

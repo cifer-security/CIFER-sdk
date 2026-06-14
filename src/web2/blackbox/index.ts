@@ -33,3 +33,4 @@
 export * as payload from './payload.js';
 export * as files from './files.js';
 export * as jobs from './jobs.js';
+export * as publicKey from './publicKey.js';

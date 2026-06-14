@@ -187,7 +187,7 @@ SDK implication:
 
 ## Endpoint: `POST /encrypt-payload`
 
-Encrypt a short string using a secret’s **public key** (fetched via chain state → IPFS). **Signature required.**
+Encrypt a short string using a secret’s **public key** (resolved from blackbox local store). **Signature required.**
 
 ### Request
 
@@ -228,8 +228,42 @@ Notes:
 
 - `400`: invalid `data` format, unsupported `chainId`, invalid/old block number, invalid `outputFormat`
 - `403`: invalid signature; signer mismatch; secret is syncing OR `secretType !== 1`
-- `404`: secret has no `publicKeyCid`
-- `503`: IPFS fetch failed, or service not initialized
+- `404`: public key not found for secret
+- `503`: service not initialized
+
+---
+
+## Endpoint: `POST /secret-public-key`
+
+Return the base64 ML-KEM-768 public key for a ready secret. **Signature required** (no ownership check).
+
+### Request
+
+`Content-Type: application/json`
+
+Body:
+
+- `data` (string, **required**) with format:
+  - `chainId_secretId_signer_blockNumber`
+- `signature` (string, **required**) = signature of `data`
+- `chainId`, `secretId` (optional JSON fields for client convenience)
+
+### Response (200)
+
+```json
+{
+  "success": true,
+  "chainId": 752025,
+  "secretId": 123,
+  "publicKey": "<base64 ML-KEM-768 public key>"
+}
+```
+
+### Common errors
+
+- `400`: invalid `data` format or missing signature
+- `403`: secret is still syncing
+- `404`: public key not found in blackbox store
 
 ---
 

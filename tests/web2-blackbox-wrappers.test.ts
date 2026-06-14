@@ -150,6 +150,26 @@ describe('Web2 Blackbox Wrappers', () => {
     });
   });
 
+  describe('publicKey.getSecretPublicKey', () => {
+    it('calls session.ensureValid', async () => {
+      const session = createMockSession();
+      const { getSecretPublicKey } = await import('../src/web2/blackbox/publicKey.js');
+
+      try {
+        await getSecretPublicKey({
+          session,
+          secretId: 42,
+          blackboxUrl: 'http://localhost:3010',
+          readClient: createMockReadClient(),
+        });
+      } catch {
+        // expected without fetch mock
+      }
+
+      expect(session.ensureValid).toHaveBeenCalled();
+    });
+  });
+
   describe('re-exports from jobs', () => {
     it('should re-export getStatus', async () => {
       const { getStatus } = await import('../src/web2/blackbox/jobs.js');

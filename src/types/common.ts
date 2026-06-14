@@ -80,6 +80,13 @@ export type ChainId = number;
 export const WEB2_CHAIN_ID = -1 as const;
 
 /**
+ * On-chain `publicKeyCid` value when blackbox does not use IPFS (no contract upgrade).
+ *
+ * @public
+ */
+export const ON_CHAIN_PUBLIC_KEY_PLACEHOLDER = 'cifer';
+
+/**
  * Secret ID (uint256 on-chain, represented as bigint).
  *
  * @remarks
@@ -229,7 +236,10 @@ export interface SecretState {
   clusterId: number;
   /** Secret type (1 = standard ML-KEM-768 encryption) */
   secretType: number;
-  /** IPFS CID of the public key (empty string if still syncing) */
+  /**
+   * On-chain readiness marker. New secrets use {@link ON_CHAIN_PUBLIC_KEY_PLACEHOLDER}.
+   * Fetch the actual ML-KEM public key via `blackbox.publicKey.getSecretPublicKey()`.
+   */
   publicKeyCid: string;
 }
 

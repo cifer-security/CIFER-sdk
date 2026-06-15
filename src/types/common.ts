@@ -59,7 +59,8 @@ export type Hex = `0x${string}`;
  *
  * @remarks
  * Common chain IDs used with CIFER:
- * - `752025` - Ternoa Mainnet
+ * - `8453` - Base Mainnet (primary coordination chain; hosts ClusterRegistry)
+ * - `752025` - Ternoa Mainnet (multichain peer)
  * - `11155111` - Ethereum Sepolia (testnet)
  * - `-1` - Web2 mode (see {@link WEB2_CHAIN_ID})
  *
@@ -78,6 +79,15 @@ export type ChainId = number;
  * @public
  */
 export const WEB2_CHAIN_ID = -1 as const;
+
+/**
+ * Primary coordination chain — hosts `CiferClusterRegistry` on blackbox/node.
+ * Must match blackbox `PRIMARY_CHAIN_ID`.
+ */
+export const PRIMARY_CHAIN_ID = 8453 as const;
+
+/** Ternoa mainnet — ordinary multichain peer (no cluster registry). */
+export const TERNOA_CHAIN_ID = 752025 as const;
 
 /**
  * On-chain `publicKeyCid` value when blackbox does not use IPFS (no contract upgrade).

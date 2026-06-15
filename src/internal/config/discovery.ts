@@ -62,10 +62,10 @@ const DEFAULT_CACHE_TTL_MS = 5 * 60 * 1000;
  * const discovery = await discover('https://cifer-blackbox.ternoa.dev:3010');
  *
  * console.log('Supported chains:', discovery.supportedChains);
- * // [752025, 11155111]
+ * // [1, 752025, 11155111, 43114, 8453]
  *
- * const ternoaConfig = discovery.chains.find(c => c.chainId === 752025);
- * console.log('Ternoa RPC:', ternoaConfig?.rpcUrl);
+ * const baseConfig = discovery.chains.find(c => c.chainId === 8453);
+ * console.log('Base RPC:', baseConfig?.rpcUrl);
  * ```
  */
 export async function discover(

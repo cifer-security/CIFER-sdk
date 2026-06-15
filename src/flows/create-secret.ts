@@ -176,7 +176,7 @@ export async function createSecretAndWaitReady(
         secretId
       );
 
-      if (!state.isSyncing) {
+      if (!state.isSyncing && state.publicKeyCid !== '') {
         break;
       }
 

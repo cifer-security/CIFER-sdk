@@ -52,25 +52,32 @@ This is the best way for an SDK (or agent) to discover:
     "confirmations": 2,
     "chains": [
       {
+        "chainId": 8453,
+        "name": "Base",
+        "rpcUrl": "https://mainnet.base.org",
+        "wsRpcUrl": "wss://...",
+        "secretsControllerAddress": "0x...",
+        "clusterRegistryAddress": "0x...",
+        "blockTimeMs": 2000,
+        "reconciliationStartBlock": 0,
+        "reconcileAfterBlocks": 150
+      },
+      {
         "chainId": 752025,
         "name": "Ternoa",
         "rpcUrl": "https://...",
         "wsRpcUrl": "wss://...",
         "secretsControllerAddress": "0x...",
-        "clusterRegistryAddress": "0x...",
         "blockTimeMs": 6000,
-        "reconciliationStartBlock": 0,
+        "reconciliationStartBlock": 5556356,
         "reconcileAfterBlocks": 50
       }
-    ],
-    "ipfsGatewayUrl": "https://.../ipfs/",
-    "ipfsApiUrl": "https://.../api/v0/add",
-    "ipfsApiKey": "..."
+    ]
   },
   "clusterMap": { "..." : "..." },
-  "supportedChains": [752025, 11155111],
+  "supportedChains": [1, 752025, 11155111, 43114, 8453],
   "chainStatus": {
-    "752025": {
+    "8453": {
       "lastReconciledBlock": 0,
       "lastKnownBlockNumber": 0,
       "lastSubscriptionUpdateAgoMS": 1234,
@@ -96,7 +103,10 @@ Chains are enabled at runtime, but they must be present in a hardcoded allowlist
 
 Currently present in code (`SUPPORTED_CHAINS`):
 
-- **Ternoa mainnet**: `chainId = 752025`
+- **Base mainnet (primary)**: `chainId = 8453` — hosts `clusterRegistryAddress`
+- **Ternoa mainnet**: `chainId = 752025` — multichain peer only
+- **Ethereum mainnet**: `chainId = 1`
+- **Avalanche C-Chain**: `chainId = 43114`
 - **Ethereum Sepolia**: `chainId = 11155111`
 
 If a request contains a `chainId` that the server hasn’t enabled (or isn’t supported), you’ll get:

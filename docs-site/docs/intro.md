@@ -144,3 +144,4 @@ const encrypted = await client.payload.encryptPayload({
 - [Web3 Guides](/docs/guides/web3) - Wallet integration, secret management, encryption, commitments, and flows
 - [Web2 Guides](/docs/guides/web2) - Authentication, secret management, and encryption
 - [API Reference](/docs/api) - Complete API documentation
+- [Changelog](/docs/changelog) - Version history and release notes

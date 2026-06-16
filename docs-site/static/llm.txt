@@ -5,7 +5,7 @@ This file contains complete documentation for the cifer-sdk package.
 AI agents can use this file to understand how to implement CIFER encryption
 in applications. Point your AI assistant to this file for accurate SDK usage.
 
-Generated: 2026-06-16T12:30:43.536Z
+Generated: 2026-06-16T14:29:09.580Z
 Version: 0.5.0
 Package: cifer-sdk
 

@@ -1,3 +1,9 @@
+---
+sidebar_position: 6
+title: Changelog
+description: Version history and release notes for the CIFER SDK.
+---
+
 # Changelog
 
 All notable changes to the CIFER SDK will be documented in this file.

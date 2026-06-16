@@ -71,8 +71,8 @@ import { DecryptFile } from "./decrypt-file"
 // ---------------------------------------------------------------------------
 
 /** The Blackbox API URL used for SDK discovery */
-// const BLACKBOX_URL = "https://blackbox.cifersecurity.com:3010"
-const BLACKBOX_URL = "http://localhost:3001"
+const BLACKBOX_URL = "https://blackbox.cifersecurity.com:3010"
+// const BLACKBOX_URL = "http://localhost:3001"
 
 // ---------------------------------------------------------------------------
 // TypeScript: Extend Window to include MetaMask's ethereum provider

@@ -633,6 +633,9 @@ packages:
     resolution: {integrity: sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==}
     engines: {node: ^14.21.3 || >=16}
 
+  '@noble/secp256k1@2.3.0':
+    resolution: {integrity: sha512-0TQed2gcBbIrh7Ccyw+y/uZQvbJwm7Ao4scBUxqpBCcsOlZG0O4KGfjtNAy/li4W8n1xt3dxrwJ0beZ2h2G6Kw==}
+
   '@passwordless-id/webauthn@2.3.1':
     resolution: {integrity: sha512-n75LOVz9J24FhEiLHiAfqC2gxh2wXJ4G+nvMxRy6fTpmhg6lK+tKwp/GZaXZjRXgUtPWHRVMtvCHKQQCfojXmw==}
 
@@ -4693,6 +4696,8 @@ snapshots:
 
   '@noble/hashes@1.8.0': {}
 
+  '@noble/secp256k1@2.3.0': {}
+
   '@passwordless-id/webauthn@2.3.1': {}
 
   '@paulmillr/qr@0.2.1': {}
@@ -7926,7 +7931,10 @@ snapshots:
     dependencies:
       readdirp: 5.0.0
 
-  cifer-sdk@file:../..: {}
+  cifer-sdk@file:../..:
+    dependencies:
+      '@noble/hashes': 1.8.0
+      '@noble/secp256k1': 2.3.0
 
   citty@0.1.6:
     dependencies:

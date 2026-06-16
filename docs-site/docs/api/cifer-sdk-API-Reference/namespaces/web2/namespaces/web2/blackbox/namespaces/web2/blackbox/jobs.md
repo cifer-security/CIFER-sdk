@@ -20,7 +20,7 @@ they don't require session authentication.
 
 ### Web2DownloadParams
 
-Defined in: [web2/blackbox/jobs.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L34)
+Defined in: [web2/blackbox/jobs.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L34)
 
 Parameters for Web2 job download (decrypt jobs).
 
@@ -30,7 +30,7 @@ Parameters for Web2 job download (decrypt jobs).
 
 > **session**: [`Web2Session`](../../../../../../../../../index.md#web2session)
 
-Defined in: [web2/blackbox/jobs.ts:36](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L36)
+Defined in: [web2/blackbox/jobs.ts:36](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L36)
 
 Active Web2 session (required for decrypt job downloads)
 
@@ -38,7 +38,7 @@ Active Web2 session (required for decrypt job downloads)
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [web2/blackbox/jobs.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L38)
+Defined in: [web2/blackbox/jobs.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L38)
 
 Secret ID (required for decrypt job downloads)
 
@@ -46,7 +46,7 @@ Secret ID (required for decrypt job downloads)
 
 > **blackboxUrl**: `string`
 
-Defined in: [web2/blackbox/jobs.ts:40](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L40)
+Defined in: [web2/blackbox/jobs.ts:40](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L40)
 
 Blackbox URL
 
@@ -54,7 +54,7 @@ Blackbox URL
 
 > **readClient**: [`ReadClient`](../../../../../../../../../index.md#readclient-1)
 
-Defined in: [web2/blackbox/jobs.ts:42](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L42)
+Defined in: [web2/blackbox/jobs.ts:42](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L42)
 
 Read client for freshness
 
@@ -62,7 +62,7 @@ Read client for freshness
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [web2/blackbox/jobs.ts:44](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L44)
+Defined in: [web2/blackbox/jobs.ts:44](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L44)
 
 Custom fetch implementation
 
@@ -86,7 +86,7 @@ Custom fetch implementation
 
 ### Web2DeleteJobParams
 
-Defined in: [web2/blackbox/jobs.ts:79](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L79)
+Defined in: [web2/blackbox/jobs.ts:79](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L79)
 
 Parameters for Web2 job deletion.
 
@@ -96,7 +96,7 @@ Parameters for Web2 job deletion.
 
 > **session**: [`Web2Session`](../../../../../../../../../index.md#web2session)
 
-Defined in: [web2/blackbox/jobs.ts:81](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L81)
+Defined in: [web2/blackbox/jobs.ts:81](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L81)
 
 Active Web2 session
 
@@ -104,7 +104,7 @@ Active Web2 session
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [web2/blackbox/jobs.ts:83](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L83)
+Defined in: [web2/blackbox/jobs.ts:83](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L83)
 
 Secret ID
 
@@ -112,7 +112,7 @@ Secret ID
 
 > **blackboxUrl**: `string`
 
-Defined in: [web2/blackbox/jobs.ts:85](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L85)
+Defined in: [web2/blackbox/jobs.ts:85](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L85)
 
 Blackbox URL
 
@@ -120,7 +120,7 @@ Blackbox URL
 
 > **readClient**: [`ReadClient`](../../../../../../../../../index.md#readclient-1)
 
-Defined in: [web2/blackbox/jobs.ts:87](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L87)
+Defined in: [web2/blackbox/jobs.ts:87](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L87)
 
 Read client for freshness
 
@@ -128,7 +128,7 @@ Read client for freshness
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [web2/blackbox/jobs.ts:89](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L89)
+Defined in: [web2/blackbox/jobs.ts:89](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L89)
 
 Custom fetch implementation
 
@@ -152,7 +152,7 @@ Custom fetch implementation
 
 ### Web2ListJobsParams
 
-Defined in: [web2/blackbox/jobs.ts:119](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L119)
+Defined in: [web2/blackbox/jobs.ts:119](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L119)
 
 Parameters for Web2 job listing.
 
@@ -162,7 +162,7 @@ Parameters for Web2 job listing.
 
 > **session**: [`Web2Session`](../../../../../../../../../index.md#web2session)
 
-Defined in: [web2/blackbox/jobs.ts:121](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L121)
+Defined in: [web2/blackbox/jobs.ts:121](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L121)
 
 Active Web2 session
 
@@ -170,7 +170,7 @@ Active Web2 session
 
 > **blackboxUrl**: `string`
 
-Defined in: [web2/blackbox/jobs.ts:123](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L123)
+Defined in: [web2/blackbox/jobs.ts:123](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L123)
 
 Blackbox URL
 
@@ -178,7 +178,7 @@ Blackbox URL
 
 > **readClient**: [`ReadClient`](../../../../../../../../../index.md#readclient-1)
 
-Defined in: [web2/blackbox/jobs.ts:125](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L125)
+Defined in: [web2/blackbox/jobs.ts:125](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L125)
 
 Read client for freshness
 
@@ -186,7 +186,7 @@ Read client for freshness
 
 > `optional` **includeExpired**: `boolean`
 
-Defined in: [web2/blackbox/jobs.ts:127](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L127)
+Defined in: [web2/blackbox/jobs.ts:127](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L127)
 
 Include expired jobs (default: false)
 
@@ -194,7 +194,7 @@ Include expired jobs (default: false)
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [web2/blackbox/jobs.ts:129](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L129)
+Defined in: [web2/blackbox/jobs.ts:129](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L129)
 
 Custom fetch implementation
 
@@ -218,7 +218,7 @@ Custom fetch implementation
 
 ### Web2DataConsumptionParams
 
-Defined in: [web2/blackbox/jobs.ts:158](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L158)
+Defined in: [web2/blackbox/jobs.ts:158](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L158)
 
 Parameters for Web2 data consumption query.
 
@@ -228,7 +228,7 @@ Parameters for Web2 data consumption query.
 
 > **session**: [`Web2Session`](../../../../../../../../../index.md#web2session)
 
-Defined in: [web2/blackbox/jobs.ts:160](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L160)
+Defined in: [web2/blackbox/jobs.ts:160](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L160)
 
 Active Web2 session
 
@@ -236,7 +236,7 @@ Active Web2 session
 
 > **blackboxUrl**: `string`
 
-Defined in: [web2/blackbox/jobs.ts:162](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L162)
+Defined in: [web2/blackbox/jobs.ts:162](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L162)
 
 Blackbox URL
 
@@ -244,7 +244,7 @@ Blackbox URL
 
 > **readClient**: [`ReadClient`](../../../../../../../../../index.md#readclient-1)
 
-Defined in: [web2/blackbox/jobs.ts:164](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L164)
+Defined in: [web2/blackbox/jobs.ts:164](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L164)
 
 Read client for freshness
 
@@ -252,7 +252,7 @@ Read client for freshness
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [web2/blackbox/jobs.ts:166](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L166)
+Defined in: [web2/blackbox/jobs.ts:166](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L166)
 
 Custom fetch implementation
 
@@ -278,7 +278,7 @@ Custom fetch implementation
 
 > **download**(`jobId`, `params`): `Promise`\<`Blob`\>
 
-Defined in: [web2/blackbox/jobs.ts:58](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L58)
+Defined in: [web2/blackbox/jobs.ts:58](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L58)
 
 Download a completed job result using a Web2 session.
 
@@ -312,7 +312,7 @@ The file as a Blob
 
 > **deleteJob**(`jobId`, `params`): `Promise`\<`void`\>
 
-Defined in: [web2/blackbox/jobs.ts:98](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L98)
+Defined in: [web2/blackbox/jobs.ts:98](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L98)
 
 Delete a job using a Web2 session.
 
@@ -340,7 +340,7 @@ Delete parameters
 
 > **list**(`params`): `Promise`\<[`ListJobsResult`](../../../../../../../blackbox/namespaces/blackbox/jobs.md#listjobsresult)\>
 
-Defined in: [web2/blackbox/jobs.ts:138](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L138)
+Defined in: [web2/blackbox/jobs.ts:138](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L138)
 
 List all jobs for the authenticated Web2 principal.
 
@@ -364,7 +364,7 @@ Array of job info
 
 > **dataConsumption**(`params`): `Promise`\<[`DataConsumption`](../../../../../../../../../index.md#dataconsumption)\>
 
-Defined in: [web2/blackbox/jobs.ts:175](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/blackbox/jobs.ts#L175)
+Defined in: [web2/blackbox/jobs.ts:175](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/jobs.ts#L175)
 
 Get data consumption/usage statistics for the authenticated Web2 principal.
 

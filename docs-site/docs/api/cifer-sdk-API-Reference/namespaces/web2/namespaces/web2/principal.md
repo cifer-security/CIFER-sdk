@@ -16,7 +16,7 @@ Web2 principal lookup
 
 > **getByEmail**(`email`, `blackboxUrl`, `options?`): `Promise`\<[`PrincipalByEmailResult`](../../../../../index.md#principalbyemailresult)\>
 
-Defined in: [web2/principal.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/web2/principal.ts#L38)
+Defined in: [web2/principal.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/principal.ts#L38)
 
 Look up a principal by email address.
 

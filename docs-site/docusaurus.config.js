@@ -81,6 +81,11 @@ const config = {
             position: 'left',
           },
           {
+            to: '/docs/changelog',
+            label: 'Changelog',
+            position: 'left',
+          },
+          {
             href: 'https://github.com/cifer-security/cifer-sdk',
             label: 'GitHub',
             position: 'right',
@@ -108,6 +113,10 @@ const config = {
               {
                 label: 'API Reference',
                 to: '/docs/api',
+              },
+              {
+                label: 'Changelog',
+                to: '/docs/changelog',
               },
             ],
           },

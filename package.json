@@ -95,7 +95,8 @@
     "docs:api-report": "api-extractor run --local",
     "docs:typedoc": "typedoc",
     "docs:llm": "node scripts/generate-llm-txt.js",
-    "docs:build": "npm run build:types && npm run docs:api-report && npm run docs:typedoc && npm run docs:llm && cd docs-site && npm run build",
+    "docs:changelog": "node scripts/sync-changelog.js",
+    "docs:build": "npm run build:types && npm run docs:api-report && npm run docs:typedoc && npm run docs:llm && npm run docs:changelog && cd docs-site && npm run build",
     "docs:serve": "cd docs-site && npm start",
     "docs:install": "cd docs-site && npm install"
   },

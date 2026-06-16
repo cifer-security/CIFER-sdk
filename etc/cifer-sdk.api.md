@@ -53,6 +53,8 @@ declare namespace blackbox {
         payload,
         files,
         jobs,
+        publicKey,
+        getSecretPublicKey,
         EncryptPayloadParams,
         EncryptPayloadResult,
         DecryptPayloadParams,
@@ -64,7 +66,9 @@ declare namespace blackbox {
         DeleteParams,
         ListJobsParams,
         ListJobsResult,
-        DataConsumptionParams
+        DataConsumptionParams,
+        GetSecretPublicKeyParams,
+        GetSecretPublicKeyResult
     }
 }
 
@@ -72,7 +76,8 @@ declare namespace blackbox_2 {
     export {
         payload_2 as payload,
         files_2 as files,
-        jobs_2 as jobs
+        jobs_2 as jobs,
+        publicKey_2 as publicKey
     }
 }
 
@@ -92,6 +97,8 @@ declare namespace blackboxNs {
         payload,
         files,
         jobs,
+        publicKey,
+        getSecretPublicKey,
         EncryptPayloadParams,
         EncryptPayloadResult,
         DecryptPayloadParams,
@@ -103,7 +110,9 @@ declare namespace blackboxNs {
         DeleteParams,
         ListJobsParams,
         ListJobsResult,
-        DataConsumptionParams
+        DataConsumptionParams,
+        GetSecretPublicKeyParams,
+        GetSecretPublicKeyResult
     }
 }
 
@@ -743,6 +752,7 @@ export interface DiscoveryResult {
     chains: ChainConfig[];
     enclaveWalletAddress: Address;
     fetchedAt: number;
+    // @deprecated (undocumented)
     ipfsGatewayUrl?: string;
     status: 'ok' | string;
     supportedChains: ChainId[];
@@ -1088,6 +1098,29 @@ function getSecretCreationFee(params: ReadParams): Promise<bigint>;
 function getSecretOwner(params: ReadParams, secretId: bigint): Promise<Address>;
 
 // @public
+function getSecretPublicKey(params: GetSecretPublicKeyParams): Promise<GetSecretPublicKeyResult>;
+
+// @public
+function getSecretPublicKey_2(params: Web2GetSecretPublicKeyParams): Promise<GetSecretPublicKeyResult>;
+
+// @public
+interface GetSecretPublicKeyParams {
+    blackboxUrl: string;
+    chainId: ChainId;
+    fetch?: typeof fetch;
+    readClient: ReadClient;
+    secretId: bigint | number;
+    signer: SignerAdapter;
+}
+
+// @public
+interface GetSecretPublicKeyResult {
+    chainId: number;
+    publicKey: string;
+    secretId: number;
+}
+
+// @public
 function getSecretsByWallet(params: ReadParams, wallet: Address): Promise<SecretsByWallet>;
 
 // @public
@@ -1385,6 +1418,9 @@ export class NotAuthorizedError extends KeyManagementError {
 }
 
 // @public
+export const ON_CHAIN_PUBLIC_KEY_PLACEHOLDER = "cifer";
+
+// @public
 export type OutputFormat = 'hex' | 'base64';
 
 // Warning: (ae-internal-missing-underscore) The name "parseBlackboxErrorResponse" should be prefixed with an underscore because the declaration is marked as @internal
@@ -1483,6 +1519,9 @@ function pollUntilComplete(jobId: string, blackboxUrl: string, options?: {
     fetch?: typeof fetch;
 }): Promise<JobInfo>;
 
+// @public
+export const PRIMARY_CHAIN_ID: 8453;
+
 declare namespace principal {
     export {
         getByEmail
@@ -1502,6 +1541,21 @@ export class PrivateKeySignerAdapter implements SignerAdapter {
     getAddress(): Promise<Address>;
     getPrivateKeyHex(): string;
     signMessage(message: string): Promise<Hex>;
+}
+
+declare namespace publicKey {
+    export {
+        getSecretPublicKey,
+        GetSecretPublicKeyParams,
+        GetSecretPublicKeyResult
+    }
+}
+
+declare namespace publicKey_2 {
+    export {
+        getSecretPublicKey_2 as getSecretPublicKey,
+        Web2GetSecretPublicKeyParams
+    }
 }
 
 // @public
@@ -2014,6 +2068,9 @@ export class SignerMismatchError extends AuthError {
 type StepStatus = 'pending' | 'in_progress' | 'completed' | 'failed' | 'skipped';
 
 // @public
+export const TERNOA_CHAIN_ID: 752025;
+
+// @public
 export interface TransactionReceipt {
     blockNumber: number;
     contractAddress?: Address;
@@ -2342,6 +2399,15 @@ interface Web2EncryptPayloadParams {
 // @public
 export class Web2Error extends CiferError {
     constructor(message: string, cause?: Error);
+}
+
+// @public
+interface Web2GetSecretPublicKeyParams {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    readClient: ReadClient;
+    secretId: bigint | number;
+    session: Web2Session;
 }
 
 // @public

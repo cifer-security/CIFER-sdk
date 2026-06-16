@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.4.1**](../../../index.md)
+[**cifer-sdk API Reference v0.5.0**](../../../index.md)
 
 ***
 
@@ -20,8 +20,15 @@ This namespace is organized into sub-namespaces:
 - [blackbox/files](namespaces/blackbox/files.md)
 - [blackbox/jobs](namespaces/blackbox/jobs.md)
 - [blackbox/payload](namespaces/blackbox/payload.md)
+- [blackbox/publicKey](namespaces/blackbox/publicKey.md)
 
 ## References
+
+### getSecretPublicKey
+
+Re-exports [getSecretPublicKey](namespaces/blackbox/publicKey.md#getsecretpublickey)
+
+***
 
 ### EncryptPayloadParams
 
@@ -92,3 +99,15 @@ Re-exports [ListJobsResult](namespaces/blackbox/jobs.md#listjobsresult)
 ### DataConsumptionParams
 
 Re-exports [DataConsumptionParams](namespaces/blackbox/jobs.md#dataconsumptionparams)
+
+***
+
+### GetSecretPublicKeyParams
+
+Re-exports [GetSecretPublicKeyParams](namespaces/blackbox/publicKey.md#getsecretpublickeyparams)
+
+***
+
+### GetSecretPublicKeyResult
+
+Re-exports [GetSecretPublicKeyResult](namespaces/blackbox/publicKey.md#getsecretpublickeyresult)

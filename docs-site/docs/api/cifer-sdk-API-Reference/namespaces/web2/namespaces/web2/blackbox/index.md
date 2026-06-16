@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.4.1**](../../../../../../index.md)
+[**cifer-sdk API Reference v0.5.0**](../../../../../../index.md)
 
 ***
 
@@ -43,3 +43,4 @@ const decrypted = await web2.blackbox.payload.decryptPayload({
 - [web2/blackbox/files](namespaces/web2/blackbox/files.md)
 - [web2/blackbox/jobs](namespaces/web2/blackbox/jobs.md)
 - [web2/blackbox/payload](namespaces/web2/blackbox/payload.md)
+- [web2/blackbox/publicKey](namespaces/web2/blackbox/publicKey.md)

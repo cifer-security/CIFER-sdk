@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.4.1**](../../../../../index.md)
+[**cifer-sdk API Reference v0.5.0**](../../../../../index.md)
 
 ***
 
@@ -14,7 +14,7 @@ Job management for asynchronous file operations
 
 ### DownloadParams
 
-Defined in: [blackbox/jobs.ts:111](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L111)
+Defined in: [blackbox/jobs.ts:111](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L111)
 
 Parameters for job download
 
@@ -24,7 +24,7 @@ Parameters for job download
 
 > **blackboxUrl**: `string`
 
-Defined in: [blackbox/jobs.ts:113](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L113)
+Defined in: [blackbox/jobs.ts:113](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L113)
 
 Blackbox URL
 
@@ -32,7 +32,7 @@ Blackbox URL
 
 > `optional` **chainId**: `number`
 
-Defined in: [blackbox/jobs.ts:115](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L115)
+Defined in: [blackbox/jobs.ts:115](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L115)
 
 Chain ID (required for decrypt jobs)
 
@@ -40,7 +40,7 @@ Chain ID (required for decrypt jobs)
 
 > `optional` **secretId**: `number` \| `bigint`
 
-Defined in: [blackbox/jobs.ts:117](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L117)
+Defined in: [blackbox/jobs.ts:117](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L117)
 
 Secret ID (required for decrypt jobs)
 
@@ -48,7 +48,7 @@ Secret ID (required for decrypt jobs)
 
 > `optional` **signer**: [`SignerAdapter`](../../../../../index.md#signeradapter)
 
-Defined in: [blackbox/jobs.ts:119](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L119)
+Defined in: [blackbox/jobs.ts:119](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L119)
 
 Signer (required for decrypt jobs)
 
@@ -56,7 +56,7 @@ Signer (required for decrypt jobs)
 
 > `optional` **readClient**: [`ReadClient`](../../../../../index.md#readclient-1)
 
-Defined in: [blackbox/jobs.ts:121](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L121)
+Defined in: [blackbox/jobs.ts:121](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L121)
 
 Read client (required for decrypt jobs)
 
@@ -64,7 +64,7 @@ Read client (required for decrypt jobs)
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [blackbox/jobs.ts:123](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L123)
+Defined in: [blackbox/jobs.ts:123](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L123)
 
 Custom fetch implementation
 
@@ -88,7 +88,7 @@ Custom fetch implementation
 
 ### DeleteParams
 
-Defined in: [blackbox/jobs.ts:241](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L241)
+Defined in: [blackbox/jobs.ts:241](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L241)
 
 Parameters for job deletion
 
@@ -98,7 +98,7 @@ Parameters for job deletion
 
 > **chainId**: `number`
 
-Defined in: [blackbox/jobs.ts:243](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L243)
+Defined in: [blackbox/jobs.ts:243](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L243)
 
 Chain ID
 
@@ -106,7 +106,7 @@ Chain ID
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [blackbox/jobs.ts:245](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L245)
+Defined in: [blackbox/jobs.ts:245](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L245)
 
 Secret ID
 
@@ -114,7 +114,7 @@ Secret ID
 
 > **signer**: [`SignerAdapter`](../../../../../index.md#signeradapter)
 
-Defined in: [blackbox/jobs.ts:247](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L247)
+Defined in: [blackbox/jobs.ts:247](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L247)
 
 Signer (must be owner or delegate)
 
@@ -122,7 +122,7 @@ Signer (must be owner or delegate)
 
 > **readClient**: [`ReadClient`](../../../../../index.md#readclient-1)
 
-Defined in: [blackbox/jobs.ts:249](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L249)
+Defined in: [blackbox/jobs.ts:249](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L249)
 
 Read client
 
@@ -130,7 +130,7 @@ Read client
 
 > **blackboxUrl**: `string`
 
-Defined in: [blackbox/jobs.ts:251](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L251)
+Defined in: [blackbox/jobs.ts:251](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L251)
 
 Blackbox URL
 
@@ -138,7 +138,7 @@ Blackbox URL
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [blackbox/jobs.ts:253](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L253)
+Defined in: [blackbox/jobs.ts:253](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L253)
 
 Custom fetch implementation
 
@@ -162,7 +162,7 @@ Custom fetch implementation
 
 ### ListJobsParams
 
-Defined in: [blackbox/jobs.ts:327](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L327)
+Defined in: [blackbox/jobs.ts:327](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L327)
 
 Parameters for listing jobs
 
@@ -172,7 +172,7 @@ Parameters for listing jobs
 
 > **chainId**: `number`
 
-Defined in: [blackbox/jobs.ts:329](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L329)
+Defined in: [blackbox/jobs.ts:329](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L329)
 
 Chain ID
 
@@ -180,7 +180,7 @@ Chain ID
 
 > **signer**: [`SignerAdapter`](../../../../../index.md#signeradapter)
 
-Defined in: [blackbox/jobs.ts:331](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L331)
+Defined in: [blackbox/jobs.ts:331](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L331)
 
 Signer
 
@@ -188,7 +188,7 @@ Signer
 
 > **readClient**: [`ReadClient`](../../../../../index.md#readclient-1)
 
-Defined in: [blackbox/jobs.ts:333](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L333)
+Defined in: [blackbox/jobs.ts:333](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L333)
 
 Read client
 
@@ -196,7 +196,7 @@ Read client
 
 > **blackboxUrl**: `string`
 
-Defined in: [blackbox/jobs.ts:335](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L335)
+Defined in: [blackbox/jobs.ts:335](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L335)
 
 Blackbox URL
 
@@ -204,7 +204,7 @@ Blackbox URL
 
 > `optional` **includeExpired**: `boolean`
 
-Defined in: [blackbox/jobs.ts:337](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L337)
+Defined in: [blackbox/jobs.ts:337](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L337)
 
 Include expired jobs (default: false)
 
@@ -212,7 +212,7 @@ Include expired jobs (default: false)
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [blackbox/jobs.ts:339](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L339)
+Defined in: [blackbox/jobs.ts:339](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L339)
 
 Custom fetch implementation
 
@@ -236,7 +236,7 @@ Custom fetch implementation
 
 ### ListJobsResult
 
-Defined in: [blackbox/jobs.ts:345](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L345)
+Defined in: [blackbox/jobs.ts:345](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L345)
 
 Result of listing jobs
 
@@ -246,7 +246,7 @@ Result of listing jobs
 
 > **jobs**: [`JobInfo`](../../../../../index.md#jobinfo)[]
 
-Defined in: [blackbox/jobs.ts:347](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L347)
+Defined in: [blackbox/jobs.ts:347](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L347)
 
 Array of jobs
 
@@ -254,7 +254,7 @@ Array of jobs
 
 > **count**: `number`
 
-Defined in: [blackbox/jobs.ts:349](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L349)
+Defined in: [blackbox/jobs.ts:349](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L349)
 
 Total count
 
@@ -262,7 +262,7 @@ Total count
 
 > **includeExpired**: `boolean`
 
-Defined in: [blackbox/jobs.ts:351](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L351)
+Defined in: [blackbox/jobs.ts:351](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L351)
 
 Whether expired jobs were included
 
@@ -270,7 +270,7 @@ Whether expired jobs were included
 
 ### DataConsumptionParams
 
-Defined in: [blackbox/jobs.ts:477](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L477)
+Defined in: [blackbox/jobs.ts:477](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L477)
 
 Parameters for data consumption query
 
@@ -280,7 +280,7 @@ Parameters for data consumption query
 
 > **chainId**: `number`
 
-Defined in: [blackbox/jobs.ts:479](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L479)
+Defined in: [blackbox/jobs.ts:479](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L479)
 
 Chain ID
 
@@ -288,7 +288,7 @@ Chain ID
 
 > **signer**: [`SignerAdapter`](../../../../../index.md#signeradapter)
 
-Defined in: [blackbox/jobs.ts:481](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L481)
+Defined in: [blackbox/jobs.ts:481](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L481)
 
 Signer
 
@@ -296,7 +296,7 @@ Signer
 
 > **readClient**: [`ReadClient`](../../../../../index.md#readclient-1)
 
-Defined in: [blackbox/jobs.ts:483](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L483)
+Defined in: [blackbox/jobs.ts:483](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L483)
 
 Read client
 
@@ -304,7 +304,7 @@ Read client
 
 > **blackboxUrl**: `string`
 
-Defined in: [blackbox/jobs.ts:485](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L485)
+Defined in: [blackbox/jobs.ts:485](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L485)
 
 Blackbox URL
 
@@ -312,7 +312,7 @@ Blackbox URL
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [blackbox/jobs.ts:487](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L487)
+Defined in: [blackbox/jobs.ts:487](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L487)
 
 Custom fetch implementation
 
@@ -338,7 +338,7 @@ Custom fetch implementation
 
 > **getStatus**(`jobId`, `blackboxUrl`, `options?`): `Promise`\<[`JobInfo`](../../../../../index.md#jobinfo)\>
 
-Defined in: [blackbox/jobs.ts:41](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L41)
+Defined in: [blackbox/jobs.ts:41](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L41)
 
 Get the status of a job
 
@@ -390,7 +390,7 @@ if (status.status === 'completed') {
 
 > **download**(`jobId`, `params`): `Promise`\<`Blob`\>
 
-Defined in: [blackbox/jobs.ts:153](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L153)
+Defined in: [blackbox/jobs.ts:153](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L153)
 
 Download the result of a completed job
 
@@ -441,7 +441,7 @@ const decryptedBlob = await download(decryptJobId, {
 
 > **deleteJob**(`jobId`, `params`): `Promise`\<`void`\>
 
-Defined in: [blackbox/jobs.ts:273](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L273)
+Defined in: [blackbox/jobs.ts:273](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L273)
 
 Delete a job (mark for cleanup)
 
@@ -481,7 +481,7 @@ await deleteJob('job-id', {
 
 > **list**(`params`): `Promise`\<[`ListJobsResult`](#listjobsresult)\>
 
-Defined in: [blackbox/jobs.ts:375](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L375)
+Defined in: [blackbox/jobs.ts:375](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L375)
 
 List all jobs for the authenticated wallet
 
@@ -521,7 +521,7 @@ for (const job of result.jobs) {
 
 > **dataConsumption**(`params`): `Promise`\<[`DataConsumption`](../../../../../index.md#dataconsumption)\>
 
-Defined in: [blackbox/jobs.ts:511](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L511)
+Defined in: [blackbox/jobs.ts:511](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L511)
 
 Get data consumption/usage statistics for the authenticated wallet
 
@@ -561,7 +561,7 @@ console.log('Encryption remaining:', usage.encryption.remainingGB, 'GB');
 
 > **pollUntilComplete**(`jobId`, `blackboxUrl`, `options?`): `Promise`\<[`JobInfo`](../../../../../index.md#jobinfo)\>
 
-Defined in: [blackbox/jobs.ts:628](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/blackbox/jobs.ts#L628)
+Defined in: [blackbox/jobs.ts:628](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/e697dac8d4a46c9662a921faf476f6bbf0492b43/src/blackbox/jobs.ts#L628)
 
 Poll for job completion
 

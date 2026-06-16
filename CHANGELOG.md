@@ -8,6 +8,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-06-16
+
+### Added
+
+- **`blackbox.publicKey.getSecretPublicKey()`** — Fetch ML-KEM public keys from the blackbox `POST /secret-public-key` endpoint (Web3 and session-authenticated Web2 via `web2.blackbox.publicKey.getSecretPublicKey()`).
+- **`ON_CHAIN_PUBLIC_KEY_PLACEHOLDER`** — Documents the on-chain `publicKeyCid` sentinel (`'cifer'`) used when blackbox stores keys locally instead of IPFS.
+
+### Changed
+
+- **Discovery defaults** — Examples and discovery docs now reference `https://blackbox.cifersecurity.com:3010` and include Base (`8453`) among supported chains.
+- **Documentation** — Regenerated API reference, guides, and `llm.txt` for the new public-key flow.
+
+### Deprecated
+
+- **`ipfsGatewayUrl`** in discovery configuration — Blackbox no longer exposes IPFS; use `blackbox.publicKey.getSecretPublicKey()` instead.
+
 ## [0.4.0] - 2026-03-09
 
 ### ⚠️ Breaking Changes

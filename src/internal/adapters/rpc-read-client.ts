@@ -276,7 +276,7 @@ interface RpcLog {
  *
  * @example
  * ```typescript
- * const discovery = await discover('https://cifer-blackbox.ternoa.dev:3010');
+ * const discovery = await discover('https://blackbox.cifersecurity.com:3010');
  * const readClient = createReadClientFromDiscovery(discovery.chains);
  * ```
  */

@@ -14,7 +14,7 @@ This guide assumes you have already [set up authentication](/docs/guides/web2/au
 import { createCiferSdk, web2 } from 'cifer-sdk';
 
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 const client = web2.createClient({
@@ -64,7 +64,7 @@ const encrypted = await web2.blackbox.payload.encryptPayload({
   session,
   secretId: 42,
   plaintext: 'My secret message',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient: sdk.readClient,
 });
 
@@ -80,7 +80,7 @@ const decrypted = await web2.blackbox.payload.decryptPayload({
   secretId: 42,
   encryptedMessage: encrypted.encryptedMessage,
   cifer: encrypted.cifer,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient: sdk.readClient,
 });
 

@@ -11,7 +11,7 @@
  * import { web2 } from 'cifer-sdk';
  *
  * const client = web2.createClient({
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  *   readClient: sdk.readClient,
  * });
  *
@@ -64,7 +64,7 @@ import { Web2SessionError } from '../internal/errors/index.js';
  * @public
  */
 export interface Web2ClientConfig {
-  /** Blackbox URL (e.g. 'https://cifer-blackbox.ternoa.dev:3010') */
+  /** Blackbox URL (e.g. 'https://blackbox.cifersecurity.com:3010') */
   blackboxUrl: string;
   /** Read client for encrypt/decrypt operations (optional, can be passed per-call) */
   readClient?: ReadClient;
@@ -378,7 +378,7 @@ export interface Web2Client {
  * import { web2 } from 'cifer-sdk';
  *
  * const client = web2.createClient({
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  *   readClient: sdk.readClient,
  * });
  *

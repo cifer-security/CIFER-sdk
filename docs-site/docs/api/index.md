@@ -26,7 +26,7 @@ import { createCiferSdk, Eip1193SignerAdapter } from 'cifer-sdk';
 
 // Create the SDK instance with auto-discovery
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Connect any EIP-1193 wallet
@@ -4599,13 +4599,13 @@ The SDK can be configured in several ways:
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   chainOverrides: {
     752025: {
       rpcUrl: 'https://my-private-rpc.example.com',
@@ -4622,7 +4622,7 @@ const sdk = await createCiferSdk({
 
 Defined in: [types/config.ts:116](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/types/config.ts#L116)
 
-Blackbox URL (e.g., 'https://cifer-blackbox.ternoa.dev:3010').
+Blackbox URL (e.g., 'https://blackbox.cifersecurity.com:3010').
 
 ###### Remarks
 
@@ -7099,13 +7099,13 @@ A promise resolving to the configured SDK instance
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   signer: new Eip1193SignerAdapter(window.ethereum),
   chainOverrides: {
     752025: {
@@ -7150,7 +7150,7 @@ The configured SDK instance
 
 ```typescript
 const sdk = createCiferSdkSync({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient: myReadClient,
   chainOverrides: {
     752025: {
@@ -7194,7 +7194,7 @@ Configured RpcReadClient
 #### Example
 
 ```typescript
-const discovery = await discover('https://cifer-blackbox.ternoa.dev:3010');
+const discovery = await discover('https://blackbox.cifersecurity.com:3010');
 const readClient = createReadClientFromDiscovery(discovery.chains);
 ```
 
@@ -7715,7 +7715,7 @@ Discovery result with chain configurations
 #### Example
 
 ```typescript
-const discovery = await discover('https://cifer-blackbox.ternoa.dev:3010');
+const discovery = await discover('https://blackbox.cifersecurity.com:3010');
 
 console.log('Supported chains:', discovery.supportedChains);
 // [752025, 11155111]

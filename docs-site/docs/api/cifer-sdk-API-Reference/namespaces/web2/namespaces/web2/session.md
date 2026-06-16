@@ -48,7 +48,7 @@ A managed Web2Session
 const session = await web2.session.createManagedSession({
   principalId: '550e8400-...',
   ed25519Signer: myEd25519Signer,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   ttl: 900000, // 15 minutes
 });
 
@@ -57,7 +57,7 @@ const encrypted = await web2.blackbox.payload.encryptPayload({
   session,
   secretId: 42,
   plaintext: 'Hello!',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient: sdk.readClient,
 });
 ```
@@ -103,7 +103,7 @@ const encrypted = await web2.blackbox.payload.encryptPayload({
   session,
   secretId: 42,
   plaintext: 'Hello!',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient: sdk.readClient,
 });
 ```

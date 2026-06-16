@@ -44,7 +44,7 @@ await web2.delegate.setDelegate({
   session,
   secretId: 42,
   delegatePrincipalId: 'delegate-principal-uuid',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Remove a delegate
@@ -52,6 +52,6 @@ await web2.delegate.setDelegate({
   session,
   secretId: 42,
   delegatePrincipalId: '',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```

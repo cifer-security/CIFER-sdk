@@ -46,7 +46,7 @@ import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
 
 // 1. Initialize SDK with auto-discovery
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // 2. Connect wallet (browser)
@@ -84,7 +84,7 @@ import * as ed from '@noble/ed25519';
 
 // 1. Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // 2. Ed25519 key setup
@@ -242,7 +242,7 @@ const ed25519Signer: Ed25519Signer = {
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 sdk.getSupportedChainIds(); // [752025, 11155111, ...]
@@ -254,7 +254,7 @@ sdk.getRpcUrl(752025); // 'https://...'
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   chainOverrides: {
     752025: {
       rpcUrl: 'https://my-private-rpc.example.com',
@@ -276,7 +276,7 @@ const readClient = new RpcReadClient({
 });
 
 const sdk = createCiferSdkSync({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient,
   chainOverrides: {
     752025: {
@@ -697,7 +697,7 @@ import { web2 } from 'cifer-sdk';
 const reg = await web2.auth.register({
   email: 'user@example.com',
   password: 'securePassword123',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 // Returns: { principalId: string, message: string }
 
@@ -705,7 +705,7 @@ const reg = await web2.auth.register({
 const verified = await web2.auth.verifyEmail({
   email: 'user@example.com',
   otp: '123456',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 // Returns: { principalId: string, emailVerified: boolean }
 
@@ -714,20 +714,20 @@ const keyResult = await web2.auth.registerKey({
   principalId: reg.principalId,
   password: 'securePassword123',
   ed25519Signer,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 // Returns: { principalId: string, nodeRegistrationStatus: string }
 
 // If nodeRegistrationStatus !== 'complete', retry:
 await web2.auth.retryNodeRegistration({
   principalId: reg.principalId,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Check node registration status
 const status = await web2.auth.nodeRegistrationStatus({
   principalId: reg.principalId,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```
 
@@ -737,13 +737,13 @@ const status = await web2.auth.nodeRegistrationStatus({
 // Resend OTP (60-second cooldown)
 await web2.auth.resendOtp({
   email: 'user@example.com',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Forgot password (sends OTP)
 await web2.auth.forgotPassword({
   email: 'user@example.com',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Reset password with OTP
@@ -751,7 +751,7 @@ await web2.auth.resetPassword({
   email: 'user@example.com',
   otp: '123456',
   newPassword: 'newSecurePassword456',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```
 
@@ -769,7 +769,7 @@ SDK manages session lifecycle with auto-renewal:
 const session = await web2.session.createManagedSession({
   principalId: 'your-uuid',
   ed25519Signer,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   ttl: 900, // seconds (default: 900 = 15 minutes)
 });
 
@@ -812,14 +812,14 @@ Create and list Web2 secrets.
 // Create a new secret
 const result = await web2.secret.createSecret({
   session,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 // Returns: { secretId: number }
 
 // List all secrets for the principal
 const list = await web2.secret.listSecrets({
   session,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 // Returns: { secrets: Array<{ secretId, status }> }
 ```
@@ -836,7 +836,7 @@ await web2.delegate.setDelegate({
   session,
   secretId: 42,
   delegatePrincipalId: 'delegate-principal-uuid',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Remove a delegate (empty string)
@@ -844,7 +844,7 @@ await web2.delegate.setDelegate({
   session,
   secretId: 42,
   delegatePrincipalId: '',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```
 
@@ -861,7 +861,7 @@ const result = await web2.permit.requestPermit({
   email: 'user@example.com',
   password: 'securePassword123',
   payload: { newPublicKey: '...' },
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 // Returns: { permitId: string }
 
@@ -871,7 +871,7 @@ const result = await web2.permit.requestPermit({
   session,
   secretId: 42,
   payload: { newOwnerPrincipalId: 'new-owner-uuid' },
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Delegate permit (session required)
@@ -880,7 +880,7 @@ const result = await web2.permit.requestPermit({
   session,
   secretId: 42,
   payload: { delegatePrincipalId: 'delegate-uuid' },
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```
 
@@ -893,7 +893,7 @@ Look up principals by email.
 ```typescript
 const principal = await web2.principal.getByEmail(
   'colleague@example.com',
-  'https://cifer-blackbox.ternoa.dev:3010',
+  'https://blackbox.cifersecurity.com:3010',
 );
 // Returns: { principalId: string, emailHex: string }
 ```
@@ -912,7 +912,7 @@ const encrypted = await web2.blackbox.payload.encryptPayload({
   session,
   secretId: 42,
   plaintext: 'Hello, Web2!',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient: sdk.readClient,
   outputFormat: 'hex', // optional, default: 'hex'
 });
@@ -924,7 +924,7 @@ const decrypted = await web2.blackbox.payload.decryptPayload({
   secretId: 42,
   encryptedMessage: encrypted.encryptedMessage,
   cifer: encrypted.cifer,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient: sdk.readClient,
   inputFormat: 'hex', // optional
 });
@@ -1011,7 +1011,7 @@ Stateful client that stores session, `blackboxUrl`, and `readClient` so you don'
 import { web2 } from 'cifer-sdk';
 
 const client = web2.createClient({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient: sdk.readClient,
 });
 
@@ -1139,7 +1139,7 @@ import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
 
 async function encryptDecryptExample() {
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
@@ -1185,7 +1185,7 @@ async function serverSideExample() {
   });
   
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
     readClient,
   });
   
@@ -1215,7 +1215,7 @@ import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
 
 async function fileEncryptionExample() {
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
@@ -1262,7 +1262,7 @@ import { createCiferSdk, web2 } from 'cifer-sdk';
 import * as ed from '@noble/ed25519';
 
 async function web2Example() {
-  const blackboxUrl = 'https://cifer-blackbox.ternoa.dev:3010';
+  const blackboxUrl = 'https://blackbox.cifersecurity.com:3010';
 
   // Initialize SDK (for readClient)
   const sdk = await createCiferSdk({ blackboxUrl });
@@ -1338,7 +1338,7 @@ import { createCiferSdk, web2 } from 'cifer-sdk';
 
 async function web2ClientExample() {
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   });
 
   // Create stateful client
@@ -1468,7 +1468,7 @@ interface Web2Client {
 
 - **npm**: [https://www.npmjs.com/package/cifer-sdk](https://www.npmjs.com/package/cifer-sdk)
 - **GitHub**: [https://github.com/cifer-security/cifer-sdk](https://github.com/cifer-security/cifer-sdk)
-- **Blackbox API**: `https://cifer-blackbox.ternoa.dev:3010`
+- **Blackbox API**: `https://blackbox.cifersecurity.com:3010`
 - **Supported Chain**: Ternoa (752025)
 
 ---

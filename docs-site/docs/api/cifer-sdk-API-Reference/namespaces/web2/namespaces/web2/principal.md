@@ -53,7 +53,7 @@ The principal's UUID and email hex
 ```typescript
 const principal = await web2.principal.getByEmail(
   'user@example.com',
-  'https://cifer-blackbox.ternoa.dev:3010'
+  'https://blackbox.cifersecurity.com:3010'
 );
 console.log('Principal ID:', principal.principalId);
 ```

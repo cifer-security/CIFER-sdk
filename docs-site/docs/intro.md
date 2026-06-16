@@ -93,7 +93,7 @@ graph TB
 import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
 
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 const signer = new Eip1193SignerAdapter(window.ethereum);
 
@@ -113,7 +113,7 @@ const encrypted = await blackbox.payload.encryptPayload({
 import { createCiferSdk, web2 } from 'cifer-sdk';
 
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Create a client — stores session & defaults automatically

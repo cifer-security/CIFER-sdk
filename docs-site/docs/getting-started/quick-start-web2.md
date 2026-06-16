@@ -20,7 +20,7 @@ Point your AI agent (ChatGPT, Claude, Cursor, etc.) to [`llm.txt`](/llm.txt) —
 import { createCiferSdk, web2 } from 'cifer-sdk';
 
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Create a Web2 client — stores session & defaults automatically
@@ -142,7 +142,7 @@ import { createCiferSdk, web2 } from 'cifer-sdk';
 import * as ed from '@noble/ed25519';
 
 async function main() {
-  const blackboxUrl = 'https://cifer-blackbox.ternoa.dev:3010';
+  const blackboxUrl = 'https://blackbox.cifersecurity.com:3010';
 
   // 1. Initialize SDK + Web2 client
   const sdk = await createCiferSdk({ blackboxUrl });

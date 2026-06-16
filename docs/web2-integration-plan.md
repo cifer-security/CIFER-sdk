@@ -1029,7 +1029,7 @@ From `typedoc.json`, the following tags are configured:
  * const params: RegisterParams = {
  *   email: 'user@example.com',
  *   password: 'securePassword123',
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  * };
  * ```
  *
@@ -1608,7 +1608,7 @@ import { createCiferSdk, web2, blackbox, WEB2_CHAIN_ID } from 'cifer-sdk';
 
 // 1. Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // 2. Register (one-time)

@@ -38,7 +38,7 @@ function normalizeUrl(blackboxUrl: string): string {
  *   session,
  *   secretId: 42,
  *   delegatePrincipalId: 'delegate-principal-uuid',
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  * });
  *
  * // Remove a delegate
@@ -46,7 +46,7 @@ function normalizeUrl(blackboxUrl: string): string {
  *   session,
  *   secretId: 42,
  *   delegatePrincipalId: '',
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  * });
  * ```
  */

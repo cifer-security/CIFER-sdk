@@ -243,7 +243,7 @@ const job = await encryptFile({
   file: myFile,
   signer,
   readClient,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 console.log('Job ID:', job.jobId);
@@ -296,7 +296,7 @@ const job = await decryptFile({
   file: encryptedCiferFile,
   signer,
   readClient,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Poll and download (auth required for decrypt jobs)
@@ -340,6 +340,6 @@ const job = await decryptExistingFile({
   encryptJobId: 'previous-encrypt-job-id',
   signer,
   readClient,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```

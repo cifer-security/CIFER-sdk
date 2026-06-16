@@ -29,7 +29,7 @@ import type { StoredEd25519Signer } from "./ed25519"
 // ---------------------------------------------------------------------------
 
 /** Default Blackbox URL — change this to your deployment */
-const DEFAULT_BLACKBOX_URL = "https://cifer-blackbox.ternoa.dev:3010"
+const DEFAULT_BLACKBOX_URL = "https://blackbox.cifersecurity.com:3010"
 
 // ---------------------------------------------------------------------------
 // Context shape

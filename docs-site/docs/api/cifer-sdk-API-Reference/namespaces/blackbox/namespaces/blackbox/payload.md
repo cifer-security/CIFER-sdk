@@ -302,7 +302,7 @@ const result = await encryptPayload({
   plaintext: 'My secret message',
   signer,
   readClient,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 console.log('Cifer:', result.cifer);
@@ -349,7 +349,7 @@ const result = await decryptPayload({
   cifer: commitmentData.cifer,
   signer,
   readClient,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 console.log('Decrypted:', result.decryptedMessage);

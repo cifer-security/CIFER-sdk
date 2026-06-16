@@ -266,7 +266,7 @@ const job = await web2.blackbox.files.encryptFile({
   session,
   secretId: 42,
   file: myFile,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient,
 });
 ```

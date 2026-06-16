@@ -53,7 +53,7 @@ export interface Web2EncryptPayloadParams {
  *   session,
  *   secretId: 42,
  *   plaintext: 'Hello, Web2!',
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  *   readClient,
  * });
  * ```
@@ -114,7 +114,7 @@ export interface Web2DecryptPayloadParams {
  *   secretId: 42,
  *   encryptedMessage: encrypted.encryptedMessage,
  *   cifer: encrypted.cifer,
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  *   readClient,
  * });
  * console.log(result.decryptedMessage);

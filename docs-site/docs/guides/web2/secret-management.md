@@ -14,7 +14,7 @@ This guide assumes you have already [set up authentication](/docs/guides/web2/au
 import { createCiferSdk, web2 } from 'cifer-sdk';
 
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 const client = web2.createClient({
@@ -43,7 +43,7 @@ console.log('Secret ID:', secret.secretId);
 ```typescript
 const secret = await web2.secret.createSecret({
   session,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 console.log('Secret ID:', secret.secretId);
@@ -54,7 +54,7 @@ console.log('Secret ID:', secret.secretId);
 ```typescript
 const result = await web2.secret.listSecrets({
   session,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 for (const s of result.secrets) {
@@ -73,7 +73,7 @@ await web2.delegate.setDelegate({
   session,
   secretId: 42,
   delegatePrincipalId: 'delegate-principal-uuid',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```
 
@@ -85,7 +85,7 @@ await web2.delegate.setDelegate({
   session,
   secretId: 42,
   delegatePrincipalId: '',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```
 
@@ -95,7 +95,7 @@ Use `web2.principal.getByEmail()` to look up a principal ID by email address:
 ```typescript
 const principal = await web2.principal.getByEmail(
   'colleague@example.com',
-  'https://cifer-blackbox.ternoa.dev:3010'
+  'https://blackbox.cifersecurity.com:3010'
 );
 console.log('Delegate principal:', principal.principalId);
 ```
@@ -112,7 +112,7 @@ const rotateResult = await web2.permit.requestPermit({
   email: 'user@example.com',
   password: 'securePassword123',
   payload: { newPublicKey: '...' },
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Transfer ownership (uses session)
@@ -121,7 +121,7 @@ const transferResult = await web2.permit.requestPermit({
   session,
   secretId: 42,
   payload: { newOwnerPrincipalId: 'new-owner-uuid' },
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```
 

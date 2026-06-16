@@ -70,7 +70,7 @@ async function handleErrorResponse(
  * const result = await web2.auth.register({
  *   email: 'user@example.com',
  *   password: 'securePassword123',
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  * });
  * console.log('Principal ID:', result.principalId);
  * // Now check email for OTP and call verifyEmail()
@@ -117,7 +117,7 @@ export async function register(
  * const result = await web2.auth.verifyEmail({
  *   email: 'user@example.com',
  *   otp: '123456',
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  * });
  * console.log('Verified:', result.emailVerified);
  * ```
@@ -167,14 +167,14 @@ export async function verifyEmail(
  *   principalId: '550e8400-...',
  *   password: 'securePassword123',
  *   ed25519Signer: myEd25519Signer,
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  * });
  *
  * if (result.nodeRegistrationStatus !== 'complete') {
  *   // Retry failed nodes
  *   await web2.auth.retryNodeRegistration({
  *     principalId: result.principalId,
- *     blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *     blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  *   });
  * }
  * ```

@@ -14,7 +14,7 @@ This guide assumes you have already [set up authentication](/docs/guides/web2/au
 import { createCiferSdk, web2 } from 'cifer-sdk';
 
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 const client = web2.createClient({
@@ -37,7 +37,7 @@ const job = await web2.blackbox.files.encryptFile({
   session,
   secretId: 42,
   file: myFile,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient: sdk.readClient,
 });
 
@@ -46,7 +46,7 @@ console.log('Job started:', job.jobId);
 // Poll until complete (no session needed)
 const status = await web2.blackbox.jobs.pollUntilComplete(
   job.jobId,
-  'https://cifer-blackbox.ternoa.dev:3010',
+  'https://blackbox.cifersecurity.com:3010',
   {
     onProgress: (job) => console.log(`Progress: ${job.progress}%`),
   }
@@ -55,7 +55,7 @@ const status = await web2.blackbox.jobs.pollUntilComplete(
 // Download encrypted file (no session needed for encrypt jobs)
 const { download } = await import('cifer-sdk/blackbox');
 const encryptedBlob = await download(job.jobId, {
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Save the .cifer file
@@ -70,14 +70,14 @@ const decryptJob = await web2.blackbox.files.decryptFile({
   session,
   secretId: 42,
   file: encryptedCiferFile,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient: sdk.readClient,
 });
 
 // Poll until complete
 await web2.blackbox.jobs.pollUntilComplete(
   decryptJob.jobId,
-  'https://cifer-blackbox.ternoa.dev:3010'
+  'https://blackbox.cifersecurity.com:3010'
 );
 
 // Download decrypted file (session needed for decrypt jobs)
@@ -86,7 +86,7 @@ const decryptedBlob = await web2.blackbox.jobs.download(
   {
     session,
     secretId: 42,
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
     readClient: sdk.readClient,
   }
 );
@@ -99,7 +99,7 @@ const decryptedBlob = await web2.blackbox.jobs.download(
 ```typescript
 const jobs = await web2.blackbox.jobs.list({
   session,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient: sdk.readClient,
 });
 
@@ -114,7 +114,7 @@ for (const job of jobs.jobs) {
 await web2.blackbox.jobs.deleteJob('job-id', {
   session,
   secretId: 42,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient: sdk.readClient,
 });
 ```
@@ -126,7 +126,7 @@ Check your usage limits:
 ```typescript
 const usage = await web2.blackbox.jobs.dataConsumption({
   session,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient: sdk.readClient,
 });
 

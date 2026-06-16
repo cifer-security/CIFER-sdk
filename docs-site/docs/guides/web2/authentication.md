@@ -57,7 +57,7 @@ The `web2.createClient()` factory creates a client that stores your `session`, `
 ```typescript
 import { createCiferSdk, web2 } from 'cifer-sdk';
 
-const sdk = await createCiferSdk({ blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010' });
+const sdk = await createCiferSdk({ blackboxUrl: 'https://blackbox.cifersecurity.com:3010' });
 
 // Create a client with stored defaults
 const client = web2.createClient({
@@ -123,7 +123,7 @@ import { web2 } from 'cifer-sdk';
 const result = await web2.auth.register({
   email: 'user@example.com',
   password: 'securePassword123',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 console.log('Principal ID:', result.principalId);
@@ -136,7 +136,7 @@ console.log('Principal ID:', result.principalId);
 const verified = await web2.auth.verifyEmail({
   email: 'user@example.com',
   otp: '123456', // OTP from email
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 console.log('Verified:', verified.emailVerified);
@@ -155,14 +155,14 @@ const keyResult = await web2.auth.registerKey({
   principalId: result.principalId,
   password: 'securePassword123',
   ed25519Signer: myEd25519Signer,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 if (keyResult.nodeRegistrationStatus !== 'complete') {
   // Some nodes failed -- retry
   await web2.auth.retryNodeRegistration({
     principalId: keyResult.principalId,
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   });
 }
 ```
@@ -234,7 +234,7 @@ The SDK generates an ephemeral EOA keypair, authenticates via your Ed25519 key, 
 const session = await web2.session.createManagedSession({
   principalId: 'your-principal-uuid',
   ed25519Signer: myEd25519Signer,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   ttl: 900, // Optional: session TTL in seconds (default: 15 min)
 });
 
@@ -270,7 +270,7 @@ Sessions created with `useExistingSessionKey` cannot renew. Calling `session.ren
 // Step 1: Request a reset OTP (60s cooldown)
 await web2.auth.forgotPassword({
   email: 'user@example.com',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Step 2: Reset password with the OTP
@@ -278,7 +278,7 @@ await web2.auth.resetPassword({
   email: 'user@example.com',
   otp: '654321',
   newPassword: 'newSecurePassword456',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```
 

@@ -86,14 +86,14 @@ export interface DiscoveryResult {
  * @example Discovery mode
  * ```typescript
  * const sdk = await createCiferSdk({
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  * });
  * ```
  *
  * @example With overrides
  * ```typescript
  * const sdk = await createCiferSdk({
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  *   chainOverrides: {
  *     752025: {
  *       rpcUrl: 'https://my-private-rpc.example.com',
@@ -106,7 +106,7 @@ export interface DiscoveryResult {
  */
 export interface CiferSdkConfig {
   /**
-   * Blackbox URL (e.g., 'https://cifer-blackbox.ternoa.dev:3010').
+   * Blackbox URL (e.g., 'https://blackbox.cifersecurity.com:3010').
    *
    * @remarks
    * If provided, the SDK will perform discovery by calling the `/healthz`

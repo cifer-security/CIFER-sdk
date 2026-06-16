@@ -41,7 +41,7 @@ Created secret info
 ```typescript
 const result = await web2.secret.createSecret({
   session,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 console.log('Secret ID:', result.secretId);
 ```
@@ -77,7 +77,7 @@ Array of secret info
 ```typescript
 const result = await web2.secret.listSecrets({
   session,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 console.log('Secrets:', result.secrets);
 ```

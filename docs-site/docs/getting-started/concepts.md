@@ -117,7 +117,7 @@ import { web2 } from 'cifer-sdk';
 const session = await web2.session.createManagedSession({
   principalId: 'your-principal-uuid',
   ed25519Signer: myEd25519Signer,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // session.signer is a standard SignerAdapter — works with all blackbox functions
@@ -260,7 +260,7 @@ The SDK can automatically fetch chain configuration:
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Configuration is auto-discovered from /healthz
@@ -295,7 +295,7 @@ To see progress messages during SDK operations, pass a `logger` function:
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   logger: console.log, // Enable debug output
 });
 ```

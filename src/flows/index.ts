@@ -15,7 +15,7 @@
  * const ctx = {
  *   signer,
  *   readClient,
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  *   chainId: 752025,
  *   controllerAddress: '0x...',
  *   txExecutor: async (intent) => {

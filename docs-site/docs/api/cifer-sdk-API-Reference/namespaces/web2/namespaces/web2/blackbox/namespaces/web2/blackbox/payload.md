@@ -218,7 +218,7 @@ const result = await web2.blackbox.payload.encryptPayload({
   session,
   secretId: 42,
   plaintext: 'Hello, Web2!',
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient,
 });
 ```
@@ -257,7 +257,7 @@ const result = await web2.blackbox.payload.decryptPayload({
   secretId: 42,
   encryptedMessage: encrypted.encryptedMessage,
   cifer: encrypted.cifer,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient,
 });
 console.log(result.decryptedMessage);

@@ -144,7 +144,7 @@ ${SEPARATOR}
 import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
 
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // 2. Connect wallet (browser)
@@ -321,7 +321,7 @@ ${SUB_SEPARATOR}
 ${SUB_SEPARATOR}
 
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Get supported chains
@@ -338,7 +338,7 @@ ${SUB_SEPARATOR}
 ${SUB_SEPARATOR}
 
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   chainOverrides: {
     752025: {
       rpcUrl: 'https://my-private-rpc.example.com',
@@ -360,7 +360,7 @@ const readClient = new RpcReadClient({
 });
 
 const sdk = createCiferSdkSync({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient,
   chainOverrides: {
     752025: {
@@ -1358,7 +1358,7 @@ register(params): Promise<RegisterResult>
     const result = await web2.auth.register({
       email: 'user@example.com',
       password: 'securePassword123',
-      blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+      blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
     });
     // An OTP is sent to the email
 
@@ -1464,7 +1464,7 @@ createManagedSession(params): Promise<Web2Session>
     const session = await web2.session.createManagedSession({
       principalId: 'your-uuid',
       ed25519Signer: myEd25519Signer,
-      blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+      blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
     });
 
 ${SUB_SEPARATOR}
@@ -1497,7 +1497,7 @@ createSecret(params): Promise<CreateWeb2SecretResult>
   Example:
     const result = await web2.secret.createSecret({
       session,
-      blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+      blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
     });
 
 ${SUB_SEPARATOR}
@@ -1577,7 +1577,7 @@ getByEmail(email, blackboxUrl, options?): Promise<PrincipalByEmailResult>
   Example:
     const principal = await web2.principal.getByEmail(
       'colleague@example.com',
-      'https://cifer-blackbox.ternoa.dev:3010'
+      'https://blackbox.cifersecurity.com:3010'
     );
 
 ${SUB_SEPARATOR}
@@ -1987,7 +1987,7 @@ import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
 async function encryptDecryptExample() {
   // Initialize
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
@@ -2028,7 +2028,7 @@ import { createCiferSdk, Eip1193SignerAdapter, flows } from 'cifer-sdk';
 
 async function createSecretExample() {
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
@@ -2081,7 +2081,7 @@ import { createCiferSdk, Eip1193SignerAdapter, flows, commitments } from 'cifer-
 
 async function onChainExample() {
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
@@ -2129,7 +2129,7 @@ import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
 
 async function fileEncryptionExample() {
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
@@ -2192,7 +2192,7 @@ async function serverSideExample() {
   
   // Initialize SDK
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
     readClient,
   });
   
@@ -2228,7 +2228,7 @@ import { createCiferSdk, web2 } from 'cifer-sdk';
 import * as ed from '@noble/ed25519';
 
 async function web2Example() {
-  const blackboxUrl = 'https://cifer-blackbox.ternoa.dev:3010';
+  const blackboxUrl = 'https://blackbox.cifersecurity.com:3010';
 
   // Initialize SDK (for readClient)
   const sdk = await createCiferSdk({ blackboxUrl });

@@ -48,7 +48,7 @@ const result = await web2.permit.requestPermit({
   email: 'user@example.com',
   password: 'securePassword123',
   payload: { newPublicKey: '...' },
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Transfer ownership (session)
@@ -57,6 +57,6 @@ const result = await web2.permit.requestPermit({
   session,
   secretId: 42,
   payload: { newOwnerPrincipalId: 'new-owner-uuid' },
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```

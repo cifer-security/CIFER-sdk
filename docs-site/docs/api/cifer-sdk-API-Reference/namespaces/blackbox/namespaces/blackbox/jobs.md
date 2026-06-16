@@ -375,7 +375,7 @@ Job status information
 #### Example
 
 ```typescript
-const status = await getStatus('job-id', 'https://cifer-blackbox.ternoa.dev:3010');
+const status = await getStatus('job-id', 'https://blackbox.cifersecurity.com:3010');
 
 if (status.status === 'completed') {
   console.log('Job complete! Progress:', status.progress);
@@ -422,12 +422,12 @@ The file as a Blob
 ```typescript
 // Encrypt job (no auth)
 const encryptedBlob = await download(encryptJobId, {
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Decrypt job (auth required)
 const decryptedBlob = await download(decryptJobId, {
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   chainId: 752025,
   secretId: 123n,
   signer,
@@ -471,7 +471,7 @@ await deleteJob('job-id', {
   secretId: 123n,
   signer,
   readClient,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```
 
@@ -506,7 +506,7 @@ const result = await list({
   chainId: 752025,
   signer,
   readClient,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   includeExpired: false,
 });
 
@@ -546,7 +546,7 @@ const usage = await dataConsumption({
   chainId: 752025,
   signer,
   readClient,
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 console.log('User:', usage.userId, '(', usage.userType, ')');

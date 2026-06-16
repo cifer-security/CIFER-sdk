@@ -46,7 +46,7 @@ Configuration for creating a Web2 client.
 
 Defined in: [web2/client.ts:68](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/3e58b754041c3874d771d393a6f417ac1cf988a0/src/web2/client.ts#L68)
 
-Blackbox URL (e.g. 'https://cifer-blackbox.ternoa.dev:3010')
+Blackbox URL (e.g. 'https://blackbox.cifersecurity.com:3010')
 
 ##### readClient?
 
@@ -837,7 +837,7 @@ use cases that need explicit parameter passing.
 import { web2 } from 'cifer-sdk';
 
 const client = web2.createClient({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient: sdk.readClient,
 });
 

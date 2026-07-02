@@ -66,6 +66,19 @@ export interface DiscoveryResult {
   ipfsGatewayUrl?: string;
   /** Unix timestamp (ms) when this discovery result was fetched */
   fetchedAt: number;
+  /**
+   * Blackbox server's own clock at the moment it handled the `/healthz` request,
+   * as a Unix timestamp (ms).
+   *
+   * @remarks
+   * Useful for client-side device clock integrity checks: compare `Date.now()`
+   * against `serverTime` to detect a misconfigured or manipulated device clock,
+   * independent of network latency (both are captured close together — `fetchedAt`
+   * is set immediately after the response is parsed).
+   *
+   * Optional for backward compatibility with Blackbox deployments predating this field.
+   */
+  serverTime?: number;
 }
 
 /**

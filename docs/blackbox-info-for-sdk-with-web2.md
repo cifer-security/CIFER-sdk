@@ -59,6 +59,7 @@ Health + runtime configuration discovery endpoint. **No signature required.**
 ```json
 {
   "status": "ok",
+  "serverTime": 1751462400000,
   "enclaveWalletAddress": "0x...",
   "configurations": {
     "chains": [
@@ -90,6 +91,8 @@ Health + runtime configuration discovery endpoint. **No signature required.**
 ```
 
 > **BREAKING**: `configurations` no longer includes `port`, `enclaveUrl`, `reconcileChunkSize`, `confirmations`, `ipfsApiUrl`, or `ipfsApiKey`. Only `chains` and `ipfsGatewayUrl` are returned.
+>
+> **NEW (additive, not breaking)**: `serverTime` — Unix epoch ms, the blackbox server's own clock at request time. Added so clients can detect a misconfigured/manipulated device clock (e.g. before trusting a device-side time-based check, such as a time-lock countdown) by comparing `Date.now()` against `serverTime`. The SDK surfaces this as `DiscoveryResult.serverTime` (optional, since older blackbox deployments won't send it).
 
 Notes for SDK authors:
 
@@ -97,6 +100,7 @@ Notes for SDK authors:
 - `configurations.chains` contains per-chain connection/contract details.
 - `enclaveWalletAddress` is the on-chain identity the blackbox uses when interacting with contracts/enclaves.
 - Web2 mode uses `chainId = -1` and does **not** appear in `supportedChains`.
+- `serverTime` is generated fresh on every request (not cached server-side) — safe to treat as "now" on the blackbox, modulo request latency.
 
 ---
 

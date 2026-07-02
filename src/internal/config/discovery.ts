@@ -12,6 +12,8 @@ import { DiscoveryError } from '../errors/index.js';
  */
 interface HealthzResponse {
   status: string;
+  /** Blackbox server clock (Unix ms) at request time. Absent on older deployments. */
+  serverTime?: number;
   enclaveWalletAddress: string;
   supportedChains: number[];
   configurations: {
@@ -66,6 +68,14 @@ const DEFAULT_CACHE_TTL_MS = 5 * 60 * 1000;
  *
  * const baseConfig = discovery.chains.find(c => c.chainId === 8453);
  * console.log('Base RPC:', baseConfig?.rpcUrl);
+ *
+ * // Device clock integrity check (e.g. on app foreground)
+ * if (discovery.serverTime !== undefined) {
+ *   const skewMs = Math.abs(Date.now() - discovery.serverTime);
+ *   if (skewMs > 10 * 60 * 1000) {
+ *     // device clock is more than 10 minutes off — block the UI
+ *   }
+ * }
  * ```
  */
 export async function discover(
@@ -149,6 +159,7 @@ export async function discover(
     ),
     ipfsGatewayUrl: data.configurations.ipfsGatewayUrl,
     fetchedAt: Date.now(),
+    serverTime: data.serverTime,
   };
 
   // Cache the result

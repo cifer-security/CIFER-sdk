@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.5.1**](../../../../../index.md)
+[**cifer-sdk API Reference v0.5.2**](../../../../../index.md)
 
 ***
 
@@ -16,7 +16,7 @@ Web2 principal lookup
 
 > **getByEmail**(`email`, `blackboxUrl`, `options?`): `Promise`\<[`PrincipalByEmailResult`](../../../../../index.md#principalbyemailresult)\>
 
-Defined in: [web2/principal.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/principal.ts#L38)
+Defined in: [web2/principal.ts:38](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/principal.ts#L38)
 
 Look up a principal by email address.
 

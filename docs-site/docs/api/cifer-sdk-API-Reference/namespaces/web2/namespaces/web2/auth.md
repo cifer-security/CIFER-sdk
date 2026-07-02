@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.5.1**](../../../../../index.md)
+[**cifer-sdk API Reference v0.5.2**](../../../../../index.md)
 
 ***
 
@@ -22,7 +22,7 @@ Also includes password reset and OTP resend helpers.
 
 > **register**(`params`): `Promise`\<[`RegisterResult`](../../../../../index.md#registerresult)\>
 
-Defined in: [web2/auth.ts:79](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/auth.ts#L79)
+Defined in: [web2/auth.ts:81](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L81)
 
 Register a new Web2 principal with email and password.
 
@@ -60,7 +60,7 @@ console.log('Principal ID:', result.principalId);
 
 > **verifyEmail**(`params`): `Promise`\<[`VerifyEmailResult`](../../../../../index.md#verifyemailresult)\>
 
-Defined in: [web2/auth.ts:125](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/auth.ts#L125)
+Defined in: [web2/auth.ts:127](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L127)
 
 Verify the email OTP sent during registration.
 
@@ -95,7 +95,7 @@ console.log('Verified:', result.emailVerified);
 
 > **registerKey**(`params`): `Promise`\<[`RegisterKeyResult`](../../../../../index.md#registerkeyresult)\>
 
-Defined in: [web2/auth.ts:182](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/auth.ts#L182)
+Defined in: [web2/auth.ts:184](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L184)
 
 Register an Ed25519 public key and propagate the principal to cluster nodes.
 
@@ -141,7 +141,7 @@ if (result.nodeRegistrationStatus !== 'complete') {
 
 > **resendOtp**(`params`): `Promise`\<\{ `message`: `string`; \}\>
 
-Defined in: [web2/auth.ts:238](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/auth.ts#L238)
+Defined in: [web2/auth.ts:240](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L240)
 
 Resend the email verification OTP.
 
@@ -167,7 +167,7 @@ Server message
 
 > **forgotPassword**(`params`): `Promise`\<\{ `message`: `string`; \}\>
 
-Defined in: [web2/auth.ts:266](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/auth.ts#L266)
+Defined in: [web2/auth.ts:268](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L268)
 
 Send a password-reset OTP to a verified email.
 
@@ -193,7 +193,7 @@ Server message
 
 > **resetPassword**(`params`): `Promise`\<\{ `message`: `string`; \}\>
 
-Defined in: [web2/auth.ts:292](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/auth.ts#L292)
+Defined in: [web2/auth.ts:294](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L294)
 
 Reset a password using the OTP from forgotPassword.
 
@@ -213,11 +213,58 @@ Server message
 
 ***
 
+### verifyCredentials()
+
+> **verifyCredentials**(`params`): `Promise`\<[`VerifyCredentialsResult`](../../../../../index.md#verifycredentialsresult)\>
+
+Defined in: [web2/auth.ts:343](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L343)
+
+Verify Web2 email + password credentials against the Blackbox principal store.
+
+**Web2 only** (`chainId = -1`). This function is not available for Web3
+wallet users. It validates credentials only — it does **not** create a
+session or return session tokens.
+
+Use this when another system needs to confirm that a user entered the
+correct email and password before proceeding (e.g. app unlock, key rotation).
+
+#### Parameters
+
+##### params
+
+[`VerifyCredentialsParams`](../../../../../index.md#verifycredentialsparams)
+
+Verification parameters
+
+#### Returns
+
+`Promise`\<[`VerifyCredentialsResult`](../../../../../index.md#verifycredentialsresult)\>
+
+`{ valid: true, principalId }` on success
+
+#### Throws
+
+[Web2AuthError](../../../../../index.md#web2autherror) on invalid credentials (401/403/404)
+
+#### Example
+
+```typescript
+// Web2 only — not for Web3 wallet users
+const result = await web2.auth.verifyCredentials({
+  email: 'user@example.com',
+  password: 'securePassword123',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+console.log('Principal ID:', result.principalId);
+```
+
+***
+
 ### retryNodeRegistration()
 
 > **retryNodeRegistration**(`params`): `Promise`\<[`RetryNodeRegistrationResult`](../../../../../index.md#retrynoderegistrationresult)\>
 
-Defined in: [web2/auth.ts:323](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/auth.ts#L323)
+Defined in: [web2/auth.ts:380](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L380)
 
 Retry node registration for a principal whose initial registration
 was partial or pending.
@@ -242,7 +289,7 @@ Updated registration status
 
 > **nodeRegistrationStatus**(`principalId`, `blackboxUrl`, `options?`): `Promise`\<[`NodeRegistrationStatusResult`](../../../../../index.md#noderegistrationstatusresult)\>
 
-Defined in: [web2/auth.ts:362](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/auth.ts#L362)
+Defined in: [web2/auth.ts:419](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L419)
 
 Check node registration status for a principal.
 

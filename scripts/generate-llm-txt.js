@@ -67,6 +67,7 @@ ${SEPARATOR}
    - web2.permit
    - web2.principal
    - web2.blackbox (payload, files, jobs)
+   - web2.createClient
 8. TYPE DEFINITIONS
 9. ERROR HANDLING
 10. COMPLETE EXAMPLES
@@ -919,6 +920,8 @@ Returns:
     resultFileName?: string,
     ttl: number,
     originalSize?: number,
+    signerPrincipalId?: string | null,
+    secretOwnerPrincipalId?: string | null,
   }
 
 Example:
@@ -1473,7 +1476,7 @@ createManagedSession(params): Promise<Web2Session>
     - signer: SignerAdapter (ephemeral EOA)
     - sessionAddress: string
     - principalId: string
-    - expiresAt: number
+    - expiresAt: string (ISO 8601 timestamp)
     - isManaged: true
     - ensureValid(): Promise<void> (auto-renews if expired)
     - renew(): Promise<void>
@@ -1663,6 +1666,45 @@ list(params): Promise<ListJobsResult>
 
 dataConsumption(params): Promise<DataConsumption>
   Parameters: session, blackboxUrl, readClient
+
+${SUB_SEPARATOR}
+7.8 web2.createClient
+${SUB_SEPARATOR}
+
+createClient(config): Web2Client
+  Stateful client that stores session, blackboxUrl, and readClient so you
+  don't pass them on every call.
+
+  Parameters:
+    - blackboxUrl: string
+    - readClient?: ReadClient
+    - fetch?: typeof fetch
+
+  Example:
+    const client = web2.createClient({
+      blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+      readClient: sdk.readClient,
+    });
+
+    await client.createManagedSession({
+      principalId: 'your-uuid',
+      ed25519Signer,
+    });
+
+    const secret = await client.createSecret();
+    const encrypted = await client.payload.encryptPayload({
+      secretId: secret.secretId,
+      plaintext: 'Hello!',
+    });
+
+  Web2Client methods:
+    - session, blackboxUrl, readClient (readonly)
+    - createManagedSession(), useExistingSessionKey(), setSession()
+    - createSecret(), listSecrets(), setDelegate(), requestPermit(), getByEmail()
+    - payload.encryptPayload(), payload.decryptPayload()
+    - files.encryptFile(), files.decryptFile(), files.decryptExistingFile()
+    - jobs.getStatus(), jobs.pollUntilComplete(), jobs.download(),
+      jobs.deleteJob(), jobs.list(), jobs.dataConsumption()
 `;
 }
 
@@ -1768,6 +1810,8 @@ interface JobInfo {
   resultFileName?: string;
   ttl: number;
   originalSize?: number;
+  signerPrincipalId?: string | null;      // Web2 principalId of job initiator (null for Web3)
+  secretOwnerPrincipalId?: string | null; // Web2 principalId of secret owner (null for Web3)
 }
 
 interface FlowContext {
@@ -1817,7 +1861,7 @@ interface Web2Session {
   signer: SignerAdapter;        // Ephemeral EOA signer
   sessionAddress: string;       // Session EOA address
   principalId: string;          // UUID
-  expiresAt: number;            // Unix timestamp ms
+  expiresAt: string;            // ISO 8601 timestamp
   isManaged: boolean;           // true = auto-renew capable
   ensureValid(): Promise<void>; // Check expiry, auto-renew if needed
   renew(): Promise<void>;       // Force renewal
@@ -2310,6 +2354,43 @@ async function web2Example() {
 
   console.log('Decrypted:', decrypted.decryptedMessage);
   // Output: "Hello from Web2!"
+}
+
+${SUB_SEPARATOR}
+EXAMPLE 7: WEB2 - USING THE CLIENT FACTORY
+${SUB_SEPARATOR}
+
+import { createCiferSdk, web2 } from 'cifer-sdk';
+
+async function web2ClientExample() {
+  const sdk = await createCiferSdk({
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+  });
+
+  const client = web2.createClient({
+    blackboxUrl: sdk.blackboxUrl,
+    readClient: sdk.readClient,
+  });
+
+  await client.createManagedSession({
+    principalId: 'your-uuid',
+    ed25519Signer,
+  });
+
+  const secret = await client.createSecret();
+
+  const encrypted = await client.payload.encryptPayload({
+    secretId: secret.secretId,
+    plaintext: 'Simplified Web2 API!',
+  });
+
+  const decrypted = await client.payload.decryptPayload({
+    secretId: secret.secretId,
+    encryptedMessage: encrypted.encryptedMessage,
+    cifer: encrypted.cifer,
+  });
+
+  console.log('Decrypted:', decrypted.decryptedMessage);
 }
 `;
 }

@@ -38,6 +38,7 @@ declare namespace auth {
         resendOtp,
         forgotPassword,
         resetPassword,
+        verifyCredentials,
         retryNodeRegistration,
         nodeRegistrationStatus
     }
@@ -2132,6 +2133,23 @@ function validateForStorage(cifer: Hex | Uint8Array, encryptedMessage: Hex | Uin
 
 // @public
 function verifyCommitmentIntegrity(data: CommitmentData, metadata?: CIFERMetadata): IntegrityResult;
+
+// @public
+function verifyCredentials(params: VerifyCredentialsParams): Promise<VerifyCredentialsResult>;
+
+// @public
+export interface VerifyCredentialsParams {
+    blackboxUrl: string;
+    email: string;
+    fetch?: typeof fetch;
+    password: string;
+}
+
+// @public
+export interface VerifyCredentialsResult {
+    principalId: string;
+    valid: true;
+}
 
 // @public
 function verifyEmail(params: VerifyEmailParams): Promise<VerifyEmailResult>;

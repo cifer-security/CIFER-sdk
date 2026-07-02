@@ -264,6 +264,30 @@ const session = web2.session.useExistingSessionKey({
 Sessions created with `useExistingSessionKey` cannot renew. Calling `session.renew()` will throw a `Web2SessionError`. The session must be recreated externally when it expires.
 :::
 
+## Verify Credentials (Web2 only)
+
+Use `web2.auth.verifyCredentials()` to confirm that a user entered the correct email and password. This is **Web2 only** (`chainId = -1`) — it is not available for Web3 wallet authentication.
+
+This endpoint does **not** create a session or return session tokens. Use it when another system needs to validate credentials before proceeding (e.g. app unlock, key rotation pre-check).
+
+```typescript
+import { web2 } from 'cifer-sdk';
+
+// Web2 only — not for Web3 wallet users
+const result = await web2.auth.verifyCredentials({
+  email: 'user@example.com',
+  password: 'securePassword123',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+console.log('Valid:', result.valid);           // true
+console.log('Principal ID:', result.principalId);
+
+// Wrong credentials throw Web2AuthError (401/403/404)
+```
+
+After credentials are confirmed, create a session separately with `web2.session.createManagedSession()`.
+
 ## Password Reset
 
 ```typescript

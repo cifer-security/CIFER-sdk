@@ -19,6 +19,8 @@ import type {
   ResendOtpParams,
   ForgotPasswordParams,
   ResetPasswordParams,
+  VerifyCredentialsParams,
+  VerifyCredentialsResult,
   RetryNodeRegistrationParams,
   RetryNodeRegistrationResult,
   NodeRegistrationStatusResult,
@@ -311,6 +313,61 @@ export async function resetPassword(
 
   const result = (await response.json()) as { message: string };
   return { message: result.message };
+}
+
+/**
+ * Verify Web2 email + password credentials against the Blackbox principal store.
+ *
+ * **Web2 only** (`chainId = -1`). This function is not available for Web3
+ * wallet users. It validates credentials only — it does **not** create a
+ * session or return session tokens.
+ *
+ * Use this when another system needs to confirm that a user entered the
+ * correct email and password before proceeding (e.g. app unlock, key rotation).
+ *
+ * @param params - Verification parameters
+ * @returns `{ valid: true, principalId }` on success
+ * @throws {@link Web2AuthError} on invalid credentials (401/403/404)
+ *
+ * @example
+ * ```typescript
+ * // Web2 only — not for Web3 wallet users
+ * const result = await web2.auth.verifyCredentials({
+ *   email: 'user@example.com',
+ *   password: 'securePassword123',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+ * });
+ * console.log('Principal ID:', result.principalId);
+ * ```
+ */
+export async function verifyCredentials(
+  params: VerifyCredentialsParams
+): Promise<VerifyCredentialsResult> {
+  const fetchFn = params.fetch ?? fetch;
+  const url = `${normalizeUrl(params.blackboxUrl)}/web2/auth/verify-credentials`;
+
+  const response = await fetchFn(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: params.email,
+      password: params.password,
+    }),
+  });
+
+  if (!response.ok) {
+    await handleErrorResponse(response, '/web2/auth/verify-credentials');
+  }
+
+  const result = (await response.json()) as {
+    valid: true;
+    principalId: string;
+  };
+
+  return {
+    valid: result.valid,
+    principalId: result.principalId,
+  };
 }
 
 /**

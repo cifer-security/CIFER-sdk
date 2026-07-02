@@ -3,6 +3,7 @@ import { Container, Section } from "@/components/ui/container"
 import {
   UserPlus,
   KeyRound,
+  ShieldCheck,
   Key,
   Shield,
   Users,
@@ -35,6 +36,15 @@ const pages = [
     icon: KeyRound,
     tag: "web2.auth",
     functions: ["forgotPassword", "resetPassword"],
+  },
+  {
+    name: "Verify Credentials",
+    description:
+      "Web2 only: confirm email + password against the Blackbox principal store. Does not create a session.",
+    href: "/verify-credentials",
+    icon: ShieldCheck,
+    tag: "web2.auth",
+    functions: ["verifyCredentials"],
   },
   {
     name: "Session",

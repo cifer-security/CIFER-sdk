@@ -207,6 +207,41 @@ export interface ResetPasswordParams {
 }
 
 /**
+ * Parameters for verifying Web2 email + password credentials.
+ *
+ * @remarks
+ * **Web2 only** (`chainId = -1`). Not available for Web3 wallet authentication.
+ *
+ * @public
+ */
+export interface VerifyCredentialsParams {
+  /** Email address */
+  email: string;
+  /** Password */
+  password: string;
+  /** Blackbox URL */
+  blackboxUrl: string;
+  /** Custom fetch implementation */
+  fetch?: typeof fetch;
+}
+
+/**
+ * Result of verifying Web2 credentials.
+ *
+ * @remarks
+ * **Web2 only**. Does not include a session token — use
+ * {@link createManagedSession} after credentials are confirmed.
+ *
+ * @public
+ */
+export interface VerifyCredentialsResult {
+  /** Always `true` on success (errors throw {@link Web2AuthError}) */
+  valid: true;
+  /** The principal UUID */
+  principalId: string;
+}
+
+/**
  * Parameters for retrying node registration.
  *
  * @public

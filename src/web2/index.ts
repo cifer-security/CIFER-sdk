@@ -3,7 +3,8 @@
  * @description Web2 namespace for the CIFER SDK
  *
  * Provides email-based registration, session management, secret/delegate/permit
- * operations, and session-first blackbox wrappers for encryption/decryption.
+ * operations, credential verification (`auth.verifyCredentials`), and
+ * session-first blackbox wrappers for encryption/decryption.
  *
  * @example
  * ```typescript

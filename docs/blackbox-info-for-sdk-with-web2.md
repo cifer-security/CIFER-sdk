@@ -842,6 +842,42 @@ Reset a password using the OTP from forgot-password. **No auth required.**
 
 ---
 
+### `POST /web2/auth/verify-credentials`
+
+Verify email + password against the Blackbox principal store. **Web2 only** (`chainId = -1`). **No auth required.** Does **not** create a session or return session tokens.
+
+Use this when another system needs to confirm that a user entered the correct email and password before proceeding (e.g. app unlock, key rotation pre-check).
+
+#### Request
+
+```json
+{
+  "email": "user@example.com",
+  "password": "mypassword123"
+}
+```
+
+- `email` (string, **required**) -- must contain `@`
+- `password` (string, **required**)
+
+#### Response (200)
+
+```json
+{
+  "valid": true,
+  "principalId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+#### Common errors
+
+- `400`: invalid email; password missing
+- `401`: invalid password
+- `403`: email not verified
+- `404`: principal not found
+
+---
+
 ### `POST /web2/auth/register-key`
 
 Phase 2: Register an Ed25519 public key and propagate the principal to cluster nodes. Requires **password verification** and a valid **Ed25519 signature**.

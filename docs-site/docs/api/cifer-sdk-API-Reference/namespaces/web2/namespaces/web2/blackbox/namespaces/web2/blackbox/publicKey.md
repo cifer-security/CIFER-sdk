@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.5.0**](../../../../../../../../../index.md)
+[**cifer-sdk API Reference v0.5.1**](../../../../../../../../../index.md)
 
 ***
 
@@ -14,7 +14,7 @@ Web2 wrapper for fetching secret public keys
 
 ### Web2GetSecretPublicKeyParams
 
-Defined in: [web2/blackbox/publicKey.ts:17](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/publicKey.ts#L17)
+Defined in: [web2/blackbox/publicKey.ts:17](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/blackbox/publicKey.ts#L17)
 
 Parameters for Web2 public key fetch
 
@@ -24,7 +24,7 @@ Parameters for Web2 public key fetch
 
 > **session**: [`Web2Session`](../../../../../../../../../index.md#web2session)
 
-Defined in: [web2/blackbox/publicKey.ts:19](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/publicKey.ts#L19)
+Defined in: [web2/blackbox/publicKey.ts:19](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/blackbox/publicKey.ts#L19)
 
 Active Web2 session
 
@@ -32,7 +32,7 @@ Active Web2 session
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [web2/blackbox/publicKey.ts:21](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/publicKey.ts#L21)
+Defined in: [web2/blackbox/publicKey.ts:21](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/blackbox/publicKey.ts#L21)
 
 Secret ID to fetch
 
@@ -40,7 +40,7 @@ Secret ID to fetch
 
 > **blackboxUrl**: `string`
 
-Defined in: [web2/blackbox/publicKey.ts:23](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/publicKey.ts#L23)
+Defined in: [web2/blackbox/publicKey.ts:23](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/blackbox/publicKey.ts#L23)
 
 Blackbox URL
 
@@ -48,7 +48,7 @@ Blackbox URL
 
 > **readClient**: [`ReadClient`](../../../../../../../../../index.md#readclient-1)
 
-Defined in: [web2/blackbox/publicKey.ts:25](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/publicKey.ts#L25)
+Defined in: [web2/blackbox/publicKey.ts:25](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/blackbox/publicKey.ts#L25)
 
 Read client for freshness
 
@@ -56,7 +56,7 @@ Read client for freshness
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [web2/blackbox/publicKey.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/publicKey.ts#L27)
+Defined in: [web2/blackbox/publicKey.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/blackbox/publicKey.ts#L27)
 
 Custom fetch implementation
 
@@ -82,7 +82,7 @@ Custom fetch implementation
 
 > **getSecretPublicKey**(`params`): `Promise`\<[`GetSecretPublicKeyResult`](../../../../../../../blackbox/namespaces/blackbox/publicKey.md#getsecretpublickeyresult)\>
 
-Defined in: [web2/blackbox/publicKey.ts:33](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/19097d66af0fa2722ad2893d7582d83598a739ed/src/web2/blackbox/publicKey.ts#L33)
+Defined in: [web2/blackbox/publicKey.ts:33](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/8f7506908368ff0cca692570f7747ab7e6ea469e/src/web2/blackbox/publicKey.ts#L33)
 
 Fetch a secret's ML-KEM public key using a Web2 session.
 

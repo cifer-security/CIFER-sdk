@@ -12,6 +12,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [0.5.1] - 2026-07-02
+
+### Added
+
+- **`DiscoveryResult.serverTime`** — The blackbox `GET /healthz` response now includes `serverTime` (Unix epoch ms), the blackbox server's own clock at the moment it handled the request. The SDK surfaces it as the optional `DiscoveryResult.serverTime` field. Clients can compare `Date.now()` against `serverTime` to detect a misconfigured or manipulated device clock before trusting device-side time-based logic (e.g. a time-lock countdown).
+
+### Notes
+
+- `serverTime` is **additive and non-breaking** — it is optional and absent on older blackbox deployments that predate the field. Existing consumers require no changes.
+
 ## [0.5.0] - 2026-06-16
 
 ### Added

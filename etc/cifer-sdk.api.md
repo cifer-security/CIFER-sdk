@@ -754,6 +754,7 @@ export interface DiscoveryResult {
     fetchedAt: number;
     // @deprecated (undocumented)
     ipfsGatewayUrl?: string;
+    serverTime?: number;
     status: 'ok' | string;
     supportedChains: ChainId[];
 }

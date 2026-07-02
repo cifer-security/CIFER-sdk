@@ -333,6 +333,24 @@ sdk.getControllerAddress(752025); // '0x...'
 // Get RPC URL
 sdk.getRpcUrl(752025); // 'https://...'
 
+// Device clock integrity check via discovery.serverTime (Unix epoch ms).
+// serverTime is the blackbox server's own clock at request time. It is optional
+// and absent on older blackbox deployments. Compare Date.now() against it to
+// detect a misconfigured/manipulated device clock before trusting device-side
+// time-based logic (e.g. a time-lock countdown).
+import { discover } from 'cifer-sdk';
+
+const discovery = await discover({
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+if (discovery.serverTime !== undefined) {
+  const skewMs = Math.abs(Date.now() - discovery.serverTime);
+  if (skewMs > 10 * 60 * 1000) {
+    // device clock is more than 10 minutes off the blackbox
+  }
+}
+
 ${SUB_SEPARATOR}
 5.2 WITH OVERRIDES
 ${SUB_SEPARATOR}

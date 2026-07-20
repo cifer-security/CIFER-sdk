@@ -12,6 +12,7 @@ import {
   Lock,
   FileUp,
   BarChart3,
+  Trash2,
 } from "lucide-react"
 
 // ------------------------------------------------------------------
@@ -36,6 +37,15 @@ const pages = [
     icon: KeyRound,
     tag: "web2.auth",
     functions: ["forgotPassword", "resetPassword"],
+  },
+  {
+    name: "Delete Account",
+    description:
+      "Delete your account (soft-delete / dormant). Confirm via emailed OTP. Re-register with the same email to reactivate and restore your secrets.",
+    href: "/delete-account",
+    icon: Trash2,
+    tag: "web2.auth",
+    functions: ["requestAccountDeletion", "confirmAccountDeletion"],
   },
   {
     name: "Verify Credentials",

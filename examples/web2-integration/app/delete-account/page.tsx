@@ -164,7 +164,7 @@ export default function DeleteAccountPage() {
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             {/* ---- Left Column: Steps ---- */}
             <div className="space-y-6">
-              <div className="glow-card-subtle p-4 border-l-2 border-amber-500/50">
+              <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3">
                 <div className="flex items-start gap-2">
                   <ShieldAlert className="h-4 w-4 text-amber-400 mt-0.5 shrink-0" />
                   <p className="text-sm text-amber-200/90">
@@ -396,7 +396,7 @@ export default function DeleteAccountPage() {
             {/* ---- Right Column: Logs + Error ---- */}
             <div className="space-y-6 lg:sticky lg:top-6 lg:self-start">
               {error && (
-                <div className="glow-card-subtle p-4 border-l-2 border-red-500/50">
+                <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-3">
                   <div className="flex items-start gap-2">
                     <AlertCircle className="h-4 w-4 text-red-400 mt-0.5 shrink-0" />
                     <p className="text-sm text-red-400">{error}</p>

@@ -33,6 +33,7 @@ describe('web2.auth account deletion', () => {
       'http://localhost:3010/web2/auth/request-deletion',
       expect.objectContaining({
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: 'a@b.com', password: 'pw', principalId: 'p-1' }),
       })
     );
@@ -58,9 +59,28 @@ describe('web2.auth account deletion', () => {
       'http://localhost:3010/web2/auth/confirm-deletion',
       expect.objectContaining({
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: 'a@b.com', otp: '123456' }),
       })
     );
+  });
+
+  it('requestAccountDeletion throws Web2AuthError on non-2xx', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(
+      new Response(
+        JSON.stringify({ error: 'Password and principalId are required' }),
+        { status: 400 }
+      )
+    );
+
+    await expect(
+      requestAccountDeletion({
+        email: 'a@b.com',
+        password: '',
+        principalId: 'p-1',
+        blackboxUrl: 'http://localhost:3010',
+      })
+    ).rejects.toBeInstanceOf(Web2AuthError);
   });
 
   it('confirmAccountDeletion throws Web2AuthError on non-2xx', async () => {

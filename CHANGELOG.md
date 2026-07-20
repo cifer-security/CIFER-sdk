@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **`web2.auth.requestAccountDeletion()` / `web2.auth.confirmAccountDeletion()`** — OTP-gated account deletion flow.
+
+---
+
 ## [0.5.1] - 2026-07-02
 
 ### Added
@@ -54,7 +62,6 @@ Full Web2 (email + password) support for CIFER encryption, accessible via the ne
   - `registerKey()` — Register Ed25519 public key and propagate to cluster nodes
   - `resendOtp()` — Resend verification OTP (60s cooldown)
   - `forgotPassword()` / `resetPassword()` — Password reset flow
-  - `requestAccountDeletion()` / `confirmAccountDeletion()` — OTP-gated account deletion flow
   - `retryNodeRegistration()` — Retry failed node registrations
   - `nodeRegistrationStatus()` — Check node propagation status
 

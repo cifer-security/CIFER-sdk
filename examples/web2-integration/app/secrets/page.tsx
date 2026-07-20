@@ -36,6 +36,7 @@ import { useWeb2 } from "@/lib/web2-context"
 // ---------------------------------------------------------------------------
 // cifer-sdk imports
 // ---------------------------------------------------------------------------
+import type { Web2SecretInfo } from "cifer-sdk"
 import { web2 } from "cifer-sdk"
 
 // ===========================================================================
@@ -52,7 +53,7 @@ export default function SecretsPage() {
 
   // List secrets state
   const [isListing, setIsListing] = useState(false)
-  const [secrets, setSecrets] = useState<Array<{ secretId: number; owner: string; delegate: string }> | null>(null)
+  const [secrets, setSecrets] = useState<Web2SecretInfo[] | null>(null)
   const [listError, setListError] = useState("")
 
   const hasSession = !!session
@@ -108,7 +109,7 @@ export default function SecretsPage() {
       setSecrets(result.secrets)
       log(`Found ${result.secrets.length} secret(s)`)
       for (const sec of result.secrets) {
-        log(`  #${sec.secretId} — owner: ${sec.owner}, delegate: ${sec.delegate || "none"}`)
+        log(`  #${sec.secretId} — owner: ${sec.ownerPrincipalId}, delegate: ${sec.delegatePrincipalId || "none"}`)
       }
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err)
@@ -278,7 +279,7 @@ export default function SecretsPage() {
                   <br />
                   {`});`}
                   <br />
-                  {`// result.secrets → [{ secretId, owner, delegate }]`}
+                  {`// result.secrets → [{ secretId, ownerPrincipalId, delegatePrincipalId }]`}
                 </div>
 
                 {listError && (
@@ -301,11 +302,11 @@ export default function SecretsPage() {
                             </span>
                           </div>
                           <p className="text-xs text-zinc-500">
-                            owner: <span className="text-zinc-400 font-mono">{s.owner}</span>
+                            owner: <span className="text-zinc-400 font-mono">{s.ownerPrincipalId}</span>
                           </p>
-                          {s.delegate && (
+                          {s.delegatePrincipalId && (
                             <p className="text-xs text-zinc-500">
-                              delegate: <span className="text-zinc-400 font-mono">{s.delegate}</span>
+                              delegate: <span className="text-zinc-400 font-mono">{s.delegatePrincipalId}</span>
                             </p>
                           )}
                         </div>

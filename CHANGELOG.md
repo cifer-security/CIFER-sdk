@@ -54,6 +54,7 @@ Full Web2 (email + password) support for CIFER encryption, accessible via the ne
   - `registerKey()` — Register Ed25519 public key and propagate to cluster nodes
   - `resendOtp()` — Resend verification OTP (60s cooldown)
   - `forgotPassword()` / `resetPassword()` — Password reset flow
+  - `requestAccountDeletion()` / `confirmAccountDeletion()` — OTP-gated account deletion flow
   - `retryNodeRegistration()` — Retry failed node registrations
   - `nodeRegistrationStatus()` — Check node propagation status
 

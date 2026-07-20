@@ -32,6 +32,7 @@ import {
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
 import { ConsoleLog } from "@/components/console-log"
+import { resetSharedAccountStateAfterDeletion } from "@/lib/account-deletion-state"
 import { useWeb2 } from "@/lib/web2-context"
 
 // ---------------------------------------------------------------------------
@@ -44,7 +45,18 @@ import { web2 } from "cifer-sdk"
 // ===========================================================================
 
 export default function DeleteAccountPage() {
-  const { blackboxUrl, email, password, principalId, logs, log } = useWeb2()
+  const {
+    blackboxUrl,
+    email,
+    password,
+    principalId,
+    setPrincipalId,
+    setPassword,
+    setEd25519Signer,
+    setSession,
+    logs,
+    log,
+  } = useWeb2()
 
   // ---- Local state ----
   const [localEmail, setLocalEmail] = useState(email)
@@ -114,6 +126,13 @@ export default function DeleteAccountPage() {
       log(
         "The account is now dormant/hidden. Register again with the same email to reactivate the same principalId."
       )
+      resetSharedAccountStateAfterDeletion({
+        setPrincipalId,
+        setPassword,
+        setEd25519Signer,
+        setSession,
+      })
+      log("Cleared stale principal, key, password, and session state from the demo context.")
 
       setStep("done")
     } catch (err) {
@@ -123,7 +142,16 @@ export default function DeleteAccountPage() {
     } finally {
       setIsLoading(false)
     }
-  }, [localEmail, otp, blackboxUrl, log])
+  }, [
+    localEmail,
+    otp,
+    blackboxUrl,
+    setPrincipalId,
+    setPassword,
+    setEd25519Signer,
+    setSession,
+    log,
+  ])
 
   // =========================================================================
   // UI

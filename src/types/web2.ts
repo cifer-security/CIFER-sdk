@@ -242,6 +242,52 @@ export interface VerifyCredentialsResult {
 }
 
 /**
+ * Parameters for requesting Web2 account deletion.
+ *
+ * @public
+ */
+export interface RequestAccountDeletionParams {
+  /** Account email address. */
+  email: string;
+  /** Account password (bcrypt-verified server-side). */
+  password: string;
+  /** The principalId returned at registration (must match server-side). */
+  principalId: string;
+  /** Blackbox base URL. */
+  blackboxUrl: string;
+  /** Optional fetch override (for testing / non-global fetch). */
+  fetch?: typeof fetch;
+}
+
+/**
+ * Parameters for confirming Web2 account deletion.
+ *
+ * @public
+ */
+export interface ConfirmAccountDeletionParams {
+  /** Account email address. */
+  email: string;
+  /** The 6-digit deletion-confirmation OTP emailed to the user. */
+  otp: string;
+  /** Blackbox base URL. */
+  blackboxUrl: string;
+  /** Optional fetch override. */
+  fetch?: typeof fetch;
+}
+
+/**
+ * Result of confirming Web2 account deletion.
+ *
+ * @public
+ */
+export interface ConfirmAccountDeletionResult {
+  /** Always true on a 2xx response. */
+  success: true;
+  /** Human-readable confirmation message. */
+  message: string;
+}
+
+/**
  * Parameters for retrying node registration.
  *
  * @public

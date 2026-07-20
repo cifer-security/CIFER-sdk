@@ -21,6 +21,9 @@ import type {
   ResetPasswordParams,
   VerifyCredentialsParams,
   VerifyCredentialsResult,
+  RequestAccountDeletionParams,
+  ConfirmAccountDeletionParams,
+  ConfirmAccountDeletionResult,
   RetryNodeRegistrationParams,
   RetryNodeRegistrationResult,
   NodeRegistrationStatusResult,
@@ -368,6 +371,71 @@ export async function verifyCredentials(
     valid: result.valid,
     principalId: result.principalId,
   };
+}
+
+// ============================================================================
+// Account deletion (two-step, OTP-gated soft-delete)
+// ============================================================================
+
+/**
+ * Step 1 of account deletion: request a deletion-confirmation OTP.
+ *
+ * Requires the account email, password, and the principalId issued at
+ * registration. For anti-enumeration the Black Box always responds with a
+ * generic success message; an OTP is only emailed when all details match a
+ * verified, active account. Does not throw on "no such account".
+ */
+export async function requestAccountDeletion(
+  params: RequestAccountDeletionParams
+): Promise<{ message: string }> {
+  const fetchFn = params.fetch ?? fetch;
+  const url = `${normalizeUrl(params.blackboxUrl)}/web2/auth/request-deletion`;
+
+  const response = await fetchFn(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: params.email,
+      password: params.password,
+      principalId: params.principalId,
+    }),
+  });
+
+  if (!response.ok) {
+    await handleErrorResponse(response, '/web2/auth/request-deletion');
+  }
+
+  const result = (await response.json()) as { message: string };
+  return { message: result.message };
+}
+
+/**
+ * Step 2 of account deletion: confirm with the emailed OTP. On success the
+ * account is soft-deleted (dormant): hidden from all APIs but retained for
+ * legal disclosure. Re-registering later with the same email reactivates the
+ * same principalId (old secrets return).
+ */
+export async function confirmAccountDeletion(
+  params: ConfirmAccountDeletionParams
+): Promise<ConfirmAccountDeletionResult> {
+  const fetchFn = params.fetch ?? fetch;
+  const url = `${normalizeUrl(params.blackboxUrl)}/web2/auth/confirm-deletion`;
+
+  const response = await fetchFn(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: params.email,
+      otp: params.otp,
+    }),
+  });
+
+  if (!response.ok) {
+    await handleErrorResponse(response, '/web2/auth/confirm-deletion');
+  }
+
+  const result = (await response.json()) as { success: true; message: string };
+  return { success: result.success, message: result.message };
 }
 
 /**

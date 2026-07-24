@@ -149,5 +149,5 @@ try {
 
 - [Text Encryption (Web2)](/docs/guides/web2/text-encryption) - Encrypt and decrypt text payloads
 - [File Encryption (Web2)](/docs/guides/web2/file-encryption) - Encrypt and decrypt large files
-- [Authentication & Sessions](/docs/guides/web2/authentication) - Registration, keys, and session management
+- [Account Management](/docs/guides/web2/authentication) - Registration, keys, sessions, and account lifecycle
 - Looking for Web3? See [Secret Management (Web3)](/docs/guides/web3/secret-management)

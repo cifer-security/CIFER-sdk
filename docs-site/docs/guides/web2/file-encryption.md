@@ -172,5 +172,5 @@ try {
 
 - [Text Encryption (Web2)](/docs/guides/web2/text-encryption) - Encrypt and decrypt short text payloads
 - [Secret Management (Web2)](/docs/guides/web2/secret-management) - Create and manage secrets
-- [Authentication & Sessions](/docs/guides/web2/authentication) - Registration, keys, and session management
+- [Account Management](/docs/guides/web2/authentication) - Registration, keys, sessions, and account lifecycle
 - Looking for Web3? See [File Encryption (Web3)](/docs/guides/web3/file-encryption)

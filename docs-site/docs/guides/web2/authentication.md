@@ -2,9 +2,9 @@
 sidebar_position: 1
 ---
 
-# Authentication & Sessions
+# Account Management
 
-Learn how to register, authenticate, and manage sessions for CIFER Web2 mode.
+Learn how to register, authenticate, manage sessions, recover passwords, and delete accounts in CIFER Web2 mode.
 
 ## Overview
 
@@ -306,6 +306,43 @@ await web2.auth.resetPassword({
 });
 ```
 
+## Account Deletion
+
+Account deletion is a two-step, OTP-confirmed operation. These calls use the stateless `web2.auth` API; they are not methods on the client returned by `web2.createClient()`.
+
+### Step 1: Request a deletion OTP
+
+Call `web2.auth.requestAccountDeletion()` with the account credentials and its registered principal ID.
+
+```typescript
+const deletionRequest = await web2.auth.requestAccountDeletion({
+  email: 'user@example.com',
+  password: 'securePassword123',
+  principalId: 'your-principal-uuid',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+console.log(deletionRequest.message);
+```
+
+For anti-enumeration, the Blackbox returns a generic success message. It sends an OTP only when the email, password, and `principalId` match a verified, active account.
+
+### Step 2: Confirm account deletion
+
+Call `web2.auth.confirmAccountDeletion()` with the emailed OTP.
+
+```typescript
+const deletionResult = await web2.auth.confirmAccountDeletion({
+  email: 'user@example.com',
+  otp: '123456',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+console.log('Deleted:', deletionResult.success);
+```
+
+Confirmation soft-deletes the account. The account becomes dormant and is hidden from APIs, but its records are retained for legal disclosure. Registering again with the same email reactivates the same `principalId`, including access to its existing secrets.
+
 ## Error Handling
 
 ```typescript
@@ -346,6 +383,7 @@ try {
 4. **Let `ensureValid()` Handle Renewal** - The `web2.blackbox.*` wrappers and the Web2 client call `session.ensureValid()` automatically before each request.
 5. **Handle Node Registration Failures** - After `registerKey()`, check `nodeRegistrationStatus`. If it's not `'complete'`, use `retryNodeRegistration()` to retry failed nodes.
 6. **Respect Rate Limits** - `resendOtp()` and `forgotPassword()` have a 60-second cooldown.
+7. **Clear Local Account State After Deletion** - Remove cached credentials, keys, and sessions after `confirmAccountDeletion()` succeeds. Keep the email only if your UI supports reactivation.
 
 ## Next Steps
 

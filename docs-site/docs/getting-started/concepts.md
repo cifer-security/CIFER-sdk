@@ -123,7 +123,7 @@ const session = await web2.session.createManagedSession({
 // session.signer is a standard SignerAdapter — works with all blackbox functions
 ```
 
-See the [Authentication & Sessions](/docs/guides/web2/authentication) guide for the complete registration and session flow.
+See the [Account Management](/docs/guides/web2/authentication) guide for the complete registration and session flow.
 
 ## Encryption Model
 
@@ -352,5 +352,5 @@ See the [Error Handling](#error-handling) sections in each guide for specific er
 - [Secret Management (Web3)](/docs/guides/web3/secret-management) - Create and manage secrets
 - [Text Encryption (Web3)](/docs/guides/web3/text-encryption) - Encrypt and decrypt text payloads
 - [On-Chain Commitments](/docs/guides/web3/commitments) - Store encrypted data on-chain
-- [Authentication & Sessions (Web2)](/docs/guides/web2/authentication) - Registration, keys, and sessions
+- [Account Management (Web2)](/docs/guides/web2/authentication) - Registration, keys, sessions, password recovery, and account deletion
 - [Secret Management (Web2)](/docs/guides/web2/secret-management) - Create and manage secrets via API

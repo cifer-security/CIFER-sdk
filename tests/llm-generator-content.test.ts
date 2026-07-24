@@ -8,30 +8,91 @@ const generatorPath = fileURLToPath(
 
 const generator = readFileSync(generatorPath, 'utf8');
 
+function extractSection(startMarker: string, endMarker: string): string {
+  expect(generator.split(startMarker)).toHaveLength(2);
+  expect(generator.split(endMarker)).toHaveLength(2);
+
+  const start = generator.indexOf(startMarker);
+  const end = generator.indexOf(endMarker, start + startMarker.length);
+
+  expect(end).toBeGreaterThan(start);
+
+  return generator.slice(start, end);
+}
+
+function extractDocumentedMethodBlock(
+  signature: string,
+  followingSignature: string
+): string {
+  const block = extractSection(signature, followingSignature);
+  const separatorIndex = block.indexOf('\n\n${SUB_SEPARATOR}');
+
+  expect(separatorIndex).toBeGreaterThan(0);
+
+  return block.slice(0, separatorIndex);
+}
+
 describe('LLM documentation generator content', () => {
-  it('uses Base mainnet for every chain-specific example', () => {
-    expect(generator).toContain('chainId: 8453');
-    expect(generator).toContain("name: 'Base'");
-    expect(generator).toContain('https://mainnet.base.org');
-    expect(generator).toContain('const base = defineChain({');
-    expect(generator).toContain('chain: base');
+  it('documents the exact Base mainnet definition in the Thirdweb example', () => {
+    const thirdwebSection = extractSection(
+      '--- Thirdweb ---',
+      '--- Private Key (Server-Side) ---'
+    );
+
+    expect(thirdwebSection).toContain(`const base = defineChain({
+  id: 8453,
+  name: 'Base',
+  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+  rpcUrls: { default: { http: ['https://mainnet.base.org'] } },
+});
+
+const wallet = createWallet('io.metamask');
+await wallet.connect({ client: thirdwebClient, chain: base });`);
 
     expect(generator).not.toContain('752025');
     expect(generator).not.toMatch(/ternoa/i);
   });
 
   it('documents the complete Web2 account-deletion flow', () => {
-    expect(generator).toContain(
-      'requestAccountDeletion(params): Promise<{ message: string }>'
-    );
-    expect(generator).toContain(
+    const requestBlock = extractDocumentedMethodBlock(
+      'requestAccountDeletion(params): Promise<{ message: string }>',
       'confirmAccountDeletion(params): Promise<ConfirmAccountDeletionResult>'
     );
-    expect(generator).toContain('- principalId: string');
-    expect(generator).toContain('generic success message');
-    expect(generator).toContain('stateless web2.auth functions');
-    expect(generator).toContain('soft-deleted (dormant)');
-    expect(generator).toContain('same principalId and existing secrets');
-    expect(generator).toContain('Clear cached credentials, keys, and sessions');
+    const confirmBlock = extractDocumentedMethodBlock(
+      'confirmAccountDeletion(params): Promise<ConfirmAccountDeletionResult>',
+      'retryNodeRegistration(params): Promise<RetryNodeRegistrationResult>'
+    );
+
+    expect(requestBlock).toContain(`  Parameters:
+    - email: string
+    - password: string
+    - principalId: string
+    - blackboxUrl: string
+    - fetch?: typeof fetch`);
+    expect(requestBlock).toContain('  Returns: { message: string }');
+    expect(requestBlock).toContain(
+      'These calls are stateless web2.auth functions, not methods on web2.createClient().'
+    );
+    expect(requestBlock).toContain(
+      'For anti-enumeration, the Blackbox returns a generic success message.'
+    );
+
+    expect(confirmBlock).toContain(`  Parameters:
+    - email: string
+    - otp: string
+    - blackboxUrl: string
+    - fetch?: typeof fetch`);
+    expect(confirmBlock).toContain(
+      '  Returns: { success: true, message: string }'
+    );
+    expect(confirmBlock).toContain(
+      'Confirmation leaves the account soft-deleted (dormant) and hidden from APIs.'
+    );
+    expect(confirmBlock).toContain(
+      'Re-registering the same email reactivates the same principalId and existing secrets.'
+    );
+    expect(confirmBlock).toContain(
+      'Clear cached credentials, keys, and sessions after successful confirmation.'
+    );
   });
 });

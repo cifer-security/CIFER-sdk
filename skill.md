@@ -1,6 +1,6 @@
 # CIFER SDK - Quantum-Resistant Blockchain Encryption
 
-> **Skill for AI Agents** | Enable quantum-resistant encryption in blockchain applications using the CIFER SDK (v0.5.2).
+> **Skill for AI Agents** | Enable quantum-resistant encryption in blockchain applications using the CIFER SDK (v0.5.3).
 
 ## Overview
 
@@ -83,7 +83,7 @@ const signer = new Eip1193SignerAdapter(window.ethereum);
 
 // 3. Encrypt data
 const encrypted = await blackbox.payload.encryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   plaintext: 'My secret message',
   signer,
@@ -93,7 +93,7 @@ const encrypted = await blackbox.payload.encryptPayload({
 
 // 4. Decrypt data
 const decrypted = await blackbox.payload.decryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   encryptedMessage: encrypted.encryptedMessage,
   cifer: encrypted.cifer,
@@ -276,7 +276,7 @@ CIFER supports Web2 mode for apps that don't use blockchain wallets. Users regis
 | Feature | Web3 | Web2 |
 |---------|------|------|
 | Auth | EIP-1193 wallet | Email + password + Ed25519 key |
-| Chain ID | Real chain ID (e.g. 752025) | `WEB2_CHAIN_ID = -1` (sentinel) |
+| Chain ID | Real chain ID (e.g. 8453) | `WEB2_CHAIN_ID = -1` (sentinel) |
 | Block freshness | RPC `eth_blockNumber` | `Date.now()` (no RPC needed) |
 | Signer | Wallet `personal_sign` | Session EOA `personal_sign` |
 | Secret creation | On-chain transaction | `POST /web2/secret` API call |
@@ -323,9 +323,9 @@ const sdk = await createCiferSdk({
   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
-sdk.getSupportedChainIds(); // [752025, 11155111, ...]
-sdk.getControllerAddress(752025); // '0x...'
-sdk.getRpcUrl(752025); // 'https://...'
+sdk.getSupportedChainIds(); // [8453, 11155111, ...]
+sdk.getControllerAddress(8453); // '0x...'
+sdk.getRpcUrl(8453); // 'https://...'
 ```
 
 #### Device Clock Integrity Check
@@ -353,7 +353,7 @@ if (discovery.serverTime !== undefined) {
 const sdk = await createCiferSdk({
   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   chainOverrides: {
-    752025: {
+    8453: {
       rpcUrl: 'https://my-private-rpc.example.com',
       secretsControllerAddress: '0x...',
     },
@@ -368,7 +368,7 @@ import { createCiferSdkSync, RpcReadClient } from 'cifer-sdk';
 
 const readClient = new RpcReadClient({
   rpcUrlByChainId: {
-    752025: 'https://mainnet.ternoa.network',
+    8453: 'https://mainnet.base.org',
   },
 });
 
@@ -376,8 +376,8 @@ const sdk = createCiferSdkSync({
   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient,
   chainOverrides: {
-    752025: {
-      rpcUrl: 'https://mainnet.ternoa.network',
+    8453: {
+      rpcUrl: 'https://mainnet.base.org',
       secretsControllerAddress: '0x...',
     },
   },
@@ -425,7 +425,7 @@ import { EthereumProvider } from '@walletconnect/ethereum-provider';
 
 const provider = await EthereumProvider.init({
   projectId: 'YOUR_WALLETCONNECT_PROJECT_ID',
-  chains: [752025],
+  chains: [8453],
   showQrModal: true,
   metadata: {
     name: 'My CIFER App',
@@ -449,15 +449,15 @@ const thirdwebClient = createThirdwebClient({
   clientId: 'YOUR_THIRDWEB_CLIENT_ID',
 });
 
-const ternoa = defineChain({
-  id: 752025,
-  name: 'Ternoa',
-  nativeCurrency: { name: 'CAPS', symbol: 'CAPS', decimals: 18 },
-  rpcUrls: { default: { http: ['https://mainnet.ternoa.network'] } },
+const base = defineChain({
+  id: 8453,
+  name: 'Base',
+  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+  rpcUrls: { default: { http: ['https://mainnet.base.org'] } },
 });
 
 const wallet = createWallet('io.metamask');
-await wallet.connect({ client: thirdwebClient, chain: ternoa });
+await wallet.connect({ client: thirdwebClient, chain: base });
 
 const provider = injectedProvider('io.metamask');
 const signer = new Eip1193SignerAdapter(provider);
@@ -468,7 +468,7 @@ import { inAppWallet } from 'thirdweb/wallets';
 const wallet = inAppWallet();
 const account = await wallet.connect({
   client: thirdwebClient,
-  chain: ternoa,
+  chain: base,
   strategy: 'email',
   email: 'user@example.com',
 });
@@ -579,8 +579,8 @@ Interact with the SecretsController contract for secret management.
 ```typescript
 // Get secret creation fee
 const fee = await keyManagement.getSecretCreationFee({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   readClient: sdk.readClient,
 });
 
@@ -609,15 +609,15 @@ const counts = await keyManagement.getSecretsCountByWallet(params, '0xUser...');
 // Create a new secret
 const fee = await keyManagement.getSecretCreationFee(params);
 const txIntent = keyManagement.buildCreateSecretTx({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   fee,
 });
 
 // Set delegate
 const txIntent = keyManagement.buildSetDelegateTx({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   secretId: 123n,
   newDelegate: '0xDelegate...',
 });
@@ -627,8 +627,8 @@ const txIntent = keyManagement.buildRemoveDelegationTx({ ... });
 
 // Transfer ownership (irreversible!)
 const txIntent = keyManagement.buildTransferSecretTx({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   secretId: 123n,
   newOwner: '0xNewOwner...',
 });
@@ -656,7 +656,7 @@ Encrypt and decrypt short messages (< 16KB).
 
 ```typescript
 const encrypted = await blackbox.payload.encryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   plaintext: 'My secret message',
   signer,
@@ -672,7 +672,7 @@ const encrypted = await blackbox.payload.encryptPayload({
 
 ```typescript
 const decrypted = await blackbox.payload.decryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   encryptedMessage: encrypted.encryptedMessage,
   cifer: encrypted.cifer,
@@ -694,7 +694,7 @@ Encrypt and decrypt large files using async jobs.
 ```typescript
 // Start encryption job
 const job = await blackbox.files.encryptFile({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   file: myFile,
   signer,
@@ -708,7 +708,7 @@ const job = await blackbox.files.decryptFile({ ... });
 
 // Decrypt from existing encrypt job
 const job = await blackbox.files.decryptExistingFile({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   encryptJobId: previousJobId,
   signer,
@@ -743,7 +743,7 @@ const finalStatus = await blackbox.jobs.pollUntilComplete(
 const blob = await blackbox.jobs.download(jobId, {
   blackboxUrl: sdk.blackboxUrl,
   // For decrypt jobs, also provide:
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   signer,
   readClient: sdk.readClient,
@@ -751,7 +751,7 @@ const blob = await blackbox.jobs.download(jobId, {
 
 // List jobs for wallet
 const result = await blackbox.jobs.list({
-  chainId: 752025,
+  chainId: 8453,
   signer,
   readClient: sdk.readClient,
   blackboxUrl: sdk.blackboxUrl,
@@ -763,7 +763,7 @@ const stats = await blackbox.jobs.dataConsumption({ ... });
 // Delete a job (mark for cleanup)
 await blackbox.jobs.deleteJob(jobId, {
   blackboxUrl: sdk.blackboxUrl,
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   signer,
   readClient: sdk.readClient,
@@ -791,7 +791,7 @@ const metadata = await commitments.getCIFERMetadata(params, dataId);
 
 // Fetch encrypted data from logs
 const data = await commitments.fetchCommitmentFromLogs({
-  chainId: 752025,
+  chainId: 8453,
   contractAddress: '0x...',
   dataId: dataKey,
   storedAtBlock: metadata.storedAtBlock,
@@ -810,7 +810,7 @@ commitments.validateForStorage(cifer, encryptedMessage);
 
 // Build store transaction
 const txIntent = commitments.buildStoreCommitmentTx({
-  chainId: 752025,
+  chainId: 8453,
   contractAddress: '0xYourContract...',
   storeFunction: {
     type: 'function',
@@ -866,7 +866,7 @@ const ctx = {
 ```typescript
 const result = await flows.createSecretAndWaitReady({
   ...ctx,
-  controllerAddress: sdk.getControllerAddress(752025),
+  controllerAddress: sdk.getControllerAddress(8453),
   txExecutor: async (intent) => {
     const hash = await wallet.sendTransaction(intent);
     return { hash, waitReceipt: () => provider.waitForTransaction(hash) };
@@ -1006,6 +1006,43 @@ await web2.auth.resetPassword({
   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```
+
+#### Account Deletion
+
+Account deletion is a two-step, OTP-confirmed operation. These are stateless `web2.auth` functions; they are **not** methods on the client returned by `web2.createClient()`.
+
+**Step 1 — request a deletion OTP**
+
+`requestAccountDeletion(params): Promise<{ message: string }>` accepts `email`, `password`, `principalId`, `blackboxUrl`, and an optional `fetch` implementation.
+
+```typescript
+const deletionRequest = await web2.auth.requestAccountDeletion({
+  email: 'user@example.com',
+  password: 'securePassword123',
+  principalId: 'your-principal-uuid',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+console.log(deletionRequest.message);
+```
+
+For anti-enumeration, the Blackbox always returns a generic success message. It sends an OTP only when the email, password, and `principalId` match a verified, active account; a nonexistent or mismatched account does not throw solely for that mismatch.
+
+**Step 2 — confirm account deletion**
+
+`confirmAccountDeletion(params): Promise<ConfirmAccountDeletionResult>` accepts `email`, `otp`, `blackboxUrl`, and an optional `fetch` implementation.
+
+```typescript
+const deletionResult = await web2.auth.confirmAccountDeletion({
+  email: 'user@example.com',
+  otp: '123456',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+console.log(deletionResult.success); // true
+```
+
+Confirmation soft-deletes the account: it becomes dormant and hidden from APIs while its records are retained for legal disclosure. Registering again with the same email reactivates the same `principalId` and restores access to its existing secrets. After successful confirmation, clear cached credentials, Ed25519 keys, session keys, and active sessions from local application state.
 
 ---
 
@@ -1400,7 +1437,7 @@ async function encryptDecryptExample() {
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
-  const chainId = 752025;
+  const chainId = 8453;
   const secretId = 123n;
   
   // Encrypt
@@ -1443,8 +1480,8 @@ async function createSecretExample() {
     signer,
     readClient: sdk.readClient,
     blackboxUrl: sdk.blackboxUrl,
-    chainId: 752025,
-    controllerAddress: sdk.getControllerAddress(752025),
+    chainId: 8453,
+    controllerAddress: sdk.getControllerAddress(8453),
     txExecutor: async (intent) => {
       const hash = await window.ethereum.request({
         method: 'eth_sendTransaction',
@@ -1495,7 +1532,7 @@ async function onChainExample() {
     signer,
     readClient: sdk.readClient,
     blackboxUrl: sdk.blackboxUrl,
-    chainId: 752025,
+    chainId: 8453,
   };
 
   const secretId = 123n;
@@ -1534,7 +1571,7 @@ import { Wallet } from 'ethers';
 async function serverSideExample() {
   const readClient = new RpcReadClient({
     rpcUrlByChainId: {
-      752025: 'https://mainnet.ternoa.network',
+      8453: 'https://mainnet.base.org',
     },
   });
   
@@ -1550,7 +1587,7 @@ async function serverSideExample() {
   };
   
   const encrypted = await blackbox.payload.encryptPayload({
-    chainId: 752025,
+    chainId: 8453,
     secretId: 123n,
     plaintext: 'Server-side encryption',
     signer,
@@ -1577,7 +1614,7 @@ async function fileEncryptionExample() {
   
   // Start job
   const job = await blackbox.files.encryptFile({
-    chainId: 752025,
+    chainId: 8453,
     secretId: 123n,
     file,
     signer,
@@ -1874,6 +1911,26 @@ interface RegisterParams {
   fetch?: typeof fetch;
 }
 
+interface RequestAccountDeletionParams {
+  email: string;
+  password: string;
+  principalId: string;
+  blackboxUrl: string;
+  fetch?: typeof fetch;
+}
+
+interface ConfirmAccountDeletionParams {
+  email: string;
+  otp: string;
+  blackboxUrl: string;
+  fetch?: typeof fetch;
+}
+
+interface ConfirmAccountDeletionResult {
+  success: true;
+  message: string;
+}
+
 interface CreateManagedSessionParams {
   principalId: string;
   ed25519Signer: Ed25519Signer;
@@ -1929,7 +1986,7 @@ interface Web2Client {
 - **npm**: [https://www.npmjs.com/package/cifer-sdk](https://www.npmjs.com/package/cifer-sdk)
 - **GitHub**: [https://github.com/cifer-security/cifer-sdk](https://github.com/cifer-security/cifer-sdk)
 - **Blackbox API**: `https://blackbox.cifersecurity.com:3010`
-- **Supported Chain**: Ternoa (752025)
+- **Supported Chain**: Base (8453)
 
 ---
 

@@ -19,4 +19,19 @@ describe('LLM documentation generator content', () => {
     expect(generator).not.toContain('752025');
     expect(generator).not.toMatch(/ternoa/i);
   });
+
+  it('documents the complete Web2 account-deletion flow', () => {
+    expect(generator).toContain(
+      'requestAccountDeletion(params): Promise<{ message: string }>'
+    );
+    expect(generator).toContain(
+      'confirmAccountDeletion(params): Promise<ConfirmAccountDeletionResult>'
+    );
+    expect(generator).toContain('- principalId: string');
+    expect(generator).toContain('generic success message');
+    expect(generator).toContain('stateless web2.auth functions');
+    expect(generator).toContain('soft-deleted (dormant)');
+    expect(generator).toContain('same principalId and existing secrets');
+    expect(generator).toContain('Clear cached credentials, keys, and sessions');
+  });
 });

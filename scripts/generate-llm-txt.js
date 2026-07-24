@@ -1442,6 +1442,57 @@ resetPassword(params): Promise<ResetPasswordResult>
 
 ${SUB_SEPARATOR}
 
+requestAccountDeletion(params): Promise<{ message: string }>
+  Step 1 of account deletion: request a deletion-confirmation OTP.
+  These calls are stateless web2.auth functions, not methods on web2.createClient().
+
+  Parameters:
+    - email: string
+    - password: string
+    - principalId: string
+    - blackboxUrl: string
+    - fetch?: typeof fetch
+
+  Returns: { message: string }
+
+  For anti-enumeration, the Blackbox returns a generic success message.
+  An OTP is sent only when the email, password, and principalId match a
+  verified, active account.
+
+  Example:
+    const deletionRequest = await web2.auth.requestAccountDeletion({
+      email: 'user@example.com',
+      password: 'securePassword123',
+      principalId: 'your-principal-uuid',
+      blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+    });
+
+${SUB_SEPARATOR}
+
+confirmAccountDeletion(params): Promise<ConfirmAccountDeletionResult>
+  Step 2 of account deletion: confirm with the emailed OTP.
+
+  Parameters:
+    - email: string
+    - otp: string
+    - blackboxUrl: string
+    - fetch?: typeof fetch
+
+  Returns: { success: true, message: string }
+
+  Confirmation leaves the account soft-deleted (dormant) and hidden from APIs.
+  Re-registering the same email reactivates the same principalId and existing secrets.
+  Clear cached credentials, keys, and sessions after successful confirmation.
+
+  Example:
+    const deletionResult = await web2.auth.confirmAccountDeletion({
+      email: 'user@example.com',
+      otp: '123456',
+      blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+    });
+
+${SUB_SEPARATOR}
+
 retryNodeRegistration(params): Promise<RetryNodeRegistrationResult>
   Retry registration on failed enclave nodes.
 

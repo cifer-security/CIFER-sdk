@@ -40,7 +40,7 @@ Secrets are the foundation of CIFER encryption. Each secret has an owner who can
 import { keyManagement } from 'cifer-sdk';
 
 // Configuration
-const chainId = 752025; // Ternoa mainnet
+const chainId = 8453; // Base mainnet
 const controllerAddress = sdk.getControllerAddress(chainId);
 
 // Get the creation fee
@@ -85,7 +85,7 @@ Once your secret is ready, you can encrypt data:
 import { blackbox } from 'cifer-sdk';
 
 const encrypted = await blackbox.payload.encryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n, // Your secret ID
   plaintext: 'Hello, quantum-resistant world!',
   signer,
@@ -103,7 +103,7 @@ Only the secret owner (or delegate) can decrypt:
 
 ```typescript
 const decrypted = await blackbox.payload.decryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   encryptedMessage: encrypted.encryptedMessage,
   cifer: encrypted.cifer,
@@ -171,8 +171,8 @@ async function main() {
   
   // 3. Check if secret is ready
   const isReady = await keyManagement.isSecretReady({
-    chainId: 752025,
-    controllerAddress: sdk.getControllerAddress(752025),
+    chainId: 8453,
+    controllerAddress: sdk.getControllerAddress(8453),
     readClient: sdk.readClient,
   }, secretId);
   
@@ -182,7 +182,7 @@ async function main() {
   
   // 4. Encrypt
   const encrypted = await blackbox.payload.encryptPayload({
-    chainId: 752025,
+    chainId: 8453,
     secretId,
     plaintext: 'My secret data',
     signer,
@@ -192,7 +192,7 @@ async function main() {
   
   // 5. Decrypt
   const decrypted = await blackbox.payload.decryptPayload({
-    chainId: 752025,
+    chainId: 8453,
     secretId,
     encryptedMessage: encrypted.encryptedMessage,
     cifer: encrypted.cifer,

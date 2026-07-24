@@ -264,9 +264,9 @@ const sdk = await createCiferSdk({
 });
 
 // Configuration is auto-discovered from /healthz
-sdk.getSupportedChainIds(); // [752025, 11155111, ...]
-sdk.getControllerAddress(752025); // '0x...'
-sdk.getRpcUrl(752025); // 'https://...'
+sdk.getSupportedChainIds(); // [8453, 11155111, ...]
+sdk.getControllerAddress(8453); // '0x...'
+sdk.getRpcUrl(8453); // 'https://...'
 ```
 
 ### Manual Configuration
@@ -277,7 +277,7 @@ For offline or private deployments:
 const sdk = createCiferSdkSync({
   readClient: myReadClient,
   chainOverrides: {
-    752025: {
+    8453: {
       rpcUrl: 'https://my-rpc.example.com',
       secretsControllerAddress: '0x...',
     },
@@ -302,7 +302,7 @@ const sdk = await createCiferSdk({
 
 The logger receives messages like:
 - `"Performing discovery..."`
-- `"Discovery complete. Supported chains: 752025, 11155111"`
+- `"Discovery complete. Supported chains: 8453, 11155111"`
 - `"Discovery refreshed"`
 
 ### Flow Context Logging

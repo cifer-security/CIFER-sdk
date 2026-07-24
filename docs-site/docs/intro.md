@@ -98,7 +98,7 @@ const sdk = await createCiferSdk({
 const signer = new Eip1193SignerAdapter(window.ethereum);
 
 const encrypted = await blackbox.payload.encryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   plaintext: 'Hello, quantum-resistant world!',
   signer,

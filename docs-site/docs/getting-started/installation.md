@@ -100,7 +100,7 @@ async function verify() {
   });
   
   console.log('Supported chains:', sdk.getSupportedChainIds());
-  // Should print: [752025, ...]
+  // Should print: [8453, ...]
 }
 
 verify();

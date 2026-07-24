@@ -17,7 +17,7 @@ automatically fill in Web2-specific values (chainId, signer, etc.).
 
 ### Web2EncryptFileParams
 
-Defined in: [web2/blackbox/files.ts:24](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L24)
+Defined in: [web2/blackbox/files.ts:24](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L24)
 
 Parameters for Web2 file encryption.
 
@@ -27,7 +27,7 @@ Parameters for Web2 file encryption.
 
 > **session**: [`Web2Session`](../../../../../../../../../index.md#web2session)
 
-Defined in: [web2/blackbox/files.ts:26](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L26)
+Defined in: [web2/blackbox/files.ts:26](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L26)
 
 Active Web2 session
 
@@ -35,7 +35,7 @@ Active Web2 session
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [web2/blackbox/files.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L28)
+Defined in: [web2/blackbox/files.ts:28](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L28)
 
 Secret ID to use for encryption
 
@@ -43,7 +43,7 @@ Secret ID to use for encryption
 
 > **file**: `Blob` \| `File`
 
-Defined in: [web2/blackbox/files.ts:30](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L30)
+Defined in: [web2/blackbox/files.ts:30](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L30)
 
 The file to encrypt
 
@@ -51,7 +51,7 @@ The file to encrypt
 
 > **blackboxUrl**: `string`
 
-Defined in: [web2/blackbox/files.ts:32](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L32)
+Defined in: [web2/blackbox/files.ts:32](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L32)
 
 Blackbox URL
 
@@ -59,7 +59,7 @@ Blackbox URL
 
 > **readClient**: [`ReadClient`](../../../../../../../../../index.md#readclient-1)
 
-Defined in: [web2/blackbox/files.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L34)
+Defined in: [web2/blackbox/files.ts:34](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L34)
 
 Read client for freshness
 
@@ -67,7 +67,7 @@ Read client for freshness
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [web2/blackbox/files.ts:36](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L36)
+Defined in: [web2/blackbox/files.ts:36](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L36)
 
 Custom fetch implementation
 
@@ -91,7 +91,7 @@ Custom fetch implementation
 
 ### Web2DecryptFileParams
 
-Defined in: [web2/blackbox/files.ts:77](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L77)
+Defined in: [web2/blackbox/files.ts:77](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L77)
 
 Parameters for Web2 file decryption.
 
@@ -101,7 +101,7 @@ Parameters for Web2 file decryption.
 
 > **session**: [`Web2Session`](../../../../../../../../../index.md#web2session)
 
-Defined in: [web2/blackbox/files.ts:79](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L79)
+Defined in: [web2/blackbox/files.ts:79](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L79)
 
 Active Web2 session
 
@@ -109,7 +109,7 @@ Active Web2 session
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [web2/blackbox/files.ts:81](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L81)
+Defined in: [web2/blackbox/files.ts:81](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L81)
 
 Secret ID used for encryption
 
@@ -117,7 +117,7 @@ Secret ID used for encryption
 
 > **file**: `Blob` \| `File`
 
-Defined in: [web2/blackbox/files.ts:83](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L83)
+Defined in: [web2/blackbox/files.ts:83](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L83)
 
 The .cifer file to decrypt
 
@@ -125,7 +125,7 @@ The .cifer file to decrypt
 
 > **blackboxUrl**: `string`
 
-Defined in: [web2/blackbox/files.ts:85](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L85)
+Defined in: [web2/blackbox/files.ts:85](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L85)
 
 Blackbox URL
 
@@ -133,7 +133,7 @@ Blackbox URL
 
 > **readClient**: [`ReadClient`](../../../../../../../../../index.md#readclient-1)
 
-Defined in: [web2/blackbox/files.ts:87](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L87)
+Defined in: [web2/blackbox/files.ts:87](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L87)
 
 Read client for freshness
 
@@ -141,7 +141,7 @@ Read client for freshness
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [web2/blackbox/files.ts:89](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L89)
+Defined in: [web2/blackbox/files.ts:89](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L89)
 
 Custom fetch implementation
 
@@ -165,7 +165,7 @@ Custom fetch implementation
 
 ### Web2DecryptExistingFileParams
 
-Defined in: [web2/blackbox/files.ts:119](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L119)
+Defined in: [web2/blackbox/files.ts:119](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L119)
 
 Parameters for Web2 decrypt-existing-file.
 
@@ -175,7 +175,7 @@ Parameters for Web2 decrypt-existing-file.
 
 > **session**: [`Web2Session`](../../../../../../../../../index.md#web2session)
 
-Defined in: [web2/blackbox/files.ts:121](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L121)
+Defined in: [web2/blackbox/files.ts:121](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L121)
 
 Active Web2 session
 
@@ -183,7 +183,7 @@ Active Web2 session
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [web2/blackbox/files.ts:123](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L123)
+Defined in: [web2/blackbox/files.ts:123](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L123)
 
 Secret ID used for the original encryption
 
@@ -191,7 +191,7 @@ Secret ID used for the original encryption
 
 > **encryptJobId**: `string`
 
-Defined in: [web2/blackbox/files.ts:125](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L125)
+Defined in: [web2/blackbox/files.ts:125](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L125)
 
 Job ID of the completed encrypt job
 
@@ -199,7 +199,7 @@ Job ID of the completed encrypt job
 
 > **blackboxUrl**: `string`
 
-Defined in: [web2/blackbox/files.ts:127](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L127)
+Defined in: [web2/blackbox/files.ts:127](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L127)
 
 Blackbox URL
 
@@ -207,7 +207,7 @@ Blackbox URL
 
 > **readClient**: [`ReadClient`](../../../../../../../../../index.md#readclient-1)
 
-Defined in: [web2/blackbox/files.ts:129](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L129)
+Defined in: [web2/blackbox/files.ts:129](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L129)
 
 Read client for freshness
 
@@ -215,7 +215,7 @@ Read client for freshness
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [web2/blackbox/files.ts:131](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L131)
+Defined in: [web2/blackbox/files.ts:131](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L131)
 
 Custom fetch implementation
 
@@ -241,7 +241,7 @@ Custom fetch implementation
 
 > **encryptFile**(`params`): `Promise`\<[`FileJobResult`](../../../../../../../blackbox/namespaces/blackbox/files.md#filejobresult)\>
 
-Defined in: [web2/blackbox/files.ts:56](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L56)
+Defined in: [web2/blackbox/files.ts:56](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L56)
 
 Encrypt a file using a Web2 session.
 
@@ -277,7 +277,7 @@ const job = await web2.blackbox.files.encryptFile({
 
 > **decryptFile**(`params`): `Promise`\<[`FileJobResult`](../../../../../../../blackbox/namespaces/blackbox/files.md#filejobresult)\>
 
-Defined in: [web2/blackbox/files.ts:98](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L98)
+Defined in: [web2/blackbox/files.ts:98](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L98)
 
 Decrypt a file using a Web2 session.
 
@@ -301,7 +301,7 @@ Job ID for polling and download
 
 > **decryptExistingFile**(`params`): `Promise`\<[`FileJobResult`](../../../../../../../blackbox/namespaces/blackbox/files.md#filejobresult)\>
 
-Defined in: [web2/blackbox/files.ts:140](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/blackbox/files.ts#L140)
+Defined in: [web2/blackbox/files.ts:140](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/files.ts#L140)
 
 Decrypt an existing file using a Web2 session.
 

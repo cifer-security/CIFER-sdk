@@ -94,7 +94,7 @@ const sdk = await createCiferSdk({
 // Create WalletConnect provider
 const provider = await EthereumProvider.init({
   projectId: 'YOUR_WALLETCONNECT_PROJECT_ID', // Get from cloud.walletconnect.com
-  chains: [752025], // Ternoa mainnet
+  chains: [8453], // Base mainnet
   optionalChains: [1, 11155111], // Ethereum mainnet, Sepolia
   showQrModal: true,
   metadata: {
@@ -133,11 +133,6 @@ Thirdweb provides a unified wallet SDK that supports multiple wallet types.
 ```bash
 npm install thirdweb
 ```
-
-:::warning Ternoa Chain Definition Required
-Thirdweb's RPC proxy does **not** support Ternoa (chain ID 752025). You must define the chain explicitly with its RPC URL using `defineChain()`. Without this, Thirdweb will route requests to its own proxy and return "Invalid chain". Standard chains (Sepolia, Polygon, etc.) work fine with just `defineChain(chainId)`.
-:::
-
 ```typescript
 import { createCiferSdk, Eip1193SignerAdapter } from 'cifer-sdk';
 import { createThirdwebClient, defineChain } from 'thirdweb';
@@ -156,7 +151,7 @@ const thirdwebClient = createThirdwebClient({
 // IMPORTANT: Ternoa is not in Thirdweb's built-in chain registry.
 // You MUST define it explicitly with its RPC URL.
 const ternoa = defineChain({
-  id: 752025,
+  id: 8453,
   name: 'Ternoa',
   nativeCurrency: { name: 'CAPS', symbol: 'CAPS', decimals: 18 },
   rpc: 'https://rpc-mainnet.zkevm.ternoa.network/',
@@ -387,7 +382,7 @@ function EncryptButton() {
     const signer = await getSigner();
     
     const encrypted = await blackbox.payload.encryptPayload({
-      chainId: 752025,
+      chainId: 8453,
       secretId: 123n,
       plaintext: 'Hello from wagmi!',
       signer,

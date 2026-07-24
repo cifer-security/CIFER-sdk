@@ -17,7 +17,7 @@ import { blackbox } from 'cifer-sdk';
 
 // Start the encryption job
 const job = await blackbox.files.encryptFile({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   file: myFile, // File or Blob
   signer,
@@ -52,7 +52,7 @@ saveAs(encryptedBlob, 'encrypted.cifer');
 ```typescript
 // Upload for decryption
 const job = await blackbox.files.decryptFile({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   file: encryptedCiferFile,
   signer,
@@ -66,7 +66,7 @@ const status = await blackbox.jobs.pollUntilComplete(job.jobId, sdk.blackboxUrl)
 // Download (auth required for decrypt jobs)
 const decryptedBlob = await blackbox.jobs.download(job.jobId, {
   blackboxUrl: sdk.blackboxUrl,
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   signer,
   readClient: sdk.readClient,
@@ -79,7 +79,7 @@ Re-decrypt a previously encrypted file without re-uploading:
 
 ```typescript
 const job = await blackbox.files.decryptExistingFile({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   encryptJobId: 'previous-encrypt-job-id',
   signer,
@@ -136,7 +136,7 @@ console.log('Type:', status.type);
 
 ```typescript
 const result = await blackbox.jobs.list({
-  chainId: 752025,
+  chainId: 8453,
   signer,
   readClient: sdk.readClient,
   blackboxUrl: sdk.blackboxUrl,
@@ -152,7 +152,7 @@ for (const job of result.jobs) {
 
 ```typescript
 await blackbox.jobs.deleteJob(jobId, {
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   signer,
   readClient: sdk.readClient,
@@ -166,7 +166,7 @@ Check your usage limits:
 
 ```typescript
 const usage = await blackbox.jobs.dataConsumption({
-  chainId: 752025,
+  chainId: 8453,
   signer,
   readClient: sdk.readClient,
   blackboxUrl: sdk.blackboxUrl,

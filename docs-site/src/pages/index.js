@@ -141,7 +141,7 @@ const signer = new Eip1193SignerAdapter(window.ethereum);
 
 // Encrypt data with quantum-resistant encryption
 const encrypted = await blackbox.payload.encryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   plaintext: 'My confidential data',
   signer,

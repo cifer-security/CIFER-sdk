@@ -45,7 +45,7 @@ sequenceDiagram
 | Feature | Web3 | Web2 |
 |---------|------|------|
 | **Auth** | EIP-1193 wallet (MetaMask, etc.) | Email + password + Ed25519 key |
-| **Chain ID** | Real chain ID (e.g. 752025) | `WEB2_CHAIN_ID = -1` (sentinel) |
+| **Chain ID** | Real chain ID (e.g. 8453) | `WEB2_CHAIN_ID = -1` (sentinel) |
 | **Block freshness** | RPC `eth_blockNumber` | `Date.now()` (millisecond timestamp) |
 | **Signer** | Wallet `personal_sign` | Session EOA `personal_sign` |
 | **Secret creation** | On-chain transaction | `POST /web2/secret` API call |

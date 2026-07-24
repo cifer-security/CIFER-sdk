@@ -22,8 +22,8 @@ The `keyManagement` namespace provides functions for interacting with the Secret
 import { keyManagement } from 'cifer-sdk';
 
 const fee = await keyManagement.getSecretCreationFee({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   readClient: sdk.readClient,
 });
 
@@ -34,8 +34,8 @@ console.log('Fee:', fee, 'wei');
 
 ```typescript
 const txIntent = keyManagement.buildCreateSecretTx({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   fee,
 });
 
@@ -64,8 +64,8 @@ New secrets need time to sync before use:
 let isReady = false;
 while (!isReady) {
   isReady = await keyManagement.isSecretReady({
-    chainId: 752025,
-    controllerAddress: sdk.getControllerAddress(752025),
+    chainId: 8453,
+    controllerAddress: sdk.getControllerAddress(8453),
     readClient: sdk.readClient,
   }, secretId);
   
@@ -89,8 +89,8 @@ const result = await flows.createSecretAndWaitReady({
   signer,
   readClient: sdk.readClient,
   blackboxUrl: sdk.blackboxUrl,
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   txExecutor: async (intent) => {
     const hash = await wallet.sendTransaction(intent);
     return {
@@ -113,8 +113,8 @@ if (result.success) {
 
 ```typescript
 const state = await keyManagement.getSecret({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   readClient: sdk.readClient,
 }, secretId);
 
@@ -128,8 +128,8 @@ console.log('Public Key CID:', state.publicKeyCid);
 
 ```typescript
 const secrets = await keyManagement.getSecretsByWallet({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   readClient: sdk.readClient,
 }, walletAddress);
 
@@ -141,8 +141,8 @@ console.log('Delegated:', secrets.delegated);
 
 ```typescript
 const isAuthorized = await keyManagement.isAuthorized({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   readClient: sdk.readClient,
 }, secretId, address);
 
@@ -159,8 +159,8 @@ Allow another address to decrypt (but not encrypt):
 
 ```typescript
 const txIntent = keyManagement.buildSetDelegateTx({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   secretId: 123n,
   newDelegate: '0xDelegateAddress...',
 });
@@ -172,8 +172,8 @@ await wallet.sendTransaction(txIntent);
 
 ```typescript
 const txIntent = keyManagement.buildRemoveDelegationTx({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   secretId: 123n,
 });
 
@@ -186,8 +186,8 @@ Transfer a secret to a new owner (clears any delegate):
 
 ```typescript
 const txIntent = keyManagement.buildTransferSecretTx({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   secretId: 123n,
   newOwner: '0xNewOwner...',
 });

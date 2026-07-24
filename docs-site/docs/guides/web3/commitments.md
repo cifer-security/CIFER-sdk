@@ -47,7 +47,7 @@ sequenceDiagram
 import { blackbox } from 'cifer-sdk';
 
 const encrypted = await blackbox.payload.encryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   plaintext: 'My confidential data',
   signer,
@@ -73,7 +73,7 @@ commitments.validateForStorage(
 
 ```typescript
 const txIntent = commitments.buildStoreCommitmentTx({
-  chainId: 752025,
+  chainId: 8453,
   contractAddress: '0xYourContract...',
   storeFunction: {
     type: 'function',
@@ -101,7 +101,7 @@ await wallet.sendTransaction(txIntent);
 
 ```typescript
 const metadata = await commitments.getCIFERMetadata({
-  chainId: 752025,
+  chainId: 8453,
   contractAddress: '0xYourContract...',
   readClient: sdk.readClient,
 }, dataKey);
@@ -114,7 +114,7 @@ console.log('Stored at block:', metadata.storedAtBlock);
 
 ```typescript
 const data = await commitments.fetchCommitmentFromLogs({
-  chainId: 752025,
+  chainId: 8453,
   contractAddress: '0xYourContract...',
   dataId: dataKey,
   storedAtBlock: metadata.storedAtBlock,
@@ -133,7 +133,7 @@ commitments.assertCommitmentIntegrity(data, metadata);
 
 ```typescript
 const decrypted = await blackbox.payload.decryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: metadata.secretId,
   encryptedMessage: data.encryptedMessage,
   cifer: data.cifer,
@@ -188,7 +188,7 @@ if (result.success) {
 
 ```typescript
 const exists = await commitments.ciferDataExists({
-  chainId: 752025,
+  chainId: 8453,
   contractAddress: '0xYourContract...',
   readClient: sdk.readClient,
 }, dataKey);
@@ -202,7 +202,7 @@ if (exists) {
 
 ```typescript
 const metadata = await commitments.getCIFERMetadata({
-  chainId: 752025,
+  chainId: 8453,
   contractAddress: '0xYourContract...',
   readClient: sdk.readClient,
 }, dataKey);

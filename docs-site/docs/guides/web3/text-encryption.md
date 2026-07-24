@@ -16,7 +16,7 @@ The `blackbox.payload` namespace provides functions for encrypting and decryptin
 import { blackbox } from 'cifer-sdk';
 
 const encrypted = await blackbox.payload.encryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   plaintext: 'My secret message',
   signer,
@@ -35,7 +35,7 @@ Only the secret owner (or delegate) can decrypt:
 
 ```typescript
 const decrypted = await blackbox.payload.decryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   encryptedMessage: encrypted.encryptedMessage,
   cifer: encrypted.cifer,

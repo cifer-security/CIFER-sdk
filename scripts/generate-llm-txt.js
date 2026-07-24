@@ -153,7 +153,7 @@ const signer = new Eip1193SignerAdapter(window.ethereum);
 
 // 3. Encrypt data
 const encrypted = await blackbox.payload.encryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,  // Your secret ID
   plaintext: 'My secret message',
   signer,
@@ -163,7 +163,7 @@ const encrypted = await blackbox.payload.encryptPayload({
 
 // 4. Decrypt data
 const decrypted = await blackbox.payload.decryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   encryptedMessage: encrypted.encryptedMessage,
   cifer: encrypted.cifer,
@@ -295,7 +295,7 @@ Web2 vs Web3:
 | Feature          | Web3                          | Web2                                   |
 |------------------|-------------------------------|----------------------------------------|
 | Auth             | EIP-1193 wallet               | Email + password + Ed25519 key         |
-| Chain ID         | Real chain ID (e.g. 752025)   | WEB2_CHAIN_ID = -1 (sentinel)          |
+| Chain ID         | Real chain ID (e.g. 8453)     | WEB2_CHAIN_ID = -1 (sentinel)          |
 | Block freshness  | RPC eth_blockNumber           | Date.now() (no RPC needed)             |
 | Signer           | Wallet personal_sign          | Session EOA personal_sign              |
 | Secret creation  | On-chain transaction          | POST /web2/secret API call             |
@@ -326,13 +326,13 @@ const sdk = await createCiferSdk({
 });
 
 // Get supported chains
-sdk.getSupportedChainIds(); // [752025, 11155111, ...]
+sdk.getSupportedChainIds(); // [8453, 11155111, ...]
 
 // Get contract address
-sdk.getControllerAddress(752025); // '0x...'
+sdk.getControllerAddress(8453); // '0x...'
 
 // Get RPC URL
-sdk.getRpcUrl(752025); // 'https://...'
+sdk.getRpcUrl(8453); // 'https://...'
 
 // Device clock integrity check via discovery.serverTime (Unix epoch ms).
 // serverTime is the blackbox server's own clock at request time. It is optional
@@ -359,7 +359,7 @@ ${SUB_SEPARATOR}
 const sdk = await createCiferSdk({
   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   chainOverrides: {
-    752025: {
+    8453: {
       rpcUrl: 'https://my-private-rpc.example.com',
       secretsControllerAddress: '0x...',
     },
@@ -374,7 +374,7 @@ import { createCiferSdkSync, RpcReadClient } from 'cifer-sdk';
 
 const readClient = new RpcReadClient({
   rpcUrlByChainId: {
-    752025: 'https://mainnet.ternoa.network',
+    8453: 'https://mainnet.base.org',
   },
 });
 
@@ -382,8 +382,8 @@ const sdk = createCiferSdkSync({
   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient,
   chainOverrides: {
-    752025: {
-      rpcUrl: 'https://mainnet.ternoa.network',
+    8453: {
+      rpcUrl: 'https://mainnet.base.org',
       secretsControllerAddress: '0x...',
     },
   },
@@ -431,7 +431,7 @@ import { EthereumProvider } from '@walletconnect/ethereum-provider';
 
 const provider = await EthereumProvider.init({
   projectId: 'YOUR_WALLETCONNECT_PROJECT_ID',
-  chains: [752025],
+  chains: [8453],
   showQrModal: true,
   metadata: {
     name: 'My CIFER App',
@@ -455,15 +455,15 @@ const thirdwebClient = createThirdwebClient({
   clientId: 'YOUR_THIRDWEB_CLIENT_ID',
 });
 
-const ternoa = defineChain({
-  id: 752025,
-  name: 'Ternoa',
-  nativeCurrency: { name: 'CAPS', symbol: 'CAPS', decimals: 18 },
-  rpcUrls: { default: { http: ['https://mainnet.ternoa.network'] } },
+const base = defineChain({
+  id: 8453,
+  name: 'Base',
+  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+  rpcUrls: { default: { http: ['https://mainnet.base.org'] } },
 });
 
 const wallet = createWallet('io.metamask');
-await wallet.connect({ client: thirdwebClient, chain: ternoa });
+await wallet.connect({ client: thirdwebClient, chain: base });
 
 const provider = injectedProvider('io.metamask');
 const signer = new Eip1193SignerAdapter(provider);
@@ -474,7 +474,7 @@ import { inAppWallet } from 'thirdweb/wallets';
 const wallet = inAppWallet();
 const account = await wallet.connect({
   client: thirdwebClient,
-  chain: ternoa,
+  chain: base,
   strategy: 'email',
   email: 'user@example.com',
 });
@@ -596,8 +596,8 @@ getSecretCreationFee(params): Promise<bigint>
   
   Example:
     const fee = await keyManagement.getSecretCreationFee({
-      chainId: 752025,
-      controllerAddress: sdk.getControllerAddress(752025),
+      chainId: 8453,
+      controllerAddress: sdk.getControllerAddress(8453),
       readClient: sdk.readClient,
     });
 
@@ -615,8 +615,8 @@ getSecret(params, secretId): Promise<SecretState>
   
   Example:
     const state = await keyManagement.getSecret({
-      chainId: 752025,
-      controllerAddress: sdk.getControllerAddress(752025),
+      chainId: 8453,
+      controllerAddress: sdk.getControllerAddress(8453),
       readClient: sdk.readClient,
     }, 123n);
     
@@ -673,8 +673,8 @@ buildCreateSecretTx(params): TxIntentWithMeta
   Example:
     const fee = await keyManagement.getSecretCreationFee(params);
     const txIntent = keyManagement.buildCreateSecretTx({
-      chainId: 752025,
-      controllerAddress: sdk.getControllerAddress(752025),
+      chainId: 8453,
+      controllerAddress: sdk.getControllerAddress(8453),
       fee,
     });
     await wallet.sendTransaction(txIntent);
@@ -692,8 +692,8 @@ buildSetDelegateTx(params): TxIntentWithMeta
   
   Example:
     const txIntent = keyManagement.buildSetDelegateTx({
-      chainId: 752025,
-      controllerAddress: sdk.getControllerAddress(752025),
+      chainId: 8453,
+      controllerAddress: sdk.getControllerAddress(8453),
       secretId: 123n,
       newDelegate: '0xDelegate...',
     });
@@ -774,7 +774,7 @@ Throws:
 
 Example:
   const encrypted = await blackbox.payload.encryptPayload({
-    chainId: 752025,
+    chainId: 8453,
     secretId: 123n,
     plaintext: 'My secret message',
     signer,
@@ -812,7 +812,7 @@ Throws:
 
 Example:
   const decrypted = await blackbox.payload.decryptPayload({
-    chainId: 752025,
+    chainId: 8453,
     secretId: 123n,
     encryptedMessage: encrypted.encryptedMessage,
     cifer: encrypted.cifer,
@@ -856,7 +856,7 @@ Returns:
 
 Example:
   const job = await blackbox.files.encryptFile({
-    chainId: 752025,
+    chainId: 8453,
     secretId: 123n,
     file: myFile,
     signer,
@@ -968,7 +968,7 @@ Example (encrypt job):
 Example (decrypt job):
   const blob = await blackbox.jobs.download(jobId, {
     blackboxUrl: sdk.blackboxUrl,
-    chainId: 752025,
+    chainId: 8453,
     secretId: 123n,
     signer,
     readClient: sdk.readClient,
@@ -1056,7 +1056,7 @@ Throws: CommitmentNotFoundError
 
 Example:
   const metadata = await commitments.getCIFERMetadata({
-    chainId: 752025,
+    chainId: 8453,
     contractAddress: '0xYourContract...',
     readClient: sdk.readClient,
   }, dataKey);
@@ -1086,7 +1086,7 @@ Returns:
 
 Example:
   const data = await commitments.fetchCommitmentFromLogs({
-    chainId: 752025,
+    chainId: 8453,
     contractAddress: '0x...',
     dataId: dataKey,
     storedAtBlock: metadata.storedAtBlock,
@@ -1142,7 +1142,7 @@ Parameters:
 
 Example:
   const txIntent = commitments.buildStoreCommitmentTx({
-    chainId: 752025,
+    chainId: 8453,
     contractAddress: '0xYourContract...',
     storeFunction: {
       type: 'function',
@@ -1226,7 +1226,7 @@ Steps:
 Example:
   const result = await flows.createSecretAndWaitReady({
     ...ctx,
-    controllerAddress: sdk.getControllerAddress(752025),
+    controllerAddress: sdk.getControllerAddress(8453),
     txExecutor: async (intent) => {
       const hash = await wallet.sendTransaction(intent);
       return { hash, waitReceipt: () => provider.waitForTransaction(hash) };
@@ -2053,7 +2053,7 @@ async function encryptDecryptExample() {
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
-  const chainId = 752025;
+  const chainId = 8453;
   const secretId = 123n; // Your secret ID
   
   // Encrypt
@@ -2098,8 +2098,8 @@ async function createSecretExample() {
     signer,
     readClient: sdk.readClient,
     blackboxUrl: sdk.blackboxUrl,
-    chainId: 752025,
-    controllerAddress: sdk.getControllerAddress(752025),
+    chainId: 8453,
+    controllerAddress: sdk.getControllerAddress(8453),
     txExecutor: async (intent) => {
       const hash = await window.ethereum.request({
         method: 'eth_sendTransaction',
@@ -2151,7 +2151,7 @@ async function onChainExample() {
     signer,
     readClient: sdk.readClient,
     blackboxUrl: sdk.blackboxUrl,
-    chainId: 752025,
+    chainId: 8453,
   };
   
   const secretId = 123n;
@@ -2195,7 +2195,7 @@ async function fileEncryptionExample() {
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
-  const chainId = 752025;
+  const chainId = 8453;
   const secretId = 123n;
   const file = document.getElementById('fileInput').files[0];
   
@@ -2248,7 +2248,7 @@ async function serverSideExample() {
   // Create read client
   const readClient = new RpcReadClient({
     rpcUrlByChainId: {
-      752025: 'https://mainnet.ternoa.network',
+      8453: 'https://mainnet.base.org',
     },
   });
   
@@ -2271,7 +2271,7 @@ async function serverSideExample() {
   
   // Use SDK
   const encrypted = await blackbox.payload.encryptPayload({
-    chainId: 752025,
+    chainId: 8453,
     secretId: 123n,
     plaintext: 'Server-side encryption',
     signer,

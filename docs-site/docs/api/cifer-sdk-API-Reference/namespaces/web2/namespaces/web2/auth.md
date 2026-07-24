@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.5.2**](../../../../../index.md)
+[**cifer-sdk API Reference v0.5.3**](../../../../../index.md)
 
 ***
 
@@ -22,7 +22,7 @@ Also includes password reset and OTP resend helpers.
 
 > **register**(`params`): `Promise`\<[`RegisterResult`](../../../../../index.md#registerresult)\>
 
-Defined in: [web2/auth.ts:84](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/auth.ts#L84)
+Defined in: [web2/auth.ts:84](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/auth.ts#L84)
 
 Register a new Web2 principal with email and password.
 
@@ -60,7 +60,7 @@ console.log('Principal ID:', result.principalId);
 
 > **verifyEmail**(`params`): `Promise`\<[`VerifyEmailResult`](../../../../../index.md#verifyemailresult)\>
 
-Defined in: [web2/auth.ts:130](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/auth.ts#L130)
+Defined in: [web2/auth.ts:130](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/auth.ts#L130)
 
 Verify the email OTP sent during registration.
 
@@ -95,7 +95,7 @@ console.log('Verified:', result.emailVerified);
 
 > **registerKey**(`params`): `Promise`\<[`RegisterKeyResult`](../../../../../index.md#registerkeyresult)\>
 
-Defined in: [web2/auth.ts:187](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/auth.ts#L187)
+Defined in: [web2/auth.ts:187](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/auth.ts#L187)
 
 Register an Ed25519 public key and propagate the principal to cluster nodes.
 
@@ -141,7 +141,7 @@ if (result.nodeRegistrationStatus !== 'complete') {
 
 > **resendOtp**(`params`): `Promise`\<\{ `message`: `string`; \}\>
 
-Defined in: [web2/auth.ts:243](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/auth.ts#L243)
+Defined in: [web2/auth.ts:243](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/auth.ts#L243)
 
 Resend the email verification OTP.
 
@@ -167,7 +167,7 @@ Server message
 
 > **forgotPassword**(`params`): `Promise`\<\{ `message`: `string`; \}\>
 
-Defined in: [web2/auth.ts:271](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/auth.ts#L271)
+Defined in: [web2/auth.ts:271](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/auth.ts#L271)
 
 Send a password-reset OTP to a verified email.
 
@@ -193,7 +193,7 @@ Server message
 
 > **resetPassword**(`params`): `Promise`\<\{ `message`: `string`; \}\>
 
-Defined in: [web2/auth.ts:297](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/auth.ts#L297)
+Defined in: [web2/auth.ts:297](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/auth.ts#L297)
 
 Reset a password using the OTP from forgotPassword.
 
@@ -217,7 +217,7 @@ Server message
 
 > **verifyCredentials**(`params`): `Promise`\<[`VerifyCredentialsResult`](../../../../../index.md#verifycredentialsresult)\>
 
-Defined in: [web2/auth.ts:346](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/auth.ts#L346)
+Defined in: [web2/auth.ts:346](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/auth.ts#L346)
 
 Verify Web2 email + password credentials against the Blackbox principal store.
 
@@ -264,7 +264,7 @@ console.log('Principal ID:', result.principalId);
 
 > **requestAccountDeletion**(`params`): `Promise`\<\{ `message`: `string`; \}\>
 
-Defined in: [web2/auth.ts:388](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/auth.ts#L388)
+Defined in: [web2/auth.ts:388](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/auth.ts#L388)
 
 Step 1 of account deletion: request a deletion-confirmation OTP.
 
@@ -289,7 +289,7 @@ verified, active account. Does not throw on "no such account".
 
 > **confirmAccountDeletion**(`params`): `Promise`\<[`ConfirmAccountDeletionResult`](../../../../../index.md#confirmaccountdeletionresult)\>
 
-Defined in: [web2/auth.ts:418](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/auth.ts#L418)
+Defined in: [web2/auth.ts:418](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/auth.ts#L418)
 
 Step 2 of account deletion: confirm with the emailed OTP. On success the
 account is soft-deleted (dormant): hidden from all APIs but retained for
@@ -312,7 +312,7 @@ same principalId (old secrets return).
 
 > **retryNodeRegistration**(`params`): `Promise`\<[`RetryNodeRegistrationResult`](../../../../../index.md#retrynoderegistrationresult)\>
 
-Defined in: [web2/auth.ts:448](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/auth.ts#L448)
+Defined in: [web2/auth.ts:448](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/auth.ts#L448)
 
 Retry node registration for a principal whose initial registration
 was partial or pending.
@@ -337,7 +337,7 @@ Updated registration status
 
 > **nodeRegistrationStatus**(`principalId`, `blackboxUrl`, `options?`): `Promise`\<[`NodeRegistrationStatusResult`](../../../../../index.md#noderegistrationstatusresult)\>
 
-Defined in: [web2/auth.ts:487](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/auth.ts#L487)
+Defined in: [web2/auth.ts:487](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/auth.ts#L487)
 
 Check node registration status for a principal.
 

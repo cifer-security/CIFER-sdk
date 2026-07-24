@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.5.2**](../../../../../index.md)
+[**cifer-sdk API Reference v0.5.3**](../../../../../index.md)
 
 ***
 
@@ -16,7 +16,7 @@ Web2 permit requests (rotate, transfer, delegate)
 
 > **requestPermit**(`params`): `Promise`\<[`RequestPermitResult`](../../../../../index.md#requestpermitresult)\>
 
-Defined in: [web2/permit.ts:58](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/permit.ts#L58)
+Defined in: [web2/permit.ts:58](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/permit.ts#L58)
 
 Request a permit for key rotation, secret transfer, or delegation.
 

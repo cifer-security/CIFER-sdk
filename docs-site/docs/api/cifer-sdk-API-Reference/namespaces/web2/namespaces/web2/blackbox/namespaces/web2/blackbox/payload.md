@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.5.2**](../../../../../../../../../index.md)
+[**cifer-sdk API Reference v0.5.3**](../../../../../../../../../index.md)
 
 ***
 
@@ -17,7 +17,7 @@ automatically fill in Web2-specific values (chainId, signer, etc.).
 
 ### Web2EncryptPayloadParams
 
-Defined in: [web2/blackbox/payload.ts:25](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L25)
+Defined in: [web2/blackbox/payload.ts:25](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L25)
 
 Parameters for Web2 payload encryption.
 
@@ -27,7 +27,7 @@ Parameters for Web2 payload encryption.
 
 > **session**: [`Web2Session`](../../../../../../../../../index.md#web2session)
 
-Defined in: [web2/blackbox/payload.ts:27](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L27)
+Defined in: [web2/blackbox/payload.ts:27](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L27)
 
 Active Web2 session
 
@@ -35,7 +35,7 @@ Active Web2 session
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [web2/blackbox/payload.ts:29](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L29)
+Defined in: [web2/blackbox/payload.ts:29](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L29)
 
 Secret ID to use for encryption
 
@@ -43,7 +43,7 @@ Secret ID to use for encryption
 
 > **plaintext**: `string`
 
-Defined in: [web2/blackbox/payload.ts:31](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L31)
+Defined in: [web2/blackbox/payload.ts:31](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L31)
 
 The plaintext to encrypt
 
@@ -51,7 +51,7 @@ The plaintext to encrypt
 
 > **blackboxUrl**: `string`
 
-Defined in: [web2/blackbox/payload.ts:33](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L33)
+Defined in: [web2/blackbox/payload.ts:33](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L33)
 
 Blackbox URL
 
@@ -59,7 +59,7 @@ Blackbox URL
 
 > **readClient**: [`ReadClient`](../../../../../../../../../index.md#readclient-1)
 
-Defined in: [web2/blackbox/payload.ts:35](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L35)
+Defined in: [web2/blackbox/payload.ts:35](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L35)
 
 Read client for freshness
 
@@ -67,7 +67,7 @@ Read client for freshness
 
 > `optional` **outputFormat**: [`OutputFormat`](../../../../../../../../../index.md#outputformat)
 
-Defined in: [web2/blackbox/payload.ts:37](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L37)
+Defined in: [web2/blackbox/payload.ts:37](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L37)
 
 Output format (default: 'hex')
 
@@ -75,7 +75,7 @@ Output format (default: 'hex')
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [web2/blackbox/payload.ts:39](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L39)
+Defined in: [web2/blackbox/payload.ts:39](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L39)
 
 Custom fetch implementation
 
@@ -99,7 +99,7 @@ Custom fetch implementation
 
 ### Web2DecryptPayloadParams
 
-Defined in: [web2/blackbox/payload.ts:83](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L83)
+Defined in: [web2/blackbox/payload.ts:83](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L83)
 
 Parameters for Web2 payload decryption.
 
@@ -109,7 +109,7 @@ Parameters for Web2 payload decryption.
 
 > **session**: [`Web2Session`](../../../../../../../../../index.md#web2session)
 
-Defined in: [web2/blackbox/payload.ts:85](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L85)
+Defined in: [web2/blackbox/payload.ts:85](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L85)
 
 Active Web2 session
 
@@ -117,7 +117,7 @@ Active Web2 session
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [web2/blackbox/payload.ts:87](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L87)
+Defined in: [web2/blackbox/payload.ts:87](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L87)
 
 Secret ID used for encryption
 
@@ -125,7 +125,7 @@ Secret ID used for encryption
 
 > **encryptedMessage**: `string`
 
-Defined in: [web2/blackbox/payload.ts:89](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L89)
+Defined in: [web2/blackbox/payload.ts:89](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L89)
 
 The encrypted message
 
@@ -133,7 +133,7 @@ The encrypted message
 
 > **cifer**: `string`
 
-Defined in: [web2/blackbox/payload.ts:91](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L91)
+Defined in: [web2/blackbox/payload.ts:91](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L91)
 
 The CIFER envelope
 
@@ -141,7 +141,7 @@ The CIFER envelope
 
 > **blackboxUrl**: `string`
 
-Defined in: [web2/blackbox/payload.ts:93](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L93)
+Defined in: [web2/blackbox/payload.ts:93](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L93)
 
 Blackbox URL
 
@@ -149,7 +149,7 @@ Blackbox URL
 
 > **readClient**: [`ReadClient`](../../../../../../../../../index.md#readclient-1)
 
-Defined in: [web2/blackbox/payload.ts:95](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L95)
+Defined in: [web2/blackbox/payload.ts:95](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L95)
 
 Read client for freshness
 
@@ -157,7 +157,7 @@ Read client for freshness
 
 > `optional` **inputFormat**: [`InputFormat`](../../../../../../../../../index.md#inputformat)
 
-Defined in: [web2/blackbox/payload.ts:97](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L97)
+Defined in: [web2/blackbox/payload.ts:97](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L97)
 
 Input format (default: 'hex')
 
@@ -165,7 +165,7 @@ Input format (default: 'hex')
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [web2/blackbox/payload.ts:99](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L99)
+Defined in: [web2/blackbox/payload.ts:99](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L99)
 
 Custom fetch implementation
 
@@ -191,7 +191,7 @@ Custom fetch implementation
 
 > **encryptPayload**(`params`): `Promise`\<[`EncryptPayloadResult`](../../../../../../../blackbox/namespaces/blackbox/payload.md#encryptpayloadresult)\>
 
-Defined in: [web2/blackbox/payload.ts:61](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L61)
+Defined in: [web2/blackbox/payload.ts:61](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L61)
 
 Encrypt a payload using a Web2 session.
 
@@ -229,7 +229,7 @@ const result = await web2.blackbox.payload.encryptPayload({
 
 > **decryptPayload**(`params`): `Promise`\<[`DecryptPayloadResult`](../../../../../../../blackbox/namespaces/blackbox/payload.md#decryptpayloadresult)\>
 
-Defined in: [web2/blackbox/payload.ts:123](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/blackbox/payload.ts#L123)
+Defined in: [web2/blackbox/payload.ts:123](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/blackbox/payload.ts#L123)
 
 Decrypt a payload using a Web2 session.
 

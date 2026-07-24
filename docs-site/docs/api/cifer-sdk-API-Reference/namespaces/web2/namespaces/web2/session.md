@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.5.2**](../../../../../index.md)
+[**cifer-sdk API Reference v0.5.3**](../../../../../index.md)
 
 ***
 
@@ -20,7 +20,7 @@ Provides two session modes:
 
 > **createManagedSession**(`params`): `Promise`\<[`Web2Session`](../../../../../index.md#web2session)\>
 
-Defined in: [web2/session.ts:139](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/session.ts#L139)
+Defined in: [web2/session.ts:139](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/session.ts#L139)
 
 Create a managed Web2 session.
 
@@ -68,7 +68,7 @@ const encrypted = await web2.blackbox.payload.encryptPayload({
 
 > **useExistingSessionKey**(`params`): [`Web2Session`](../../../../../index.md#web2session)
 
-Defined in: [web2/session.ts:236](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/81dfcfc8f2b220a64e11e0528b01aa27031bb0a8/src/web2/session.ts#L236)
+Defined in: [web2/session.ts:236](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/session.ts#L236)
 
 Use an existing session key for Web2 authentication.
 

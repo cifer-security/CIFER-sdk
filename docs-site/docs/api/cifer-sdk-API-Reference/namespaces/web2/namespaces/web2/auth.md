@@ -22,7 +22,7 @@ Also includes password reset and OTP resend helpers.
 
 > **register**(`params`): `Promise`\<[`RegisterResult`](../../../../../index.md#registerresult)\>
 
-Defined in: [web2/auth.ts:81](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L81)
+Defined in: [web2/auth.ts:84](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/auth.ts#L84)
 
 Register a new Web2 principal with email and password.
 
@@ -60,7 +60,7 @@ console.log('Principal ID:', result.principalId);
 
 > **verifyEmail**(`params`): `Promise`\<[`VerifyEmailResult`](../../../../../index.md#verifyemailresult)\>
 
-Defined in: [web2/auth.ts:127](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L127)
+Defined in: [web2/auth.ts:130](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/auth.ts#L130)
 
 Verify the email OTP sent during registration.
 
@@ -95,7 +95,7 @@ console.log('Verified:', result.emailVerified);
 
 > **registerKey**(`params`): `Promise`\<[`RegisterKeyResult`](../../../../../index.md#registerkeyresult)\>
 
-Defined in: [web2/auth.ts:184](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L184)
+Defined in: [web2/auth.ts:187](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/auth.ts#L187)
 
 Register an Ed25519 public key and propagate the principal to cluster nodes.
 
@@ -141,7 +141,7 @@ if (result.nodeRegistrationStatus !== 'complete') {
 
 > **resendOtp**(`params`): `Promise`\<\{ `message`: `string`; \}\>
 
-Defined in: [web2/auth.ts:240](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L240)
+Defined in: [web2/auth.ts:243](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/auth.ts#L243)
 
 Resend the email verification OTP.
 
@@ -167,7 +167,7 @@ Server message
 
 > **forgotPassword**(`params`): `Promise`\<\{ `message`: `string`; \}\>
 
-Defined in: [web2/auth.ts:268](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L268)
+Defined in: [web2/auth.ts:271](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/auth.ts#L271)
 
 Send a password-reset OTP to a verified email.
 
@@ -193,7 +193,7 @@ Server message
 
 > **resetPassword**(`params`): `Promise`\<\{ `message`: `string`; \}\>
 
-Defined in: [web2/auth.ts:294](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L294)
+Defined in: [web2/auth.ts:297](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/auth.ts#L297)
 
 Reset a password using the OTP from forgotPassword.
 
@@ -217,7 +217,7 @@ Server message
 
 > **verifyCredentials**(`params`): `Promise`\<[`VerifyCredentialsResult`](../../../../../index.md#verifycredentialsresult)\>
 
-Defined in: [web2/auth.ts:343](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L343)
+Defined in: [web2/auth.ts:346](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/auth.ts#L346)
 
 Verify Web2 email + password credentials against the Blackbox principal store.
 
@@ -260,11 +260,59 @@ console.log('Principal ID:', result.principalId);
 
 ***
 
+### requestAccountDeletion()
+
+> **requestAccountDeletion**(`params`): `Promise`\<\{ `message`: `string`; \}\>
+
+Defined in: [web2/auth.ts:388](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/auth.ts#L388)
+
+Step 1 of account deletion: request a deletion-confirmation OTP.
+
+Requires the account email, password, and the principalId issued at
+registration. For anti-enumeration the Black Box always responds with a
+generic success message; an OTP is only emailed when all details match a
+verified, active account. Does not throw on "no such account".
+
+#### Parameters
+
+##### params
+
+[`RequestAccountDeletionParams`](../../../../../index.md#requestaccountdeletionparams)
+
+#### Returns
+
+`Promise`\<\{ `message`: `string`; \}\>
+
+***
+
+### confirmAccountDeletion()
+
+> **confirmAccountDeletion**(`params`): `Promise`\<[`ConfirmAccountDeletionResult`](../../../../../index.md#confirmaccountdeletionresult)\>
+
+Defined in: [web2/auth.ts:418](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/auth.ts#L418)
+
+Step 2 of account deletion: confirm with the emailed OTP. On success the
+account is soft-deleted (dormant): hidden from all APIs but retained for
+legal disclosure. Re-registering later with the same email reactivates the
+same principalId (old secrets return).
+
+#### Parameters
+
+##### params
+
+[`ConfirmAccountDeletionParams`](../../../../../index.md#confirmaccountdeletionparams)
+
+#### Returns
+
+`Promise`\<[`ConfirmAccountDeletionResult`](../../../../../index.md#confirmaccountdeletionresult)\>
+
+***
+
 ### retryNodeRegistration()
 
 > **retryNodeRegistration**(`params`): `Promise`\<[`RetryNodeRegistrationResult`](../../../../../index.md#retrynoderegistrationresult)\>
 
-Defined in: [web2/auth.ts:380](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L380)
+Defined in: [web2/auth.ts:448](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/auth.ts#L448)
 
 Retry node registration for a principal whose initial registration
 was partial or pending.
@@ -289,7 +337,7 @@ Updated registration status
 
 > **nodeRegistrationStatus**(`principalId`, `blackboxUrl`, `options?`): `Promise`\<[`NodeRegistrationStatusResult`](../../../../../index.md#noderegistrationstatusresult)\>
 
-Defined in: [web2/auth.ts:419](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/auth.ts#L419)
+Defined in: [web2/auth.ts:487](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/auth.ts#L487)
 
 Check node registration status for a principal.
 

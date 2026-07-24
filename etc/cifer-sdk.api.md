@@ -39,6 +39,8 @@ declare namespace auth {
         forgotPassword,
         resetPassword,
         verifyCredentials,
+        requestAccountDeletion,
+        confirmAccountDeletion,
         retryNodeRegistration,
         nodeRegistrationStatus
     }
@@ -534,6 +536,23 @@ const COMMON_STORE_FUNCTIONS: {
 // @public
 export class ConfigError extends CiferError {
     constructor(message: string, cause?: Error);
+}
+
+// @public
+function confirmAccountDeletion(params: ConfirmAccountDeletionParams): Promise<ConfirmAccountDeletionResult>;
+
+// @public
+export interface ConfirmAccountDeletionParams {
+    blackboxUrl: string;
+    email: string;
+    fetch?: typeof fetch;
+    otp: string;
+}
+
+// @public
+export interface ConfirmAccountDeletionResult {
+    message: string;
+    success: true;
 }
 
 // @public
@@ -1609,6 +1628,20 @@ export interface RegisterParams {
 // @public
 export interface RegisterResult {
     message: string;
+    principalId: string;
+}
+
+// @public
+function requestAccountDeletion(params: RequestAccountDeletionParams): Promise<{
+    message: string;
+}>;
+
+// @public
+export interface RequestAccountDeletionParams {
+    blackboxUrl: string;
+    email: string;
+    fetch?: typeof fetch;
+    password: string;
     principalId: string;
 }
 

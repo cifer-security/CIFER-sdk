@@ -16,7 +16,7 @@ Web2 permit requests (rotate, transfer, delegate)
 
 > **requestPermit**(`params`): `Promise`\<[`RequestPermitResult`](../../../../../index.md#requestpermitresult)\>
 
-Defined in: [web2/permit.ts:58](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/bb337d5a2d00f651eb10b722edbb95041bac65bc/src/web2/permit.ts#L58)
+Defined in: [web2/permit.ts:58](https://github.com/capsule-corp-ternoa/CIFER-sdk/blob/6d7292b6e8f35cd3efacc2317d5266b28f5a503a/src/web2/permit.ts#L58)
 
 Request a permit for key rotation, secret transfer, or delegation.
 

@@ -14,6 +14,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [0.5.2] - 2026-07-02
+
+### Added
+
+- **`web2.auth.verifyCredentials()`** — Verify a Web2 user's email and password against the Blackbox principal store. A successful request returns `{ valid: true, principalId }`; invalid credentials throw `Web2AuthError`.
+- **Credential-verification types** — Added `VerifyCredentialsParams` and `VerifyCredentialsResult` to the public Web2 API.
+- **Documentation and example** — Added credential-verification guidance and an interactive Web2 example covering successful and failed verification.
+
+### Fixed
+
+- **Mobile documentation menu** — Fixed the Docusaurus mobile navigation sidebar appearing behind page content by correcting its stacking order and limiting navbar backdrop blur to desktop layouts.
+
+### Notes
+
+- Credential verification is Web2-only (`chainId = -1`). It validates credentials without creating a session or returning session tokens; create a managed session separately when one is required.
+
+---
+
 ## [0.5.1] - 2026-07-02
 
 ### Added

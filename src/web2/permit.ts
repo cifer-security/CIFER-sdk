@@ -1,6 +1,6 @@
 /**
  * @module web2/permit
- * @description Web2 permit requests (rotate, transfer, delegate)
+ * @description Web2 permit requests (rotate, transfer, delegate) using the V2 Blackbox create contract.
  */
 
 import { sha256 } from '@noble/hashes/sha256';

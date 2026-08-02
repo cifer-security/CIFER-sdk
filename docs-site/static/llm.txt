@@ -5,8 +5,8 @@ This file contains complete documentation for the cifer-sdk package.
 AI agents can use this file to understand how to implement CIFER encryption
 in applications. Point your AI assistant to this file for accurate SDK usage.
 
-Generated: 2026-07-24T13:56:04.227Z
-Version: 0.5.3
+Generated: 2026-08-02T13:02:31.937Z
+Version: 0.5.4
 Package: cifer-sdk
 
 ================================================================================
@@ -1556,24 +1556,31 @@ setDelegate(params): Promise<SetWeb2DelegateResult>
 
 requestPermit(params): Promise<RequestPermitResult>
   Request a permit for key rotation, transfer, or delegation.
+  V2 (0.5.4+): always sends requestId (lowercase UUIDv4; generated when omitted).
+  Transfer/delegate session data is 8-part:
+    -1_<secretId>_<sessionAddress>_<timestamp>_permit_<requestId>_<action>_<payloadDigest>
+  payload is the exact compact JSON string hashed for payloadDigest.
+  Prefer this helper; do not hand-roll the legacy 4-part /web2/permit body.
 
   Rotate permits use email+password (no session):
     Parameters:
       - action: 'rotate'
       - email: string
       - password: string
-      - payload: object
+      - payload: { newPublicKey: string }
+      - requestId?: string (optional lowercase UUIDv4 for exact replay)
       - blackboxUrl: string
 
   Transfer/delegate permits use session:
     Parameters:
       - action: 'transfer' | 'delegate'
       - session: Web2Session
-      - secretId: number
-      - payload: object
+      - secretId: number | bigint
+      - payload: { newOwnerPrincipalId?: string; delegatePrincipalId?: string }
+      - requestId?: string (optional lowercase UUIDv4 for exact replay)
       - blackboxUrl: string
 
-  Returns: { permitId: string }
+  Returns: { success, permitId, action, clusterId, expiresAt, message }
 
 --------------------------------------------------------------------------------
 7.6 web2.principal
@@ -1882,13 +1889,29 @@ interface SetWeb2DelegateParams {
   fetch?: typeof fetch;
 }
 
-interface RequestPermitParams {
-  // Discriminated union on 'action'
-  action: 'rotate' | 'transfer' | 'delegate';
-  // For rotate: email, password, payload
-  // For transfer/delegate: session, secretId, payload
+interface RequestRotatePermitParams {
+  action: 'rotate';
+  email: string;
+  password: string;
+  payload: { newPublicKey: string };
+  requestId?: string; // lowercase UUIDv4; SDK generates when omitted
   blackboxUrl: string;
+  fetch?: typeof fetch;
 }
+
+interface RequestTransferOrDelegatePermitParams {
+  action: 'transfer' | 'delegate';
+  session: Web2Session;
+  secretId: number | bigint;
+  payload: { newOwnerPrincipalId?: string; delegatePrincipalId?: string };
+  requestId?: string; // lowercase UUIDv4; SDK generates when omitted
+  blackboxUrl: string;
+  fetch?: typeof fetch;
+}
+
+type RequestPermitParams =
+  | RequestRotatePermitParams
+  | RequestTransferOrDelegatePermitParams;
 
 
 ================================================================================

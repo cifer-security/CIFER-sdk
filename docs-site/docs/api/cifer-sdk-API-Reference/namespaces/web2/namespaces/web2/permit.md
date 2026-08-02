@@ -16,19 +16,18 @@ Web2 permit requests (rotate, transfer, delegate) using the V2 Blackbox create c
 
 > **requestPermit**(`params`): `Promise`\<[`RequestPermitResult`](../../../../../index.md#requestpermitresult)\>
 
-Defined in: [web2/permit.ts](https://github.com/cifer-security/CIFER-sdk/blob/main/src/web2/permit.ts)
+Defined in: [web2/permit.ts:113](https://github.com/cifer-security/CIFER-sdk/blob/29724a6172b19f59accf0ce6eb312b8c15c711ad/src/web2/permit.ts#L113)
 
 Request a permit for key rotation, secret transfer, or delegation.
 
 **Rotate permits** use email+password authentication (no session).
 **Transfer/delegate permits** use session-based signing.
 
-Always sends V2 fields:
-
-- `requestId` — lowercase UUIDv4 (generated when `params.requestId` is omitted)
-- transfer/delegate `data` —
+Always sends the V2 Blackbox contract:
+- `requestId`: lowercase UUIDv4 (generated when omitted)
+- transfer/delegate `data`:
   `-1_<secretId>_<sessionAddress>_<timestamp>_permit_<requestId>_<action>_<payloadDigest>`
-- `payload` — exact compact JSON string hashed for `payloadDigest`
+- `payload`: exact compact JSON string used to compute `payloadDigest`
 
 #### Parameters
 
@@ -65,5 +64,3 @@ const result = await web2.permit.requestPermit({
   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```
-
-See also: [Web2 Permits guide](/docs/guides/web2/permits).

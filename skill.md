@@ -1,6 +1,6 @@
 # CIFER SDK - Quantum-Resistant Blockchain Encryption
 
-> **Skill for AI Agents** | Enable quantum-resistant encryption in blockchain applications using the CIFER SDK (v0.5.3).
+> **Skill for AI Agents** | Enable quantum-resistant encryption in blockchain applications using the CIFER SDK (v0.5.4).
 
 ## Overview
 
@@ -1143,8 +1143,12 @@ await web2.delegate.setDelegate({
 
 Request permits for key rotation, ownership transfer, or delegation changes.
 
-**V2 (SDK 0.5.4+):** always sends `requestId` (UUIDv4) and, for transfer/delegate, an
-8-part session string ending in `_permit_<requestId>_<action>_<payloadDigest>`.
+**V2 (SDK 0.5.4+):** always sends `requestId` (lowercase UUIDv4) and, for transfer/delegate,
+an 8-part session string:
+`-1_<secretId>_<sessionAddress>_<timestamp>_permit_<requestId>_<action>_<payloadDigest>`.
+`payload` is sent as the exact compact JSON string hashed for `payloadDigest`.
+Do not hand-roll the old 4-part `/web2/permit` body — use `web2.permit.requestPermit()`.
+
 Optional `requestId` on params enables exact replay; otherwise the SDK generates one.
 
 ```typescript
@@ -1167,12 +1171,14 @@ const result = await web2.permit.requestPermit({
   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
-// Delegate permit (session required)
+// Delegate permit (session required); reuse requestId for crash-safe retries
+const requestId = crypto.randomUUID();
 const result = await web2.permit.requestPermit({
   action: 'delegate',
   session,
   secretId: 42,
   payload: { delegatePrincipalId: 'delegate-uuid' },
+  requestId,
   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```

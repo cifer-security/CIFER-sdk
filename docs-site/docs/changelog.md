@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
     instead of the old 4-part `-1_<secretId>_<sessionAddress>_<timestamp>`.
   - `payload` is sent as the exact compact JSON string used to compute `payloadDigest = sha256(UTF-8(payload))` (lowercase hex).
   - Apps that manually built the old 4-part signed string or called `/web2/permit` without `requestId` must upgrade. Prefer `web2.permit.requestPermit()` rather than hand-rolling the Blackbox body.
+  - Requires a Blackbox that understands V2 permit create (dual-accept Blackbox still works; legacy-only clients against V2-only Blackbox do not apply to this SDK release).
 
 ### Changed
 
@@ -30,7 +31,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Documentation
 
-- Added [Web2 Permits](/docs/guides/web2/permits) guide covering rotate, transfer, and delegate with the V2 payload.
+- Added [Web2 Permits](/docs/guides/web2/permits) guide and updated API reference for the V2 payload.
+- See Blackbox follow-up todo for later hard rejection of legacy 4-part clients: `CIFER-blackbox/docs/superpowers/todos/2026-08-02-deprecate-legacy-permit-auth.md`.
 
 ---
 

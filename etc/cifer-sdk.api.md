@@ -1671,6 +1671,7 @@ export interface RequestRotatePermitParams {
     payload: {
         newPublicKey: string;
     };
+    requestId?: string;
 }
 
 // @public
@@ -1682,6 +1683,7 @@ export interface RequestTransferOrDelegatePermitParams {
         newOwnerPrincipalId?: string;
         delegatePrincipalId?: string;
     };
+    requestId?: string;
     secretId: number | bigint;
     session: Web2Session;
 }

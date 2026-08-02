@@ -1618,24 +1618,31 @@ ${SUB_SEPARATOR}
 
 requestPermit(params): Promise<RequestPermitResult>
   Request a permit for key rotation, transfer, or delegation.
+  V2 (0.5.4+): always sends requestId (lowercase UUIDv4; generated when omitted).
+  Transfer/delegate session data is 8-part:
+    -1_<secretId>_<sessionAddress>_<timestamp>_permit_<requestId>_<action>_<payloadDigest>
+  payload is the exact compact JSON string hashed for payloadDigest.
+  Prefer this helper; do not hand-roll the legacy 4-part /web2/permit body.
 
   Rotate permits use email+password (no session):
     Parameters:
       - action: 'rotate'
       - email: string
       - password: string
-      - payload: object
+      - payload: { newPublicKey: string }
+      - requestId?: string (optional lowercase UUIDv4 for exact replay)
       - blackboxUrl: string
 
   Transfer/delegate permits use session:
     Parameters:
       - action: 'transfer' | 'delegate'
       - session: Web2Session
-      - secretId: number
-      - payload: object
+      - secretId: number | bigint
+      - payload: { newOwnerPrincipalId?: string; delegatePrincipalId?: string }
+      - requestId?: string (optional lowercase UUIDv4 for exact replay)
       - blackboxUrl: string
 
-  Returns: { permitId: string }
+  Returns: { success, permitId, action, clusterId, expiresAt, message }
 
 ${SUB_SEPARATOR}
 7.6 web2.principal
@@ -1947,13 +1954,29 @@ interface SetWeb2DelegateParams {
   fetch?: typeof fetch;
 }
 
-interface RequestPermitParams {
-  // Discriminated union on 'action'
-  action: 'rotate' | 'transfer' | 'delegate';
-  // For rotate: email, password, payload
-  // For transfer/delegate: session, secretId, payload
+interface RequestRotatePermitParams {
+  action: 'rotate';
+  email: string;
+  password: string;
+  payload: { newPublicKey: string };
+  requestId?: string; // lowercase UUIDv4; SDK generates when omitted
   blackboxUrl: string;
+  fetch?: typeof fetch;
 }
+
+interface RequestTransferOrDelegatePermitParams {
+  action: 'transfer' | 'delegate';
+  session: Web2Session;
+  secretId: number | bigint;
+  payload: { newOwnerPrincipalId?: string; delegatePrincipalId?: string };
+  requestId?: string; // lowercase UUIDv4; SDK generates when omitted
+  blackboxUrl: string;
+  fetch?: typeof fetch;
+}
+
+type RequestPermitParams =
+  | RequestRotatePermitParams
+  | RequestTransferOrDelegatePermitParams;
 `;
 }
 

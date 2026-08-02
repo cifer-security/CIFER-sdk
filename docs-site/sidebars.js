@@ -64,6 +64,7 @@ const sidebars = {
       items: [
         'guides/web2/authentication',
         'guides/web2/secret-management',
+        'guides/web2/permits',
         'guides/web2/text-encryption',
         'guides/web2/file-encryption',
       ],

@@ -1143,6 +1143,10 @@ await web2.delegate.setDelegate({
 
 Request permits for key rotation, ownership transfer, or delegation changes.
 
+**V2 (SDK 0.5.4+):** always sends `requestId` (UUIDv4) and, for transfer/delegate, an
+8-part session string ending in `_permit_<requestId>_<action>_<payloadDigest>`.
+Optional `requestId` on params enables exact replay; otherwise the SDK generates one.
+
 ```typescript
 // Key rotation (email+password, no session needed)
 const result = await web2.permit.requestPermit({
@@ -1152,7 +1156,7 @@ const result = await web2.permit.requestPermit({
   payload: { newPublicKey: '...' },
   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
-// Returns: { permitId: string }
+// Returns: { permitId: string, ... }
 
 // Transfer ownership (session required)
 const result = await web2.permit.requestPermit({

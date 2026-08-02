@@ -12,6 +12,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [0.5.4] - 2026-08-02
+
+### ⚠️ Breaking Changes
+
+- **`web2.permit.requestPermit()` now always uses the V2 Blackbox permit create contract.**
+  - Sends a lowercase UUIDv4 `requestId` on every call (auto-generated when omitted; optional `requestId` param for exact replay).
+  - Transfer/delegate session `data` is now the **8-part** string:
+    `-1_<secretId>_<sessionAddress>_<timestamp>_permit_<requestId>_<action>_<payloadDigest>`
+    instead of the old 4-part `-1_<secretId>_<sessionAddress>_<timestamp>`.
+  - `payload` is sent as the exact compact JSON string used to compute `payloadDigest = sha256(UTF-8(payload))` (lowercase hex).
+  - Apps that manually built the old 4-part signed string or called `/web2/permit` without `requestId` must upgrade. Prefer `web2.permit.requestPermit()` rather than hand-rolling the Blackbox body.
+
+### Changed
+
+- **`RequestRotatePermitParams` / `RequestTransferOrDelegatePermitParams`** — optional `requestId?: string` for client-owned idempotent retries.
+
+### Documentation
+
+- Added [Web2 Permits](/docs/guides/web2/permits) guide covering rotate, transfer, and delegate with the V2 payload.
+
+---
+
 ## [0.5.3] - 2026-07-24
 
 ### Added

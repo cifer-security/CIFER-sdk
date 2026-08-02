@@ -603,6 +603,11 @@ export interface RequestRotatePermitParams {
   password: string;
   /** JSON payload with newPublicKey */
   payload: { newPublicKey: string };
+  /**
+   * Optional lowercase UUIDv4 for exact replay/recovery.
+   * When omitted, the SDK generates one per call.
+   */
+  requestId?: string;
   /** Blackbox URL */
   blackboxUrl: string;
   /** Custom fetch implementation */
@@ -623,6 +628,12 @@ export interface RequestTransferOrDelegatePermitParams {
   secretId: number | bigint;
   /** JSON payload (newOwnerPrincipalId or delegatePrincipalId) */
   payload: { newOwnerPrincipalId?: string; delegatePrincipalId?: string };
+  /**
+   * Optional lowercase UUIDv4 for exact replay/recovery.
+   * When omitted, the SDK generates one per call. Retain and reuse the same
+   * value to resume an in-flight permit request.
+   */
+  requestId?: string;
   /** Blackbox URL */
   blackboxUrl: string;
   /** Custom fetch implementation */

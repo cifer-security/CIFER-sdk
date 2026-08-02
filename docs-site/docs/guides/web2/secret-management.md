@@ -103,7 +103,9 @@ console.log('Delegate principal:', principal.principalId);
 
 ## Permits
 
-Request permits for key rotation, ownership transfer, or delegation:
+Request permits for key rotation, ownership transfer, or delegation. As of SDK **0.5.4**,
+calls use the **V2** Blackbox contract (`requestId` + 8-part transfer/delegate auth).
+See the dedicated [Permits guide](/docs/guides/web2/permits).
 
 ```typescript
 // Key rotation (uses email + password, no session needed)

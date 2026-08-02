@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.5.3**](../../../../../index.md)
+[**cifer-sdk API Reference v0.5.4**](../../../../../index.md)
 
 ***
 
@@ -8,7 +8,7 @@
 
 ## Description
 
-Web2 permit requests (rotate, transfer, delegate)
+Web2 permit requests (rotate, transfer, delegate) using the V2 Blackbox create contract.
 
 ## Functions
 
@@ -16,14 +16,19 @@ Web2 permit requests (rotate, transfer, delegate)
 
 > **requestPermit**(`params`): `Promise`\<[`RequestPermitResult`](../../../../../index.md#requestpermitresult)\>
 
-Defined in: [web2/permit.ts:58](https://github.com/cifer-security/CIFER-sdk/blob/de978807a12b14b61e1b81198d0c02b0933ff5c6/src/web2/permit.ts#L58)
+Defined in: [web2/permit.ts](https://github.com/cifer-security/CIFER-sdk/blob/main/src/web2/permit.ts)
 
 Request a permit for key rotation, secret transfer, or delegation.
 
 **Rotate permits** use email+password authentication (no session).
 **Transfer/delegate permits** use session-based signing.
 
-Data string format (transfer/delegate): `-1_<secretId>_<sessionAddress>_<timestamp>`
+Always sends V2 fields:
+
+- `requestId` — lowercase UUIDv4 (generated when `params.requestId` is omitted)
+- transfer/delegate `data` —
+  `-1_<secretId>_<sessionAddress>_<timestamp>_permit_<requestId>_<action>_<payloadDigest>`
+- `payload` — exact compact JSON string hashed for `payloadDigest`
 
 #### Parameters
 
@@ -60,3 +65,5 @@ const result = await web2.permit.requestPermit({
   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 ```
+
+See also: [Web2 Permits guide](/docs/guides/web2/permits).

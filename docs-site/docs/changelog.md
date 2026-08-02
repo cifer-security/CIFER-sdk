@@ -32,6 +32,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [0.5.0] - 2026-06-16
 
+This release removed IPFS from the CIFER ML-KEM public-key lifecycle. Blackbox is now the source of truth for public keys, while the existing contract ABI and Blackbox-to-node wire format remain compatible.
+
 ### Added
 
 - **`blackbox.publicKey.getSecretPublicKey()`** — Fetch ML-KEM public keys from the blackbox `POST /secret-public-key` endpoint (Web3 and session-authenticated Web2 via `web2.blackbox.publicKey.getSecretPublicKey()`).
@@ -39,12 +41,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- **Blackbox public-key storage** — Blackbox now persists generated ML-KEM public keys in its own storage and resolves them locally for encryption, decryption, and verification instead of uploading to or fetching from IPFS.
+- **Blackbox-to-node synchronization** — Blackbox sends the base64 ML-KEM public key to CIFER nodes during shard save and secret synchronization. For backward compatibility, the payload and node storage field is still named `publicKeyCid`, but it now empty.
+- **On-chain synchronization** — Contracts were not upgraded. New Web3 secrets store the fixed non-empty sentinel `'cifer'` in the on-chain `publicKeyCid` field, so existing readiness checks such as `isSecretReady()` continue to work.
+- **Node storage and replication** — CIFER nodes store and replicate the base64 public key as opaque text in the legacy `publicKeyCid` field. Nodes do not contact IPFS and private-key shard handling is unchanged.
 - **Discovery defaults** — Examples and discovery docs now reference `https://blackbox.cifersecurity.com:3010` and include Base (`8453`) among supported chains.
 - **Documentation** — Regenerated API reference, guides, and `llm.txt` for the new public-key flow.
+
+### Removed
+
+- **Blackbox IPFS dependency** — Removed IPFS upload/fetch operations, IPFS retry stages, and the requirement for IPFS API configuration at Blackbox startup. Blackbox health discovery no longer advertises an IPFS gateway.
 
 ### Deprecated
 
 - **`ipfsGatewayUrl`** in discovery configuration — Blackbox no longer exposes IPFS; use `blackbox.publicKey.getSecretPublicKey()` instead.
+
+### Migration notes
+
+- SDK-managed encryption and decryption flows continue to use Blackbox and require no application changes.
+- Applications that treated `publicKeyCid` as a retrievable IPFS CID must switch to `blackbox.publicKey.getSecretPublicKey()` or `web2.blackbox.publicKey.getSecretPublicKey()`.
+- The `publicKeyCid` name remains in contract types, events, node payloads, and stored records for compatibility. For new secrets, its value is context-dependent: `'cifer'` on-chain and the base64 ML-KEM public key between Blackbox and nodes.
 
 ## [0.4.0] - 2026-03-09
 

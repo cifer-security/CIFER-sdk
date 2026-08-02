@@ -1,6 +1,6 @@
 {
   "name": "cifer-sdk",
-  "version": "0.3.1",
+  "version": "0.5.3",
   "description": "CIFER SDK - Post-Quantum Cryptographic Infrastructure",
   "type": "module",
   "main": "./dist/cjs/index.js",
@@ -66,6 +66,16 @@
         "types": "./dist/types/internal/adapters/index.d.ts",
         "default": "./dist/cjs/internal/adapters/index.js"
       }
+    },
+    "./web2": {
+      "import": {
+        "types": "./dist/types/web2/index.d.ts",
+        "default": "./dist/esm/web2/index.js"
+      },
+      "require": {
+        "types": "./dist/types/web2/index.d.ts",
+        "default": "./dist/cjs/web2/index.js"
+      }
     }
   },
   "files": [
@@ -81,12 +91,12 @@
     "test:watch": "vitest",
     "clean": "rm -rf dist temp",
     "prepublishOnly": "npm run clean && npm run build",
-    
     "docs:api-extractor": "api-extractor run --local --verbose",
     "docs:api-report": "api-extractor run --local",
     "docs:typedoc": "typedoc",
     "docs:llm": "node scripts/generate-llm-txt.js",
-    "docs:build": "npm run build:types && npm run docs:api-report && npm run docs:typedoc && npm run docs:llm && cd docs-site && npm run build",
+    "docs:changelog": "node scripts/sync-changelog.js",
+    "docs:build": "npm run build:types && npm run docs:api-report && npm run docs:typedoc && npm run docs:llm && npm run docs:changelog && cd docs-site && npm run build",
     "docs:serve": "cd docs-site && npm start",
     "docs:install": "cd docs-site && npm install"
   },
@@ -95,6 +105,7 @@
     "encryption",
     "blockchain",
     "web3",
+    "web2",
     "cryptography",
     "secrets",
     "ml-kem",
@@ -103,6 +114,10 @@
   ],
   "author": "",
   "license": "MIT",
+  "dependencies": {
+    "@noble/secp256k1": "^2.1.0",
+    "@noble/hashes": "^1.4.0"
+  },
   "devDependencies": {
     "@microsoft/api-extractor": "^7.47.0",
     "typedoc": "^0.28.0",

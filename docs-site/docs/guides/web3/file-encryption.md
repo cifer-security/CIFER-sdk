@@ -1,76 +1,23 @@
 ---
-sidebar_position: 2
+sidebar_position: 4
 ---
 
-# Encryption Guide
+# File Encryption
 
-Learn how to encrypt and decrypt data using the CIFER blackbox API.
+Learn how to encrypt and decrypt large files using the CIFER async job system.
 
 ## Overview
 
-The `blackbox` namespace provides three sub-namespaces:
+The `blackbox.files` namespace provides async file encryption and decryption via a job system. Use this for data larger than 16KB. For short text payloads, see [Text Encryption](/docs/guides/web3/text-encryption).
 
-- `payload` - Encrypt/decrypt short messages (< 16KB)
-- `files` - Encrypt/decrypt large files (async via jobs)
-- `jobs` - Manage async file operations
-
-## Payload Encryption
-
-For short messages that fit in a single transaction or API call.
-
-### Encrypt
+## Encrypt a File
 
 ```typescript
 import { blackbox } from 'cifer-sdk';
 
-const encrypted = await blackbox.payload.encryptPayload({
-  chainId: 752025,
-  secretId: 123n,
-  plaintext: 'My secret message',
-  signer,
-  readClient: sdk.readClient,
-  blackboxUrl: sdk.blackboxUrl,
-  outputFormat: 'hex', // or 'base64'
-});
-
-console.log('CIFER envelope:', encrypted.cifer);
-console.log('Encrypted message:', encrypted.encryptedMessage);
-```
-
-### Decrypt
-
-```typescript
-const decrypted = await blackbox.payload.decryptPayload({
-  chainId: 752025,
-  secretId: 123n,
-  encryptedMessage: encrypted.encryptedMessage,
-  cifer: encrypted.cifer,
-  signer,
-  readClient: sdk.readClient,
-  blackboxUrl: sdk.blackboxUrl,
-  inputFormat: 'hex', // or 'base64'
-});
-
-console.log('Decrypted:', decrypted.decryptedMessage);
-```
-
-### Output Formats
-
-| Format | Use Case |
-|--------|----------|
-| `hex` | On-chain storage, JSON APIs |
-| `base64` | Web APIs, compact storage |
-
-## File Encryption
-
-For large files, use the async job system.
-
-### Encrypt a File
-
-```typescript
 // Start the encryption job
 const job = await blackbox.files.encryptFile({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   file: myFile, // File or Blob
   signer,
@@ -100,12 +47,12 @@ const encryptedBlob = await blackbox.jobs.download(job.jobId, {
 saveAs(encryptedBlob, 'encrypted.cifer');
 ```
 
-### Decrypt a File
+## Decrypt a File
 
 ```typescript
 // Upload for decryption
 const job = await blackbox.files.decryptFile({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   file: encryptedCiferFile,
   signer,
@@ -119,20 +66,20 @@ const status = await blackbox.jobs.pollUntilComplete(job.jobId, sdk.blackboxUrl)
 // Download (auth required for decrypt jobs)
 const decryptedBlob = await blackbox.jobs.download(job.jobId, {
   blackboxUrl: sdk.blackboxUrl,
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   signer,
   readClient: sdk.readClient,
 });
 ```
 
-### Decrypt Existing File
+## Decrypt Existing File
 
 Re-decrypt a previously encrypted file without re-uploading:
 
 ```typescript
 const job = await blackbox.files.decryptExistingFile({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   encryptJobId: 'previous-encrypt-job-id',
   signer,
@@ -189,7 +136,7 @@ console.log('Type:', status.type);
 
 ```typescript
 const result = await blackbox.jobs.list({
-  chainId: 752025,
+  chainId: 8453,
   signer,
   readClient: sdk.readClient,
   blackboxUrl: sdk.blackboxUrl,
@@ -205,7 +152,7 @@ for (const job of result.jobs) {
 
 ```typescript
 await blackbox.jobs.deleteJob(jobId, {
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   signer,
   readClient: sdk.readClient,
@@ -219,7 +166,7 @@ Check your usage limits:
 
 ```typescript
 const usage = await blackbox.jobs.dataConsumption({
-  chainId: 752025,
+  chainId: 8453,
   signer,
   readClient: sdk.readClient,
   blackboxUrl: sdk.blackboxUrl,
@@ -243,7 +190,7 @@ import {
 } from 'cifer-sdk';
 
 try {
-  await blackbox.payload.encryptPayload({ ... });
+  await blackbox.files.encryptFile({ ... });
 } catch (error) {
   if (isBlockStaleError(error)) {
     // SDK already retried - this indicates a persistent issue
@@ -268,7 +215,7 @@ The SDK doesn't log by default. To see progress messages, pass a `logger` when c
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   logger: console.log,
 });
 ```
@@ -278,22 +225,7 @@ See [Debugging & Logging](/docs/getting-started/concepts#debugging--logging) for
 
 ## Best Practices
 
-### 1. Choose the Right Method
-
-| Data Size | Method |
-|-----------|--------|
-| < 16 KB | `payload.encryptPayload` |
-| > 16 KB | `files.encryptFile` |
-
-### 2. Handle Block Freshness
-
-The SDK automatically retries on stale block errors, but you should:
-
-- Use reliable RPC endpoints
-- Minimize time between signing and API calls
-- Consider retry logic for persistent failures
-
-### 3. Secure File Handling
+### 1. Secure File Handling
 
 ```typescript
 // Use Blob/File APIs properly
@@ -303,7 +235,7 @@ const file = new File([content], 'data.txt', { type: 'text/plain' });
 URL.revokeObjectURL(downloadUrl);
 ```
 
-### 4. Monitor Job Progress
+### 2. Monitor Job Progress
 
 ```typescript
 const status = await blackbox.jobs.pollUntilComplete(jobId, blackboxUrl, {
@@ -314,10 +246,17 @@ const status = await blackbox.jobs.pollUntilComplete(jobId, blackboxUrl, {
 });
 ```
 
-### 5. Handle Large Files
+### 3. Handle Large Files
 
 For very large files:
 
 - Show progress to users
 - Support cancellation
 - Implement chunked uploads (future SDK feature)
+
+## Next Steps
+
+- [Text Encryption](/docs/guides/web3/text-encryption) - Encrypt and decrypt short text payloads
+- [Secret Management](/docs/guides/web3/secret-management) - Create and manage secrets
+- [Flows](/docs/guides/web3/flows) - High-level orchestrated operations
+- Looking for Web2? See [File Encryption (Web2)](/docs/guides/web2/file-encryption)

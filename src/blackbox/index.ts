@@ -48,6 +48,10 @@ export * as files from './files.js';
 // Job operations
 export * as jobs from './jobs.js';
 
+// Public key fetch
+export * as publicKey from './publicKey.js';
+export { getSecretPublicKey } from './publicKey.js';
+
 // Re-export commonly used types
 export type {
   EncryptPayloadParams,
@@ -69,3 +73,8 @@ export type {
   ListJobsResult,
   DataConsumptionParams,
 } from './jobs.js';
+
+export type {
+  GetSecretPublicKeyParams,
+  GetSecretPublicKeyResult,
+} from './publicKey.js';

@@ -331,7 +331,8 @@ export async function getSecretsCountByWallet(
 /**
  * Check if a secret is ready (not syncing)
  *
- * A secret is ready when isSyncing is false and publicKeyCid is set.
+ * A secret is ready when isSyncing is false and publicKeyCid is non-empty
+ * (new secrets use the on-chain placeholder; fetch the real key from blackbox).
  *
  * @param params - Read parameters
  * @param secretId - The secret ID to check

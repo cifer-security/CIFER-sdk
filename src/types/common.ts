@@ -59,12 +59,42 @@ export type Hex = `0x${string}`;
  *
  * @remarks
  * Common chain IDs used with CIFER:
- * - `752025` - Ternoa Mainnet
+ * - `8453` - Base Mainnet (primary coordination chain; hosts ClusterRegistry)
+ * - `752025` - Ternoa Mainnet (multichain peer)
  * - `11155111` - Ethereum Sepolia (testnet)
+ * - `-1` - Web2 mode (see {@link WEB2_CHAIN_ID})
  *
  * @public
  */
 export type ChainId = number;
+
+/**
+ * Sentinel chain ID for Web2 mode.
+ *
+ * @remarks
+ * When `chainId` is set to `WEB2_CHAIN_ID` (`-1`), the SDK uses
+ * timestamp-based freshness (milliseconds) instead of block numbers,
+ * and session-based EOA signatures instead of wallet signatures.
+ *
+ * @public
+ */
+export const WEB2_CHAIN_ID = -1 as const;
+
+/**
+ * Primary coordination chain — hosts `CiferClusterRegistry` on blackbox/node.
+ * Must match blackbox `PRIMARY_CHAIN_ID`.
+ */
+export const PRIMARY_CHAIN_ID = 8453 as const;
+
+/** Ternoa mainnet — ordinary multichain peer (no cluster registry). */
+export const TERNOA_CHAIN_ID = 752025 as const;
+
+/**
+ * On-chain `publicKeyCid` value when blackbox does not use IPFS (no contract upgrade).
+ *
+ * @public
+ */
+export const ON_CHAIN_PUBLIC_KEY_PLACEHOLDER = 'cifer';
 
 /**
  * Secret ID (uint256 on-chain, represented as bigint).
@@ -216,7 +246,10 @@ export interface SecretState {
   clusterId: number;
   /** Secret type (1 = standard ML-KEM-768 encryption) */
   secretType: number;
-  /** IPFS CID of the public key (empty string if still syncing) */
+  /**
+   * On-chain readiness marker. New secrets use {@link ON_CHAIN_PUBLIC_KEY_PLACEHOLDER}.
+   * Fetch the actual ML-KEM public key via `blackbox.publicKey.getSecretPublicKey()`.
+   */
   publicKeyCid: string;
 }
 
@@ -297,52 +330,63 @@ export interface JobInfo {
   ttl: number;
   /** Original file size in bytes */
   originalSize?: number;
+  /** Web2 principalId of job initiator. null for Web3 jobs. */
+  signerPrincipalId?: string | null;
+  /** Web2 principalId of secret owner. null for Web3 jobs. */
+  secretOwnerPrincipalId?: string | null;
 }
 
 /**
- * Data consumption/usage statistics for a wallet.
+ * Usage statistics for a single direction (encryption or decryption).
+ *
+ * @public
+ */
+export interface UsageStats {
+  /** Data limit in bytes */
+  limit: number;
+  /** Data used in bytes */
+  used: number;
+  /** Data remaining in bytes */
+  remaining: number;
+  /** Number of operations performed */
+  count: number;
+  /** Request limit per billing cycle */
+  requestLimit: number;
+  /** Rate limit (requests per second) */
+  rateLimit: number;
+  /** Limit in GB */
+  limitGB: number;
+  /** Used in GB */
+  usedGB: number;
+  /** Remaining in GB */
+  remainingGB: number;
+}
+
+/**
+ * Data consumption/usage statistics for a user.
  *
  * @remarks
- * The blackbox tracks encryption and decryption usage per wallet
- * for rate limiting and billing purposes.
+ * The blackbox tracks encryption and decryption usage per user
+ * for rate limiting and billing purposes. The `userId` identifies
+ * the user (wallet address for Web3, principalId for Web2).
  *
  * @public
  */
 export interface DataConsumption {
-  /** Wallet address */
-  wallet: Address;
+  /** User identifier (wallet address for web3, principalId for web2) */
+  userId: string;
+  /** User type ('web3' or 'web2') */
+  userType: string;
+  /** Plan identifier (e.g. 'free') */
+  planId: string;
+  /** Billing cycle type (e.g. 'monthly') */
+  cycleType: string;
+  /** Billing period start (ISO 8601) */
+  periodStart: string;
+  /** Billing period end (ISO 8601) */
+  periodEnd: string;
   /** Encryption usage statistics */
-  encryption: {
-    /** Limit in bytes */
-    limit: number;
-    /** Used in bytes */
-    used: number;
-    /** Remaining in bytes */
-    remaining: number;
-    /** Number of encryption operations */
-    count: number;
-    /** Limit in GB */
-    limitGB: number;
-    /** Used in GB */
-    usedGB: number;
-    /** Remaining in GB */
-    remainingGB: number;
-  };
+  encryption: UsageStats;
   /** Decryption usage statistics */
-  decryption: {
-    /** Limit in bytes */
-    limit: number;
-    /** Used in bytes */
-    used: number;
-    /** Remaining in bytes */
-    remaining: number;
-    /** Number of decryption operations */
-    count: number;
-    /** Limit in GB */
-    limitGB: number;
-    /** Used in GB */
-    usedGB: number;
-    /** Remaining in GB */
-    remainingGB: number;
-  };
+  decryption: UsageStats;
 }

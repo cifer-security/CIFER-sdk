@@ -84,7 +84,7 @@ import { DecryptFile } from "./decrypt-file"
 // ---------------------------------------------------------------------------
 
 /** The Blackbox API URL used for SDK discovery */
-const BLACKBOX_URL = "https://cifer-blackbox.ternoa.dev:3010"
+const BLACKBOX_URL = "https://blackbox.cifersecurity.com:3010"
 
 // ---------------------------------------------------------------------------
 // Create the Thirdweb client.

@@ -2,9 +2,13 @@
 sidebar_position: 2
 ---
 
-# Quick Start
+# Quick Start (Web3)
 
-Get up and running with CIFER encryption in 5 minutes.
+Get up and running with CIFER wallet-based encryption in 5 minutes.
+
+:::info Looking for Web2?
+This guide covers **Web3** (wallet-based) usage. If you want to use CIFER with **email + password** instead of a wallet, see the [Quick Start (Web2)](/docs/getting-started/quick-start-web2).
+:::
 
 :::tip Using AI Assistants?
 Point your AI agent (ChatGPT, Claude, Cursor, etc.) to [`llm.txt`](/llm.txt) — a comprehensive plaintext reference designed for AI consumption. This helps agents understand the SDK and implement features more accurately.
@@ -17,7 +21,7 @@ import { createCiferSdk, Eip1193SignerAdapter } from 'cifer-sdk';
 
 // Create SDK with auto-discovery
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Connect your wallet
@@ -36,7 +40,7 @@ Secrets are the foundation of CIFER encryption. Each secret has an owner who can
 import { keyManagement } from 'cifer-sdk';
 
 // Configuration
-const chainId = 752025; // Ternoa mainnet
+const chainId = 8453; // Base mainnet
 const controllerAddress = sdk.getControllerAddress(chainId);
 
 // Get the creation fee
@@ -81,7 +85,7 @@ Once your secret is ready, you can encrypt data:
 import { blackbox } from 'cifer-sdk';
 
 const encrypted = await blackbox.payload.encryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n, // Your secret ID
   plaintext: 'Hello, quantum-resistant world!',
   signer,
@@ -99,7 +103,7 @@ Only the secret owner (or delegate) can decrypt:
 
 ```typescript
 const decrypted = await blackbox.payload.decryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   encryptedMessage: encrypted.encryptedMessage,
   cifer: encrypted.cifer,
@@ -158,7 +162,7 @@ import {
 async function main() {
   // 1. Initialize
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
@@ -167,8 +171,8 @@ async function main() {
   
   // 3. Check if secret is ready
   const isReady = await keyManagement.isSecretReady({
-    chainId: 752025,
-    controllerAddress: sdk.getControllerAddress(752025),
+    chainId: 8453,
+    controllerAddress: sdk.getControllerAddress(8453),
     readClient: sdk.readClient,
   }, secretId);
   
@@ -178,7 +182,7 @@ async function main() {
   
   // 4. Encrypt
   const encrypted = await blackbox.payload.encryptPayload({
-    chainId: 752025,
+    chainId: 8453,
     secretId,
     plaintext: 'My secret data',
     signer,
@@ -188,7 +192,7 @@ async function main() {
   
   // 5. Decrypt
   const decrypted = await blackbox.payload.decryptPayload({
-    chainId: 752025,
+    chainId: 8453,
     secretId,
     encryptedMessage: encrypted.encryptedMessage,
     cifer: encrypted.cifer,
@@ -206,5 +210,7 @@ main().catch(console.error);
 ## Next Steps
 
 - [Core Concepts](/docs/getting-started/concepts) - Understand secrets, delegation, and the encryption model
-- [Key Management Guide](/docs/guides/key-management) - Deep dive into secret management
-- [Encryption Guide](/docs/guides/encryption) - Learn about payload and file encryption
+- [Secret Management](/docs/guides/web3/secret-management) - Deep dive into secret management
+- [Text Encryption](/docs/guides/web3/text-encryption) - Learn about payload encryption
+- [File Encryption](/docs/guides/web3/file-encryption) - Encrypt and decrypt large files
+- [Quick Start (Web2)](/docs/getting-started/quick-start-web2) - Use CIFER with email + password (no wallet)

@@ -1,8 +1,8 @@
 ---
-sidebar_position: 3
+sidebar_position: 5
 ---
 
-# Commitments Guide
+# On-Chain Commitments
 
 Learn how to store and retrieve encrypted data on-chain.
 
@@ -47,7 +47,7 @@ sequenceDiagram
 import { blackbox } from 'cifer-sdk';
 
 const encrypted = await blackbox.payload.encryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   plaintext: 'My confidential data',
   signer,
@@ -73,7 +73,7 @@ commitments.validateForStorage(
 
 ```typescript
 const txIntent = commitments.buildStoreCommitmentTx({
-  chainId: 752025,
+  chainId: 8453,
   contractAddress: '0xYourContract...',
   storeFunction: {
     type: 'function',
@@ -101,7 +101,7 @@ await wallet.sendTransaction(txIntent);
 
 ```typescript
 const metadata = await commitments.getCIFERMetadata({
-  chainId: 752025,
+  chainId: 8453,
   contractAddress: '0xYourContract...',
   readClient: sdk.readClient,
 }, dataKey);
@@ -114,7 +114,7 @@ console.log('Stored at block:', metadata.storedAtBlock);
 
 ```typescript
 const data = await commitments.fetchCommitmentFromLogs({
-  chainId: 752025,
+  chainId: 8453,
   contractAddress: '0xYourContract...',
   dataId: dataKey,
   storedAtBlock: metadata.storedAtBlock,
@@ -133,7 +133,7 @@ commitments.assertCommitmentIntegrity(data, metadata);
 
 ```typescript
 const decrypted = await blackbox.payload.decryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: metadata.secretId,
   encryptedMessage: data.encryptedMessage,
   cifer: data.cifer,
@@ -188,7 +188,7 @@ if (result.success) {
 
 ```typescript
 const exists = await commitments.ciferDataExists({
-  chainId: 752025,
+  chainId: 8453,
   contractAddress: '0xYourContract...',
   readClient: sdk.readClient,
 }, dataKey);
@@ -202,7 +202,7 @@ if (exists) {
 
 ```typescript
 const metadata = await commitments.getCIFERMetadata({
-  chainId: 752025,
+  chainId: 8453,
   contractAddress: '0xYourContract...',
   readClient: sdk.readClient,
 }, dataKey);
@@ -327,7 +327,7 @@ The SDK doesn't log by default. Enable debug output when troubleshooting:
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   logger: console.log,
 });
 ```
@@ -342,3 +342,9 @@ See [Debugging & Logging](/docs/getting-started/concepts#debugging--logging) for
 3. **Use retry logic** - Log queries may fail due to RPC issues
 4. **Cache metadata** - Store block numbers to avoid redundant queries
 5. **Batch operations** - Fetch multiple logs in a single query when possible
+
+## Next Steps
+
+- [Text Encryption](/docs/guides/web3/text-encryption) - Encrypt and decrypt text payloads
+- [Flows](/docs/guides/web3/flows) - High-level orchestrated operations
+- [Secret Management](/docs/guides/web3/secret-management) - Create and manage secrets

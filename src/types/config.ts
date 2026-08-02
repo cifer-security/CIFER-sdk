@@ -60,10 +60,25 @@ export interface DiscoveryResult {
   supportedChains: ChainId[];
   /** Per-chain configuration */
   chains: ChainConfig[];
-  /** IPFS gateway URL for fetching public keys */
+  /**
+   * @deprecated Blackbox no longer exposes IPFS. Use `blackbox.publicKey.getSecretPublicKey()`.
+   */
   ipfsGatewayUrl?: string;
   /** Unix timestamp (ms) when this discovery result was fetched */
   fetchedAt: number;
+  /**
+   * Blackbox server's own clock at the moment it handled the `/healthz` request,
+   * as a Unix timestamp (ms).
+   *
+   * @remarks
+   * Useful for client-side device clock integrity checks: compare `Date.now()`
+   * against `serverTime` to detect a misconfigured or manipulated device clock,
+   * independent of network latency (both are captured close together — `fetchedAt`
+   * is set immediately after the response is parsed).
+   *
+   * Optional for backward compatibility with Blackbox deployments predating this field.
+   */
+  serverTime?: number;
 }
 
 /**
@@ -84,14 +99,14 @@ export interface DiscoveryResult {
  * @example Discovery mode
  * ```typescript
  * const sdk = await createCiferSdk({
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  * });
  * ```
  *
  * @example With overrides
  * ```typescript
  * const sdk = await createCiferSdk({
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  *   chainOverrides: {
  *     752025: {
  *       rpcUrl: 'https://my-private-rpc.example.com',
@@ -104,7 +119,7 @@ export interface DiscoveryResult {
  */
 export interface CiferSdkConfig {
   /**
-   * Blackbox URL (e.g., 'https://cifer-blackbox.ternoa.dev:3010').
+   * Blackbox URL (e.g., 'https://blackbox.cifersecurity.com:3010').
    *
    * @remarks
    * If provided, the SDK will perform discovery by calling the `/healthz`

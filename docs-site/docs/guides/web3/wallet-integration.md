@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 1
 ---
 
 # Wallet Integration
@@ -31,7 +31,7 @@ import { createCiferSdk, Eip1193SignerAdapter } from 'cifer-sdk';
 
 // Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Check if MetaMask is installed
@@ -88,13 +88,13 @@ import { EthereumProvider } from '@walletconnect/ethereum-provider';
 
 // Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Create WalletConnect provider
 const provider = await EthereumProvider.init({
   projectId: 'YOUR_WALLETCONNECT_PROJECT_ID', // Get from cloud.walletconnect.com
-  chains: [752025], // Ternoa mainnet
+  chains: [8453], // Base mainnet
   optionalChains: [1, 11155111], // Ethereum mainnet, Sepolia
   showQrModal: true,
   metadata: {
@@ -133,11 +133,6 @@ Thirdweb provides a unified wallet SDK that supports multiple wallet types.
 ```bash
 npm install thirdweb
 ```
-
-:::warning Ternoa Chain Definition Required
-Thirdweb's RPC proxy does **not** support Ternoa (chain ID 752025). You must define the chain explicitly with its RPC URL using `defineChain()`. Without this, Thirdweb will route requests to its own proxy and return "Invalid chain". Standard chains (Sepolia, Polygon, etc.) work fine with just `defineChain(chainId)`.
-:::
-
 ```typescript
 import { createCiferSdk, Eip1193SignerAdapter } from 'cifer-sdk';
 import { createThirdwebClient, defineChain } from 'thirdweb';
@@ -145,7 +140,7 @@ import { createWallet, injectedProvider } from 'thirdweb/wallets';
 
 // Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Create Thirdweb client
@@ -156,7 +151,7 @@ const thirdwebClient = createThirdwebClient({
 // IMPORTANT: Ternoa is not in Thirdweb's built-in chain registry.
 // You MUST define it explicitly with its RPC URL.
 const ternoa = defineChain({
-  id: 752025,
+  id: 8453,
   name: 'Ternoa',
   nativeCurrency: { name: 'CAPS', symbol: 'CAPS', decimals: 18 },
   rpc: 'https://rpc-mainnet.zkevm.ternoa.network/',
@@ -236,7 +231,7 @@ import type { SignerAdapter } from 'cifer-sdk';
 
 // Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Create ethers wallet from private key
@@ -269,7 +264,7 @@ import type { SignerAdapter } from 'cifer-sdk';
 
 // Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Create account from private key
@@ -301,7 +296,7 @@ import type { SignerAdapter } from 'cifer-sdk';
 
 // Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 const privateKeyHex = process.env.PRIVATE_KEY!.replace('0x', '');
@@ -381,13 +376,13 @@ function EncryptButton() {
 
   const handleEncrypt = async () => {
     const sdk = await createCiferSdk({
-      blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+      blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
     });
     
     const signer = await getSigner();
     
     const encrypted = await blackbox.payload.encryptPayload({
-      chainId: 752025,
+      chainId: 8453,
       secretId: 123n,
       plaintext: 'Hello from wagmi!',
       signer,
@@ -422,7 +417,7 @@ import { CoinbaseWalletSDK } from '@coinbase/wallet-sdk';
 
 // Initialize SDK
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Create Coinbase Wallet SDK
@@ -513,6 +508,6 @@ async function createSigner(type: WalletType): Promise<SignerAdapter> {
 
 ## Next Steps
 
-- [Quick Start](/docs/getting-started/quick-start) - Use your connected wallet to encrypt data
+- [Quick Start (Web3)](/docs/getting-started/quick-start) - Use your connected wallet to encrypt data
+- [Secret Management](/docs/guides/web3/secret-management) - Create and manage secrets
 - [Core Concepts](/docs/getting-started/concepts) - Understand secrets and the encryption model
-- [Key Management Guide](/docs/guides/key-management) - Create and manage secrets

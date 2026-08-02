@@ -21,7 +21,7 @@ import {
 } from 'cifer-sdk';
 
 // Constants
-const BLACKBOX_URL = 'https://cifer-blackbox.ternoa.dev:3010';
+const BLACKBOX_URL = 'https://blackbox.cifersecurity.com:3010';
 const CHAIN_ID = 752025;
 
 /**

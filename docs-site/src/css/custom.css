@@ -239,7 +239,32 @@ div[class*='announcementBar'] {
 /* ── Navbar border ──────────────────────────────────── */
 .navbar {
   border-bottom: 1px solid #27272a;
-  backdrop-filter: blur(16px);
+}
+
+/* Only blur on desktop, where the navbar has a translucent backdrop.
+   On mobile, backdrop-filter creates a stacking/containing-block context
+   that traps the slide-out menu (.navbar-sidebar) behind page content. */
+@media screen and (min-width: 997px) {
+  .navbar {
+    backdrop-filter: blur(16px);
+  }
+}
+
+/* ── Mobile navbar sidebar (slide-out menu) ─────────────
+   The navbar's backdrop-filter creates a stacking context that can
+   trap the mobile menu behind page content. Force a solid background
+   and elevate it (plus its backdrop) above everything else. */
+.navbar-sidebar {
+  background-color: var(--ifm-background-color);
+  z-index: calc(var(--ifm-z-index-fixed) + 10);
+}
+
+.navbar-sidebar__backdrop {
+  z-index: calc(var(--ifm-z-index-fixed) + 5);
+}
+
+.navbar-sidebar__items {
+  background-color: var(--ifm-background-color);
 }
 
 .navbar__title {

@@ -14,6 +14,7 @@ import {
   decodeCiferDataExists,
 } from '../internal/abi/cifer-encrypted.js';
 import { CommitmentsError, CommitmentNotFoundError } from '../internal/errors/index.js';
+import { keccak_256 } from '@noble/hashes/sha3';
 
 /**
  * CIFER envelope size in bytes (1104)
@@ -141,27 +142,13 @@ export async function ciferDataExists(
 }
 
 /**
- * Compute a keccak256 hash for integrity verification
+ * Compute a keccak256 hash for integrity verification.
  *
- * This is a simple implementation using the Web Crypto API.
- * For production use with full compatibility, consider using
- * a dedicated crypto library.
+ * Uses `@noble/hashes` (pure JS, no Web Crypto dependency) so it works
+ * in Node.js, browsers, and React Native.
  */
-export async function keccak256(data: Uint8Array): Promise<Bytes32> {
-  // Simple keccak256 implementation
-  // In a real SDK, you'd want to use a proper library
-  // This is a placeholder that uses SHA-256 as a stand-in
-  // for environments where keccak256 isn't available
-  
-  // For proper keccak256, you would:
-  // 1. Use a library like js-sha3 or noble-hashes
-  // 2. Or implement the algorithm
-  
-  // This is a simplified placeholder
-  // Ensure we have a proper ArrayBuffer view for crypto.subtle.digest
-  const buffer = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength) as ArrayBuffer;
-  const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
-  const hashArray = new Uint8Array(hashBuffer);
+export function keccak256(data: Uint8Array): Bytes32 {
+  const hashArray = keccak_256(data);
   let hex = '0x';
   for (const byte of hashArray) {
     hex += byte.toString(16).padStart(2, '0');

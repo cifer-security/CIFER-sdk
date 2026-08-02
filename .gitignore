@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+.next/
 .cursor/
 # Build output
 dist/
@@ -36,3 +37,7 @@ temp/
 docs-site/.docusaurus/
 docs-site/build/
 docs-site/node_modules/
+
+# MemPalace per-project files (issue #185)
+mempalace.yaml
+entities.json

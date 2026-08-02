@@ -29,7 +29,7 @@ import {
  *
  * @example
  * ```typescript
- * const status = await getStatus('job-id', 'https://cifer-blackbox.ternoa.dev:3010');
+ * const status = await getStatus('job-id', 'https://blackbox.cifersecurity.com:3010');
  *
  * if (status.status === 'completed') {
  *   console.log('Job complete! Progress:', status.progress);
@@ -81,6 +81,8 @@ export async function getStatus(
       resultFileName?: string;
       ttl: number;
       originalSize?: number;
+      signerPrincipalId?: string | null;
+      secretOwnerPrincipalId?: string | null;
     };
   };
 
@@ -98,6 +100,8 @@ export async function getStatus(
     resultFileName: result.job.resultFileName,
     ttl: result.job.ttl,
     originalSize: result.job.originalSize,
+    signerPrincipalId: result.job.signerPrincipalId,
+    secretOwnerPrincipalId: result.job.secretOwnerPrincipalId,
   };
 }
 
@@ -133,12 +137,12 @@ export interface DownloadParams {
  * ```typescript
  * // Encrypt job (no auth)
  * const encryptedBlob = await download(encryptJobId, {
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  * });
  *
  * // Decrypt job (auth required)
  * const decryptedBlob = await download(decryptJobId, {
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  *   chainId: 752025,
  *   secretId: 123n,
  *   signer,
@@ -262,7 +266,7 @@ export interface DeleteParams {
  *   secretId: 123n,
  *   signer,
  *   readClient,
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  * });
  * ```
  */
@@ -359,7 +363,7 @@ export interface ListJobsResult {
  *   chainId: 752025,
  *   signer,
  *   readClient,
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  *   includeExpired: false,
  * });
  *
@@ -432,6 +436,8 @@ export async function list(params: ListJobsParams): Promise<ListJobsResult> {
           resultFileName?: string;
           ttl: number;
           originalSize?: number;
+          signerPrincipalId?: string | null;
+          secretOwnerPrincipalId?: string | null;
         }>;
         count: number;
         includeExpired: boolean;
@@ -452,6 +458,8 @@ export async function list(params: ListJobsParams): Promise<ListJobsResult> {
           resultFileName: job.resultFileName,
           ttl: job.ttl,
           originalSize: job.originalSize,
+          signerPrincipalId: job.signerPrincipalId,
+          secretOwnerPrincipalId: job.secretOwnerPrincipalId,
         })),
         count: result.count,
         includeExpired: result.includeExpired,
@@ -491,9 +499,11 @@ export interface DataConsumptionParams {
  *   chainId: 752025,
  *   signer,
  *   readClient,
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  * });
  *
+ * console.log('User:', usage.userId, '(', usage.userType, ')');
+ * console.log('Plan:', usage.planId, '— cycle:', usage.cycleType);
  * console.log('Encryption used:', usage.encryption.usedGB, 'GB');
  * console.log('Encryption remaining:', usage.encryption.remainingGB, 'GB');
  * ```
@@ -544,12 +554,19 @@ export async function dataConsumption(
 
       const result = (await response.json()) as {
         success: boolean;
-        wallet: string;
+        user_id: string;
+        user_type: string;
+        plan_id: string;
+        cycle_type: string;
+        period_start: string;
+        period_end: string;
         encryption: {
           limit: number;
           used: number;
           remaining: number;
           count: number;
+          requestLimit: number;
+          rateLimit: number;
           limitGB: number;
           usedGB: number;
           remainingGB: number;
@@ -559,6 +576,8 @@ export async function dataConsumption(
           used: number;
           remaining: number;
           count: number;
+          requestLimit: number;
+          rateLimit: number;
           limitGB: number;
           usedGB: number;
           remainingGB: number;
@@ -566,7 +585,12 @@ export async function dataConsumption(
       };
 
       return {
-        wallet: result.wallet as `0x${string}`,
+        userId: result.user_id,
+        userType: result.user_type,
+        planId: result.plan_id,
+        cycleType: result.cycle_type,
+        periodStart: result.period_start,
+        periodEnd: result.period_end,
         encryption: result.encryption,
         decryption: result.decryption,
       };

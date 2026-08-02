@@ -25,3 +25,4 @@ export * from './common.js';
 export * from './tx-intent.js';
 export * from './adapters.js';
 export * from './config.js';
+export * from './web2.js';

@@ -650,6 +650,71 @@ export class FlowTimeoutError extends FlowError {
 }
 
 // ============================================================================
+// Web2 Errors
+// ============================================================================
+
+/**
+ * Base error class for Web2-specific errors.
+ *
+ * @public
+ */
+export class Web2Error extends CiferError {
+  /**
+   * @param message - Description of the Web2 error
+   * @param cause - Original error
+   */
+  constructor(message: string, cause?: Error) {
+    super(message, 'WEB2_ERROR', cause);
+    this.name = 'Web2Error';
+  }
+}
+
+/**
+ * Error thrown when a Web2 session is expired, missing, or cannot be renewed.
+ *
+ * @remarks
+ * This error is thrown when:
+ * - A managed session has expired and renewal failed
+ * - An existing-key session has expired (cannot be renewed without Ed25519)
+ * - The server reports "no active session"
+ *
+ * @public
+ */
+export class Web2SessionError extends Web2Error {
+  /**
+   * @param message - Description of the session error
+   * @param cause - Original error
+   */
+  constructor(message: string, cause?: Error) {
+    super(message, cause);
+    this.name = 'Web2SessionError';
+  }
+}
+
+/**
+ * Error thrown when a Web2 authentication operation fails.
+ *
+ * @remarks
+ * This error is thrown for failures in:
+ * - Registration (email/password validation)
+ * - Email verification (invalid/expired OTP)
+ * - Key registration (Ed25519 signature invalid, password wrong)
+ * - Password reset flows
+ *
+ * @public
+ */
+export class Web2AuthError extends Web2Error {
+  /**
+   * @param message - Description of the auth error
+   * @param cause - Original error
+   */
+  constructor(message: string, cause?: Error) {
+    super(message, cause);
+    this.name = 'Web2AuthError';
+  }
+}
+
+// ============================================================================
 // Type Guards
 // ============================================================================
 
@@ -702,6 +767,30 @@ export function isSecretNotReadyError(
   error: unknown
 ): error is SecretNotReadyError {
   return error instanceof SecretNotReadyError;
+}
+
+/**
+ * Check if an error is a Web2-specific error.
+ *
+ * @param error - The error to check
+ * @returns `true` if the error is an instance of {@link Web2Error}
+ *
+ * @public
+ */
+export function isWeb2Error(error: unknown): error is Web2Error {
+  return error instanceof Web2Error;
+}
+
+/**
+ * Check if an error is a Web2 session error.
+ *
+ * @param error - The error to check
+ * @returns `true` if the error is an instance of {@link Web2SessionError}
+ *
+ * @public
+ */
+export function isWeb2SessionError(error: unknown): error is Web2SessionError {
+  return error instanceof Web2SessionError;
 }
 
 /**

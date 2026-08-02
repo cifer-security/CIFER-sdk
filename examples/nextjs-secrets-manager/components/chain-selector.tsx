@@ -10,7 +10,7 @@
  * are populated during SDK discovery from the Blackbox /healthz endpoint.
  *
  * Each chain has:
- * - A chain ID (e.g. 752025 for Ternoa, 11155111 for Sepolia)
+ * - A chain ID (e.g. 8453 for Base, 752025 for Ternoa, 11155111 for Sepolia)
  * - An RPC URL (from discovery)
  * - A SecretsController contract address (from discovery)
  */
@@ -64,11 +64,11 @@ export function ChainSelector({
   selectedChainId,
   onChainChange,
 }: ChainSelectorProps) {
-  // Sort chains with Ternoa first (primary chain), then alphabetically
+  // Sort chains with Base first (primary coordination chain), then alphabetically
   const sortedChains = useMemo(() => {
     return [...chainIds].sort((a, b) => {
-      if (a === 752025) return -1
-      if (b === 752025) return 1
+      if (a === 8453) return -1
+      if (b === 8453) return 1
       return getChainName(a).localeCompare(getChainName(b))
     })
   }, [chainIds])

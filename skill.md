@@ -1,6 +1,6 @@
 # CIFER SDK - Quantum-Resistant Blockchain Encryption
 
-> **Skill for AI Agents** | Enable quantum-resistant encryption in blockchain applications using the CIFER SDK.
+> **Skill for AI Agents** | Enable quantum-resistant encryption in blockchain applications using the CIFER SDK (v0.5.3).
 
 ## Overview
 
@@ -10,10 +10,19 @@ CIFER (Cryptographic Infrastructure for Encrypted Records) SDK provides quantum-
 
 - **Quantum-Resistant Encryption**: ML-KEM-768 (NIST standardized) key encapsulation
 - **Multi-Chain Support**: Automatic chain discovery and configuration
-- **Wallet Agnostic**: Works with MetaMask, WalletConnect, Coinbase, Thirdweb, and custom signers
+- **Wallet Agnostic**: Works with any EIP-1193 provider — zero wallet dependencies, bring your own wallet
+- **Web2 Mode**: Email + password registration with session-based auth (no wallet needed)
 - **File Encryption**: Async job system for large file encryption/decryption
 - **On-Chain Commitments**: Store encrypted data references on-chain with log-based retrieval
 - **Transaction Intents**: Non-custodial pattern - you control transaction execution
+- **High-Level Flows**: Orchestrated operations for common patterns
+
+### Architecture
+
+- **SecretsController** (on-chain): Manages secret ownership and delegation
+- **Blackbox API** (off-chain): Handles encryption/decryption operations
+- **Enclave Cluster**: Stores private key shards using threshold cryptography
+- **IPFS**: Stores public keys for encryption
 
 ## When to Use This Skill
 
@@ -24,6 +33,7 @@ Use the CIFER SDK when you need to:
 - Manage encryption keys with owner/delegate authorization
 - Encrypt files larger than 16KB using the job system
 - Build applications requiring post-quantum security
+- Build walletless apps with email-based authentication (Web2 mode)
 
 ## Installation
 
@@ -37,6 +47,27 @@ pnpm add cifer-sdk
 
 **Requirements**: Node.js 18.0+, TypeScript 5.0+ (recommended)
 
+**Runtime Dependencies**:
+- `@noble/secp256k1` (for PrivateKeySignerAdapter / Web2 sessions)
+- `@noble/hashes` (for keccak256 address derivation)
+
+**ESM Import**:
+```typescript
+import { createCiferSdk, keyManagement, blackbox, commitments, flows, web2 } from 'cifer-sdk';
+```
+
+**CommonJS Import**:
+```typescript
+const { createCiferSdk, keyManagement, blackbox, web2 } = require('cifer-sdk');
+```
+
+**Sub-path Imports**:
+```typescript
+import * as web2 from 'cifer-sdk/web2';
+import { encryptPayload } from 'cifer-sdk/blackbox';
+import { Eip1193SignerAdapter } from 'cifer-sdk/adapters';
+```
+
 ## Quick Start
 
 ```typescript
@@ -44,7 +75,7 @@ import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
 
 // 1. Initialize SDK with auto-discovery
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // 2. Connect wallet (browser)
@@ -52,7 +83,7 @@ const signer = new Eip1193SignerAdapter(window.ethereum);
 
 // 3. Encrypt data
 const encrypted = await blackbox.payload.encryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   plaintext: 'My secret message',
   signer,
@@ -62,7 +93,7 @@ const encrypted = await blackbox.payload.encryptPayload({
 
 // 4. Decrypt data
 const decrypted = await blackbox.payload.decryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   encryptedMessage: encrypted.encryptedMessage,
   cifer: encrypted.cifer,
@@ -74,13 +105,74 @@ const decrypted = await blackbox.payload.decryptPayload({
 console.log(decrypted.decryptedMessage); // 'My secret message'
 ```
 
+### Quick Start (Web2 - No Wallet)
+
+```typescript
+import { createCiferSdk, web2 } from 'cifer-sdk';
+import * as ed from '@noble/ed25519';
+
+// 1. Initialize SDK
+const sdk = await createCiferSdk({
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+// 2. Ed25519 key setup
+const privateKey = ed.utils.randomPrivateKey();
+const publicKey = await ed.getPublicKeyAsync(privateKey);
+const ed25519Signer = {
+  async sign(message: Uint8Array) { return ed.signAsync(message, privateKey); },
+  getPublicKey() { return publicKey; },
+};
+
+// 3. Register (one-time)
+const reg = await web2.auth.register({
+  email: 'user@example.com',
+  password: 'securePassword123',
+  blackboxUrl: sdk.blackboxUrl,
+});
+await web2.auth.verifyEmail({ email: 'user@example.com', otp: '123456', blackboxUrl: sdk.blackboxUrl });
+await web2.auth.registerKey({ principalId: reg.principalId, password: 'securePassword123', ed25519Signer, blackboxUrl: sdk.blackboxUrl });
+
+// 4. Create session
+const session = await web2.session.createManagedSession({
+  principalId: reg.principalId,
+  ed25519Signer,
+  blackboxUrl: sdk.blackboxUrl,
+});
+
+// 5. Create secret & encrypt
+const secret = await web2.secret.createSecret({ session, blackboxUrl: sdk.blackboxUrl });
+
+const encrypted = await web2.blackbox.payload.encryptPayload({
+  session,
+  secretId: secret.secretId,
+  plaintext: 'Hello from Web2!',
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+
+// 6. Decrypt
+const decrypted = await web2.blackbox.payload.decryptPayload({
+  session,
+  secretId: secret.secretId,
+  encryptedMessage: encrypted.encryptedMessage,
+  cifer: encrypted.cifer,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+
+console.log(decrypted.decryptedMessage); // 'Hello from Web2!'
+```
+
 ---
 
 ## Core Concepts
 
 ### Secrets
 
-A **secret** is the core primitive in CIFER. Each secret represents an ML-KEM-768 key pair:
+A **secret** is the core primitive in CIFER. Each secret represents an ML-KEM-768 key pair where:
+- **Public key**: Stored on IPFS, used for encryption
+- **Private key**: Split across enclave cluster using threshold cryptography
 
 | Property | Description |
 |----------|-------------|
@@ -91,14 +183,42 @@ A **secret** is the core primitive in CIFER. Each secret represents an ML-KEM-76
 | `secretType` | `1` = ML-KEM-768 (standard) |
 | `publicKeyCid` | IPFS CID of public key (empty if syncing) |
 
-**Lifecycle**: Creation → Syncing (~30-60s) → Ready
+**Lifecycle**:
+1. **Creation**: User calls `createSecret()` on SecretsController (pays fee)
+2. **Syncing**: Enclave cluster generates keys and stores shards (~30-60 seconds)
+3. **Ready**: `isSyncing` becomes false, `publicKeyCid` is set
+4. **Usage**: Owner/delegate can encrypt and decrypt
 
 ### Authorization Model
 
-| Role | Capabilities |
-|------|-------------|
-| **Owner** | Encrypt, decrypt, transfer, set delegate |
-| **Delegate** | Decrypt only |
+Encryption requires only a valid signature — **any wallet** can encrypt for any secret. Decryption and management operations are restricted by role:
+
+| Role | Encrypt | Decrypt | Transfer | Set Delegate |
+|------|---------|---------|----------|--------------|
+| **Owner** | Yes | Yes | Yes | Yes |
+| **Delegate** | Yes | Yes | No | No |
+| **Any wallet** | Yes | No | No | No |
+
+Setting a delegate:
+
+```typescript
+const txIntent = keyManagement.buildSetDelegateTx({
+  chainId,
+  controllerAddress,
+  secretId: 123n,
+  newDelegate: '0xDelegateAddress...',
+});
+```
+
+Removing a delegate:
+
+```typescript
+const txIntent = keyManagement.buildRemoveDelegationTx({
+  chainId,
+  controllerAddress,
+  secretId: 123n,
+});
+```
 
 ### Encryption Model
 
@@ -107,8 +227,19 @@ CIFER uses hybrid encryption:
 2. **AES-256-GCM**: Symmetric encryption for actual data
 
 Output format:
-- `cifer`: 1104 bytes (ML-KEM ciphertext + tag)
-- `encryptedMessage`: Variable length (max 16KB)
+
+| Field | Size | Description |
+|-------|------|-------------|
+| `cifer` | 1104 bytes | ML-KEM ciphertext (1088) + tag (16) |
+| `encryptedMessage` | Variable | AES-GCM encrypted data (max 16KB) |
+
+### Block Freshness
+
+All blackbox API calls require a recent block number in the signed payload to prevent replay attacks.
+
+- Freshness window: ~100 blocks (~10 minutes)
+- SDK automatically retries with fresh block (up to 3 times)
+- If you see "block too old" errors, check RPC reliability
 
 ### Transaction Intents
 
@@ -123,7 +254,61 @@ interface TxIntent {
 }
 ```
 
-Execute with any wallet library (ethers, wagmi, viem).
+Execute with any wallet library:
+
+```typescript
+// ethers v6
+await signer.sendTransaction({ to: txIntent.to, data: txIntent.data, value: txIntent.value });
+
+// wagmi
+await sendTransaction({ to: txIntent.to, data: txIntent.data, value: txIntent.value });
+
+// viem
+await walletClient.sendTransaction({ to: txIntent.to, data: txIntent.data, value: txIntent.value });
+```
+
+### Web2 Mode
+
+CIFER supports Web2 mode for apps that don't use blockchain wallets. Users register with email + password and authenticate via Ed25519-signed sessions.
+
+**`WEB2_CHAIN_ID = -1`**: Sentinel value used for all Web2 operations. When `chainId` is `-1`, the SDK uses `Date.now()` instead of an RPC block number for freshness.
+
+| Feature | Web3 | Web2 |
+|---------|------|------|
+| Auth | EIP-1193 wallet | Email + password + Ed25519 key |
+| Chain ID | Real chain ID (e.g. 8453) | `WEB2_CHAIN_ID = -1` (sentinel) |
+| Block freshness | RPC `eth_blockNumber` | `Date.now()` (no RPC needed) |
+| Signer | Wallet `personal_sign` | Session EOA `personal_sign` |
+| Secret creation | On-chain transaction | `POST /web2/secret` API call |
+
+**How sessions work**:
+1. An ephemeral secp256k1 keypair is generated (session key)
+2. The session is authenticated with an Ed25519 signature
+3. The session key signs blackbox requests (same EIP-191 format as wallets)
+4. Sessions expire and can be auto-renewed (managed sessions)
+
+**Ed25519 Signer Interface** (bring-your-own-library):
+
+```typescript
+interface Ed25519Signer {
+  sign(message: Uint8Array): Promise<Uint8Array>;
+  getPublicKey(): Uint8Array;
+}
+```
+
+Use `@noble/ed25519` or any Ed25519 library:
+
+```typescript
+import * as ed from '@noble/ed25519';
+
+const privateKey = ed.utils.randomPrivateKey();
+const publicKey = await ed.getPublicKeyAsync(privateKey);
+
+const ed25519Signer: Ed25519Signer = {
+  async sign(message) { return ed.signAsync(message, privateKey); },
+  getPublicKey() { return publicKey; },
+};
+```
 
 ---
 
@@ -135,21 +320,40 @@ Execute with any wallet library (ethers, wagmi, viem).
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
-sdk.getSupportedChainIds(); // [752025, 11155111, ...]
-sdk.getControllerAddress(752025); // '0x...'
-sdk.getRpcUrl(752025); // 'https://...'
+sdk.getSupportedChainIds(); // [8453, 11155111, ...]
+sdk.getControllerAddress(8453); // '0x...'
+sdk.getRpcUrl(8453); // 'https://...'
+```
+
+#### Device Clock Integrity Check
+
+The discovery result exposes an optional `serverTime` (Unix epoch ms) — the blackbox server's own clock at the moment it handled the `/healthz` request. Compare it against `Date.now()` to detect a misconfigured or manipulated device clock before trusting any device-side time-based logic (e.g. a time-lock countdown). It is optional and absent on older blackbox deployments.
+
+```typescript
+import { discover } from 'cifer-sdk';
+
+const discovery = await discover({
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+if (discovery.serverTime !== undefined) {
+  const skewMs = Math.abs(Date.now() - discovery.serverTime);
+  if (skewMs > 10 * 60 * 1000) {
+    // device clock is more than 10 minutes off the blackbox — block time-sensitive UI
+  }
+}
 ```
 
 #### With Overrides
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   chainOverrides: {
-    752025: {
+    8453: {
       rpcUrl: 'https://my-private-rpc.example.com',
       secretsControllerAddress: '0x...',
     },
@@ -164,16 +368,16 @@ import { createCiferSdkSync, RpcReadClient } from 'cifer-sdk';
 
 const readClient = new RpcReadClient({
   rpcUrlByChainId: {
-    752025: 'https://mainnet.ternoa.network',
+    8453: 'https://mainnet.base.org',
   },
 });
 
 const sdk = createCiferSdkSync({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   readClient,
   chainOverrides: {
-    752025: {
-      rpcUrl: 'https://mainnet.ternoa.network',
+    8453: {
+      rpcUrl: 'https://mainnet.base.org',
       secretsControllerAddress: '0x...',
     },
   },
@@ -189,8 +393,8 @@ All wallets must implement the `SignerAdapter` interface:
 ```typescript
 interface SignerAdapter {
   getAddress(): Promise<string>;
-  signMessage(message: string): Promise<string>;
-  sendTransaction?(txRequest: TxIntent): Promise<TxExecutionResult>;
+  signMessage(message: string): Promise<string>; // EIP-191 personal_sign
+  sendTransaction?(txRequest: TxIntent): Promise<TxExecutionResult>; // optional
 }
 ```
 
@@ -199,8 +403,19 @@ interface SignerAdapter {
 ```typescript
 import { Eip1193SignerAdapter } from 'cifer-sdk';
 
+if (typeof window.ethereum === 'undefined') {
+  throw new Error('MetaMask is not installed');
+}
+
 await window.ethereum.request({ method: 'eth_requestAccounts' });
 const signer = new Eip1193SignerAdapter(window.ethereum);
+const address = await signer.getAddress();
+
+// Handle account changes
+window.ethereum.on('accountsChanged', (accounts) => {
+  signer.clearCache();
+  console.log('Switched to:', accounts[0]);
+});
 ```
 
 #### WalletConnect v2
@@ -210,15 +425,65 @@ import { EthereumProvider } from '@walletconnect/ethereum-provider';
 
 const provider = await EthereumProvider.init({
   projectId: 'YOUR_WALLETCONNECT_PROJECT_ID',
-  chains: [752025],
+  chains: [8453],
   showQrModal: true,
+  metadata: {
+    name: 'My CIFER App',
+    description: 'Quantum-resistant encryption',
+    url: 'https://myapp.com',
+    icons: ['https://myapp.com/icon.png'],
+  },
 });
 
 await provider.connect();
 const signer = new Eip1193SignerAdapter(provider);
 ```
 
+#### Thirdweb
+
+```typescript
+import { createThirdwebClient, defineChain } from 'thirdweb';
+import { createWallet, injectedProvider } from 'thirdweb/wallets';
+
+const thirdwebClient = createThirdwebClient({
+  clientId: 'YOUR_THIRDWEB_CLIENT_ID',
+});
+
+const base = defineChain({
+  id: 8453,
+  name: 'Base',
+  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+  rpcUrls: { default: { http: ['https://mainnet.base.org'] } },
+});
+
+const wallet = createWallet('io.metamask');
+await wallet.connect({ client: thirdwebClient, chain: base });
+
+const provider = injectedProvider('io.metamask');
+const signer = new Eip1193SignerAdapter(provider);
+
+// For in-app wallets (email/social login):
+import { inAppWallet } from 'thirdweb/wallets';
+
+const wallet = inAppWallet();
+const account = await wallet.connect({
+  client: thirdwebClient,
+  chain: base,
+  strategy: 'email',
+  email: 'user@example.com',
+});
+
+const signer = {
+  async getAddress() { return account.address; },
+  async signMessage(message) { return account.signMessage({ message }); },
+};
+```
+
 #### Private Key (Server-Side)
+
+> **WARNING**: Never expose private keys in frontend code!
+
+Using ethers.js:
 
 ```typescript
 import { Wallet } from 'ethers';
@@ -229,6 +494,19 @@ const wallet = new Wallet(process.env.PRIVATE_KEY);
 const signer: SignerAdapter = {
   async getAddress() { return wallet.address; },
   async signMessage(message) { return wallet.signMessage(message); },
+};
+```
+
+Using viem:
+
+```typescript
+import { privateKeyToAccount } from 'viem/accounts';
+
+const account = privateKeyToAccount(process.env.PRIVATE_KEY);
+
+const signer = {
+  async getAddress() { return account.address; },
+  async signMessage(message) { return account.signMessage({ message }); },
 };
 ```
 
@@ -253,6 +531,43 @@ function useCiferSigner() {
 }
 ```
 
+#### Coinbase Wallet
+
+```typescript
+import { CoinbaseWalletSDK } from '@coinbase/wallet-sdk';
+
+const coinbaseWallet = new CoinbaseWalletSDK({
+  appName: 'My CIFER App',
+  appLogoUrl: 'https://myapp.com/logo.png',
+});
+
+const provider = coinbaseWallet.makeWeb3Provider({ options: 'all' });
+await provider.request({ method: 'eth_requestAccounts' });
+
+const signer = new Eip1193SignerAdapter(provider);
+```
+
+#### Supporting Multiple Wallets
+
+```typescript
+type WalletType = 'metamask' | 'walletconnect' | 'coinbase';
+
+async function createSigner(type: WalletType): Promise<SignerAdapter> {
+  switch (type) {
+    case 'metamask':
+      return new Eip1193SignerAdapter(window.ethereum);
+    case 'walletconnect':
+      const wcProvider = await EthereumProvider.init({ /* config */ });
+      await wcProvider.connect();
+      return new Eip1193SignerAdapter(wcProvider);
+    case 'coinbase':
+      const cbProvider = coinbaseWallet.makeWeb3Provider();
+      await cbProvider.request({ method: 'eth_requestAccounts' });
+      return new Eip1193SignerAdapter(cbProvider);
+  }
+}
+```
+
 ---
 
 ### keyManagement Namespace
@@ -264,8 +579,8 @@ Interact with the SecretsController contract for secret management.
 ```typescript
 // Get secret creation fee
 const fee = await keyManagement.getSecretCreationFee({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   readClient: sdk.readClient,
 });
 
@@ -282,6 +597,10 @@ const canDecrypt = await keyManagement.isAuthorized(params, 123n, '0x...');
 // Get secrets by wallet
 const secrets = await keyManagement.getSecretsByWallet(params, '0xUser...');
 // Returns: { owned: bigint[], delegated: bigint[] }
+
+// Get counts of secrets (more gas-efficient than getSecretsByWallet)
+const counts = await keyManagement.getSecretsCountByWallet(params, '0xUser...');
+// Returns: { ownedCount: bigint, delegatedCount: bigint }
 ```
 
 #### Transaction Builders
@@ -290,15 +609,15 @@ const secrets = await keyManagement.getSecretsByWallet(params, '0xUser...');
 // Create a new secret
 const fee = await keyManagement.getSecretCreationFee(params);
 const txIntent = keyManagement.buildCreateSecretTx({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   fee,
 });
 
 // Set delegate
 const txIntent = keyManagement.buildSetDelegateTx({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   secretId: 123n,
   newDelegate: '0xDelegate...',
 });
@@ -308,8 +627,8 @@ const txIntent = keyManagement.buildRemoveDelegationTx({ ... });
 
 // Transfer ownership (irreversible!)
 const txIntent = keyManagement.buildTransferSecretTx({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   secretId: 123n,
   newOwner: '0xNewOwner...',
 });
@@ -320,6 +639,11 @@ const txIntent = keyManagement.buildTransferSecretTx({
 ```typescript
 const receipt = await provider.waitForTransaction(hash);
 const secretId = keyManagement.extractSecretIdFromReceipt(receipt.logs);
+
+// Parse individual event logs
+const created = keyManagement.parseSecretCreatedLog(log);
+const synced = keyManagement.parseSecretSyncedLog(log);
+const delegateUpdated = keyManagement.parseDelegateUpdatedLog(log);
 ```
 
 ---
@@ -332,7 +656,7 @@ Encrypt and decrypt short messages (< 16KB).
 
 ```typescript
 const encrypted = await blackbox.payload.encryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   plaintext: 'My secret message',
   signer,
@@ -348,7 +672,7 @@ const encrypted = await blackbox.payload.encryptPayload({
 
 ```typescript
 const decrypted = await blackbox.payload.decryptPayload({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   encryptedMessage: encrypted.encryptedMessage,
   cifer: encrypted.cifer,
@@ -370,7 +694,7 @@ Encrypt and decrypt large files using async jobs.
 ```typescript
 // Start encryption job
 const job = await blackbox.files.encryptFile({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   file: myFile,
   signer,
@@ -384,7 +708,7 @@ const job = await blackbox.files.decryptFile({ ... });
 
 // Decrypt from existing encrypt job
 const job = await blackbox.files.decryptExistingFile({
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   encryptJobId: previousJobId,
   signer,
@@ -419,7 +743,7 @@ const finalStatus = await blackbox.jobs.pollUntilComplete(
 const blob = await blackbox.jobs.download(jobId, {
   blackboxUrl: sdk.blackboxUrl,
   // For decrypt jobs, also provide:
-  chainId: 752025,
+  chainId: 8453,
   secretId: 123n,
   signer,
   readClient: sdk.readClient,
@@ -427,7 +751,7 @@ const blob = await blackbox.jobs.download(jobId, {
 
 // List jobs for wallet
 const result = await blackbox.jobs.list({
-  chainId: 752025,
+  chainId: 8453,
   signer,
   readClient: sdk.readClient,
   blackboxUrl: sdk.blackboxUrl,
@@ -435,6 +759,15 @@ const result = await blackbox.jobs.list({
 
 // Get data consumption stats
 const stats = await blackbox.jobs.dataConsumption({ ... });
+
+// Delete a job (mark for cleanup)
+await blackbox.jobs.deleteJob(jobId, {
+  blackboxUrl: sdk.blackboxUrl,
+  chainId: 8453,
+  secretId: 123n,
+  signer,
+  readClient: sdk.readClient,
+});
 ```
 
 ---
@@ -442,6 +775,11 @@ const stats = await blackbox.jobs.dataConsumption({ ... });
 ### commitments Namespace
 
 Store and retrieve encrypted data on-chain.
+
+The commitment pattern:
+1. Only hashes stored in contract storage (gas efficient)
+2. Full encrypted bytes emitted in events
+3. Retrieve from logs using block number from metadata
 
 ```typescript
 // Check if commitment exists
@@ -453,7 +791,7 @@ const metadata = await commitments.getCIFERMetadata(params, dataId);
 
 // Fetch encrypted data from logs
 const data = await commitments.fetchCommitmentFromLogs({
-  chainId: 752025,
+  chainId: 8453,
   contractAddress: '0x...',
   dataId: dataKey,
   storedAtBlock: metadata.storedAtBlock,
@@ -464,9 +802,15 @@ const data = await commitments.fetchCommitmentFromLogs({
 // Verify integrity
 const result = commitments.verifyCommitmentIntegrity(data, metadata);
 
+// Verify and throw on failure
+commitments.assertCommitmentIntegrity(data, metadata);
+
+// Validate before storing (throws on invalid sizes)
+commitments.validateForStorage(cifer, encryptedMessage);
+
 // Build store transaction
 const txIntent = commitments.buildStoreCommitmentTx({
-  chainId: 752025,
+  chainId: 8453,
   contractAddress: '0xYourContract...',
   storeFunction: {
     type: 'function',
@@ -483,6 +827,7 @@ const txIntent = commitments.buildStoreCommitmentTx({
     encryptedMessage: encrypted.encryptedMessage,
     cifer: encrypted.cifer,
   },
+  validate: true, // optional, default: true — validate sizes before building tx
 });
 ```
 
@@ -495,6 +840,10 @@ const txIntent = commitments.buildStoreCommitmentTx({
 ### flows Namespace
 
 High-level orchestrated operations.
+
+Flows support two modes:
+- **plan**: Returns a plan describing steps (dry run)
+- **execute**: Actually performs the operations
 
 #### Flow Context
 
@@ -517,7 +866,7 @@ const ctx = {
 ```typescript
 const result = await flows.createSecretAndWaitReady({
   ...ctx,
-  controllerAddress: sdk.getControllerAddress(752025),
+  controllerAddress: sdk.getControllerAddress(8453),
   txExecutor: async (intent) => {
     const hash = await wallet.sendTransaction(intent);
     return { hash, waitReceipt: () => provider.waitForTransaction(hash) };
@@ -538,6 +887,7 @@ const result = await flows.encryptThenPrepareCommitTx(ctx, {
   plaintext: 'My secret data',
   key: dataKey,
   commitmentContract: '0x...',
+  storeFunction: storeAbi, // optional — uses default if omitted
 });
 
 if (result.success) {
@@ -552,6 +902,8 @@ const result = await flows.retrieveFromLogsThenDecrypt(ctx, {
   secretId: 123n,
   dataId: dataKey,
   commitmentContract: '0x...',
+  storedAtBlock: metadata.storedAtBlock, // optional — fetched if not provided
+  skipIntegrityCheck: false,             // optional
 });
 
 if (result.success) {
@@ -575,7 +927,411 @@ const result = await flows.decryptFileJobFlow(ctx, {
   file: ciferFile,
 });
 // Returns: { jobId, job, decryptedFile: Blob }
+
+// Decrypt from existing encrypt job without re-uploading
+const result = await flows.decryptExistingFileJobFlow(ctx, {
+  secretId: 123n,
+  encryptJobId: previousJobId,
+});
+// Returns: { jobId, job, decryptedFile: Blob }
 ```
+
+---
+
+### web2.auth Namespace
+
+Registration and authentication for Web2 mode (two-phase flow).
+
+```typescript
+import { web2 } from 'cifer-sdk';
+
+// Phase 1: Register with email + password (sends OTP)
+const reg = await web2.auth.register({
+  email: 'user@example.com',
+  password: 'securePassword123',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+// Returns: { principalId: string, message: string }
+
+// Phase 2: Verify email OTP
+const verified = await web2.auth.verifyEmail({
+  email: 'user@example.com',
+  otp: '123456',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+// Returns: { principalId: string, emailVerified: boolean }
+
+// Phase 3: Register Ed25519 key (propagated to cluster nodes)
+const keyResult = await web2.auth.registerKey({
+  principalId: reg.principalId,
+  password: 'securePassword123',
+  ed25519Signer,
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+// Returns: { principalId: string, nodeRegistrationStatus: string }
+
+// If nodeRegistrationStatus !== 'complete', retry:
+await web2.auth.retryNodeRegistration({
+  principalId: reg.principalId,
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+// Check node registration status
+const status = await web2.auth.nodeRegistrationStatus({
+  principalId: reg.principalId,
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+```
+
+#### Helper Functions
+
+```typescript
+// Resend OTP (60-second cooldown)
+await web2.auth.resendOtp({
+  email: 'user@example.com',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+// Forgot password (sends OTP)
+await web2.auth.forgotPassword({
+  email: 'user@example.com',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+// Reset password with OTP
+await web2.auth.resetPassword({
+  email: 'user@example.com',
+  otp: '123456',
+  newPassword: 'newSecurePassword456',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+```
+
+#### Account Deletion
+
+Account deletion is a two-step, OTP-confirmed operation. These are stateless `web2.auth` functions; they are **not** methods on the client returned by `web2.createClient()`.
+
+**Step 1 — request a deletion OTP**
+
+`requestAccountDeletion(params): Promise<{ message: string }>` accepts `email`, `password`, `principalId`, `blackboxUrl`, and an optional `fetch` implementation.
+
+```typescript
+const deletionRequest = await web2.auth.requestAccountDeletion({
+  email: 'user@example.com',
+  password: 'securePassword123',
+  principalId: 'your-principal-uuid',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+console.log(deletionRequest.message);
+```
+
+For anti-enumeration, the Blackbox always returns a generic success message. It sends an OTP only when the email, password, and `principalId` match a verified, active account; a nonexistent or mismatched account does not throw solely for that mismatch.
+
+**Step 2 — confirm account deletion**
+
+`confirmAccountDeletion(params): Promise<ConfirmAccountDeletionResult>` accepts `email`, `otp`, `blackboxUrl`, and an optional `fetch` implementation.
+
+```typescript
+const deletionResult = await web2.auth.confirmAccountDeletion({
+  email: 'user@example.com',
+  otp: '123456',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+console.log(deletionResult.success); // true
+```
+
+Confirmation soft-deletes the account: it becomes dormant and hidden from APIs while its records are retained for legal disclosure. Registering again with the same email reactivates the same `principalId` and restores access to its existing secrets. After successful confirmation, clear cached credentials, Ed25519 keys, session keys, and active sessions from local application state.
+
+---
+
+### web2.session Namespace
+
+Create and manage Web2 sessions. Two modes available:
+
+#### Managed Session (Recommended)
+
+SDK manages session lifecycle with auto-renewal:
+
+```typescript
+const session = await web2.session.createManagedSession({
+  principalId: 'your-uuid',
+  ed25519Signer,
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+  ttl: 900, // seconds (default: 900 = 15 minutes)
+});
+
+// Session properties:
+session.signer;         // SignerAdapter (ephemeral EOA)
+session.sessionAddress; // EOA address
+session.principalId;    // UUID
+session.expiresAt;      // ISO 8601 timestamp
+session.isManaged;      // true
+
+// Auto-renew if near expiry (60s skew)
+await session.ensureValid();
+
+// Force renewal
+await session.renew();
+```
+
+#### Existing Session Key (Advanced)
+
+Wrap a pre-existing session private key (e.g. from a TEE web front):
+
+```typescript
+const session = web2.session.useExistingSessionKey({
+  sessionPrivateKey: '0xabc123...', // hex-encoded secp256k1 private key
+  principalId: 'your-uuid',        // optional
+});
+
+// session.isManaged === false
+// session.renew() throws Web2SessionError
+// session.ensureValid() is a no-op
+```
+
+---
+
+### web2.secret Namespace
+
+Create and list Web2 secrets.
+
+```typescript
+// Create a new secret
+const result = await web2.secret.createSecret({
+  session,
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+// Returns: { secretId: number }
+
+// List all secrets for the principal
+const list = await web2.secret.listSecrets({
+  session,
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+// Returns: { secrets: Array<{ secretId, status }> }
+```
+
+---
+
+### web2.delegate Namespace
+
+Set or remove delegates on Web2 secrets.
+
+```typescript
+// Set a delegate
+await web2.delegate.setDelegate({
+  session,
+  secretId: 42,
+  delegatePrincipalId: 'delegate-principal-uuid',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+// Remove a delegate (empty string)
+await web2.delegate.setDelegate({
+  session,
+  secretId: 42,
+  delegatePrincipalId: '',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+```
+
+---
+
+### web2.permit Namespace
+
+Request permits for key rotation, ownership transfer, or delegation changes.
+
+```typescript
+// Key rotation (email+password, no session needed)
+const result = await web2.permit.requestPermit({
+  action: 'rotate',
+  email: 'user@example.com',
+  password: 'securePassword123',
+  payload: { newPublicKey: '...' },
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+// Returns: { permitId: string }
+
+// Transfer ownership (session required)
+const result = await web2.permit.requestPermit({
+  action: 'transfer',
+  session,
+  secretId: 42,
+  payload: { newOwnerPrincipalId: 'new-owner-uuid' },
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+// Delegate permit (session required)
+const result = await web2.permit.requestPermit({
+  action: 'delegate',
+  session,
+  secretId: 42,
+  payload: { delegatePrincipalId: 'delegate-uuid' },
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+```
+
+---
+
+### web2.principal Namespace
+
+Look up principals by email.
+
+```typescript
+const principal = await web2.principal.getByEmail(
+  'colleague@example.com',
+  'https://blackbox.cifersecurity.com:3010',
+);
+// Returns: { principalId: string, emailHex: string }
+```
+
+---
+
+### web2.blackbox Namespace
+
+Session-first wrappers around the core `blackbox.*` functions. Automatically fills `chainId = -1` and uses the session signer. Calls `session.ensureValid()` before each request.
+
+#### web2.blackbox.payload
+
+```typescript
+// Encrypt
+const encrypted = await web2.blackbox.payload.encryptPayload({
+  session,
+  secretId: 42,
+  plaintext: 'Hello, Web2!',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+  readClient: sdk.readClient,
+  outputFormat: 'hex', // optional, default: 'hex'
+});
+// Returns: { cifer: string, encryptedMessage: string }
+
+// Decrypt
+const decrypted = await web2.blackbox.payload.decryptPayload({
+  session,
+  secretId: 42,
+  encryptedMessage: encrypted.encryptedMessage,
+  cifer: encrypted.cifer,
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+  readClient: sdk.readClient,
+  inputFormat: 'hex', // optional
+});
+// Returns: { decryptedMessage: string }
+```
+
+#### web2.blackbox.files
+
+```typescript
+// Encrypt file
+const job = await web2.blackbox.files.encryptFile({
+  session,
+  secretId: 42,
+  file: myFile,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+// Returns: { jobId: string, message: string }
+
+// Decrypt file
+const job = await web2.blackbox.files.decryptFile({
+  session,
+  secretId: 42,
+  file: encryptedFile,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+
+// Decrypt from existing encrypt job
+const job = await web2.blackbox.files.decryptExistingFile({
+  session,
+  secretId: 42,
+  encryptJobId: previousJobId,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+```
+
+#### web2.blackbox.jobs
+
+```typescript
+// These are re-exported from core (no session needed):
+const status = await web2.blackbox.jobs.getStatus(jobId, sdk.blackboxUrl);
+const final = await web2.blackbox.jobs.pollUntilComplete(jobId, sdk.blackboxUrl, {
+  onProgress: (job) => console.log(`${job.progress}%`),
+});
+
+// These require a session:
+const blob = await web2.blackbox.jobs.download(jobId, {
+  session,
+  secretId: 42,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+
+await web2.blackbox.jobs.deleteJob(jobId, {
+  session,
+  secretId: 42,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+
+const jobs = await web2.blackbox.jobs.list({
+  session,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+  includeExpired: false,
+});
+
+const stats = await web2.blackbox.jobs.dataConsumption({
+  session,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+```
+
+---
+
+### web2.createClient Factory
+
+Stateful client that stores session, `blackboxUrl`, and `readClient` so you don't pass them on every call.
+
+```typescript
+import { web2 } from 'cifer-sdk';
+
+const client = web2.createClient({
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+  readClient: sdk.readClient,
+});
+
+// Session is auto-stored after creation
+await client.createManagedSession({
+  principalId: 'your-uuid',
+  ed25519Signer,
+});
+
+// No need to pass session or blackboxUrl!
+const secret = await client.createSecret();
+
+const encrypted = await client.payload.encryptPayload({
+  secretId: secret.secretId,
+  plaintext: 'Hello!',
+});
+
+const decrypted = await client.payload.decryptPayload({
+  secretId: secret.secretId,
+  encryptedMessage: encrypted.encryptedMessage,
+  cifer: encrypted.cifer,
+});
+
+// Other client methods:
+await client.listSecrets();
+await client.setDelegate({ secretId: 42, delegatePrincipalId: 'uuid' });
+await client.getByEmail('colleague@example.com');
+client.setSession(anotherSession); // manually replace stored session
+```
+
+The `Web2Client` interface provides: `session`, `blackboxUrl`, `readClient`, `createManagedSession()`, `useExistingSessionKey()`, `setSession()`, `createSecret()`, `listSecrets()`, `setDelegate()`, `requestPermit()`, `getByEmail()`, `payload.*`, `files.*`, `jobs.*`.
 
 ---
 
@@ -585,27 +1341,30 @@ All SDK errors extend `CiferError` with typed subclasses:
 
 ```
 CiferError
-├── ConfigError
+├── ConfigError (code: CONFIG_ERROR)
 │   ├── DiscoveryError
 │   └── ChainNotSupportedError
-├── AuthError
+├── AuthError (code: AUTH_ERROR)
 │   ├── SignatureError
 │   ├── BlockStaleError
 │   └── SignerMismatchError
-├── BlackboxError
+├── BlackboxError (code: BLACKBOX_ERROR)
 │   ├── EncryptionError
 │   ├── DecryptionError
 │   ├── JobError
 │   └── SecretNotReadyError
-├── KeyManagementError
+├── KeyManagementError (code: KEY_MANAGEMENT_ERROR)
 │   ├── SecretNotFoundError
 │   └── NotAuthorizedError
-├── CommitmentsError
+├── CommitmentsError (code: COMMITMENTS_ERROR)
 │   ├── CommitmentNotFoundError
 │   ├── IntegrityError
 │   ├── InvalidCiferSizeError
 │   └── PayloadTooLargeError
-└── FlowError
+├── Web2Error (code: WEB2_ERROR)
+│   ├── Web2SessionError (session expired, cannot renew)
+│   └── Web2AuthError (registration, OTP, password errors)
+└── FlowError (code: FLOW_ERROR)
     ├── FlowAbortedError
     └── FlowTimeoutError
 ```
@@ -617,6 +1376,11 @@ import {
   isCiferError,
   isBlockStaleError,
   isSecretNotReadyError,
+  isWeb2Error,
+  isWeb2SessionError,
+  SecretNotFoundError,
+  SecretNotReadyError,
+  CommitmentNotFoundError,
 } from 'cifer-sdk';
 ```
 
@@ -632,6 +1396,12 @@ try {
     console.log('Wait for secret to sync');
   } else if (error instanceof SecretNotFoundError) {
     console.log('Secret not found:', error.secretId);
+  } else if (error instanceof CommitmentNotFoundError) {
+    console.log('No data for key:', error.dataId);
+  } else if (isWeb2SessionError(error)) {
+    console.log('Web2 session expired or cannot renew');
+  } else if (isWeb2Error(error)) {
+    console.log('Web2 error:', error.message);
   } else if (isCiferError(error)) {
     console.log('CIFER error:', error.code, error.message);
   } else {
@@ -644,10 +1414,13 @@ try {
 
 | Error | Cause | Solution |
 |-------|-------|----------|
-| "Block number is too old" | RPC issues | SDK auto-retries 3x; check RPC reliability |
-| "Secret is syncing" | Key generation in progress | Wait 30-60s; use `isSecretReady()` |
-| "Signature verification failed" | Wrong signing method | Use EIP-191 `personal_sign` |
+| "Block number is too old" | RPC issues | SDK auto-retries 3x; check RPC reliability; minimize delay between signing and API call |
+| "Secret is syncing" | Key generation in progress | Wait 30-60s; use `isSecretReady()` or `createSecretAndWaitReady` flow |
+| "Signature verification failed" | Wrong signing method | Use EIP-191 `personal_sign` (not `eth_sign` or typed data) |
 | "Not authorized" | Not owner/delegate | Check with `isAuthorized()` |
+| "No active Web2 session" | Session not created or expired | Call `createManagedSession()` or pass session explicitly |
+| "Web2 session expired" | Existing-key session cannot renew | Recreate session externally |
+| "OTP verification failed" | Invalid or expired OTP | Use `resendOtp()` and try again |
 
 ---
 
@@ -660,11 +1433,11 @@ import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
 
 async function encryptDecryptExample() {
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
-  const chainId = 752025;
+  const chainId = 8453;
   const secretId = 123n;
   
   // Encrypt
@@ -692,6 +1465,103 @@ async function encryptDecryptExample() {
 }
 ```
 
+### Create Secret and Wait
+
+```typescript
+import { createCiferSdk, Eip1193SignerAdapter, flows } from 'cifer-sdk';
+
+async function createSecretExample() {
+  const sdk = await createCiferSdk({
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+  });
+  const signer = new Eip1193SignerAdapter(window.ethereum);
+
+  const result = await flows.createSecretAndWaitReady({
+    signer,
+    readClient: sdk.readClient,
+    blackboxUrl: sdk.blackboxUrl,
+    chainId: 8453,
+    controllerAddress: sdk.getControllerAddress(8453),
+    txExecutor: async (intent) => {
+      const hash = await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [{
+          to: intent.to,
+          data: intent.data,
+          value: intent.value ? `0x${intent.value.toString(16)}` : undefined,
+        }],
+      });
+      return {
+        hash,
+        waitReceipt: async () => {
+          while (true) {
+            const receipt = await window.ethereum.request({
+              method: 'eth_getTransactionReceipt',
+              params: [hash],
+            });
+            if (receipt) return receipt;
+            await new Promise(r => setTimeout(r, 2000));
+          }
+        },
+      };
+    },
+    logger: console.log,
+  });
+
+  if (result.success) {
+    console.log('Created secret:', result.data.secretId);
+    console.log('Public key CID:', result.data.state.publicKeyCid);
+  } else {
+    console.error('Failed:', result.error);
+  }
+}
+```
+
+### Store and Retrieve On-Chain
+
+```typescript
+import { createCiferSdk, Eip1193SignerAdapter, flows } from 'cifer-sdk';
+
+async function onChainExample() {
+  const sdk = await createCiferSdk({
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+  });
+  const signer = new Eip1193SignerAdapter(window.ethereum);
+
+  const ctx = {
+    signer,
+    readClient: sdk.readClient,
+    blackboxUrl: sdk.blackboxUrl,
+    chainId: 8453,
+  };
+
+  const secretId = 123n;
+  const dataKey = '0x' + '1234'.repeat(16);
+  const commitmentContract = '0xYourContract...';
+
+  const encryptResult = await flows.encryptThenPrepareCommitTx(ctx, {
+    secretId,
+    plaintext: 'Stored on-chain',
+    key: dataKey,
+    commitmentContract,
+  });
+
+  if (encryptResult.success) {
+    await wallet.sendTransaction(encryptResult.data.txIntent);
+  }
+
+  const decryptResult = await flows.retrieveFromLogsThenDecrypt(ctx, {
+    secretId,
+    dataId: dataKey,
+    commitmentContract,
+  });
+
+  if (decryptResult.success) {
+    console.log('Retrieved:', decryptResult.data.decryptedMessage);
+  }
+}
+```
+
 ### Node.js Server-Side
 
 ```typescript
@@ -701,12 +1571,12 @@ import { Wallet } from 'ethers';
 async function serverSideExample() {
   const readClient = new RpcReadClient({
     rpcUrlByChainId: {
-      752025: 'https://mainnet.ternoa.network',
+      8453: 'https://mainnet.base.org',
     },
   });
   
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
     readClient,
   });
   
@@ -717,7 +1587,7 @@ async function serverSideExample() {
   };
   
   const encrypted = await blackbox.payload.encryptPayload({
-    chainId: 752025,
+    chainId: 8453,
     secretId: 123n,
     plaintext: 'Server-side encryption',
     signer,
@@ -736,7 +1606,7 @@ import { createCiferSdk, Eip1193SignerAdapter, blackbox } from 'cifer-sdk';
 
 async function fileEncryptionExample() {
   const sdk = await createCiferSdk({
-    blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   });
   const signer = new Eip1193SignerAdapter(window.ethereum);
   
@@ -744,7 +1614,7 @@ async function fileEncryptionExample() {
   
   // Start job
   const job = await blackbox.files.encryptFile({
-    chainId: 752025,
+    chainId: 8453,
     secretId: 123n,
     file,
     signer,
@@ -776,6 +1646,122 @@ async function fileEncryptionExample() {
 }
 ```
 
+### Web2: Email Registration + Encrypt/Decrypt
+
+```typescript
+import { createCiferSdk, web2 } from 'cifer-sdk';
+import * as ed from '@noble/ed25519';
+
+async function web2Example() {
+  const blackboxUrl = 'https://blackbox.cifersecurity.com:3010';
+
+  // Initialize SDK (for readClient)
+  const sdk = await createCiferSdk({ blackboxUrl });
+
+  // --- Ed25519 key setup ---
+  const privateKey = ed.utils.randomPrivateKey();
+  const publicKey = await ed.getPublicKeyAsync(privateKey);
+
+  const ed25519Signer = {
+    async sign(message: Uint8Array) { return ed.signAsync(message, privateKey); },
+    getPublicKey() { return publicKey; },
+  };
+
+  // --- Registration (one-time) ---
+  const reg = await web2.auth.register({
+    email: 'user@example.com',
+    password: 'securePassword123',
+    blackboxUrl,
+  });
+
+  // (User receives OTP via email)
+  await web2.auth.verifyEmail({
+    email: 'user@example.com',
+    otp: '123456',
+    blackboxUrl,
+  });
+
+  await web2.auth.registerKey({
+    principalId: reg.principalId,
+    password: 'securePassword123',
+    ed25519Signer,
+    blackboxUrl,
+  });
+
+  // --- Session ---
+  const session = await web2.session.createManagedSession({
+    principalId: reg.principalId,
+    ed25519Signer,
+    blackboxUrl,
+  });
+
+  // --- Create secret ---
+  const secret = await web2.secret.createSecret({ session, blackboxUrl });
+
+  // --- Encrypt ---
+  const encrypted = await web2.blackbox.payload.encryptPayload({
+    session,
+    secretId: secret.secretId,
+    plaintext: 'Hello from Web2!',
+    blackboxUrl,
+    readClient: sdk.readClient,
+  });
+
+  // --- Decrypt ---
+  const decrypted = await web2.blackbox.payload.decryptPayload({
+    session,
+    secretId: secret.secretId,
+    encryptedMessage: encrypted.encryptedMessage,
+    cifer: encrypted.cifer,
+    blackboxUrl,
+    readClient: sdk.readClient,
+  });
+
+  console.log('Decrypted:', decrypted.decryptedMessage);
+  // Output: "Hello from Web2!"
+}
+```
+
+### Web2: Using the Client Factory
+
+```typescript
+import { createCiferSdk, web2 } from 'cifer-sdk';
+
+async function web2ClientExample() {
+  const sdk = await createCiferSdk({
+    blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+  });
+
+  // Create stateful client
+  const client = web2.createClient({
+    blackboxUrl: sdk.blackboxUrl,
+    readClient: sdk.readClient,
+  });
+
+  // Create session (auto-stored in client)
+  await client.createManagedSession({
+    principalId: 'your-uuid',
+    ed25519Signer,
+  });
+
+  // All calls auto-use stored session + blackboxUrl + readClient
+  const secret = await client.createSecret();
+
+  const encrypted = await client.payload.encryptPayload({
+    secretId: secret.secretId,
+    plaintext: 'Simplified Web2 API!',
+  });
+
+  const decrypted = await client.payload.decryptPayload({
+    secretId: secret.secretId,
+    encryptedMessage: encrypted.encryptedMessage,
+    cifer: encrypted.cifer,
+  });
+
+  console.log('Decrypted:', decrypted.decryptedMessage);
+}
+```
+
 ---
 
 ## Type Definitions
@@ -787,8 +1773,39 @@ type Hex = `0x${string}`;
 type ChainId = number;
 type SecretId = bigint;
 type OutputFormat = 'hex' | 'base64';
+type InputFormat = 'hex' | 'base64';
 type JobStatus = 'pending' | 'processing' | 'completed' | 'failed' | 'expired';
 type JobType = 'encrypt' | 'decrypt';
+
+interface SignerAdapter {
+  getAddress(): Promise<Address>;
+  signMessage(message: string): Promise<Hex>;
+  sendTransaction?(txRequest: TxIntent): Promise<TxExecutionResult>;
+}
+
+interface ReadClient {
+  getBlockNumber(chainId: ChainId): Promise<number>;
+  getLogs(chainId: ChainId, filter: LogFilter): Promise<Log[]>;
+  call?(chainId: ChainId, callRequest: CallRequest): Promise<Hex>;
+}
+
+interface TxIntent {
+  chainId: ChainId;
+  to: Address;
+  data: Hex;
+  value?: bigint;
+}
+
+interface TxIntentWithMeta extends TxIntent {
+  description: string;
+  functionName: string;
+  args?: Record<string, unknown>;
+}
+
+interface TxExecutionResult {
+  hash: Hex;
+  waitReceipt: () => Promise<TransactionReceipt>;
+}
 
 interface SecretState {
   owner: Address;
@@ -797,6 +1814,20 @@ interface SecretState {
   clusterId: number;
   secretType: number;
   publicKeyCid: string;
+}
+
+interface CIFERMetadata {
+  secretId: bigint;
+  storedAtBlock: number;
+  ciferHash: Bytes32;
+  encryptedMessageHash: Bytes32;
+}
+
+interface CommitmentData {
+  cifer: Hex;
+  encryptedMessage: Hex;
+  ciferHash: Bytes32;
+  encryptedMessageHash: Bytes32;
 }
 
 interface JobInfo {
@@ -808,10 +1839,26 @@ interface JobInfo {
   chainId: ChainId;
   createdAt: number;
   completedAt?: number;
+  expiredAt?: number;
   error?: string;
   resultFileName?: string;
   ttl: number;
   originalSize?: number;
+  signerPrincipalId?: string | null;        // Web2 principalId of job initiator (null for Web3)
+  secretOwnerPrincipalId?: string | null;   // Web2 principalId of secret owner (null for Web3)
+}
+
+interface FlowContext {
+  signer: SignerAdapter;
+  readClient: ReadClient;
+  blackboxUrl: string;
+  chainId: ChainId;
+  controllerAddress?: Address;
+  txExecutor?: (intent: TxIntent) => Promise<TxExecutionResult>;
+  pollingStrategy?: PollingStrategy;
+  logger?: (message: string) => void;
+  abortSignal?: AbortSignal;
+  fetch?: typeof fetch;
 }
 
 interface FlowResult<T> {
@@ -821,16 +1868,125 @@ interface FlowResult<T> {
   error?: Error;
   receipts?: TransactionReceipt[];
 }
+
+interface CiferSdkConfig {
+  blackboxUrl?: string;
+  signer?: SignerAdapter;
+  readClient?: ReadClient;
+  chainOverrides?: Record<ChainId, Partial<ChainConfig>>;
+  discoveryCacheTtlMs?: number;
+  fetch?: typeof fetch;
+  logger?: (message: string) => void;
+}
+
+// --- Web2 Types ---
+
+const WEB2_CHAIN_ID = -1; // Sentinel chain ID for Web2 operations
+
+interface Ed25519Signer {
+  sign(message: Uint8Array): Promise<Uint8Array>;
+  getPublicKey(): Uint8Array;
+}
+
+interface Web2Session {
+  readonly principalId: string;       // UUID
+  readonly sessionAddress: string;    // Session EOA address
+  readonly expiresAt: string;         // ISO 8601 timestamp
+  readonly signer: SignerAdapter;     // Ephemeral EOA signer
+  readonly isManaged: boolean;        // true = auto-renew capable
+  ensureValid(): Promise<void>;       // Check expiry, auto-renew if needed
+  renew(): Promise<void>;             // Force renewal (managed only)
+}
+
+interface Web2ClientConfig {
+  blackboxUrl: string;
+  readClient?: ReadClient;
+  fetch?: typeof fetch;
+}
+
+interface RegisterParams {
+  email: string;
+  password: string;
+  blackboxUrl: string;
+  fetch?: typeof fetch;
+}
+
+interface RequestAccountDeletionParams {
+  email: string;
+  password: string;
+  principalId: string;
+  blackboxUrl: string;
+  fetch?: typeof fetch;
+}
+
+interface ConfirmAccountDeletionParams {
+  email: string;
+  otp: string;
+  blackboxUrl: string;
+  fetch?: typeof fetch;
+}
+
+interface ConfirmAccountDeletionResult {
+  success: true;
+  message: string;
+}
+
+interface CreateManagedSessionParams {
+  principalId: string;
+  ed25519Signer: Ed25519Signer;
+  blackboxUrl: string;
+  ttl?: number; // seconds
+  fetch?: typeof fetch;
+}
+
+interface CreateWeb2SecretParams {
+  session: Web2Session;
+  blackboxUrl: string;
+  fetch?: typeof fetch;
+}
+
+interface SetWeb2DelegateParams {
+  session: Web2Session;
+  secretId: number;
+  delegatePrincipalId: string;
+  blackboxUrl: string;
+  fetch?: typeof fetch;
+}
+
+interface RequestPermitParams {
+  action: 'rotate' | 'transfer' | 'delegate';
+  // For rotate: email, password, payload
+  // For transfer/delegate: session, secretId, payload
+  blackboxUrl: string;
+}
+
+interface Web2Client {
+  readonly session: Web2Session | null;
+  readonly blackboxUrl: string;
+  readonly readClient: ReadClient | undefined;
+  createManagedSession(params): Promise<Web2Session>;
+  useExistingSessionKey(params): Web2Session;
+  setSession(session: Web2Session): void;
+  createSecret(params?): Promise<CreateWeb2SecretResult>;
+  listSecrets(params?): Promise<ListWeb2SecretsResult>;
+  setDelegate(params): Promise<SetWeb2DelegateResult>;
+  requestPermit(params): Promise<RequestPermitResult>;
+  getByEmail(email, blackboxUrl?): Promise<PrincipalByEmailResult>;
+  payload: { encryptPayload(params), decryptPayload(params) };
+  files: { encryptFile(params), decryptFile(params), decryptExistingFile(params) };
+  jobs: { getStatus(), pollUntilComplete(), download(), deleteJob(), list(), dataConsumption() };
+}
 ```
 
 ---
 
 ## Resources
 
+- **Full AI Reference**: [`docs-site/static/llm.txt`](docs-site/static/llm.txt) — comprehensive plaintext reference (kept in sync with this skill)
 - **npm**: [https://www.npmjs.com/package/cifer-sdk](https://www.npmjs.com/package/cifer-sdk)
 - **GitHub**: [https://github.com/cifer-security/cifer-sdk](https://github.com/cifer-security/cifer-sdk)
-- **Blackbox API**: `https://cifer-blackbox.ternoa.dev:3010`
-- **Supported Chain**: Ternoa (752025)
+- **Blackbox API**: `https://blackbox.cifersecurity.com:3010`
+- **Supported Chain**: Base (8453)
 
 ---
 

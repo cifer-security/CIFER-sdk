@@ -65,6 +65,7 @@ npm run docs:llm
 | `npm run docs:api-report` | Generate API report to `etc/` |
 | `npm run docs:typedoc` | Generate TypeDoc markdown to `docs-site/docs/api/` |
 | `npm run docs:llm` | Generate `llm.txt` for AI agents |
+| `npm run docs:changelog` | Sync `CHANGELOG.md` into the docs site |
 | `npm run docs:build` | Full documentation build pipeline |
 | `npm run docs:serve` | Start local Docusaurus dev server |
 

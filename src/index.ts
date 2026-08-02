@@ -20,7 +20,7 @@
  *
  * // Create the SDK instance with auto-discovery
  * const sdk = await createCiferSdk({
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  * });
  *
  * // Connect any EIP-1193 wallet
@@ -143,6 +143,24 @@ export * as commitments from './commitments/index.js';
  */
 export * as flows from './flows/index.js';
 
+/**
+ * Web2 namespace for email-based registration, session management,
+ * and session-first blackbox operations.
+ *
+ * @remarks
+ * This namespace provides:
+ * - `auth`: Registration, email verification, key registration
+ * - `session`: Managed and existing-key session creation
+ * - `secret`: Web2 secret creation and listing
+ * - `delegate`: Delegate management
+ * - `permit`: Permit requests (rotate/transfer/delegate)
+ * - `principal`: Principal lookup by email
+ * - `blackbox`: Session-first wrappers for payload/file/job operations
+ *
+ * @public
+ */
+export * as web2 from './web2/index.js';
+
 // ============================================================================
 // Internal Utilities (exported for advanced usage)
 // ============================================================================
@@ -178,6 +196,7 @@ export {
   Eip1193SignerAdapter,
   RpcReadClient,
   createReadClientFromDiscovery,
+  PrivateKeySignerAdapter,
 } from './internal/adapters/index.js';
 
 // Errors
@@ -327,14 +346,14 @@ export interface CiferSdk {
  * @example Basic usage with discovery
  * ```typescript
  * const sdk = await createCiferSdk({
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  * });
  * ```
  *
  * @example With signer and custom overrides
  * ```typescript
  * const sdk = await createCiferSdk({
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  *   signer: new Eip1193SignerAdapter(window.ethereum),
  *   chainOverrides: {
  *     752025: {
@@ -449,7 +468,7 @@ export async function createCiferSdk(config: CiferSdkConfig): Promise<CiferSdk> 
  * @example
  * ```typescript
  * const sdk = createCiferSdkSync({
- *   blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
  *   readClient: myReadClient,
  *   chainOverrides: {
  *     752025: {

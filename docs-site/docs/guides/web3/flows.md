@@ -1,8 +1,8 @@
 ---
-sidebar_position: 4
+sidebar_position: 6
 ---
 
-# Flows Guide
+# Flows
 
 Learn how to use high-level orchestrated flows for common operations.
 
@@ -25,10 +25,10 @@ const ctx: FlowContext = {
   signer,
   readClient: sdk.readClient,
   blackboxUrl: sdk.blackboxUrl,
-  chainId: 752025,
+  chainId: 8453,
   
   // Optional
-  controllerAddress: sdk.getControllerAddress(752025),
+  controllerAddress: sdk.getControllerAddress(8453),
   
   // For execute mode
   txExecutor: async (intent) => {
@@ -410,3 +410,9 @@ if (result.success && result.receipts) {
   }
 }
 ```
+
+## Next Steps
+
+- [Secret Management](/docs/guides/web3/secret-management) - Create and manage secrets
+- [Text Encryption](/docs/guides/web3/text-encryption) - Encrypt and decrypt text payloads
+- [On-Chain Commitments](/docs/guides/web3/commitments) - Store encrypted data on-chain

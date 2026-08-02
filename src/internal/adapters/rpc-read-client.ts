@@ -4,6 +4,7 @@
  */
 
 import type { Address, ChainId, Hex, Log, LogFilter } from '../../types/common.js';
+import { WEB2_CHAIN_ID } from '../../types/common.js';
 import type {
   ReadClient,
   CallRequest,
@@ -84,12 +85,19 @@ export class RpcReadClient implements ReadClient {
   }
 
   /**
-   * Get the current block number for a chain
+   * Get the current block number for a chain.
+   *
+   * For Web2 mode (`chainId === WEB2_CHAIN_ID`), returns `Date.now()`
+   * (unix milliseconds) instead of making an RPC call — this is the
+   * timestamp-based freshness value the blackbox expects.
    *
    * @param chainId - The chain ID
-   * @returns The current block number
+   * @returns The current block number (or timestamp for Web2)
    */
   async getBlockNumber(chainId: ChainId): Promise<number> {
+    if (chainId === WEB2_CHAIN_ID) {
+      return Date.now();
+    }
     const result = await this.rpcCall<Hex>(chainId, 'eth_blockNumber', []);
     return parseInt(result, 16);
   }
@@ -268,7 +276,7 @@ interface RpcLog {
  *
  * @example
  * ```typescript
- * const discovery = await discover('https://cifer-blackbox.ternoa.dev:3010');
+ * const discovery = await discover('https://blackbox.cifersecurity.com:3010');
  * const readClient = createReadClientFromDiscovery(discovery.chains);
  * ```
  */

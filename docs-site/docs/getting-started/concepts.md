@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 5
 ---
 
 # Core Concepts
@@ -55,12 +55,13 @@ interface SecretState {
 
 ## Authorization Model
 
-CIFER uses a simple two-role authorization model:
+CIFER uses a simple two-role authorization model. Encryption requires only a valid signature — **any wallet** can encrypt for any secret. Decryption and management operations are restricted by role:
 
-| Role | Capabilities |
-|------|-------------|
-| **Owner** | Encrypt, decrypt, transfer ownership, set delegate |
-| **Delegate** | Decrypt only (cannot encrypt or modify secret) |
+| Role | Encrypt | Decrypt | Transfer | Set Delegate |
+|------|---------|---------|----------|--------------|
+| **Owner** | Yes | Yes | Yes | Yes |
+| **Delegate** | Yes | Yes | No | No |
+| **Any wallet** | Yes | No | No | No |
 
 ### Setting a Delegate
 
@@ -82,6 +83,47 @@ const txIntent = keyManagement.buildRemoveDelegationTx({
   secretId: 123n,
 });
 ```
+
+## Web2 Mode
+
+CIFER also supports **Web2 mode** for applications that don't use blockchain wallets. Instead of connecting a wallet, users register with email + password and authenticate via Ed25519-signed sessions.
+
+### WEB2_CHAIN_ID
+
+Web2 mode uses the sentinel value `WEB2_CHAIN_ID = -1` instead of a real chain ID. This is set automatically by the `web2.blackbox.*` wrappers.
+
+### Block Freshness in Web2
+
+When `chainId = -1`, the SDK uses `Date.now()` (millisecond timestamp) instead of making an RPC call for block freshness. This means Web2 mode works without any blockchain RPC connection.
+
+```typescript
+// Web3: RPC call → eth_blockNumber → integer
+// Web2: Date.now() → millisecond timestamp (no RPC needed)
+```
+
+### Sessions
+
+Web2 authentication uses **sessions** instead of wallet signatures:
+
+1. An ephemeral secp256k1 keypair is generated (the "session key")
+2. The session is authenticated with an Ed25519 signature
+3. The session key signs blackbox requests (same EIP-191 format as wallets)
+4. Sessions expire and can be auto-renewed
+
+```typescript
+import { web2 } from 'cifer-sdk';
+
+// Create a managed session (auto-renews)
+const session = await web2.session.createManagedSession({
+  principalId: 'your-principal-uuid',
+  ed25519Signer: myEd25519Signer,
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+
+// session.signer is a standard SignerAdapter — works with all blackbox functions
+```
+
+See the [Account Management](/docs/guides/web2/authentication) guide for the complete registration and session flow.
 
 ## Encryption Model
 
@@ -218,13 +260,13 @@ The SDK can automatically fetch chain configuration:
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
 });
 
 // Configuration is auto-discovered from /healthz
-sdk.getSupportedChainIds(); // [752025, 11155111, ...]
-sdk.getControllerAddress(752025); // '0x...'
-sdk.getRpcUrl(752025); // 'https://...'
+sdk.getSupportedChainIds(); // [8453, 11155111, ...]
+sdk.getControllerAddress(8453); // '0x...'
+sdk.getRpcUrl(8453); // 'https://...'
 ```
 
 ### Manual Configuration
@@ -235,7 +277,7 @@ For offline or private deployments:
 const sdk = createCiferSdkSync({
   readClient: myReadClient,
   chainOverrides: {
-    752025: {
+    8453: {
       rpcUrl: 'https://my-rpc.example.com',
       secretsControllerAddress: '0x...',
     },
@@ -253,14 +295,14 @@ To see progress messages during SDK operations, pass a `logger` function:
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   logger: console.log, // Enable debug output
 });
 ```
 
 The logger receives messages like:
 - `"Performing discovery..."`
-- `"Discovery complete. Supported chains: 752025, 11155111"`
+- `"Discovery complete. Supported chains: 8453, 11155111"`
 - `"Discovery refreshed"`
 
 ### Flow Context Logging
@@ -307,6 +349,8 @@ See the [Error Handling](#error-handling) sections in each guide for specific er
 
 ## Next Steps
 
-- [Key Management Guide](/docs/guides/key-management) - Create and manage secrets
-- [Encryption Guide](/docs/guides/encryption) - Encrypt and decrypt data
-- [Commitments Guide](/docs/guides/commitments) - Store encrypted data on-chain
+- [Secret Management (Web3)](/docs/guides/web3/secret-management) - Create and manage secrets
+- [Text Encryption (Web3)](/docs/guides/web3/text-encryption) - Encrypt and decrypt text payloads
+- [On-Chain Commitments](/docs/guides/web3/commitments) - Store encrypted data on-chain
+- [Account Management (Web2)](/docs/guides/web2/authentication) - Registration, keys, sessions, password recovery, and account deletion
+- [Secret Management (Web2)](/docs/guides/web2/secret-management) - Create and manage secrets via API

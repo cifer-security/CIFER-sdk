@@ -1,8 +1,8 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
-# Key Management Guide
+# Secret Management
 
 Learn how to create, manage, and delegate CIFER secrets.
 
@@ -22,8 +22,8 @@ The `keyManagement` namespace provides functions for interacting with the Secret
 import { keyManagement } from 'cifer-sdk';
 
 const fee = await keyManagement.getSecretCreationFee({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   readClient: sdk.readClient,
 });
 
@@ -34,8 +34,8 @@ console.log('Fee:', fee, 'wei');
 
 ```typescript
 const txIntent = keyManagement.buildCreateSecretTx({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   fee,
 });
 
@@ -64,8 +64,8 @@ New secrets need time to sync before use:
 let isReady = false;
 while (!isReady) {
   isReady = await keyManagement.isSecretReady({
-    chainId: 752025,
-    controllerAddress: sdk.getControllerAddress(752025),
+    chainId: 8453,
+    controllerAddress: sdk.getControllerAddress(8453),
     readClient: sdk.readClient,
   }, secretId);
   
@@ -89,8 +89,8 @@ const result = await flows.createSecretAndWaitReady({
   signer,
   readClient: sdk.readClient,
   blackboxUrl: sdk.blackboxUrl,
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   txExecutor: async (intent) => {
     const hash = await wallet.sendTransaction(intent);
     return {
@@ -113,8 +113,8 @@ if (result.success) {
 
 ```typescript
 const state = await keyManagement.getSecret({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   readClient: sdk.readClient,
 }, secretId);
 
@@ -128,8 +128,8 @@ console.log('Public Key CID:', state.publicKeyCid);
 
 ```typescript
 const secrets = await keyManagement.getSecretsByWallet({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   readClient: sdk.readClient,
 }, walletAddress);
 
@@ -141,8 +141,8 @@ console.log('Delegated:', secrets.delegated);
 
 ```typescript
 const isAuthorized = await keyManagement.isAuthorized({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   readClient: sdk.readClient,
 }, secretId, address);
 
@@ -159,8 +159,8 @@ Allow another address to decrypt (but not encrypt):
 
 ```typescript
 const txIntent = keyManagement.buildSetDelegateTx({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   secretId: 123n,
   newDelegate: '0xDelegateAddress...',
 });
@@ -172,8 +172,8 @@ await wallet.sendTransaction(txIntent);
 
 ```typescript
 const txIntent = keyManagement.buildRemoveDelegationTx({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   secretId: 123n,
 });
 
@@ -186,8 +186,8 @@ Transfer a secret to a new owner (clears any delegate):
 
 ```typescript
 const txIntent = keyManagement.buildTransferSecretTx({
-  chainId: 752025,
-  controllerAddress: sdk.getControllerAddress(752025),
+  chainId: 8453,
+  controllerAddress: sdk.getControllerAddress(8453),
   secretId: 123n,
   newOwner: '0xNewOwner...',
 });
@@ -250,7 +250,7 @@ Enable SDK-level logging for troubleshooting:
 
 ```typescript
 const sdk = await createCiferSdk({
-  blackboxUrl: 'https://cifer-blackbox.ternoa.dev:3010',
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
   logger: console.log,
 });
 ```
@@ -265,3 +265,10 @@ See [Debugging & Logging](/docs/getting-started/concepts#debugging--logging) for
 3. **Handle sync time** - Budget ~60 seconds for new secret sync
 4. **Validate ownership** - Check authorization before attempting decryption
 5. **Monitor events** - Use WebSocket subscriptions for real-time updates
+
+## Next Steps
+
+- [Text Encryption](/docs/guides/web3/text-encryption) - Encrypt and decrypt text payloads
+- [File Encryption](/docs/guides/web3/file-encryption) - Encrypt and decrypt large files
+- [Flows](/docs/guides/web3/flows) - High-level orchestrated operations
+- Looking for Web2? See [Secret Management (Web2)](/docs/guides/web2/secret-management)

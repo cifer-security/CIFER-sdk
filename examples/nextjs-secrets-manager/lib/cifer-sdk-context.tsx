@@ -92,7 +92,7 @@ export function CiferSdkProvider({
         const url =
           blackboxUrl ||
           process.env.NEXT_PUBLIC_BLACKBOX_URL ||
-          "https://cifer-blackbox.ternoa.dev:3010"
+          "https://blackbox.cifersecurity.com:3010"
 
         console.log("[CIFER SDK] Initializing with discovery...")
         console.log("[CIFER SDK] Blackbox URL:", url)

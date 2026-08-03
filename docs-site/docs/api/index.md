@@ -4412,7 +4412,7 @@ Billing cycle type (e.g. 'monthly')
 
 Defined in: [types/common.ts:385](https://github.com/cifer-security/CIFER-sdk/blob/29724a6172b19f59accf0ce6eb312b8c15c711ad/src/types/common.ts#L385)
 
-Billing period start (ISO 8601)
+Billing period start (Unix timestamp in milliseconds)
 
 ##### periodEnd
 
@@ -4420,7 +4420,7 @@ Billing period start (ISO 8601)
 
 Defined in: [types/common.ts:387](https://github.com/cifer-security/CIFER-sdk/blob/29724a6172b19f59accf0ce6eb312b8c15c711ad/src/types/common.ts#L387)
 
-Billing period end (ISO 8601)
+Billing period end (Unix timestamp in milliseconds)
 
 ##### encryption
 

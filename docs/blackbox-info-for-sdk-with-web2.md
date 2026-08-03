@@ -595,6 +595,8 @@ Body:
 
 Response (200):
 
+`period_start` and `period_end` are Unix timestamps in milliseconds (JSON numbers), not ISO-8601 strings.
+
 ```json
 {
   "success": true,
@@ -602,8 +604,8 @@ Response (200):
   "user_type": "web3",
   "plan_id": "free",
   "cycle_type": "monthly",
-  "period_start": "2025-01-01T00:00:00.000Z",
-  "period_end": "2025-02-01T00:00:00.000Z",
+  "period_start": 1735689600000,
+  "period_end": 1738368000000,
   "encryption": {
     "limit": 1073741824,
     "used": 524288,

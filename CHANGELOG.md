@@ -27,6 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - Added [Web2 Permits](/docs/guides/web2/permits) guide and updated API reference for the V2 payload.
 - See Blackbox follow-up todo for later hard rejection of legacy 4-part clients: `CIFER-blackbox/docs/superpowers/todos/2026-08-02-deprecate-legacy-permit-auth.md`.
+- **`DataConsumption.periodStart` / `periodEnd`** — Docs corrected: these are Unix timestamps in milliseconds (not ISO-8601). The TypeScript type remains `string`.
 
 ---
 

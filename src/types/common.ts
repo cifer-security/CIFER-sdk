@@ -381,9 +381,9 @@ export interface DataConsumption {
   planId: string;
   /** Billing cycle type (e.g. 'monthly') */
   cycleType: string;
-  /** Billing period start (ISO 8601) */
+  /** Billing period start (Unix timestamp in milliseconds, as a string) */
   periodStart: string;
-  /** Billing period end (ISO 8601) */
+  /** Billing period end (Unix timestamp in milliseconds, as a string) */
   periodEnd: string;
   /** Encryption usage statistics */
   encryption: UsageStats;

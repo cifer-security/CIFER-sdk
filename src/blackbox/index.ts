@@ -50,7 +50,7 @@ export * as jobs from './jobs.js';
 
 // Public key fetch
 export * as publicKey from './publicKey.js';
-export { getSecretPublicKey } from './publicKey.js';
+export { getSecretPublicKey, fetchSecretPublicKey } from './publicKey.js';
 
 // Re-export commonly used types
 export type {
@@ -77,4 +77,5 @@ export type {
 export type {
   GetSecretPublicKeyParams,
   GetSecretPublicKeyResult,
+  FetchSecretPublicKeyParams,
 } from './publicKey.js';

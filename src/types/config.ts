@@ -61,7 +61,7 @@ export interface DiscoveryResult {
   /** Per-chain configuration */
   chains: ChainConfig[];
   /**
-   * @deprecated Blackbox no longer exposes IPFS. Use `blackbox.publicKey.getSecretPublicKey()`.
+   * @deprecated Blackbox no longer exposes IPFS. Use `blackbox.publicKey.fetchSecretPublicKey()`.
    */
   ipfsGatewayUrl?: string;
   /** Unix timestamp (ms) when this discovery result was fetched */

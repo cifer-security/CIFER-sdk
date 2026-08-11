@@ -8,8 +8,36 @@ import type { ReadClient } from '../../types/adapters.js';
 import type { Web2Session } from '../../types/web2.js';
 import {
   getSecretPublicKey as coreGetSecretPublicKey,
+  fetchSecretPublicKey as coreFetchSecretPublicKey,
   type GetSecretPublicKeyResult,
 } from '../../blackbox/publicKey.js';
+
+/**
+ * Parameters for unsigned Web2 public key fetch
+ */
+export interface Web2FetchSecretPublicKeyParams {
+  /** Secret ID to fetch */
+  secretId: bigint | number;
+  /** Blackbox URL */
+  blackboxUrl: string;
+  /** Custom fetch implementation */
+  fetch?: typeof fetch;
+}
+
+/**
+ * Fetch a secret's ML-KEM public key using unsigned GET (Web2 chainId=-1).
+ * No session required.
+ */
+export async function fetchSecretPublicKey(
+  params: Web2FetchSecretPublicKeyParams
+): Promise<GetSecretPublicKeyResult> {
+  return coreFetchSecretPublicKey({
+    chainId: WEB2_CHAIN_ID,
+    secretId: params.secretId,
+    blackboxUrl: params.blackboxUrl,
+    fetch: params.fetch,
+  });
+}
 
 /**
  * Parameters for Web2 public key fetch
@@ -29,6 +57,8 @@ export interface Web2GetSecretPublicKeyParams {
 
 /**
  * Fetch a secret's ML-KEM public key using a Web2 session.
+ *
+ * @deprecated Use {@link fetchSecretPublicKey} — signed POST is legacy; prefer unsigned GET.
  */
 export async function getSecretPublicKey(
   params: Web2GetSecretPublicKeyParams

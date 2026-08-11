@@ -29,6 +29,20 @@ export interface GetSecretPublicKeyParams {
 }
 
 /**
+ * Parameters for unsigned public key fetch
+ */
+export interface FetchSecretPublicKeyParams {
+  /** Chain ID where the secret exists (`-1` for Web2) */
+  chainId: ChainId;
+  /** Secret ID to fetch */
+  secretId: bigint | number;
+  /** Blackbox URL */
+  blackboxUrl: string;
+  /** Custom fetch implementation */
+  fetch?: typeof fetch;
+}
+
+/**
  * Result of fetching a secret's public key
  */
 export interface GetSecretPublicKeyResult {
@@ -41,9 +55,52 @@ export interface GetSecretPublicKeyResult {
 }
 
 /**
+ * Fetch a secret's ML-KEM public key via unsigned GET.
+ *
+ * Preferred over {@link getSecretPublicKey}.
+ *
+ * @param params - Request parameters
+ * @returns Public key and identifiers
+ */
+export async function fetchSecretPublicKey(
+  params: FetchSecretPublicKeyParams
+): Promise<GetSecretPublicKeyResult> {
+  const { chainId, secretId, blackboxUrl } = params;
+  const fetchFn = params.fetch ?? fetch;
+  const secretIdNum = Number(secretId);
+
+  const url = `${blackboxUrl.replace(/\/$/, '')}/secret-public-key/${Number(chainId)}/${secretIdNum}`;
+  const response = await fetchFn(url, { method: 'GET' });
+
+  if (!response.ok) {
+    const errorBody = (await response.json().catch(() => ({}))) as Record<string, unknown>;
+    throw parseBlackboxErrorResponse(
+      errorBody as { error?: string; message?: string },
+      response.status,
+      '/secret-public-key'
+    );
+  }
+
+  const body = (await response.json()) as {
+    success: boolean;
+    chainId: number;
+    secretId: number;
+    publicKey: string;
+  };
+
+  return {
+    chainId: body.chainId,
+    secretId: body.secretId,
+    publicKey: body.publicKey,
+  };
+}
+
+/**
  * Fetch a secret's ML-KEM public key from the blackbox API.
  *
  * Auth format: `chainId_secretId_signer_blockNumber` (same as file operations).
+ *
+ * @deprecated Use {@link fetchSecretPublicKey} — signed POST is legacy; prefer unsigned GET.
  *
  * @param params - Request parameters
  * @returns Public key and identifiers

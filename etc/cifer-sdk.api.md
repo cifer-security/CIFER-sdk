@@ -58,6 +58,7 @@ declare namespace blackbox {
         jobs,
         publicKey,
         getSecretPublicKey,
+        fetchSecretPublicKey,
         EncryptPayloadParams,
         EncryptPayloadResult,
         DecryptPayloadParams,
@@ -71,7 +72,8 @@ declare namespace blackbox {
         ListJobsResult,
         DataConsumptionParams,
         GetSecretPublicKeyParams,
-        GetSecretPublicKeyResult
+        GetSecretPublicKeyResult,
+        FetchSecretPublicKeyParams
     }
 }
 
@@ -102,6 +104,7 @@ declare namespace blackboxNs {
         jobs,
         publicKey,
         getSecretPublicKey,
+        fetchSecretPublicKey,
         EncryptPayloadParams,
         EncryptPayloadResult,
         DecryptPayloadParams,
@@ -115,7 +118,8 @@ declare namespace blackboxNs {
         ListJobsResult,
         DataConsumptionParams,
         GetSecretPublicKeyParams,
-        GetSecretPublicKeyResult
+        GetSecretPublicKeyResult,
+        FetchSecretPublicKeyParams
     }
 }
 
@@ -913,6 +917,20 @@ function fetchCommitmentWithRetry(params: FetchCommitmentParams & {
 }): Promise<CommitmentData>;
 
 // @public
+function fetchSecretPublicKey(params: FetchSecretPublicKeyParams): Promise<GetSecretPublicKeyResult>;
+
+// @public
+function fetchSecretPublicKey_2(params: Web2FetchSecretPublicKeyParams): Promise<GetSecretPublicKeyResult>;
+
+// @public
+interface FetchSecretPublicKeyParams {
+    blackboxUrl: string;
+    chainId: ChainId;
+    fetch?: typeof fetch;
+    secretId: bigint | number;
+}
+
+// @public
 interface FileJobResult {
     jobId: string;
     message: string;
@@ -1118,10 +1136,10 @@ function getSecretCreationFee(params: ReadParams): Promise<bigint>;
 // @public
 function getSecretOwner(params: ReadParams, secretId: bigint): Promise<Address>;
 
-// @public
+// @public @deprecated
 function getSecretPublicKey(params: GetSecretPublicKeyParams): Promise<GetSecretPublicKeyResult>;
 
-// @public
+// @public @deprecated
 function getSecretPublicKey_2(params: Web2GetSecretPublicKeyParams): Promise<GetSecretPublicKeyResult>;
 
 // @public
@@ -1566,15 +1584,19 @@ export class PrivateKeySignerAdapter implements SignerAdapter {
 
 declare namespace publicKey {
     export {
+        fetchSecretPublicKey,
         getSecretPublicKey,
         GetSecretPublicKeyParams,
+        FetchSecretPublicKeyParams,
         GetSecretPublicKeyResult
     }
 }
 
 declare namespace publicKey_2 {
     export {
+        fetchSecretPublicKey_2 as fetchSecretPublicKey,
         getSecretPublicKey_2 as getSecretPublicKey,
+        Web2FetchSecretPublicKeyParams,
         Web2GetSecretPublicKeyParams
     }
 }
@@ -2453,6 +2475,13 @@ interface Web2EncryptPayloadParams {
 // @public
 export class Web2Error extends CiferError {
     constructor(message: string, cause?: Error);
+}
+
+// @public
+interface Web2FetchSecretPublicKeyParams {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    secretId: bigint | number;
 }
 
 // @public

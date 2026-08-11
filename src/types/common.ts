@@ -248,7 +248,7 @@ export interface SecretState {
   secretType: number;
   /**
    * On-chain readiness marker. New secrets use {@link ON_CHAIN_PUBLIC_KEY_PLACEHOLDER}.
-   * Fetch the actual ML-KEM public key via `blackbox.publicKey.getSecretPublicKey()`.
+   * Fetch the actual ML-KEM public key via `blackbox.publicKey.fetchSecretPublicKey()`.
    */
   publicKeyCid: string;
 }

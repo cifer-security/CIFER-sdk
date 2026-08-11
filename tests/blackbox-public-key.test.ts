@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { getSecretPublicKey } from '../src/blackbox/publicKey.js';
+import { getSecretPublicKey, fetchSecretPublicKey } from '../src/blackbox/publicKey.js';
 import type { SignerAdapter, ReadClient } from '../src/types/adapters.js';
 import type { Address, Hex } from '../src/types/common.js';
 
@@ -53,5 +53,39 @@ describe('getSecretPublicKey', () => {
       'http://localhost:3010/secret-public-key',
       expect.objectContaining({ method: 'POST' })
     );
+  });
+});
+
+describe('fetchSecretPublicKey', () => {
+  beforeEach(() => {
+    vi.stubGlobal('fetch', vi.fn());
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('GETs /secret-public-key/:chainId/:secretId without signature', async () => {
+    const mockPk = 'B'.repeat(1584);
+    vi.mocked(fetch).mockResolvedValueOnce(
+      new Response(
+        JSON.stringify({ success: true, chainId: 11155111, secretId: 7, publicKey: mockPk }),
+        { status: 200 }
+      )
+    );
+
+    const result = await fetchSecretPublicKey({
+      blackboxUrl: 'http://localhost:3010',
+      chainId: 11155111,
+      secretId: 7,
+    });
+
+    expect(result).toEqual({ chainId: 11155111, secretId: 7, publicKey: mockPk });
+    expect(fetch).toHaveBeenCalledWith(
+      'http://localhost:3010/secret-public-key/11155111/7',
+      expect.objectContaining({ method: 'GET' })
+    );
+    const init = vi.mocked(fetch).mock.calls[0][1] as RequestInit;
+    expect(init.body).toBeUndefined();
   });
 });

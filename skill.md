@@ -23,7 +23,7 @@ CIFER (Cryptographic Infrastructure for Encrypted Records) SDK provides quantum-
 - **Blackbox API** (off-chain): Handles encryption/decryption and stores ML-KEM public keys
 - **Enclave Cluster**: Stores private key shards using threshold cryptography
 
-> **Note:** IPFS is no longer used. Public keys are stored and served by Blackbox (`POST /secret-public-key`). The on-chain `publicKeyCid` field is a legacy readiness marker only — not an IPFS CID.
+> **Note:** IPFS is no longer used. Public keys are stored and served by Blackbox (`GET /secret-public-key/:chainId/:secretId`; legacy signed `POST /secret-public-key` remains for compatibility). The on-chain `publicKeyCid` field is a legacy readiness marker only — not an IPFS CID.
 
 ## When to Use This Skill
 
@@ -172,7 +172,7 @@ console.log(decrypted.decryptedMessage); // 'Hello from Web2!'
 ### Secrets
 
 A **secret** is the core primitive in CIFER. Each secret represents an ML-KEM-768 key pair where:
-- **Public key**: Stored on Blackbox (local DB/disk); fetch via `blackbox.publicKey.getSecretPublicKey()`
+- **Public key**: Stored on Blackbox (local DB/disk); fetch via `blackbox.publicKey.fetchSecretPublicKey()` (unsigned GET; no session/signer required)
 - **Private key**: Split across enclave cluster using threshold cryptography
 
 | Property | Description |
@@ -657,25 +657,31 @@ Fetch the ML-KEM-768 public key for a secret from Blackbox (not from IPFS / `pub
 ```typescript
 import { blackbox } from 'cifer-sdk';
 
-const { publicKey } = await blackbox.publicKey.getSecretPublicKey({
+// Preferred: unsigned GET (no signer/session)
+const { publicKey } = await blackbox.publicKey.fetchSecretPublicKey({
+  chainId: 8453,
+  secretId: 123n,
+  blackboxUrl: sdk.blackboxUrl,
+});
+// Returns: { chainId, secretId, publicKey } — publicKey is base64 ML-KEM-768
+
+// Web2 (chainId = -1 filled automatically; no session):
+const { publicKey: web2Key } = await web2.blackbox.publicKey.fetchSecretPublicKey({
+  secretId: 42,
+  blackboxUrl: sdk.blackboxUrl,
+});
+
+// Deprecated: signed POST (legacy compatibility)
+const { publicKey: legacyKey } = await blackbox.publicKey.getSecretPublicKey({
   chainId: 8453,
   secretId: 123n,
   signer,
   readClient: sdk.readClient,
   blackboxUrl: sdk.blackboxUrl,
 });
-// Returns: { chainId, secretId, publicKey } — publicKey is base64 ML-KEM-768
-
-// Web2 (session auth, chainId = -1 filled automatically):
-const { publicKey: web2Key } = await web2.blackbox.publicKey.getSecretPublicKey({
-  session,
-  secretId: 42,
-  blackboxUrl: sdk.blackboxUrl,
-  readClient: sdk.readClient,
-});
 ```
 
-Auth data string format matches file operations: `chainId_secretId_signer_blockNumber`.
+Auth data string format for the deprecated signed POST matches file operations: `chainId_secretId_signer_blockNumber`.
 
 ---
 
@@ -1238,13 +1244,20 @@ Session-first wrappers around the core `blackbox.*` functions. Automatically fil
 #### web2.blackbox.publicKey
 
 ```typescript
-const { publicKey } = await web2.blackbox.publicKey.getSecretPublicKey({
+// Preferred: unsigned GET (no session)
+const { publicKey } = await web2.blackbox.publicKey.fetchSecretPublicKey({
+  secretId: 42,
+  blackboxUrl: sdk.blackboxUrl,
+});
+// Returns: { chainId: -1, secretId, publicKey } — base64 ML-KEM-768 from Blackbox
+
+// Deprecated: signed POST with session auth
+const { publicKey: legacyKey } = await web2.blackbox.publicKey.getSecretPublicKey({
   session,
   secretId: 42,
   blackboxUrl: sdk.blackboxUrl,
   readClient: sdk.readClient,
 });
-// Returns: { chainId: -1, secretId, publicKey } — base64 ML-KEM-768 from Blackbox
 ```
 
 #### web2.blackbox.payload
@@ -1868,7 +1881,7 @@ interface SecretState {
   isSyncing: boolean;
   clusterId: number;
   secretType: number;
-  /** Legacy name. Readiness sentinel ('cifer'), not an IPFS CID. Real key: blackbox.publicKey.getSecretPublicKey() */
+  /** Legacy name. Readiness sentinel ('cifer'), not an IPFS CID. Real key: blackbox.publicKey.fetchSecretPublicKey() */
   publicKeyCid: string;
 }
 
@@ -2029,7 +2042,7 @@ interface Web2Client {
   requestPermit(params): Promise<RequestPermitResult>;
   getByEmail(email, blackboxUrl?): Promise<PrincipalByEmailResult>;
   payload: { encryptPayload(params), decryptPayload(params) };
-  publicKey: { getSecretPublicKey(params) };
+  publicKey: { fetchSecretPublicKey(params), getSecretPublicKey(params) /* deprecated */ };
   files: { encryptFile(params), decryptFile(params), decryptExistingFile(params) };
   jobs: { getStatus(), pollUntilComplete(), download(), deleteJob(), list(), dataConsumption() };
 }

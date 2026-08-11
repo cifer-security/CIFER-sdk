@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **`blackbox.publicKey.fetchSecretPublicKey()`** / **`web2.blackbox.publicKey.fetchSecretPublicKey()`** — unsigned `GET /secret-public-key/:chainId/:secretId` (no signer/session).
+
+### Deprecated
+
+- **`blackbox.publicKey.getSecretPublicKey()`** / **`web2.blackbox.publicKey.getSecretPublicKey()`** — prefer `fetchSecretPublicKey`. Signed POST remains available for compatibility.
+
+---
+
 ## [0.5.4] - 2026-08-02 
 
 ### ⚠️ Breaking Changes

@@ -150,6 +150,35 @@ describe('Web2 Blackbox Wrappers', () => {
     });
   });
 
+  describe('publicKey.fetchSecretPublicKey', () => {
+    it('GETs Web2 public key without session', async () => {
+      const mockPk = 'C'.repeat(1584);
+      vi.stubGlobal(
+        'fetch',
+        vi.fn().mockResolvedValue(
+          new Response(
+            JSON.stringify({ success: true, chainId: -1, secretId: 42, publicKey: mockPk }),
+            { status: 200 }
+          )
+        )
+      );
+
+      const { fetchSecretPublicKey } = await import('../src/web2/blackbox/publicKey.js');
+      const result = await fetchSecretPublicKey({
+        secretId: 42,
+        blackboxUrl: 'http://localhost:3010',
+      });
+
+      expect(result.publicKey).toBe(mockPk);
+      expect(fetch).toHaveBeenCalledWith(
+        'http://localhost:3010/secret-public-key/-1/42',
+        expect.objectContaining({ method: 'GET' })
+      );
+
+      vi.unstubAllGlobals();
+    });
+  });
+
   describe('publicKey.getSecretPublicKey', () => {
     it('calls session.ensureValid', async () => {
       const session = createMockSession();

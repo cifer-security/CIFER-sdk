@@ -20,9 +20,10 @@ CIFER (Cryptographic Infrastructure for Encrypted Records) SDK provides quantum-
 ### Architecture
 
 - **SecretsController** (on-chain): Manages secret ownership and delegation
-- **Blackbox API** (off-chain): Handles encryption/decryption operations
+- **Blackbox API** (off-chain): Handles encryption/decryption and stores ML-KEM public keys
 - **Enclave Cluster**: Stores private key shards using threshold cryptography
-- **IPFS**: Stores public keys for encryption
+
+> **Note:** IPFS is no longer used. Public keys are stored and served by Blackbox (`POST /secret-public-key`). The on-chain `publicKeyCid` field is a legacy readiness marker only — not an IPFS CID.
 
 ## When to Use This Skill
 
@@ -171,7 +172,7 @@ console.log(decrypted.decryptedMessage); // 'Hello from Web2!'
 ### Secrets
 
 A **secret** is the core primitive in CIFER. Each secret represents an ML-KEM-768 key pair where:
-- **Public key**: Stored on IPFS, used for encryption
+- **Public key**: Stored on Blackbox (local DB/disk); fetch via `blackbox.publicKey.getSecretPublicKey()`
 - **Private key**: Split across enclave cluster using threshold cryptography
 
 | Property | Description |
@@ -181,13 +182,13 @@ A **secret** is the core primitive in CIFER. Each secret represents an ML-KEM-76
 | `isSyncing` | `true` while key generation is in progress |
 | `clusterId` | Which enclave cluster holds the private key shards |
 | `secretType` | `1` = ML-KEM-768 (standard) |
-| `publicKeyCid` | IPFS CID of public key (empty if syncing) |
+| `publicKeyCid` | Legacy field name. **Not an IPFS CID.** Empty while syncing; when ready, set to the sentinel `ON_CHAIN_PUBLIC_KEY_PLACEHOLDER` (`'cifer'`). The real ML-KEM public key lives on Blackbox. |
 
 **Lifecycle**:
 1. **Creation**: User calls `createSecret()` on SecretsController (pays fee)
-2. **Syncing**: Enclave cluster generates keys and stores shards (~30-60 seconds)
-3. **Ready**: `isSyncing` becomes false, `publicKeyCid` is set
-4. **Usage**: Owner/delegate can encrypt and decrypt
+2. **Syncing**: Enclave cluster generates keys and stores shards; Blackbox persists the ML-KEM public key (~30-60 seconds)
+3. **Ready**: `isSyncing` becomes false, `publicKeyCid` is set to `'cifer'` (readiness marker only)
+4. **Usage**: Owner/delegate can encrypt and decrypt; fetch the public key from Blackbox when needed
 
 ### Authorization Model
 
@@ -587,8 +588,9 @@ const fee = await keyManagement.getSecretCreationFee({
 // Get secret state
 const state = await keyManagement.getSecret(params, 123n);
 // Returns: { owner, delegate, isSyncing, clusterId, secretType, publicKeyCid }
+// publicKeyCid is a readiness sentinel ('cifer'), not an IPFS CID — fetch the real key via blackbox.publicKey
 
-// Check if secret is ready
+// Check if secret is ready (!isSyncing && publicKeyCid !== '')
 const ready = await keyManagement.isSecretReady(params, 123n);
 
 // Check authorization
@@ -645,6 +647,35 @@ const created = keyManagement.parseSecretCreatedLog(log);
 const synced = keyManagement.parseSecretSyncedLog(log);
 const delegateUpdated = keyManagement.parseDelegateUpdatedLog(log);
 ```
+
+---
+
+### blackbox.publicKey Namespace
+
+Fetch the ML-KEM-768 public key for a secret from Blackbox (not from IPFS / `publicKeyCid`).
+
+```typescript
+import { blackbox } from 'cifer-sdk';
+
+const { publicKey } = await blackbox.publicKey.getSecretPublicKey({
+  chainId: 8453,
+  secretId: 123n,
+  signer,
+  readClient: sdk.readClient,
+  blackboxUrl: sdk.blackboxUrl,
+});
+// Returns: { chainId, secretId, publicKey } — publicKey is base64 ML-KEM-768
+
+// Web2 (session auth, chainId = -1 filled automatically):
+const { publicKey: web2Key } = await web2.blackbox.publicKey.getSecretPublicKey({
+  session,
+  secretId: 42,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+```
+
+Auth data string format matches file operations: `chainId_secretId_signer_blockNumber`.
 
 ---
 
@@ -875,7 +906,8 @@ const result = await flows.createSecretAndWaitReady({
 
 if (result.success) {
   console.log('Secret ID:', result.data.secretId);
-  console.log('Public Key CID:', result.data.state.publicKeyCid);
+  // publicKeyCid is the readiness sentinel ('cifer'), not an IPFS CID
+  console.log('Ready marker (publicKeyCid):', result.data.state.publicKeyCid);
 }
 ```
 
@@ -1203,6 +1235,18 @@ const principal = await web2.principal.getByEmail(
 
 Session-first wrappers around the core `blackbox.*` functions. Automatically fills `chainId = -1` and uses the session signer. Calls `session.ensureValid()` before each request.
 
+#### web2.blackbox.publicKey
+
+```typescript
+const { publicKey } = await web2.blackbox.publicKey.getSecretPublicKey({
+  session,
+  secretId: 42,
+  blackboxUrl: sdk.blackboxUrl,
+  readClient: sdk.readClient,
+});
+// Returns: { chainId: -1, secretId, publicKey } — base64 ML-KEM-768 from Blackbox
+```
+
 #### web2.blackbox.payload
 
 ```typescript
@@ -1341,7 +1385,7 @@ await client.getByEmail('colleague@example.com');
 client.setSession(anotherSession); // manually replace stored session
 ```
 
-The `Web2Client` interface provides: `session`, `blackboxUrl`, `readClient`, `createManagedSession()`, `useExistingSessionKey()`, `setSession()`, `createSecret()`, `listSecrets()`, `setDelegate()`, `requestPermit()`, `getByEmail()`, `payload.*`, `files.*`, `jobs.*`.
+The `Web2Client` interface provides: `session`, `blackboxUrl`, `readClient`, `createManagedSession()`, `useExistingSessionKey()`, `setSession()`, `createSecret()`, `listSecrets()`, `setDelegate()`, `requestPermit()`, `getByEmail()`, `payload.*`, `publicKey.*`, `files.*`, `jobs.*`.
 
 ---
 
@@ -1520,7 +1564,8 @@ async function createSecretExample() {
 
   if (result.success) {
     console.log('Created secret:', result.data.secretId);
-    console.log('Public key CID:', result.data.state.publicKeyCid);
+    // publicKeyCid is the readiness sentinel ('cifer'), not an IPFS CID
+    console.log('Ready marker (publicKeyCid):', result.data.state.publicKeyCid);
   } else {
     console.error('Failed:', result.error);
   }
@@ -1823,6 +1868,7 @@ interface SecretState {
   isSyncing: boolean;
   clusterId: number;
   secretType: number;
+  /** Legacy name. Readiness sentinel ('cifer'), not an IPFS CID. Real key: blackbox.publicKey.getSecretPublicKey() */
   publicKeyCid: string;
 }
 
@@ -1983,6 +2029,7 @@ interface Web2Client {
   requestPermit(params): Promise<RequestPermitResult>;
   getByEmail(email, blackboxUrl?): Promise<PrincipalByEmailResult>;
   payload: { encryptPayload(params), decryptPayload(params) };
+  publicKey: { getSecretPublicKey(params) };
   files: { encryptFile(params), decryptFile(params), decryptExistingFile(params) };
   jobs: { getStatus(), pollUntilComplete(), download(), deleteJob(), list(), dataConsumption() };
 }

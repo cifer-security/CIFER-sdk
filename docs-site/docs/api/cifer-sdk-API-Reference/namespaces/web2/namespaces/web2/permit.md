@@ -16,7 +16,7 @@ Web2 permit requests (rotate, transfer, delegate) using the V2 Blackbox create c
 
 > **requestPermit**(`params`): `Promise`\<[`RequestPermitResult`](../../../../../index.md#requestpermitresult)\>
 
-Defined in: [web2/permit.ts:113](https://github.com/cifer-security/CIFER-sdk/blob/29724a6172b19f59accf0ce6eb312b8c15c711ad/src/web2/permit.ts#L113)
+Defined in: [web2/permit.ts:113](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/permit.ts#L113)
 
 Request a permit for key rotation, secret transfer, or delegation.
 

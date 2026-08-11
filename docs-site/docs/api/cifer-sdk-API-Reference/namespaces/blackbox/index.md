@@ -30,6 +30,12 @@ Re-exports [getSecretPublicKey](namespaces/blackbox/publicKey.md#getsecretpublic
 
 ***
 
+### fetchSecretPublicKey
+
+Re-exports [fetchSecretPublicKey](namespaces/blackbox/publicKey.md#fetchsecretpublickey)
+
+***
+
 ### EncryptPayloadParams
 
 Re-exports [EncryptPayloadParams](namespaces/blackbox/payload.md#encryptpayloadparams)
@@ -111,3 +117,9 @@ Re-exports [GetSecretPublicKeyParams](namespaces/blackbox/publicKey.md#getsecret
 ### GetSecretPublicKeyResult
 
 Re-exports [GetSecretPublicKeyResult](namespaces/blackbox/publicKey.md#getsecretpublickeyresult)
+
+***
+
+### FetchSecretPublicKeyParams
+
+Re-exports [FetchSecretPublicKeyParams](namespaces/blackbox/publicKey.md#fetchsecretpublickeyparams)

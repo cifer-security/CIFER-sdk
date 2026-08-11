@@ -16,7 +16,7 @@ Web2 secret creation and listing
 
 > **createSecret**(`params`): `Promise`\<[`CreateWeb2SecretResult`](../../../../../index.md#createweb2secretresult)\>
 
-Defined in: [web2/secret.ts:45](https://github.com/cifer-security/CIFER-sdk/blob/29724a6172b19f59accf0ce6eb312b8c15c711ad/src/web2/secret.ts#L45)
+Defined in: [web2/secret.ts:45](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/secret.ts#L45)
 
 Create a new Web2 secret.
 
@@ -52,7 +52,7 @@ console.log('Secret ID:', result.secretId);
 
 > **listSecrets**(`params`): `Promise`\<[`ListWeb2SecretsResult`](../../../../../index.md#listweb2secretsresult)\>
 
-Defined in: [web2/secret.ts:103](https://github.com/cifer-security/CIFER-sdk/blob/29724a6172b19f59accf0ce6eb312b8c15c711ad/src/web2/secret.ts#L103)
+Defined in: [web2/secret.ts:103](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/secret.ts#L103)
 
 List all Web2 secrets for the current principal.
 

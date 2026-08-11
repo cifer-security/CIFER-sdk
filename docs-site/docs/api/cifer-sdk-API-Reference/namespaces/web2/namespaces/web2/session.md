@@ -20,7 +20,7 @@ Provides two session modes:
 
 > **createManagedSession**(`params`): `Promise`\<[`Web2Session`](../../../../../index.md#web2session)\>
 
-Defined in: [web2/session.ts:139](https://github.com/cifer-security/CIFER-sdk/blob/29724a6172b19f59accf0ce6eb312b8c15c711ad/src/web2/session.ts#L139)
+Defined in: [web2/session.ts:139](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/session.ts#L139)
 
 Create a managed Web2 session.
 
@@ -68,7 +68,7 @@ const encrypted = await web2.blackbox.payload.encryptPayload({
 
 > **useExistingSessionKey**(`params`): [`Web2Session`](../../../../../index.md#web2session)
 
-Defined in: [web2/session.ts:236](https://github.com/cifer-security/CIFER-sdk/blob/29724a6172b19f59accf0ce6eb312b8c15c711ad/src/web2/session.ts#L236)
+Defined in: [web2/session.ts:236](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/session.ts#L236)
 
 Use an existing session key for Web2 authentication.
 

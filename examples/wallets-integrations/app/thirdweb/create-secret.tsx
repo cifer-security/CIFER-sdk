@@ -14,8 +14,8 @@
  * SecretsController contract. After the transaction is confirmed, the enclave
  * cluster generates ML-KEM-768 keys which takes ~30-60 seconds.
  *
- * ⚠️  IMPORTANT — Thirdweb Client & Custom Chains
- * =================================================
+ * ⚠️  IMPORTANT — Thirdweb Client & Chain Resolution
+ * ===================================================
  * The `thirdwebClient` and `getThirdwebChain()` helper are passed in as
  * props from page.tsx — this keeps chain configuration centralized.
  *
@@ -64,11 +64,7 @@ interface CreateSecretProps {
   account: Account
   /** The shared Thirdweb client (created in page.tsx) */
   thirdwebClient: ThirdwebClient
-  /**
-   * Resolves a chainId to the correct Thirdweb Chain definition.
-   * This is defined in page.tsx and handles custom chains like Ternoa
-   * that are not in Thirdweb's built-in registry.
-   */
+  /** Resolves the Thirdweb Chain for the selected chainId. */
   getThirdwebChain: (chainId: number) => Chain
   /** Shared logger — writes to the parent page's console output */
   log: (message: string) => void

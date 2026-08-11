@@ -27,7 +27,7 @@ import { truncateAddress } from "@/lib/utils"
 // ---------------------------------------------------------------------------
 // cifer-sdk imports
 // ---------------------------------------------------------------------------
-import { keyManagement, type CiferSdk } from "cifer-sdk"
+import { blackbox, keyManagement, type CiferSdk } from "cifer-sdk"
 
 // ---------------------------------------------------------------------------
 // SecretState type (mirrors the SDK's SecretState interface)
@@ -63,6 +63,7 @@ export function GetSecret({ sdk, chainId, log }: GetSecretProps) {
   // ---- Local state ----
   const [secretId, setSecretId] = useState<string>("")
   const [secretState, setSecretState] = useState<SecretState | null>(null)
+  const [mlKemPublicKey, setMlKemPublicKey] = useState<string | null>(null)
   const [isFetching, setIsFetching] = useState(false)
   const [error, setError] = useState<string>("")
 
@@ -71,6 +72,7 @@ export function GetSecret({ sdk, chainId, log }: GetSecretProps) {
   if (chainId !== prevChainId) {
     setPrevChainId(chainId)
     setSecretState(null)
+    setMlKemPublicKey(null)
     setError("")
   }
 
@@ -93,6 +95,7 @@ export function GetSecret({ sdk, chainId, log }: GetSecretProps) {
     try {
       setIsFetching(true)
       setError("")
+      setMlKemPublicKey(null)
       log(`Fetching state for secret #${secretId} on chain ${chainId}...`)
 
       const controllerAddress = sdk.getControllerAddress(chainId)
@@ -109,6 +112,19 @@ export function GetSecret({ sdk, chainId, log }: GetSecretProps) {
 
       setSecretState(state as SecretState)
       log(`Secret #${secretId}: owner=${truncateAddress(state.owner)}, syncing=${state.isSyncing}`)
+
+      try {
+        const pk = await blackbox.publicKey.fetchSecretPublicKey({
+          chainId,
+          secretId: BigInt(secretId),
+          blackboxUrl: sdk.blackboxUrl,
+        })
+        setMlKemPublicKey(pk.publicKey)
+        log(`ML-KEM public key fetched (${pk.publicKey.slice(0, 16)}...)`)
+      } catch (pkErr) {
+        const pkMessage = pkErr instanceof Error ? pkErr.message : String(pkErr)
+        log(`Public key not available yet: ${pkMessage}`)
+      }
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err)
       setError(message)
@@ -164,6 +180,7 @@ export function GetSecret({ sdk, chainId, log }: GetSecretProps) {
           onChange={(e) => {
             setSecretId(e.target.value)
             setSecretState(null)
+            setMlKemPublicKey(null)
             setError("")
           }}
           placeholder="e.g. 123"
@@ -213,12 +230,23 @@ export function GetSecret({ sdk, chainId, log }: GetSecretProps) {
                 <p className="text-xs font-mono text-white">{secretState.secretType}</p>
               </div>
             </div>
-            {secretState.publicKeyCid && (
-              <div>
-                <p className="text-xs text-zinc-500">Public Key CID</p>
-                <p className="text-xs font-mono text-white break-all">{secretState.publicKeyCid}</p>
-              </div>
-            )}
+            <div>
+              <p className="text-xs text-zinc-500">On-chain publicKeyCid</p>
+              <p className="text-xs font-mono text-white break-all">
+                {secretState.publicKeyCid || "—"}
+              </p>
+              <p className="text-xs text-zinc-600 mt-1">
+                v0.5+ stores sentinel &apos;cifer&apos; — keys live in Blackbox, not IPFS.
+              </p>
+            </div>
+            <div>
+              <p className="text-xs text-zinc-500">ML-KEM Public Key</p>
+              <p className="text-xs font-mono text-white break-all">
+                {mlKemPublicKey
+                  ? `${mlKemPublicKey.slice(0, 16)}...${mlKemPublicKey.slice(-12)}`
+                  : "not available yet"}
+              </p>
+            </div>
           </div>
 
           {/* Refresh button */}

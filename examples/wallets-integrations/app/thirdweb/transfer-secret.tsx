@@ -12,7 +12,7 @@
  * Only the current owner can transfer a secret.
  *
  * ⚠️  The `thirdwebClient` and `getThirdwebChain()` are passed from page.tsx
- * so chain configuration (including Ternoa) stays centralized.
+ * so chain configuration stays centralized.
  *
  * SDK function used:
  *   keyManagement.buildTransferSecretTx({ chainId, controllerAddress, secretId, newOwner })
@@ -55,10 +55,7 @@ interface TransferSecretProps {
   account: Account
   /** The shared Thirdweb client (created in page.tsx) */
   thirdwebClient: ThirdwebClient
-  /**
-   * Resolves a chainId to the correct Thirdweb Chain definition.
-   * Handles custom chains like Ternoa that aren't in Thirdweb's registry.
-   */
+  /** Resolves the Thirdweb Chain for the selected chainId. */
   getThirdwebChain: (chainId: number) => Chain
   /** Shared logger — writes to the parent page's console output */
   log: (message: string) => void
@@ -110,8 +107,6 @@ export function TransferSecret({
       log(`  data: ${txIntent.data.slice(0, 20)}...`)
 
       // Step 2: Send via Thirdweb
-      // getThirdwebChain() is provided by page.tsx — it returns the custom
-      // Ternoa chain definition for chainId 752025 or a standard chain otherwise.
       const chain = getThirdwebChain(chainId)
       const tx = prepareTransaction({
         to: txIntent.to as `0x${string}`,

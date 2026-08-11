@@ -15,15 +15,11 @@
  *   sendTransaction({ transaction, account })
  *   waitForReceipt({ transactionHash, chain, client })
  *
- * ⚠️  IMPORTANT — Thirdweb Client & Custom Chains
- * =================================================
+ * ⚠️  IMPORTANT — Thirdweb Client & Chain Resolution
+ * ===================================================
  * The `thirdwebClient` and `getThirdwebChain()` helper are passed in as
  * props from page.tsx — this keeps chain configuration centralized.
- *
- * Thirdweb's RPC proxy does NOT support every chain. For unsupported chains
- * like Ternoa (752025), the chain must be defined explicitly with its RPC URL
- * via defineChain(). The parent page handles this and provides the correct
- * chain object through getThirdwebChain(chainId).
+ * getThirdwebChain() resolves standard Thirdweb chains via defineChain().
  *
  * SDK function used:
  *   keyManagement.buildSetDelegateTx({ chainId, controllerAddress, secretId, newDelegate })
@@ -66,11 +62,7 @@ interface SetDelegateProps {
   account: Account
   /** The shared Thirdweb client (created in page.tsx) */
   thirdwebClient: ThirdwebClient
-  /**
-   * Resolves a chainId to the correct Thirdweb Chain definition.
-   * This is defined in page.tsx and handles custom chains like Ternoa
-   * that are not in Thirdweb's built-in registry.
-   */
+  /** Resolves the Thirdweb Chain for the selected chainId. */
   getThirdwebChain: (chainId: number) => Chain
   /** Shared logger — writes to the parent page's console output */
   log: (message: string) => void
@@ -101,8 +93,7 @@ export function SetDelegate({
   // Step 1: keyManagement.buildSetDelegateTx() returns a TxIntent.
   //
   // Step 2: Convert the TxIntent to a Thirdweb transaction:
-  //   - getThirdwebChain() returns the correct chain definition
-  //     (custom for Ternoa, built-in for everything else)
+  //   - getThirdwebChain() resolves the Thirdweb Chain for chainId
   //   - prepareTransaction() creates a Thirdweb tx from raw fields
   //   - sendTransaction() broadcasts it via the Thirdweb Account
   //   - waitForReceipt() waits for on-chain confirmation
@@ -131,8 +122,6 @@ export function SetDelegate({
       log(`  data: ${txIntent.data.slice(0, 20)}...`)
 
       // Step 2: Send via Thirdweb
-      // getThirdwebChain() is provided by page.tsx — it returns the custom
-      // Ternoa chain definition for chainId 752025 or a standard chain otherwise.
       const chain = getThirdwebChain(chainId)
       const tx = prepareTransaction({
         to: txIntent.to as `0x${string}`,

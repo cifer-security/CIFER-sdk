@@ -21,6 +21,8 @@ import { useState, useCallback } from "react"
 import { CheckCircle, Loader2, ArrowRightLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { truncateAddress } from "@/lib/utils"
+import { getChainCurrency, getChainName } from "@/lib/chains"
+import { ensureWalletChain } from "@/lib/eip1193"
 
 // ---------------------------------------------------------------------------
 // cifer-sdk imports
@@ -75,6 +77,13 @@ export function TransferSecret({ sdk, chainId, address, log }: TransferSecretPro
       setTxHash("")
 
       log(`Building transferSecret tx: secret #${secretId} → ${truncateAddress(newOwner)}`)
+
+      log(`Ensuring wallet is on ${getChainName(chainId)} (${chainId})...`)
+      await ensureWalletChain(window.ethereum, chainId, {
+        chainName: getChainName(chainId),
+        currencySymbol: getChainCurrency(chainId),
+        rpcUrl: sdk.getRpcUrl(chainId),
+      })
 
       // Step 1: Build the transaction intent using the SDK
       const controllerAddress = sdk.getControllerAddress(chainId)

@@ -31,7 +31,8 @@ import { useState, useCallback } from "react"
 import { CheckCircle, Loader2, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { formatWei } from "@/lib/utils"
-import { getChainCurrency } from "@/lib/chains"
+import { getChainCurrency, getChainName } from "@/lib/chains"
+import { ensureWalletChain, waitForReceipt } from "@/lib/eip1193"
 
 // ---------------------------------------------------------------------------
 // cifer-sdk imports
@@ -58,43 +59,6 @@ interface CreateSecretProps {
   provider: InstanceType<typeof EthereumProvider>
   /** Shared logger — writes to the parent page's console output */
   log: (message: string) => void
-}
-
-// ===========================================================================
-// Helper: Poll for transaction receipt via EIP-1193 provider
-//
-// eth_sendTransaction only returns the tx hash — we need to poll
-// eth_getTransactionReceipt to know when the tx is mined and get the logs.
-// ===========================================================================
-
-interface TxReceipt {
-  status: string
-  logs: Array<{
-    address: string
-    topics: string[]
-    data: string
-    blockNumber: string
-    transactionHash: string
-    logIndex: string
-    transactionIndex: string
-  }>
-}
-
-async function waitForReceipt(
-  provider: InstanceType<typeof EthereumProvider>,
-  txHash: string,
-  maxAttempts = 60,
-): Promise<TxReceipt> {
-  for (let i = 0; i < maxAttempts; i++) {
-    const receipt = await provider.request({
-      method: "eth_getTransactionReceipt",
-      params: [txHash],
-    }) as TxReceipt | null
-
-    if (receipt) return receipt
-    await new Promise((r) => setTimeout(r, 2000))
-  }
-  throw new Error("Timed out waiting for transaction receipt")
 }
 
 // ===========================================================================
@@ -126,6 +90,16 @@ export function CreateSecret({ sdk, chainId, address, provider, log }: CreateSec
       setTxHash("")
       setSecretId("")
 
+      // Step 0: Force the WC wallet onto the selected chain BEFORE broadcasting.
+      setStatus("Switching wallet network...")
+      log(`Ensuring wallet is on ${getChainName(chainId)} (${chainId})...`)
+      await ensureWalletChain(provider, chainId, {
+        chainName: getChainName(chainId),
+        currencySymbol: getChainCurrency(chainId),
+        rpcUrl: sdk.getRpcUrl(chainId),
+      })
+      log(`Wallet is on chain ${chainId}`)
+
       const controllerAddress = sdk.getControllerAddress(chainId)
 
       // Step 1: Read the creation fee
@@ -154,6 +128,7 @@ export function CreateSecret({ sdk, chainId, address, provider, log }: CreateSec
       log(`TxIntent built: ${txIntent.description}`)
       log(`  to: ${txIntent.to}`)
       log(`  value: ${txIntent.value} wei`)
+      log(`  chainId: ${txIntent.chainId}`)
 
       // Step 3: Send via WalletConnect (EIP-1193 — same as MetaMask!)
       setStatus("Approve in mobile wallet...")
@@ -259,6 +234,11 @@ export function CreateSecret({ sdk, chainId, address, provider, log }: CreateSec
 
       {/* Code snippet */}
       <div className="text-xs font-mono text-zinc-600 bg-zinc-900/50 rounded p-3 mb-4">
+        {`// 0. Ensure wallet is on the selected chain`}
+        <br />
+        {`await ensureWalletChain(provider, chainId, { ... });`}
+        <br />
+        <br />
         {`// 1. Read the fee`}
         <br />
         {`const fee = await keyManagement.getSecretCreationFee({...});`}

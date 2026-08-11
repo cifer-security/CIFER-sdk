@@ -40,7 +40,13 @@ import { ArrowLeft, Globe, CheckCircle, Loader2, AlertCircle } from "lucide-reac
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
 import { truncateAddress } from "@/lib/utils"
-import { getChainName } from "@/lib/chains"
+import {
+  getChainCurrency,
+  getChainName,
+  pickDefaultChainId,
+  sortSupportedChains,
+} from "@/lib/chains"
+import { ensureWalletChain } from "@/lib/eip1193"
 import { ChevronDown } from "lucide-react"
 
 // ---------------------------------------------------------------------------
@@ -125,14 +131,16 @@ export default function WalletConnectPage() {
           logger: (msg) => log(msg),
         })
 
-        const chains = sdkInstance.getSupportedChainIds()
+        const chains = sortSupportedChains(sdkInstance.getSupportedChainIds())
         log(`SDK ready. Supported chains: [${chains.join(", ")}]`)
 
         setSdk(sdkInstance)
         setSupportedChains(chains)
 
-        if (chains.length > 0) {
-          setChainId(chains[0])
+        const defaultChain = pickDefaultChainId(chains)
+        if (defaultChain != null) {
+          setChainId(defaultChain)
+          log(`Default network: ${getChainName(defaultChain)} (${defaultChain})`)
         }
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err)
@@ -170,8 +178,8 @@ export default function WalletConnectPage() {
 
       const provider = await EthereumProvider.init({
         projectId: WC_PROJECT_ID,
-        chains: [chainId ?? supportedChains[0] ?? 1],
-        optionalChains: supportedChains.length > 0 ? supportedChains : [1],
+        chains: [chainId ?? pickDefaultChainId(supportedChains) ?? 8453],
+        optionalChains: supportedChains.length > 0 ? supportedChains : [8453],
         showQrModal: true,
         metadata: {
           name: "CIFER SDK — Wallet Integrations Example",
@@ -308,18 +316,20 @@ export default function WalletConnectPage() {
                         onChange={async (e) => {
                           const newChain = Number(e.target.value)
                           setChainId(newChain)
-                          log(`Switched to ${getChainName(newChain)} (${newChain})`)
+                          log(`Selected ${getChainName(newChain)} (${newChain})`)
 
-                          // Ask the connected wallet to switch chains via WalletConnect
-                          if (wcProviderRef.current && address) {
+                          // Ask the connected wallet to switch/add chains via WalletConnect
+                          if (wcProviderRef.current && address && sdk) {
                             try {
-                              await wcProviderRef.current.request({
-                                method: "wallet_switchEthereumChain",
-                                params: [{ chainId: `0x${newChain.toString(16)}` }],
+                              await ensureWalletChain(wcProviderRef.current, newChain, {
+                                chainName: getChainName(newChain),
+                                currencySymbol: getChainCurrency(newChain),
+                                rpcUrl: sdk.getRpcUrl(newChain),
                               })
                               log(`Wallet switched to chain ${newChain}`)
                             } catch (err) {
                               const msg = err instanceof Error ? err.message : String(err)
+                              setError(`Wallet still not on ${getChainName(newChain)}: ${msg}`)
                               log(`Wallet chain switch failed: ${msg}`)
                             }
                           }

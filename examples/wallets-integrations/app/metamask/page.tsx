@@ -39,7 +39,13 @@ import { ArrowLeft, Wallet, CheckCircle, Loader2, AlertCircle } from "lucide-rea
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
 import { truncateAddress } from "@/lib/utils"
-import { getChainName } from "@/lib/chains"
+import {
+  getChainCurrency,
+  getChainName,
+  pickDefaultChainId,
+  sortSupportedChains,
+} from "@/lib/chains"
+import { ensureWalletChain } from "@/lib/eip1193"
 import { ChevronDown } from "lucide-react"
 
 // ---------------------------------------------------------------------------
@@ -128,14 +134,16 @@ export default function MetaMaskPage() {
           logger: (msg) => log(msg),
         })
 
-        const chains = sdkInstance.getSupportedChainIds()
+        const chains = sortSupportedChains(sdkInstance.getSupportedChainIds())
         log(`SDK ready. Supported chains: [${chains.join(", ")}]`)
 
         setSdk(sdkInstance)
         setSupportedChains(chains)
 
-        if (chains.length > 0) {
-          setChainId(chains[0])
+        const defaultChain = pickDefaultChainId(chains)
+        if (defaultChain != null) {
+          setChainId(defaultChain)
+          log(`Default network: ${getChainName(defaultChain)} (${defaultChain})`)
         }
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err)
@@ -172,14 +180,29 @@ export default function MetaMaskPage() {
       setAddress(walletAddress)
 
       log(`Connected: ${walletAddress}`)
-    } catch (err) {
+
+      // Align MetaMask with the UI-selected chain (defaults to Base when available)
+      if (chainId != null && sdk) {
+        try {
+          await ensureWalletChain(window.ethereum, chainId, {
+            chainName: getChainName(chainId),
+            currencySymbol: getChainCurrency(chainId),
+            rpcUrl: sdk.getRpcUrl(chainId),
+          })
+          log(`MetaMask aligned to ${getChainName(chainId)} (${chainId})`)
+        } catch (err) {
+          const msg = err instanceof Error ? err.message : String(err)
+          log(`MetaMask chain align failed: ${msg}`)
+        }
+      }
+      } catch (err) {
       const message = err instanceof Error ? err.message : String(err)
       setError(`Connection failed: ${message}`)
       log(`ERROR: ${message}`)
     } finally {
       setIsConnecting(false)
     }
-  }, [log])
+  }, [chainId, sdk, log])
 
   // =========================================================================
   // UI
@@ -261,18 +284,20 @@ export default function MetaMaskPage() {
                         onChange={async (e) => {
                           const newChain = Number(e.target.value)
                           setChainId(newChain)
-                          log(`Switched to ${getChainName(newChain)} (${newChain})`)
+                          log(`Selected ${getChainName(newChain)} (${newChain})`)
 
-                          // Ask MetaMask to switch to the selected chain
-                          if (window.ethereum && address) {
+                          // Ask MetaMask to switch/add the selected chain
+                          if (window.ethereum && address && sdk) {
                             try {
-                              await window.ethereum.request({
-                                method: "wallet_switchEthereumChain",
-                                params: [{ chainId: `0x${newChain.toString(16)}` }],
+                              await ensureWalletChain(window.ethereum, newChain, {
+                                chainName: getChainName(newChain),
+                                currencySymbol: getChainCurrency(newChain),
+                                rpcUrl: sdk.getRpcUrl(newChain),
                               })
                               log(`MetaMask switched to chain ${newChain}`)
                             } catch (err) {
                               const msg = err instanceof Error ? err.message : String(err)
+                              setError(`Wallet still not on ${getChainName(newChain)}: ${msg}`)
                               log(`MetaMask chain switch failed: ${msg}`)
                             }
                           }

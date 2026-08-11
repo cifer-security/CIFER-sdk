@@ -34,7 +34,11 @@ import Link from "next/link"
 import { ArrowLeft, Shield, CheckCircle, Loader2, AlertCircle } from "lucide-react"
 import { Container } from "@/components/ui/container"
 import { truncateAddress } from "@/lib/utils"
-import { getChainName } from "@/lib/chains"
+import {
+  getChainName,
+  pickDefaultChainId,
+  sortSupportedChains,
+} from "@/lib/chains"
 import { ChevronDown } from "lucide-react"
 
 // ---------------------------------------------------------------------------
@@ -95,47 +99,11 @@ const thirdwebClient = createThirdwebClient({
   clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID || "",
 })
 
-// ===========================================================================
-// ⚠️  Custom Chain Definition — Ternoa (752025)
-//
-// Thirdweb's RPC proxy does NOT support every chain out of the box.
-// For unsupported chains (e.g. Ternoa / 752025), you MUST define the
-// chain explicitly with defineChain() including its RPC URL. Without
-// this, Thirdweb will route requests to its own proxy which returns
-// "Invalid chain".
-//
-// Developers integrating Thirdweb with Ternoa MUST include a definition
-// like this in their project. Standard chains (Sepolia, Polygon, etc.)
-// work fine with just `defineChain(chainId)`.
-// ===========================================================================
-const ternoaChain = defineChain({
-  id: 752025,
-  name: "Ternoa",
-  nativeCurrency: {
-    name: "CAPS",
-    symbol: "CAPS",
-    decimals: 18,
-  },
-  rpc: "https://rpc-mainnet.zkevm.ternoa.network/",
-  blockExplorers: [
-    {
-      name: "Ternoa Explorer",
-      url: "https://explorer-mainnet.zkevm.ternoa.network/",
-    },
-  ],
-})
-
 /**
- * Return the correct Thirdweb chain definition for a given chainId.
- *
- * For Ternoa (752025) we return the custom definition above.
- * For all other chains, defineChain(id) uses Thirdweb's built-in registry.
- *
- * This is passed to transaction sub-components so the Ternoa chain config
- * stays centralized here in page.tsx.
+ * Resolve a chainId to a Thirdweb Chain definition.
+ * Standard chains (Base, Ethereum, Sepolia, Avalanche, …) work with defineChain(id).
  */
 function getThirdwebChain(chainId: number) {
-  if (chainId === 752025) return ternoaChain
   return defineChain(chainId)
 }
 
@@ -212,14 +180,16 @@ function ThirdwebIntegration() {
           logger: (msg) => log(msg),
         })
 
-        const chains = sdkInstance.getSupportedChainIds()
+        const chains = sortSupportedChains(sdkInstance.getSupportedChainIds())
         log(`SDK ready. Supported chains: [${chains.join(", ")}]`)
 
         setSdk(sdkInstance)
         setSupportedChains(chains)
 
-        if (chains.length > 0) {
-          setChainId(chains[0])
+        const defaultChain = pickDefaultChainId(chains)
+        if (defaultChain != null) {
+          setChainId(defaultChain)
+          log(`Default network: ${getChainName(defaultChain)} (${defaultChain})`)
         }
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err)
@@ -326,7 +296,7 @@ function ThirdwebIntegration() {
                         onChange={async (e) => {
                           const newChain = Number(e.target.value)
                           setChainId(newChain)
-                          log(`Switched to ${getChainName(newChain)} (${newChain})`)
+                          log(`Selected ${getChainName(newChain)} (${newChain})`)
 
                           // Ask Thirdweb wallet to switch to the selected chain
                           if (wallet) {
@@ -335,6 +305,7 @@ function ThirdwebIntegration() {
                               log(`Wallet switched to chain ${newChain}`)
                             } catch (err) {
                               const msg = err instanceof Error ? err.message : String(err)
+                              setError(`Wallet still not on ${getChainName(newChain)}: ${msg}`)
                               log(`Wallet chain switch failed: ${msg}`)
                             }
                           }
@@ -407,9 +378,14 @@ function ThirdwebIntegration() {
                   {`}`}
                 </div>
 
-                {/* Thirdweb ConnectButton */}
+                {/* Thirdweb ConnectButton — pass chain so connects target the UI selection */}
                 <div className="flex items-center gap-4">
-                  <ConnectButton client={thirdwebClient} />
+                  <ConnectButton
+                    client={thirdwebClient}
+                    {...(chainId != null
+                      ? { chain: getThirdwebChain(chainId) }
+                      : {})}
+                  />
                   {account && (
                     <div className="flex items-center gap-2 text-sm">
                       <div className="h-2 w-2 rounded-full bg-[#00ff9d]" />

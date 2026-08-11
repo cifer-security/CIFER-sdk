@@ -27,7 +27,8 @@ import { useState, useCallback } from "react"
 import { CheckCircle, Loader2, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { formatWei } from "@/lib/utils"
-import { getChainCurrency } from "@/lib/chains"
+import { getChainCurrency, getChainName } from "@/lib/chains"
+import { ensureWalletChain, waitForReceipt } from "@/lib/eip1193"
 
 // ---------------------------------------------------------------------------
 // cifer-sdk imports
@@ -47,39 +48,6 @@ interface CreateSecretProps {
   address: string
   /** Shared logger — writes to the parent page's console output */
   log: (message: string) => void
-}
-
-// ===========================================================================
-// Helper: Poll for transaction receipt via MetaMask (EIP-1193)
-//
-// eth_sendTransaction only returns the tx hash — we need to poll
-// eth_getTransactionReceipt to know when the tx is mined and get the logs.
-// ===========================================================================
-
-interface TxReceipt {
-  status: string
-  logs: Array<{
-    address: string
-    topics: string[]
-    data: string
-    blockNumber: string
-    transactionHash: string
-    logIndex: string
-    transactionIndex: string
-  }>
-}
-
-async function waitForReceipt(txHash: string, maxAttempts = 60): Promise<TxReceipt> {
-  for (let i = 0; i < maxAttempts; i++) {
-    const receipt = await window.ethereum!.request({
-      method: "eth_getTransactionReceipt",
-      params: [txHash],
-    }) as TxReceipt | null
-
-    if (receipt) return receipt
-    await new Promise((r) => setTimeout(r, 2000))
-  }
-  throw new Error("Timed out waiting for transaction receipt")
 }
 
 // ===========================================================================
@@ -116,6 +84,19 @@ export function CreateSecret({ sdk, chainId, address, log }: CreateSecretProps) 
       setTxHash("")
       setSecretId("")
 
+      // Step 0: Force MetaMask onto the selected chain BEFORE broadcasting.
+      // eth_sendTransaction uses the wallet's active network — without this,
+      // selecting Base in the UI while MetaMask is on Ethereum sends the tx
+      // to Ethereum (often to the wrong controller address).
+      setStatus("Switching wallet network...")
+      log(`Ensuring MetaMask is on ${getChainName(chainId)} (${chainId})...`)
+      await ensureWalletChain(window.ethereum, chainId, {
+        chainName: getChainName(chainId),
+        currencySymbol: getChainCurrency(chainId),
+        rpcUrl: sdk.getRpcUrl(chainId),
+      })
+      log(`MetaMask is on chain ${chainId}`)
+
       const controllerAddress = sdk.getControllerAddress(chainId)
 
       // Step 1: Read the creation fee
@@ -144,6 +125,7 @@ export function CreateSecret({ sdk, chainId, address, log }: CreateSecretProps) 
       log(`TxIntent built: ${txIntent.description}`)
       log(`  to: ${txIntent.to}`)
       log(`  value: ${txIntent.value} wei`)
+      log(`  chainId: ${txIntent.chainId}`)
 
       // Step 3: Send via MetaMask
       setStatus("Confirm in MetaMask...")
@@ -168,7 +150,7 @@ export function CreateSecret({ sdk, chainId, address, log }: CreateSecretProps) 
       setStatus("Waiting for confirmation...")
       log("Waiting for transaction receipt...")
 
-      const receipt = await waitForReceipt(hash)
+      const receipt = await waitForReceipt(window.ethereum, hash)
 
       if (receipt.status !== "0x1") {
         throw new Error("Transaction failed (reverted)")
@@ -249,6 +231,11 @@ export function CreateSecret({ sdk, chainId, address, log }: CreateSecretProps) 
 
       {/* Code snippet */}
       <div className="text-xs font-mono text-zinc-600 bg-zinc-900/50 rounded p-3 mb-4">
+        {`// 0. Ensure wallet is on the selected chain`}
+        <br />
+        {`await ensureWalletChain(provider, chainId, { ... });`}
+        <br />
+        <br />
         {`// 1. Read the fee`}
         <br />
         {`const fee = await keyManagement.getSecretCreationFee({...});`}

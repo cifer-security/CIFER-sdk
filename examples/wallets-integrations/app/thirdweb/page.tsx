@@ -82,6 +82,7 @@ import { EncryptPayload } from "./encrypt-payload"
 import { DecryptPayload } from "./decrypt-payload"
 import { EncryptFile } from "./encrypt-file"
 import { DecryptFile } from "./decrypt-file"
+import { UsageStatsBox } from "@/components/usage-stats"
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -413,6 +414,16 @@ function ThirdwebIntegration() {
                       chainId={chainId}
                       address={account.address}
                       log={log}
+                    />
+                  )}
+
+                  {/* Wallet usage stats — blackbox.jobs.dataConsumption */}
+                  {account && (
+                    <UsageStatsBox
+                      sdk={sdk}
+                      chainId={chainId}
+                      log={log}
+                      getSigner={() => createThirdwebSigner(account)}
                     />
                   )}
 

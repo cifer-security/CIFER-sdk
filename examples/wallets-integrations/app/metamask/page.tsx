@@ -71,6 +71,7 @@ import { EncryptPayload } from "./encrypt-payload"
 import { DecryptPayload } from "./decrypt-payload"
 import { EncryptFile } from "./encrypt-file"
 import { DecryptFile } from "./decrypt-file"
+import { UsageStatsBox } from "@/components/usage-stats"
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -402,6 +403,21 @@ export default function MetaMaskPage() {
                       chainId={chainId}
                       address={address}
                       log={log}
+                    />
+                  )}
+
+                  {/* Wallet usage stats — blackbox.jobs.dataConsumption */}
+                  {address && (
+                    <UsageStatsBox
+                      sdk={sdk}
+                      chainId={chainId}
+                      log={log}
+                      getSigner={async () => {
+                        if (!window.ethereum) {
+                          throw new Error("MetaMask not found")
+                        }
+                        return new Eip1193SignerAdapter(window.ethereum)
+                      }}
                     />
                   )}
 

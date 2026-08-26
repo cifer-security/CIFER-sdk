@@ -1,6 +1,6 @@
 # CIFER SDK - Quantum-Resistant Blockchain Encryption
 
-> **Skill for AI Agents** | Enable quantum-resistant encryption in blockchain applications using the CIFER SDK (v0.5.4).
+> **Skill for AI Agents** | Enable quantum-resistant encryption in blockchain applications using the CIFER SDK (v0.5.5).
 
 ## Overview
 

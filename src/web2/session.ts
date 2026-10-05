@@ -7,16 +7,19 @@
  * - **Existing session key**: SDK only has session EOA private key
  */
 
-import type { Address } from '../types/common.js';
+import { WEB2_CHAIN_ID, type Address } from '../types/common.js';
 import type {
   CreateManagedSessionParams,
   CreateSessionResult,
+  GetSessionStatusParams,
+  GetSessionStatusResult,
   UseExistingSessionKeyParams,
   Web2Session,
   Ed25519Signer,
 } from '../types/web2.js';
 import { PrivateKeySignerAdapter } from '../internal/adapters/index.js';
-import { Web2SessionError } from '../internal/errors/index.js';
+import { signDataString } from '../internal/auth/signer.js';
+import { BlackboxError, Web2SessionError } from '../internal/errors/index.js';
 
 // ============================================================================
 // Internal helpers
@@ -106,6 +109,66 @@ async function callCreateSession(
 // ============================================================================
 // Public API
 // ============================================================================
+
+/**
+ * Check whether the session wallet is still active on the blackbox.
+ *
+ * Data string format: `-1_<principalId>_<sessionAddress>_<timestamp>`
+ *
+ * Does not list secrets. A live session returns `active: true` and `expiresAt`.
+ * An inactive, expired, or unknown session throws {@link BlackboxError}
+ * (typically HTTP 403).
+ *
+ * @param params - Session status parameters
+ * @returns Active session status
+ *
+ * @example
+ * ```typescript
+ * const status = await web2.session.getSessionStatus({
+ *   session,
+ *   blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+ * });
+ * console.log(status.expiresAt);
+ * ```
+ */
+export async function getSessionStatus(
+  params: GetSessionStatusParams
+): Promise<GetSessionStatusResult> {
+  const { session, blackboxUrl } = params;
+  const fetchFn = params.fetch ?? fetch;
+
+  await session.ensureValid();
+
+  const sessionAddress = await session.signer.getAddress();
+  const timestamp = Date.now();
+  const dataString = `${WEB2_CHAIN_ID}_${session.principalId}_${sessionAddress}_${timestamp}`;
+  const signed = await signDataString(dataString, session.signer);
+
+  const url = `${normalizeUrl(blackboxUrl)}/web2/session/status`;
+
+  const response = await fetchFn(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      data: signed.data,
+      signature: signed.signature,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorBody = (await response.json().catch(() => ({}))) as Record<string, unknown>;
+    const msg =
+      (errorBody.error as string) ||
+      (errorBody.message as string) ||
+      `Session status failed with status ${response.status}`;
+    throw new BlackboxError(msg, {
+      statusCode: response.status,
+      endpoint: '/web2/session/status',
+    });
+  }
+
+  return (await response.json()) as GetSessionStatusResult;
+}
 
 /**
  * Create a managed Web2 session.

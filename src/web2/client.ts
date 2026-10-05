@@ -31,6 +31,7 @@ import type {
   Web2Session,
   UseExistingSessionKeyParams,
   CreateWeb2SecretResult,
+  GetSessionStatusResult,
   ListWeb2SecretsResult,
   SetWeb2DelegateResult,
   RequestPermitResult,
@@ -44,7 +45,7 @@ import type { EncryptPayloadResult, DecryptPayloadResult } from '../blackbox/pay
 import type { FileJobResult } from '../blackbox/files.js';
 import type { ListJobsResult } from '../blackbox/jobs.js';
 
-import { createManagedSession, useExistingSessionKey } from './session.js';
+import { createManagedSession, getSessionStatus, useExistingSessionKey } from './session.js';
 import { createSecret, listSecrets } from './secret.js';
 import { setDelegate } from './delegate.js';
 import { requestPermit } from './permit.js';
@@ -145,6 +146,18 @@ export interface Web2Client {
    * @param session - The session to store
    */
   setSession(session: Web2Session): void;
+
+  /**
+   * Check whether the stored session wallet is still active.
+   *
+   * Uses the stored session and blackboxUrl unless overridden.
+   * Does not list secrets. An inactive session throws BlackboxError.
+   */
+  getSessionStatus(params?: {
+    session?: Web2Session;
+    blackboxUrl?: string;
+    fetch?: typeof fetch;
+  }): Promise<GetSessionStatusResult>;
 
   // --------------------------------------------------------------------------
   // Secret
@@ -473,6 +486,14 @@ export function createClient(config: Web2ClientConfig): Web2Client {
 
     setSession(session) {
       storedSession = session;
+    },
+
+    async getSessionStatus(params) {
+      return getSessionStatus({
+        session: requireSession(params?.session),
+        blackboxUrl: resolveBlackboxUrl(params?.blackboxUrl),
+        fetch: resolveFetch(params?.fetch),
+      });
     },
 
     // -- Secret --

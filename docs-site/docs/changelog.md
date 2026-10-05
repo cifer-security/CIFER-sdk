@@ -12,7 +12,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
-## [0.5.5] - 2026-08-12 
+## [Unreleased]
+
+---
+
+## [0.5.6] - 2026-10-06
+
+### Added
+
+- **`web2.session.getSessionStatus()`** / **`web2.createClient().getSessionStatus()`** — `POST /web2/session/status`. Checks whether the session wallet is still active and returns `expiresAt` without listing secrets. An inactive session throws `BlackboxError`.
+
+---
+
+## [0.5.5] - 2026-08-12
 
 ### Added
 

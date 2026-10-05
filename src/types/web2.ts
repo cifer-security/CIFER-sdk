@@ -542,6 +542,41 @@ export interface ListWeb2SecretsResult {
   secrets: Web2SecretInfo[];
 }
 
+/**
+ * Parameters for checking whether a Web2 session wallet is still active.
+ *
+ * @public
+ */
+export interface GetSessionStatusParams {
+  /** Active Web2 session */
+  session: Web2Session;
+  /** Blackbox URL */
+  blackboxUrl: string;
+  /** Custom fetch implementation */
+  fetch?: typeof fetch;
+}
+
+/**
+ * Result of POST /web2/session/status.
+ *
+ * A resolved result always means the session is active. An inactive session
+ * is a thrown BlackboxError with status 403.
+ *
+ * @public
+ */
+export interface GetSessionStatusResult {
+  /** Whether the operation succeeded */
+  success: true;
+  /** Always true when this result is returned */
+  active: true;
+  /** Principal id bound to the session */
+  principalId: string;
+  /** Lowercase session wallet address */
+  sessionAddress: string;
+  /** ISO 8601 expiry timestamp */
+  expiresAt: string;
+}
+
 // ============================================================================
 // Delegate Types
 // ============================================================================

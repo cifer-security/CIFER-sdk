@@ -1,6 +1,6 @@
 # CIFER SDK - Quantum-Resistant Blockchain Encryption
 
-> **Skill for AI Agents** | Enable quantum-resistant encryption in blockchain applications using the CIFER SDK (v0.5.5).
+> **Skill for AI Agents** | Enable quantum-resistant encryption in blockchain applications using the CIFER SDK (v0.5.6).
 
 ## Overview
 
@@ -1129,6 +1129,24 @@ const session = web2.session.useExistingSessionKey({
 // session.ensureValid() is a no-op
 ```
 
+#### Session status
+
+Ask the blackbox whether the session wallet is still active. This does not list secrets.
+
+```typescript
+const status = await web2.session.getSessionStatus({
+  session,
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+// status.active === true
+// status.expiresAt is the ISO expiry
+
+// Or with a stored-session client:
+const statusFromClient = await client.getSessionStatus();
+```
+
+A live session returns `{ success: true, active: true, principalId, sessionAddress, expiresAt }`. An inactive, expired, or unknown session throws `BlackboxError` (HTTP 403, `No active session for this address`).
+
 ---
 
 ### web2.secret Namespace
@@ -1398,7 +1416,7 @@ await client.getByEmail('colleague@example.com');
 client.setSession(anotherSession); // manually replace stored session
 ```
 
-The `Web2Client` interface provides: `session`, `blackboxUrl`, `readClient`, `createManagedSession()`, `useExistingSessionKey()`, `setSession()`, `createSecret()`, `listSecrets()`, `setDelegate()`, `requestPermit()`, `getByEmail()`, `payload.*`, `publicKey.*`, `files.*`, `jobs.*`.
+The `Web2Client` interface provides: `session`, `blackboxUrl`, `readClient`, `createManagedSession()`, `useExistingSessionKey()`, `setSession()`, `getSessionStatus()`, `createSecret()`, `listSecrets()`, `setDelegate()`, `requestPermit()`, `getByEmail()`, `payload.*`, `publicKey.*`, `files.*`, `jobs.*`.
 
 ---
 
@@ -2036,6 +2054,7 @@ interface Web2Client {
   createManagedSession(params): Promise<Web2Session>;
   useExistingSessionKey(params): Web2Session;
   setSession(session: Web2Session): void;
+  getSessionStatus(params?): Promise<GetSessionStatusResult>;
   createSecret(params?): Promise<CreateWeb2SecretResult>;
   listSecrets(params?): Promise<ListWeb2SecretsResult>;
   setDelegate(params): Promise<SetWeb2DelegateResult>;

@@ -33,6 +33,8 @@ import type {
   CreateWeb2SecretResult,
   ListWeb2SecretsParams,
   ListWeb2SecretsResult,
+  GetSessionStatusParams,
+  GetSessionStatusResult,
   Web2SecretInfo,
   SetWeb2DelegateParams,
   SetWeb2DelegateResult,
@@ -79,6 +81,8 @@ describe('Web2 Types', () => {
     const _secretResult: CreateWeb2SecretResult | null = null;
     const _listSecrets: ListWeb2SecretsParams | null = null;
     const _listResult: ListWeb2SecretsResult | null = null;
+    const _sessionStatusParams: GetSessionStatusParams | null = null;
+    const _sessionStatusResult: GetSessionStatusResult | null = null;
     const _secretInfo: Web2SecretInfo | null = null;
     const _setDelegate: SetWeb2DelegateParams | null = null;
     const _delegateResult: SetWeb2DelegateResult | null = null;

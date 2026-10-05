@@ -1169,6 +1169,25 @@ export function getSecretsControllerAddress(chainId: ChainId, discovery: Discove
 function getSecretsCountByWallet(params: ReadParams, wallet: Address): Promise<SecretsCountByWallet>;
 
 // @public
+function getSessionStatus(params: GetSessionStatusParams): Promise<GetSessionStatusResult>;
+
+// @public
+export interface GetSessionStatusParams {
+    blackboxUrl: string;
+    fetch?: typeof fetch;
+    session: Web2Session;
+}
+
+// @public
+export interface GetSessionStatusResult {
+    active: true;
+    expiresAt: string;
+    principalId: string;
+    sessionAddress: string;
+    success: true;
+}
+
+// @public
 function getStatus(jobId: string, blackboxUrl: string, options?: {
     fetch?: typeof fetch;
 }): Promise<JobInfo>;
@@ -2070,6 +2089,7 @@ export interface SecretState {
 declare namespace session {
     export {
         createManagedSession,
+        getSessionStatus,
         useExistingSessionKey
     }
 }
@@ -2301,6 +2321,11 @@ interface Web2Client {
     getByEmail(email: string, blackboxUrl?: string, options?: {
         fetch?: typeof fetch;
     }): Promise<PrincipalByEmailResult>;
+    getSessionStatus(params?: {
+        session?: Web2Session;
+        blackboxUrl?: string;
+        fetch?: typeof fetch;
+    }): Promise<GetSessionStatusResult>;
     // (undocumented)
     jobs: {
         getStatus(jobId: string, blackboxUrl?: string, options?: {

@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.5.4**](../../../../../index.md)
+[**cifer-sdk API Reference v0.5.6**](../../../../../index.md)
 
 ***
 
@@ -16,7 +16,7 @@ Web2 secret creation and listing
 
 > **createSecret**(`params`): `Promise`\<[`CreateWeb2SecretResult`](../../../../../index.md#createweb2secretresult)\>
 
-Defined in: [web2/secret.ts:45](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/secret.ts#L45)
+Defined in: [web2/secret.ts:45](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/secret.ts#L45)
 
 Create a new Web2 secret.
 
@@ -52,7 +52,7 @@ console.log('Secret ID:', result.secretId);
 
 > **listSecrets**(`params`): `Promise`\<[`ListWeb2SecretsResult`](../../../../../index.md#listweb2secretsresult)\>
 
-Defined in: [web2/secret.ts:103](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/secret.ts#L103)
+Defined in: [web2/secret.ts:103](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/secret.ts#L103)
 
 List all Web2 secrets for the current principal.
 

@@ -1553,6 +1553,25 @@ useExistingSessionKey(params): Web2Session
   WARNING: Cannot renew. Must recreate session externally when it expires.
 
 ${SUB_SEPARATOR}
+
+getSessionStatus(params): Promise<GetSessionStatusResult>
+  Check whether the session wallet is still active. Does not list secrets.
+
+  Parameters:
+    - session: Web2Session
+    - blackboxUrl: string
+    - fetch?: typeof fetch
+
+  Returns: { success: true, active: true, principalId, sessionAddress, expiresAt }
+  An inactive, expired, or unknown session throws BlackboxError (HTTP 403).
+
+  Example:
+    const status = await web2.session.getSessionStatus({
+      session,
+      blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+    });
+
+${SUB_SEPARATOR}
 7.3 web2.secret
 ${SUB_SEPARATOR}
 
@@ -1757,7 +1776,7 @@ createClient(config): Web2Client
 
   Web2Client methods:
     - session, blackboxUrl, readClient (readonly)
-    - createManagedSession(), useExistingSessionKey(), setSession()
+    - createManagedSession(), useExistingSessionKey(), setSession(), getSessionStatus()
     - createSecret(), listSecrets(), setDelegate(), requestPermit(), getByEmail()
     - payload.encryptPayload(), payload.decryptPayload()
     - files.encryptFile(), files.decryptFile(), files.decryptExistingFile()
@@ -1938,6 +1957,20 @@ interface CreateManagedSessionParams {
   blackboxUrl: string;
   ttl?: number; // seconds
   fetch?: typeof fetch;
+}
+
+interface GetSessionStatusParams {
+  session: Web2Session;
+  blackboxUrl: string;
+  fetch?: typeof fetch;
+}
+
+interface GetSessionStatusResult {
+  success: true;
+  active: true;          // always true when this result is returned
+  principalId: string;
+  sessionAddress: string;
+  expiresAt: string;     // ISO 8601 timestamp
 }
 
 interface CreateWeb2SecretParams {

@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.5.4**](../../../index.md)
+[**cifer-sdk API Reference v0.5.6**](../../../index.md)
 
 ***
 
@@ -34,7 +34,7 @@ This namespace provides:
 
 ### Web2ClientConfig
 
-Defined in: [web2/client.ts:66](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L66)
+Defined in: [web2/client.ts:67](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L67)
 
 Configuration for creating a Web2 client.
 
@@ -44,7 +44,7 @@ Configuration for creating a Web2 client.
 
 > **blackboxUrl**: `string`
 
-Defined in: [web2/client.ts:68](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L68)
+Defined in: [web2/client.ts:69](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L69)
 
 Blackbox URL (e.g. 'https://blackbox.cifersecurity.com:3010')
 
@@ -52,7 +52,7 @@ Blackbox URL (e.g. 'https://blackbox.cifersecurity.com:3010')
 
 > `optional` **readClient**: [`ReadClient`](../../../index.md#readclient-1)
 
-Defined in: [web2/client.ts:70](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L70)
+Defined in: [web2/client.ts:71](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L71)
 
 Read client for encrypt/decrypt operations (optional, can be passed per-call)
 
@@ -60,7 +60,7 @@ Read client for encrypt/decrypt operations (optional, can be passed per-call)
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [web2/client.ts:72](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L72)
+Defined in: [web2/client.ts:73](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L73)
 
 Custom fetch implementation
 
@@ -84,7 +84,7 @@ Custom fetch implementation
 
 ### Web2Client
 
-Defined in: [web2/client.ts:106](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L106)
+Defined in: [web2/client.ts:107](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L107)
 
 Web2 client with auto-stored session and defaults.
 
@@ -118,7 +118,7 @@ const encrypted = await client.payload.encryptPayload({
 
 > `readonly` **session**: [`Web2Session`](../../../index.md#web2session) \| `null`
 
-Defined in: [web2/client.ts:108](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L108)
+Defined in: [web2/client.ts:109](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L109)
 
 The currently stored session (null if no session has been created yet)
 
@@ -126,7 +126,7 @@ The currently stored session (null if no session has been created yet)
 
 > `readonly` **blackboxUrl**: `string`
 
-Defined in: [web2/client.ts:110](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L110)
+Defined in: [web2/client.ts:111](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L111)
 
 The configured blackbox URL
 
@@ -134,7 +134,7 @@ The configured blackbox URL
 
 > `readonly` **readClient**: [`ReadClient`](../../../index.md#readclient-1) \| `undefined`
 
-Defined in: [web2/client.ts:112](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L112)
+Defined in: [web2/client.ts:113](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L113)
 
 The configured read client (may be undefined)
 
@@ -142,7 +142,7 @@ The configured read client (may be undefined)
 
 > **payload**: `object`
 
-Defined in: [web2/client.ts:222](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L222)
+Defined in: [web2/client.ts:235](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L235)
 
 ###### encryptPayload()
 
@@ -236,7 +236,7 @@ Decrypt a payload using the stored session.
 
 > **files**: `object`
 
-Defined in: [web2/client.ts:255](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L255)
+Defined in: [web2/client.ts:268](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L268)
 
 ###### encryptFile()
 
@@ -356,7 +356,7 @@ Decrypt an existing file using the stored session.
 
 > **jobs**: `object`
 
-Defined in: [web2/client.ts:297](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L297)
+Defined in: [web2/client.ts:310](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L310)
 
 ###### getStatus()
 
@@ -568,7 +568,7 @@ Get data consumption statistics (session needed).
 
 > **createManagedSession**(`params`): `Promise`\<[`Web2Session`](../../../index.md#web2session)\>
 
-Defined in: [web2/client.ts:126](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L126)
+Defined in: [web2/client.ts:127](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L127)
 
 Create a managed session and store it in the client.
 
@@ -610,7 +610,7 @@ The created Web2Session (also stored internally)
 
 > **useExistingSessionKey**(`params`): [`Web2Session`](../../../index.md#web2session)
 
-Defined in: [web2/client.ts:140](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L140)
+Defined in: [web2/client.ts:141](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L141)
 
 Use an existing session key and store it in the client.
 
@@ -632,7 +632,7 @@ The Web2Session (also stored internally)
 
 > **setSession**(`session`): `void`
 
-Defined in: [web2/client.ts:147](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L147)
+Defined in: [web2/client.ts:148](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L148)
 
 Manually set or replace the stored session.
 
@@ -648,11 +648,42 @@ The session to store
 
 `void`
 
+##### getSessionStatus()
+
+> **getSessionStatus**(`params?`): `Promise`\<[`GetSessionStatusResult`](../../../index.md#getsessionstatusresult)\>
+
+Defined in: [web2/client.ts:156](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L156)
+
+Check whether the stored session wallet is still active.
+
+Uses the stored session and blackboxUrl unless overridden.
+Does not list secrets. An inactive session throws BlackboxError.
+
+###### Parameters
+
+###### params?
+
+###### session?
+
+[`Web2Session`](../../../index.md#web2session)
+
+###### blackboxUrl?
+
+`string`
+
+###### fetch?
+
+(`input`, `init?`) => `Promise`\<`Response`\>
+
+###### Returns
+
+`Promise`\<[`GetSessionStatusResult`](../../../index.md#getsessionstatusresult)\>
+
 ##### createSecret()
 
 > **createSecret**(`params?`): `Promise`\<[`CreateWeb2SecretResult`](../../../index.md#createweb2secretresult)\>
 
-Defined in: [web2/client.ts:158](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L158)
+Defined in: [web2/client.ts:171](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L171)
 
 Create a new Web2 secret.
 
@@ -682,7 +713,7 @@ Uses the stored session and blackboxUrl unless overridden.
 
 > **listSecrets**(`params?`): `Promise`\<[`ListWeb2SecretsResult`](../../../index.md#listweb2secretsresult)\>
 
-Defined in: [web2/client.ts:169](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L169)
+Defined in: [web2/client.ts:182](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L182)
 
 List all Web2 secrets for the current principal.
 
@@ -712,7 +743,7 @@ Uses the stored session and blackboxUrl unless overridden.
 
 > **setDelegate**(`params`): `Promise`\<[`SetWeb2DelegateResult`](../../../index.md#setweb2delegateresult)\>
 
-Defined in: [web2/client.ts:184](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L184)
+Defined in: [web2/client.ts:197](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L197)
 
 Set or remove a delegate for a Web2 secret.
 
@@ -750,7 +781,7 @@ Uses the stored session and blackboxUrl unless overridden.
 
 > **requestPermit**(`params`): `Promise`\<[`RequestPermitResult`](../../../index.md#requestpermitresult)\>
 
-Defined in: [web2/client.ts:202](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L202)
+Defined in: [web2/client.ts:215](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L215)
 
 Request a permit (rotate, transfer, or delegate).
 
@@ -771,7 +802,7 @@ For rotate permits, no session is needed (uses email+password).
 
 > **getByEmail**(`email`, `blackboxUrl?`, `options?`): `Promise`\<[`PrincipalByEmailResult`](../../../index.md#principalbyemailresult)\>
 
-Defined in: [web2/client.ts:216](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L216)
+Defined in: [web2/client.ts:229](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L229)
 
 Look up a principal by email address.
 
@@ -803,7 +834,7 @@ Uses the stored blackboxUrl unless overridden.
 
 > **createClient**(`config`): [`Web2Client`](#web2client)
 
-Defined in: [web2/client.ts:402](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/client.ts#L402)
+Defined in: [web2/client.ts:415](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/client.ts#L415)
 
 Create a Web2 client with auto-stored session and defaults.
 

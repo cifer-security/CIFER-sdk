@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.5.4**](../../../../../index.md)
+[**cifer-sdk API Reference v0.5.6**](../../../../../index.md)
 
 ***
 
@@ -16,11 +16,51 @@ Provides two session modes:
 
 ## Functions
 
+### getSessionStatus()
+
+> **getSessionStatus**(`params`): `Promise`\<[`GetSessionStatusResult`](../../../../../index.md#getsessionstatusresult)\>
+
+Defined in: [web2/session.ts:134](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/session.ts#L134)
+
+Check whether the session wallet is still active on the blackbox.
+
+Data string format: `-1_<principalId>_<sessionAddress>_<timestamp>`
+
+Does not list secrets. A live session returns `active: true` and `expiresAt`.
+An inactive, expired, or unknown session throws [BlackboxError](../../../../../index.md#blackboxerror)
+(typically HTTP 403).
+
+#### Parameters
+
+##### params
+
+[`GetSessionStatusParams`](../../../../../index.md#getsessionstatusparams)
+
+Session status parameters
+
+#### Returns
+
+`Promise`\<[`GetSessionStatusResult`](../../../../../index.md#getsessionstatusresult)\>
+
+Active session status
+
+#### Example
+
+```typescript
+const status = await web2.session.getSessionStatus({
+  session,
+  blackboxUrl: 'https://blackbox.cifersecurity.com:3010',
+});
+console.log(status.expiresAt);
+```
+
+***
+
 ### createManagedSession()
 
 > **createManagedSession**(`params`): `Promise`\<[`Web2Session`](../../../../../index.md#web2session)\>
 
-Defined in: [web2/session.ts:139](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/session.ts#L139)
+Defined in: [web2/session.ts:202](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/session.ts#L202)
 
 Create a managed Web2 session.
 
@@ -68,7 +108,7 @@ const encrypted = await web2.blackbox.payload.encryptPayload({
 
 > **useExistingSessionKey**(`params`): [`Web2Session`](../../../../../index.md#web2session)
 
-Defined in: [web2/session.ts:236](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/session.ts#L236)
+Defined in: [web2/session.ts:299](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/session.ts#L299)
 
 Use an existing session key for Web2 authentication.
 

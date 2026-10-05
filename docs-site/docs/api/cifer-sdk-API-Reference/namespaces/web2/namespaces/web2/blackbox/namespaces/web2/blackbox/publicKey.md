@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.5.4**](../../../../../../../../../index.md)
+[**cifer-sdk API Reference v0.5.6**](../../../../../../../../../index.md)
 
 ***
 
@@ -14,7 +14,7 @@ Web2 wrapper for fetching secret public keys
 
 ### Web2FetchSecretPublicKeyParams
 
-Defined in: [web2/blackbox/publicKey.ts:18](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/blackbox/publicKey.ts#L18)
+Defined in: [web2/blackbox/publicKey.ts:18](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/blackbox/publicKey.ts#L18)
 
 Parameters for unsigned Web2 public key fetch
 
@@ -24,7 +24,7 @@ Parameters for unsigned Web2 public key fetch
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [web2/blackbox/publicKey.ts:20](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/blackbox/publicKey.ts#L20)
+Defined in: [web2/blackbox/publicKey.ts:20](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/blackbox/publicKey.ts#L20)
 
 Secret ID to fetch
 
@@ -32,7 +32,7 @@ Secret ID to fetch
 
 > **blackboxUrl**: `string`
 
-Defined in: [web2/blackbox/publicKey.ts:22](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/blackbox/publicKey.ts#L22)
+Defined in: [web2/blackbox/publicKey.ts:22](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/blackbox/publicKey.ts#L22)
 
 Blackbox URL
 
@@ -40,7 +40,7 @@ Blackbox URL
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [web2/blackbox/publicKey.ts:24](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/blackbox/publicKey.ts#L24)
+Defined in: [web2/blackbox/publicKey.ts:24](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/blackbox/publicKey.ts#L24)
 
 Custom fetch implementation
 
@@ -64,7 +64,7 @@ Custom fetch implementation
 
 ### Web2GetSecretPublicKeyParams
 
-Defined in: [web2/blackbox/publicKey.ts:45](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/blackbox/publicKey.ts#L45)
+Defined in: [web2/blackbox/publicKey.ts:45](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/blackbox/publicKey.ts#L45)
 
 Parameters for Web2 public key fetch
 
@@ -74,7 +74,7 @@ Parameters for Web2 public key fetch
 
 > **session**: [`Web2Session`](../../../../../../../../../index.md#web2session)
 
-Defined in: [web2/blackbox/publicKey.ts:47](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/blackbox/publicKey.ts#L47)
+Defined in: [web2/blackbox/publicKey.ts:47](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/blackbox/publicKey.ts#L47)
 
 Active Web2 session
 
@@ -82,7 +82,7 @@ Active Web2 session
 
 > **secretId**: `number` \| `bigint`
 
-Defined in: [web2/blackbox/publicKey.ts:49](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/blackbox/publicKey.ts#L49)
+Defined in: [web2/blackbox/publicKey.ts:49](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/blackbox/publicKey.ts#L49)
 
 Secret ID to fetch
 
@@ -90,7 +90,7 @@ Secret ID to fetch
 
 > **blackboxUrl**: `string`
 
-Defined in: [web2/blackbox/publicKey.ts:51](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/blackbox/publicKey.ts#L51)
+Defined in: [web2/blackbox/publicKey.ts:51](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/blackbox/publicKey.ts#L51)
 
 Blackbox URL
 
@@ -98,7 +98,7 @@ Blackbox URL
 
 > **readClient**: [`ReadClient`](../../../../../../../../../index.md#readclient-1)
 
-Defined in: [web2/blackbox/publicKey.ts:53](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/blackbox/publicKey.ts#L53)
+Defined in: [web2/blackbox/publicKey.ts:53](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/blackbox/publicKey.ts#L53)
 
 Read client for freshness
 
@@ -106,7 +106,7 @@ Read client for freshness
 
 > `optional` **fetch**: (`input`, `init?`) => `Promise`\<`Response`\>
 
-Defined in: [web2/blackbox/publicKey.ts:55](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/blackbox/publicKey.ts#L55)
+Defined in: [web2/blackbox/publicKey.ts:55](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/blackbox/publicKey.ts#L55)
 
 Custom fetch implementation
 
@@ -132,7 +132,7 @@ Custom fetch implementation
 
 > **fetchSecretPublicKey**(`params`): `Promise`\<[`GetSecretPublicKeyResult`](../../../../../../../blackbox/namespaces/blackbox/publicKey.md#getsecretpublickeyresult)\>
 
-Defined in: [web2/blackbox/publicKey.ts:31](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/blackbox/publicKey.ts#L31)
+Defined in: [web2/blackbox/publicKey.ts:31](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/blackbox/publicKey.ts#L31)
 
 Fetch a secret's ML-KEM public key using unsigned GET (Web2 chainId=-1).
 No session required.
@@ -153,7 +153,7 @@ No session required.
 
 > **getSecretPublicKey**(`params`): `Promise`\<[`GetSecretPublicKeyResult`](../../../../../../../blackbox/namespaces/blackbox/publicKey.md#getsecretpublickeyresult)\>
 
-Defined in: [web2/blackbox/publicKey.ts:63](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/blackbox/publicKey.ts#L63)
+Defined in: [web2/blackbox/publicKey.ts:63](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/blackbox/publicKey.ts#L63)
 
 Fetch a secret's ML-KEM public key using a Web2 session.
 

@@ -1,4 +1,4 @@
-[**cifer-sdk API Reference v0.5.4**](../../../../../index.md)
+[**cifer-sdk API Reference v0.5.6**](../../../../../index.md)
 
 ***
 
@@ -16,7 +16,7 @@ Web2 delegate management
 
 > **setDelegate**(`params`): `Promise`\<[`SetWeb2DelegateResult`](../../../../../index.md#setweb2delegateresult)\>
 
-Defined in: [web2/delegate.ts:53](https://github.com/cifer-security/CIFER-sdk/blob/812593f8284deea22de7da15e9b99137b85b97ec/src/web2/delegate.ts#L53)
+Defined in: [web2/delegate.ts:53](https://github.com/cifer-security/CIFER-sdk/blob/083a5f3814be5590df80ee61a53afe79b7d3cf52/src/web2/delegate.ts#L53)
 
 Set or remove a delegate for a Web2 secret.
 

@@ -5,7 +5,7 @@ This file contains complete documentation for the cifer-sdk package.
 AI agents can use this file to understand how to implement CIFER encryption
 in applications. Point your AI assistant to this file for accurate SDK usage.
 
-Generated: 2026-08-11T22:13:27.461Z
+Generated: 2026-10-05T21:59:56.494Z
 Version: 0.5.6
 Package: cifer-sdk
 
@@ -1892,6 +1892,20 @@ interface CreateManagedSessionParams {
   blackboxUrl: string;
   ttl?: number; // seconds
   fetch?: typeof fetch;
+}
+
+interface GetSessionStatusParams {
+  session: Web2Session;
+  blackboxUrl: string;
+  fetch?: typeof fetch;
+}
+
+interface GetSessionStatusResult {
+  success: true;
+  active: true;          // always true when this result is returned
+  principalId: string;
+  sessionAddress: string;
+  expiresAt: string;     // ISO 8601 timestamp
 }
 
 interface CreateWeb2SecretParams {

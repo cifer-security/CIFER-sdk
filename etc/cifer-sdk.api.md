@@ -2088,8 +2088,8 @@ export interface SecretState {
 
 declare namespace session {
     export {
-        createManagedSession,
         getSessionStatus,
+        createManagedSession,
         useExistingSessionKey
     }
 }
